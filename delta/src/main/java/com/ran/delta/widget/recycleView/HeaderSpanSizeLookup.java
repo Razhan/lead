@@ -4,10 +4,10 @@ import android.support.v7.widget.GridLayoutManager;
 
 public class HeaderSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
 
-    private final HeaderRecyclerViewAdapter adapter;
+    private final MultipleTypeRecyclerViewAdapter adapter;
     private final GridLayoutManager layoutManager;
 
-    public HeaderSpanSizeLookup(HeaderRecyclerViewAdapter adapter, GridLayoutManager layoutManager) {
+    public HeaderSpanSizeLookup(MultipleTypeRecyclerViewAdapter adapter, GridLayoutManager layoutManager) {
         this.adapter = adapter;
         this.layoutManager = layoutManager;
     }
@@ -15,7 +15,7 @@ public class HeaderSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
     @Override
     public int getSpanSize(int position) {
         boolean isHeaderOrFooter =
-                adapter.isHeaderPosition(position) || adapter.isFooterPosition(position);
+                adapter.getItem(position).getType() != MultipleTypeRecyclerViewAdapter.TYPE_ITEM;
         return isHeaderOrFooter ? layoutManager.getSpanCount() : 1;
     }
 }

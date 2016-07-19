@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/collect_info_next"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_next_button"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="NEXT"
+            android:textColor="@android:color/black"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/collect_info_next">
+
+        <com.ef.cat.ui.widget.FixedViewPager
+            android:id="@+id/collect_info_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <com.ran.delta.widget.CircleIndicator
+            android:id="@+id/collect_info_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/spacing_huge"/>
+
+    </FrameLayout>
+
+</RelativeLayout>
+

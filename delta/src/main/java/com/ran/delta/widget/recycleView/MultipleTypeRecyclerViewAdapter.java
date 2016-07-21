@@ -1,6 +1,7 @@
 package com.ran.delta.widget.recycleView;
 
 import android.content.Context;
+import android.support.annotation.BoolRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,12 +11,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class MultipleTypeRecyclerViewAdapter<VH extends ViewHolder, T extends MultipleTypeItem>
-        extends RecyclerView.Adapter<VH> {
-
-    public static final int TYPE_HEADER = -2;
-    public static final int TYPE_ITEM = -1;
-    public static final int TYPE_FOOTER = -3;
+public abstract class MultipleTypeRecyclerViewAdapter<T extends MultipleTypeItem>
+        extends RecyclerView.Adapter<ViewHolder> {
 
     private List<T> items = Collections.EMPTY_LIST;
 
@@ -23,15 +20,17 @@ public abstract class MultipleTypeRecyclerViewAdapter<VH extends ViewHolder, T e
     private OnItemLongClickListener<T> mLongClickListener;
 
     protected final Context mContext;
+    protected LayoutInflater mInflater;
 
     public MultipleTypeRecyclerViewAdapter(Context context, List<T> list) {
         items = (list != null) ? list : new ArrayList();
         mContext = context;
+        mInflater = LayoutInflater.from(context);
     }
 
     @Override
-    public final VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        final VH viewHolder = onCreateItemViewHolder(parent, viewType);
+    public final ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        final ViewHolder viewHolder = onCreateItemViewHolder(parent, viewType);
 
         int pos = viewHolder.getLayoutPosition();
         if (mClickListener != null) {
@@ -47,7 +46,28 @@ public abstract class MultipleTypeRecyclerViewAdapter<VH extends ViewHolder, T e
         return viewHolder;
     }
 
-    public abstract VH onCreateItemViewHolder(ViewGroup parent, int viewType);
+    public ViewHolder onCreateItemViewHolder(ViewGroup parent, int viewType) {
+
+        switch (viewType) {
+            case MultipleTypeItem.TYPE_HEADER:
+                return new ViewHolder(mContext, mInflater.inflate(getHeaderLayout(), parent, false));
+            case MultipleTypeItem.TYPE_ITEM:
+                return new ViewHolder(mContext, mInflater.inflate(getItemLayout(), parent, false));
+            case MultipleTypeItem.TYPE_FOOTER:
+                return new ViewHolder(mContext, mInflater.inflate(getFooterLayout(), parent, false));
+        }
+        return null;
+    }
+
+    public int getHeaderLayout() {
+        return -1;
+    }
+
+    public int getFooterLayout() {
+        return -1;
+    }
+
+    public abstract int getItemLayout();
 
     public void setClickListener(OnItemClickListener<T> listener) {
         mClickListener = listener;
@@ -58,24 +78,24 @@ public abstract class MultipleTypeRecyclerViewAdapter<VH extends ViewHolder, T e
     }
 
     @Override
-    public final void onBindViewHolder(VH holder, int position) {
+    public final void onBindViewHolder(ViewHolder holder, int position) {
         T item = items.get(position);
 
-        if (item.getType() == TYPE_HEADER) {
+        if (item.getType() == MultipleTypeItem.TYPE_HEADER) {
             onBindHeaderViewHolder(holder, position, item);
-        } else if (item.getType() == TYPE_FOOTER) {
+        } else if (item.getType() == MultipleTypeItem.TYPE_FOOTER) {
             onBindFooterViewHolder(holder, position, item);
         } else {
             onBindItemViewHolder(holder, position, item);
         }
     }
 
-    protected void onBindHeaderViewHolder(VH holder, int position, T item) {
+    protected void onBindHeaderViewHolder(ViewHolder holder, int position, T item) {
     }
 
-    protected abstract void onBindItemViewHolder(VH holder, int position, T item);
+    protected abstract void onBindItemViewHolder(ViewHolder holder, int position, T item);
 
-    protected void onBindFooterViewHolder(VH holder, int position, T item) {
+    protected void onBindFooterViewHolder(ViewHolder holder, int position, T item) {
     }
 
     @Override

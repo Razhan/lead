@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import com.ef.cat.R;
+import com.ef.cat.ui.fragment.InterestFragment;
 import com.ef.cat.ui.fragment.PurposeFragment;
 import com.ef.cat.ui.fragment.TestFragment;
 import com.ef.cat.ui.widget.CollectInfoAdapter;
@@ -44,7 +45,7 @@ public class CollectInfoActivity extends BaseActivity {
         super.initView();
         fragmentList = new ArrayList<>();
         fragmentList.add(PurposeFragment.newInstance());
-        fragmentList.add(TestFragment.newInstance("2"));
+        fragmentList.add(InterestFragment.newInstance());
         fragmentList.add(TestFragment.newInstance("3"));
         fragmentList.add(TestFragment.newInstance("4"));
 

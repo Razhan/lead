@@ -24,10 +24,10 @@
 
     <!--CardView-->
     <style name="CardViewMargin">
-        <item name="android:layout_marginLeft">@dimen/spacing_tiny</item>
-        <item name="android:layout_marginRight">@dimen/spacing_tiny</item>
-        <item name="android:layout_marginTop">@dimen/spacing_none</item>
-        <item name="android:layout_marginBottom">@dimen/spacing_tiny</item>
+        <item name="android:layout_margin">@dimen/spacing_small</item>
+        <item name="android:layout_marginRight">@dimen/spacing_small</item>
+        <item name="android:layout_marginTop">@dimen/spacing_small</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_none</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
     </style>
 

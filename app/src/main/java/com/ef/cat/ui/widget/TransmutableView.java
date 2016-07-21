@@ -17,17 +17,17 @@ import com.ef.cat.R;
 
 public class TransmutableView extends View {
 
-    public static final int STATE_ANIM_NONE = 0;
-    public static final int STATE_ANIM_LOOP = 1;
-    public static final int STATE_ANIM_START = 2;
-    public static final int STATE_ANIM_STOP = 3;
+    private static final int STATE_ANIM_NONE = 0;
+    private static final int STATE_ANIM_LOOP = 1;
+    private static final int STATE_ANIM_START = 2;
+    private static final int STATE_ANIM_STOP = 3;
 
-    public static final int DEFAULT_ANIM_FULL_TIME = 600;
-    public static final int DEFAULT_ANIM_HALF_TIME = 200;
-    public static final float DEFAULT_ANIM_START = 0;
-    public static final float DEFAULT_ANIM_END = 1;
+    private static final int DEFAULT_ANIM_FULL_TIME = 600;
+    private static final int DEFAULT_ANIM_HALF_TIME = 200;
+    private static final float DEFAULT_ANIM_START = 0;
+    private static final float DEFAULT_ANIM_END = 1;
 
-    protected int mState = STATE_ANIM_NONE;
+    private int mState = STATE_ANIM_NONE;
     private String mColorTran = "#50FFFFFF";
     private int mAngle = 10;
 

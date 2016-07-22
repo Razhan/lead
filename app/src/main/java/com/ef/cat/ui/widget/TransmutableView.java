@@ -13,17 +13,16 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
+import com.ef.cat.Constant;
 import com.ef.cat.R;
 
 public class TransmutableView extends View {
 
-    private static final int STATE_ANIM_NONE = 0;
-    private static final int STATE_ANIM_LOOP = 1;
-    private static final int STATE_ANIM_START = 2;
-    private static final int STATE_ANIM_STOP = 3;
+    public static final int STATE_ANIM_NONE = 0;
+    public static final int STATE_ANIM_LOOP = 1;
+    public static final int STATE_ANIM_START = 2;
+    public static final int STATE_ANIM_STOP = 3;
 
-    private static final int DEFAULT_ANIM_FULL_TIME = 600;
-    private static final int DEFAULT_ANIM_HALF_TIME = 200;
     private static final float DEFAULT_ANIM_START = 0;
     private static final float DEFAULT_ANIM_END = 1;
 
@@ -231,16 +230,15 @@ public class TransmutableView extends View {
 
         if (mState == STATE_ANIM_NONE) {
             mState = STATE_ANIM_LOOP;
-            mValueAnimator = startViewAnim(DEFAULT_ANIM_START, DEFAULT_ANIM_END, DEFAULT_ANIM_FULL_TIME, true);
+            mValueAnimator = startViewAnim(DEFAULT_ANIM_START, DEFAULT_ANIM_END, Constant.DEFAULT_ANIM_FULL_TIME, true);
         } else if (mState == STATE_ANIM_LOOP) {
             mState = STATE_ANIM_START;
-            mValueAnimator = startViewAnim(DEFAULT_ANIM_START, DEFAULT_ANIM_END, DEFAULT_ANIM_FULL_TIME, false);
+            mValueAnimator = startViewAnim(DEFAULT_ANIM_START, DEFAULT_ANIM_END, Constant.DEFAULT_ANIM_FULL_TIME, false);
         } else if (mState == STATE_ANIM_START) {
             mState = STATE_ANIM_STOP;
-            mValueAnimator = startViewAnim(DEFAULT_ANIM_START, DEFAULT_ANIM_END, DEFAULT_ANIM_HALF_TIME, false);
+            mValueAnimator = startViewAnim(DEFAULT_ANIM_START, DEFAULT_ANIM_END, Constant.DEFAULT_ANIM_HALF_TIME, false);
         } else {
             mState = STATE_ANIM_NONE;
-            startAnim();
         }
     }
 
@@ -272,4 +270,7 @@ public class TransmutableView extends View {
         super.onRestoreInstanceState(state);
     }
 
+    public int getState() {
+        return mState;
+    }
 }

@@ -77,13 +77,6 @@ public class IndicatedCircle extends View {
         secondPaint.setStyle(Paint.Style.STROKE);
         secondPaint.setStrokeWidth(ringWidth);
         secondPaint.setAntiAlias(true);
-
-        this.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                IndicatedCircle.this.startAnim();
-            }
-        });
     }
 
     @Override

@@ -46,8 +46,6 @@ public class CollectInfoActivity extends BaseActivity {
         fragmentList = new ArrayList<>();
         fragmentList.add(PurposeFragment.newInstance());
         fragmentList.add(InterestFragment.newInstance());
-        fragmentList.add(TestFragment.newInstance("3"));
-        fragmentList.add(TestFragment.newInstance("4"));
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         viewpager.setAdapter(new CollectInfoAdapter(fragmentManager, fragmentList));

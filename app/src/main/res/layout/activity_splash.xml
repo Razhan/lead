@@ -42,8 +42,8 @@
     <com.ef.cat.ui.widget.TransmutableView
         android:id="@+id/splash_indicator"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="@dimen/spacing_normal"
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/spacing_huge"
         android:layout_below="@+id/splash_intro"
         android:layout_gravity="center" />
 

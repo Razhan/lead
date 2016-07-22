@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 
 public class FixedViewPager extends ViewPager {
 
-    private boolean isScrollable = true;
+    private boolean isScrollable = false;
     private CustomDurationScroller mScroller;
 
     public FixedViewPager(Context context) {

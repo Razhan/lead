@@ -32,13 +32,14 @@ public abstract class MultipleTypeRecyclerViewAdapter<T extends MultipleTypeItem
     public final ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final ViewHolder viewHolder = onCreateItemViewHolder(parent, viewType);
 
-        int pos = viewHolder.getLayoutPosition();
         if (mClickListener != null) {
-            viewHolder.itemView.setOnClickListener(v -> mClickListener.onItemClick(v, pos, items.get(pos)));
+            viewHolder.itemView.setOnClickListener(v ->
+                    mClickListener.onItemClick(v, viewHolder.getLayoutPosition(), items.get(viewHolder.getLayoutPosition()))
+            );
         }
         if (mLongClickListener != null) {
             viewHolder.itemView.setOnLongClickListener(v -> {
-                mLongClickListener.onItemLongClick(v, pos, items.get(pos));
+                mLongClickListener.onItemLongClick(v, viewHolder.getLayoutPosition(), items.get(viewHolder.getLayoutPosition()));
                 return true;
             });
         }

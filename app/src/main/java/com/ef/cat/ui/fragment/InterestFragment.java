@@ -1,11 +1,7 @@
 package com.ef.cat.ui.fragment;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class InterestFragment extends BaseFragment {
 
@@ -41,10 +36,10 @@ public class InterestFragment extends BaseFragment {
     public void initView() {
         interestList.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        String a = "awdawd";
-        String b = "ssdd";
-        String c = "vhgth";
-        String d = "jloo;o";
+        String a = "InterestA";
+        String b = "InterestB";
+        String c = "InterestC";
+        String d = "InterestD";
 
         List<String> list = new ArrayList<>();
         list.add(a);
@@ -55,6 +50,7 @@ public class InterestFragment extends BaseFragment {
         List<Interest> dd = Interest.generateInterests(list);
 
         mAdapter = new InterestAdapter(getContext(), dd);
+        mAdapter.setClickListener((itemView, pos, item) -> mAdapter.selectInterest(pos, item));
         interestList.setAdapter(mAdapter);
     }
 }

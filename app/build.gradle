@@ -14,9 +14,6 @@ android {
         versionName "1.0"
     }
     signingConfigs {
-        debug {
-            storeFile file("C:/Users/Administrator/.android/debug.keystore")
-        }
         release {
             storeFile file("./cat.jks")
             storePassword "efef@123"

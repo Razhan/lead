@@ -3,11 +3,9 @@ package com.ran.delta.widget.recycleView;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public abstract class MultipleTypeRecyclerViewAdapter<VH extends ViewHolder, T extends MultipleTypeItem>
@@ -16,13 +14,10 @@ public abstract class MultipleTypeRecyclerViewAdapter<VH extends ViewHolder, T e
     public static final int TYPE_HEADER = -2;
     public static final int TYPE_ITEM = -1;
     public static final int TYPE_FOOTER = -3;
-
-    private List<T> items = Collections.EMPTY_LIST;
-
+    protected final Context mContext;
+    private List<T> items;
     private OnItemClickListener<T> mClickListener;
     private OnItemLongClickListener<T> mLongClickListener;
-
-    protected final Context mContext;
 
     public MultipleTypeRecyclerViewAdapter(Context context, List<T> list) {
         items = (list != null) ? list : new ArrayList();

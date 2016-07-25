@@ -11,7 +11,6 @@ import java.lang.reflect.Field;
 public class FixedViewPager extends ViewPager {
 
     private boolean isScrollable = true;
-    private CustomDurationScroller mScroller;
 
     public FixedViewPager(Context context) {
         super(context);
@@ -28,7 +27,7 @@ public class FixedViewPager extends ViewPager {
             Class<?> viewpager = ViewPager.class;
             Field scroller = viewpager.getDeclaredField("mScroller");
             scroller.setAccessible(true);
-            mScroller = new CustomDurationScroller(getContext(), new DecelerateInterpolator());
+            CustomDurationScroller mScroller = new CustomDurationScroller(getContext(), new DecelerateInterpolator());
             scroller.set(this, mScroller);
         } catch (Exception ignored) {
         }
@@ -36,10 +35,7 @@ public class FixedViewPager extends ViewPager {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        if (!isScrollable) {
-            return true;
-        }
-        return super.onTouchEvent(ev);
+        return !isScrollable || super.onTouchEvent(ev);
     }
 
 

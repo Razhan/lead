@@ -5,7 +5,7 @@ import android.view.View;
 
 public abstract class BaseTransformer implements ViewPager.PageTransformer {
 
-    protected static final float min(float val, float min) {
+    protected static float min(float val, float min) {
         return val < min ? min : val;
     }
 

@@ -46,12 +46,7 @@ public abstract class MvpLceFragment<CV extends View, M, V extends MvpLceView<M>
                             + " You have to give your error View the id R.id.errorView");
         }
 
-        errorView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onErrorViewClicked();
-            }
-        });
+        errorView.setOnClickListener(v -> onErrorViewClicked());
     }
 
     @Override

@@ -3,12 +3,10 @@ package com.ef.cat.ui.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.AppCompatSeekBar;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.ef.cat.R;
@@ -19,9 +17,12 @@ import butterknife.ButterKnife;
 
 public class CombinedSlider extends FrameLayout {
 
-    @BindView(R.id.slider_icon)         ImageView sliderIcon;
-    @BindView(R.id.slider_title)        TextView sliderTitle;
-    @BindView(R.id.slider_seekbar)      SeekBarCompat sliderSeekbar;
+    @BindView(R.id.slider_icon)
+    ImageView sliderIcon;
+    @BindView(R.id.slider_title)
+    TextView sliderTitle;
+    @BindView(R.id.slider_seekbar)
+    SeekBarCompat sliderSeekbar;
 
     private String title;
     private Drawable icon;
@@ -64,8 +65,6 @@ public class CombinedSlider extends FrameLayout {
             sliderIcon.setImageDrawable(icon);
         }
     }
-
-
 
 
 }

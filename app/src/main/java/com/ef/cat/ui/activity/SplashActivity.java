@@ -26,13 +26,19 @@ import butterknife.OnClick;
 
 public class SplashActivity extends MvpActivity<SplashView, SplashPresenter> implements SplashView {
 
-    @BindView(R.id.splash_bottom_bar)       LinearLayout bottomBar;
-    @BindView(R.id.splash_title)            TextView title;
-    @BindView(R.id.splash_header)           TextView header;
-    @BindView(R.id.splash_intro)            TextView intro;
-    @BindView(R.id.splash_indicator)        TransmutableView indicator;
+    @BindView(R.id.splash_bottom_bar)
+    LinearLayout bottomBar;
+    @BindView(R.id.splash_title)
+    TextView title;
+    @BindView(R.id.splash_header)
+    TextView header;
+    @BindView(R.id.splash_intro)
+    TextView intro;
+    @BindView(R.id.splash_indicator)
+    TransmutableView indicator;
 
-    @Inject    SystemText systemText;
+    @Inject
+    SystemText systemText;
 
     private InitializationComponent initComponent;
 

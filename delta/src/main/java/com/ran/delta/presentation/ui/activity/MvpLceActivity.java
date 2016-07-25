@@ -42,12 +42,7 @@ public abstract class MvpLceActivity<CV extends View, M, V extends MvpLceView<M>
                             + " You have to give your error View the id R.id.contentView");
         }
 
-        errorView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onErrorViewClicked();
-            }
-        });
+        errorView.setOnClickListener(v -> onErrorViewClicked());
     }
 
     protected void onErrorViewClicked() {

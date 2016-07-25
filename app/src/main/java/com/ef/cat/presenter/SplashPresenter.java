@@ -29,24 +29,16 @@ public class SplashPresenter extends MvpBasePresenter<SplashView> {
     public void unzip(Context context) {
         useCase.new Builder<Boolean>()
                 .useCaseArgs(context, FileUtils.getInternalFolderPath(context, null), Constant.RESOURCE_ZIP_FILE_NAME)
-                .onSuccess(bool -> {
-                    Log.d("", "");
-                })
-                .onError(e -> {
-                    e.printStackTrace();
-                })
+                .onSuccess(bool -> Log.d("", ""))
+                .onError(Throwable::printStackTrace)
                 .build();
     }
 
     public void downloadResourceFile(Context context) {
         useCase.new Builder<ResponseBody>()
                 .useCaseFunction("download")
-                .onSuccess(responseBody -> {
-                    saveFile(context, responseBody);
-                })
-                .onError(e -> {
-                    e.printStackTrace();
-                })
+                .onSuccess(responseBody -> saveFile(context, responseBody))
+                .onError(Throwable::printStackTrace)
                 .build();
     }
 

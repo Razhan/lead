@@ -1,6 +1,7 @@
 package com.ef.cat.ui.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import com.ef.cat.R;
@@ -43,10 +44,16 @@ public class LevelFragment extends BaseFragment implements CoverFlowView.CoverFl
 
         coverFlow.setOrientation(CoverFlowView.HORIZONTAL);
         mAdapter = new LevelAdapter(getContext(), levels);
+        mAdapter.setClickListener((v, pos, item) -> coverFlow.scrollToCenter(pos));
+
         coverFlow.setAdapter(mAdapter);
         coverFlow.setCoverFlowListener(this);
-//        coverFlow.getLayoutManager().scrollToPosition(mAdapter.getItemCount() / 2);
-//        mAdapter.notifyDataSetChanged();
+        new Handler().post(() -> coverFlow.scrollToCenter(1));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

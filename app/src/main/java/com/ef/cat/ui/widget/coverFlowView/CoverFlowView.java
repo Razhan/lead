@@ -93,7 +93,7 @@ public class CoverFlowView extends RecyclerView {
         final float translateZ = (float) Math.sqrt((r * r) - (d * d) / 3);
 
         mCamera.save();
-        mCamera.translate(0, 0, r - (float) (translateZ * 1));
+        mCamera.translate(0, 0, r - translateZ);
         mCamera.getMatrix(outMatrix);
         mCamera.restore();
     }

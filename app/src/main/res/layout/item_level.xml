@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CardViewMargin"
+    android:layout_width="250dp"
+    android:layout_height="440dp"
+    app:cardCornerRadius="@dimen/spacing_small"
+    app:cardElevation="@dimen/elevation_huge">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_normal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/level_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_small"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:text="Intermediate" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_normal"
+                android:textColor="@android:color/black"
+                android:text="I can talk about my background and about my hopes and plans for the future" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textStyle="italic"
+                android:textSize="@dimen/text_size_large"
+                android:text="I can talk about my background and about my hopes and plans for the future" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="@dimen/spacing_normal"
+            android:gravity="center"
+            android:layout_alignParentBottom="true">
+
+            <com.ef.cat.ui.widget.IndicatedCircle
+                android:id="@+id/interest_indicator"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="@dimen/spacing_small"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

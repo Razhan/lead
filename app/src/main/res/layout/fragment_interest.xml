@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <include layout="@layout/include_info_title_bar"/>
+    <include layout="@layout/include_info_title_bar" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:gravity="center"
         android:layout_marginBottom="@dimen/spacing_small"
-        android:textSize="@dimen/text_size_medium"
-        android:text="What are you interested in?"/>
+        android:gravity="center"
+        android:text="What are you interested in?"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_medium" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/interest_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_normal"/>
+        android:layout_marginTop="@dimen/spacing_normal" />
 
 </LinearLayout>

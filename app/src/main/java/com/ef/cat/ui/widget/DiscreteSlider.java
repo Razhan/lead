@@ -110,8 +110,7 @@ public class DiscreteSlider extends View {
 
         int spacing = w / rangeCount;
 
-        int y = getPaddingTop() + h / 2;
-        selectedSlotY = y;
+        selectedSlotY = getPaddingTop() + h / 2;
 
         int x = getPaddingLeft() + (int) sliderRadius;
 

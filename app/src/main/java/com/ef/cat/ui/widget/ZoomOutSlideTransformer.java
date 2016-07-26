@@ -15,16 +15,16 @@ public class ZoomOutSlideTransformer extends BaseTransformer {
             final float height = view.getHeight();
             final float width = view.getWidth();
             final float scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position));
-            final float vertMargin = height * (1 - scaleFactor) / 2;
-            final float horzMargin = width * (1 - scaleFactor) / 2;
+            final float verticalMargin = height * (1 - scaleFactor) / 2;
+            final float horizontalMargin = width * (1 - scaleFactor) / 2;
 
             view.setPivotY(0.5f * height);
             view.setPivotX(0.5f * width);
 
             if (position < 0) {
-                view.setTranslationX(horzMargin - vertMargin / 2);
+                view.setTranslationX(horizontalMargin - verticalMargin / 2);
             } else {
-                view.setTranslationX(-horzMargin + vertMargin / 2);
+                view.setTranslationX(-horizontalMargin + verticalMargin / 2);
             }
 
             view.setScaleX(scaleFactor);

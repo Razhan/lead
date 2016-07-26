@@ -1,4 +1,4 @@
-package com.ef.cat.ui.widget.coverFlow;
+package com.ef.cat.ui.widget.coverFlowView;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 
@@ -28,9 +29,9 @@ public class CoverFlowView extends RecyclerView {
     private int right_border_position = 0;
     private int orientation = 0;
     private boolean flag = false;
+
     private CoverFlowItemListener coverFlowListener;
     private LinearLayoutManager layoutManager;
-
 
     public CoverFlowView(Context context) {
         super(context);
@@ -89,9 +90,10 @@ public class CoverFlowView extends RecyclerView {
     private void prepareMatrix(final Matrix outMatrix, int distanceY, int r) {
         final int d = Math.min(r, Math.abs(distanceY));
 
-        final float translateZ = (float) Math.sqrt((r * r) - (d * d));
+        final float translateZ = (float) Math.sqrt((r * r) - (d * d) / 3);
+
         mCamera.save();
-        mCamera.translate(0, 0, (r - translateZ) * 2);
+        mCamera.translate(0, 0, r - (float) (translateZ * 1));
         mCamera.getMatrix(outMatrix);
         mCamera.restore();
     }
@@ -161,10 +163,10 @@ public class CoverFlowView extends RecyclerView {
         DividerItemDecoration itemDecoration;
         if (orientation == VERTICAL) {
             layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-            itemDecoration = new DividerItemDecoration(0, -100);
+            itemDecoration = new DividerItemDecoration(0, -50);
         } else {
             layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-            itemDecoration = new DividerItemDecoration(-100, 0);
+            itemDecoration = new DividerItemDecoration(-50, 0);
         }
         this.setLayoutManager(layoutManager);
         this.addItemDecoration(itemDecoration);

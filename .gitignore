@@ -36,6 +36,7 @@ captures/
 *.iml
 .idea/workspace.xml
 
+<<<<<<< HEAD
 # Keystore files
 *.jks
 
@@ -44,3 +45,6 @@ gradle/wrapper/gradle-wrapper.jar
 gradle/wrapper/gradle-wrapper.properties
 gradlew
 gradlew.bat
+=======
+.idea
+>>>>>>> 6bd131fb536677893beba3e11183ad2c93acf257

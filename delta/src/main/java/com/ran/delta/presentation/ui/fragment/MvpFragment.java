@@ -20,6 +20,7 @@ public abstract class MvpFragment<V extends MvpView, P extends MvpPresenter<V>> 
 
     protected P presenter;
 
+    @NonNull
     public abstract P createPresenter();
 
     @NonNull

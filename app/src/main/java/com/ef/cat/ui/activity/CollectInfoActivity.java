@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 
 import com.ef.cat.R;
 import com.ef.cat.ui.fragment.InterestFragment;
+import com.ef.cat.ui.fragment.LevelFragment;
 import com.ef.cat.ui.fragment.PurposeFragment;
 import com.ef.cat.ui.fragment.TestFragment;
 import com.ef.cat.ui.widget.CollectInfoAdapter;
@@ -44,8 +45,9 @@ public class CollectInfoActivity extends BaseActivity {
     public void initView() {
         super.initView();
         fragmentList = new ArrayList<>();
-        fragmentList.add(PurposeFragment.newInstance());
-        fragmentList.add(InterestFragment.newInstance());
+//        fragmentList.add(PurposeFragment.newInstance());
+//        fragmentList.add(InterestFragment.newInstance());
+        fragmentList.add(LevelFragment.newInstance());
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         viewpager.setAdapter(new CollectInfoAdapter(fragmentManager, fragmentList));

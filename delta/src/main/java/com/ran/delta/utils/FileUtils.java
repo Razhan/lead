@@ -134,12 +134,8 @@ public final class FileUtils {
                 FileWriter writer = new FileWriter(file);
                 writer.write(fileContent);
                 writer.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            } finally {
-
             }
         }
     }
@@ -156,9 +152,7 @@ public final class FileUtils {
                 }
                 bufferedReader.close();
                 fileReader.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            }catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -213,8 +207,6 @@ public final class FileUtils {
 
                 in.close();
                 out.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -15,7 +15,7 @@ import javax.inject.Inject;
 public abstract class MvpActivity<V extends MvpView, P extends MvpPresenter<V>>
         extends BaseActivity implements ActivityMvpDelegateCallback<V, P>, MvpView {
 
-    protected ActivityMvpDelegate mvpDelegate;
+    protected ActivityMvpDelegate<V, P> mvpDelegate;
     protected P presenter;
     protected boolean retainInstance;
     @Inject
@@ -90,7 +90,7 @@ public abstract class MvpActivity<V extends MvpView, P extends MvpPresenter<V>>
     @NonNull
     protected ActivityMvpDelegate<V, P> getMvpDelegate() {
         if (mvpDelegate == null) {
-            mvpDelegate = new ActivityMvpDelegateImpl(this);
+            mvpDelegate = new ActivityMvpDelegateImpl<>(this);
         }
         return mvpDelegate;
     }

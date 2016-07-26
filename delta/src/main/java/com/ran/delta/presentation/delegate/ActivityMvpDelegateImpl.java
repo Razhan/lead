@@ -6,7 +6,7 @@ import com.ran.delta.presentation.presenter.MvpPresenter;
 import com.ran.delta.presentation.ui.view.MvpView;
 
 public class ActivityMvpDelegateImpl<V extends MvpView, P extends MvpPresenter<V>>
-        implements ActivityMvpDelegate {
+        implements ActivityMvpDelegate<V, P> {
 
     protected MvpInternalDelegate<V, P> internalDelegate;
     protected ActivityMvpDelegateCallback<V, P> delegateCallback;

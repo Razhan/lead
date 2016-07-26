@@ -52,7 +52,7 @@ public class InterestAdapter extends MultipleTypeRecyclerViewAdapter<Interest> {
             likedInterests.add(interest);
         }
 
-        notifyItemChanged(pos);
+        notifyDataSetChanged();
     }
 
 }

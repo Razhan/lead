@@ -3,7 +3,6 @@ package com.ef.cat.data.model;
 import com.ran.delta.widget.recycleView.MultipleTypeItem;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class Interest implements MultipleTypeItem {
@@ -23,7 +22,7 @@ public class Interest implements MultipleTypeItem {
         return value;
     }
 
-    public static List<Interest> generateInterests(Collection<String> values) {
+    public static List<Interest> generateInterests(List<String> values) {
         List<Interest> res = new ArrayList<>();
 
         for (String value : values) {

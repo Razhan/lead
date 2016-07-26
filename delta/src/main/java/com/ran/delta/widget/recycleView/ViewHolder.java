@@ -10,7 +10,6 @@ import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.RecyclerView;
-import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,16 +34,14 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
 
     public static ViewHolder createViewHolder(Context context, View itemView) {
-        ViewHolder holder = new ViewHolder(context, itemView);
-        return holder;
+        return new ViewHolder(context, itemView);
     }
 
     public static ViewHolder createViewHolder(Context context,
                                               ViewGroup parent, int layoutId) {
         View itemView = LayoutInflater.from(context).inflate(layoutId, parent,
                 false);
-        ViewHolder holder = new ViewHolder(context, itemView);
-        return holder;
+        return new ViewHolder(context, itemView);
     }
 
     public <T extends View> T getView(int viewId) {
@@ -127,12 +124,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public ViewHolder linkify(int viewId) {
-        TextView view = getView(viewId);
-        Linkify.addLinks(view, Linkify.ALL);
-        return this;
-    }
-
     public ViewHolder setTypeface(Typeface typeface, int... viewIds) {
         for (int viewId : viewIds) {
             TextView view = getView(viewId);
@@ -187,7 +178,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
 
     public ViewHolder setChecked(int viewId, boolean checked) {
-        Checkable view = (Checkable) getView(viewId);
+        Checkable view = getView(viewId);
         view.setChecked(checked);
         return this;
     }

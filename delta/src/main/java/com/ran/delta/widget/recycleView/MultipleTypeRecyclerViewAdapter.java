@@ -14,7 +14,7 @@ import java.util.List;
 public abstract class MultipleTypeRecyclerViewAdapter<T extends MultipleTypeItem>
         extends RecyclerView.Adapter<ViewHolder> {
 
-    private List<T> items = Collections.EMPTY_LIST;
+    private List<T> items;
 
     private OnItemClickListener<T> mClickListener;
     private OnItemLongClickListener<T> mLongClickListener;
@@ -141,7 +141,6 @@ public abstract class MultipleTypeRecyclerViewAdapter<T extends MultipleTypeItem
 
     public void delete(int pos) {
         items.remove(pos);
-
         notifyItemRemoved(pos);
     }
 

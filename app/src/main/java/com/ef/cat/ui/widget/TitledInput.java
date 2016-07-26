@@ -16,10 +16,11 @@ import butterknife.ButterKnife;
 
 public class TitledInput extends FrameLayout {
 
+    @BindView(R.id.titled_input_title)
+    TextView title;
+    @BindView(R.id.titled_input_input)
+    EditText input;
     private int cornerRadius = 15;
-
-    @BindView(R.id.titled_input_title)    TextView title;
-    @BindView(R.id.titled_input_input)    EditText input;
 
     public TitledInput(Context context) {
         this(context, null);

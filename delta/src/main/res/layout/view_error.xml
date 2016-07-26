@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/errorView"
@@ -14,6 +14,6 @@
         android:padding="16dp"
         android:text="An error has occurred! click here to retry"
         android:textColor="#656565"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
 </merge>

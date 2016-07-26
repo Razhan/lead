@@ -1,7 +1,9 @@
 package com.ef.cat.ui.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.ef.cat.R;
 import com.ef.cat.data.model.Level;
@@ -30,6 +32,11 @@ public class LevelAdapter extends CoverFlowAdapter<Level> {
             holder.itemView.setVisibility(View.VISIBLE);
         }
         holder.setText(R.id.level_header, item.getValue());
+        ImageView indicator = holder.getView(R.id.select_indicator);
+        indicator.setOnClickListener(v -> {
+            ((ImageView) v).setImageResource(R.drawable.ic_la);
+            Log.d("IndicatedCircle", "IndicatedCircle");
+        });
     }
 
     @Override

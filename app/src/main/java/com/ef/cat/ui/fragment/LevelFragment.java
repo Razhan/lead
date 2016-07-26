@@ -52,11 +52,6 @@ public class LevelFragment extends BaseFragment implements CoverFlowView.CoverFl
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void onItemChanged(int position) {
         Log.i(TAG, "onItemChanged" + position);
     }

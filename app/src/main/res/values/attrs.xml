@@ -21,10 +21,4 @@
         <attr name="combined_title" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="IndicatedCircle">
-        <attr name="ringColor" format="color" />
-        <attr name="ringUnselectedColor" format="color" />
-        <attr name="ringWidth" format="dimension" />
-    </declare-styleable>
-
 </resources>

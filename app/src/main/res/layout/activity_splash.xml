@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
-    android:fitsSystemWindows="true"
-    tools:context="com.ef.cat.ui.activity.SplashActivity">
+    android:fitsSystemWindows="true">
 
     <TextView
         android:id="@+id/splash_title"
@@ -38,7 +37,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_medium" />
 
-    <com.ef.cat.ui.widget.TransmutableView
+    <com.ef.newlead.ui.widget.TransmutableView
         android:id="@+id/splash_indicator"
         android:layout_width="match_parent"
         android:layout_height="50dp"

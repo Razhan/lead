@@ -1,18 +1,31 @@
 package com.ef.newlead.ui.widget;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
+
+import com.ef.newlead.Constant;
+import com.ef.newlead.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardSlideView extends ViewGroup {
+public class CardSlideView extends ViewGroup implements View.OnClickListener {
 
-    private int itemMarginTop = 10;
-    private int yOffsetStep = 40;
-    private float SCALE_STEP = 0.08f;
+    private int elevation = 10;
+    private final int yOffset = 25;
+    private final float scaleStep = 0.03f;
 
     private List<View> viewList = new ArrayList<>();
 
@@ -33,22 +46,58 @@ public class CardSlideView extends ViewGroup {
         super.onFinishInflate();
 
         viewList.clear();
-        int num = getChildCount();
+        for (int i = getChildCount() - 1; i >= 0; i--) {
+            View childView = getChildAt(i);
 
-        for (int i = num - 1; i >= 0; i--) {
-            viewList.add(getChildAt(i));
+            if (childView instanceof CardView) {
+                CardView cardView = (CardView)childView;
+                cardView.setCardElevation(elevation--);
+
+                ImageView select = (ImageView)cardView.findViewById(R.id.level_select);
+                ImageView refuse = (ImageView)cardView.findViewById(R.id.level_not_select);
+
+                select.setOnClickListener(this);
+                refuse.setOnClickListener(this);
+                
+                viewList.add(childView);
+            }
         }
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         measureChildren(widthMeasureSpec, heightMeasureSpec);
+        int width = measureDimension(widthMeasureSpec, 800, 0);
+        int height = measureDimension(heightMeasureSpec, 100, 1);
 
-        int maxWidth = MeasureSpec.getSize(widthMeasureSpec);
-        int maxHeight = MeasureSpec.getSize(heightMeasureSpec);
+        setMeasuredDimension(width, height);
+    }
 
-        setMeasuredDimension(resolveSizeAndState(maxWidth, widthMeasureSpec, 0),
-                resolveSizeAndState(maxHeight, heightMeasureSpec, 0));
+    private int measureDimension(int measureSpec, int defaultSize, int type) {
+        int result;
+
+        int specMode = MeasureSpec.getMode(measureSpec);
+        int specSize = MeasureSpec.getSize(measureSpec);
+
+        if (specMode == MeasureSpec.EXACTLY) {
+            result = specSize;
+        } else {
+            result = defaultSize;
+            if (specMode == MeasureSpec.AT_MOST) {
+                if (getChildCount() < 1) {
+                    return Math.min(result, specSize);
+                }
+
+                if (type == 1) {
+                    result = getChildAt(0).getMeasuredHeight() + (viewList.size() - 1) * yOffset + getPaddingTop();
+                    result = Math.min(result, specSize);
+                } else {
+                    result = getChildAt(0).getMeasuredWidth();
+                    result = Math.min(result, specSize);
+                }
+            }
+        }
+        return result;
     }
 
     @Override
@@ -57,16 +106,67 @@ public class CardSlideView extends ViewGroup {
             View viewItem = viewList.get(i);
             int childHeight = viewItem.getMeasuredHeight();
             int viewLeft = (getWidth() - viewItem.getMeasuredWidth()) / 2;
-            viewItem.layout(viewLeft, itemMarginTop, viewLeft + viewItem.getMeasuredWidth(), itemMarginTop + childHeight);
+            viewItem.layout(viewLeft, getPaddingTop(), viewLeft + viewItem.getMeasuredWidth(), childHeight + getPaddingTop());
 
-            int offset = yOffsetStep * i;
-            float scale = 1 - SCALE_STEP * i;
+            int offset = yOffset * i;
+            float scale = 1 - scaleStep * i;
 
-            viewItem.offsetTopAndBottom(offset);
+            viewItem.setTranslationY(offset);
             viewItem.setScaleX(scale);
             viewItem.setScaleY(scale);
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        v.setAlpha(1);
+        View view = viewList.remove(0);
+        if (v.getTag().equals("select")) {
+            selectedCardAnimation(view, true);
+        } else {
+            selectedCardAnimation(view, false);
+        }
+
+        restCardAnimation();
+    }
+
+    private void selectedCardAnimation(View v, boolean direction) {
+        ObjectAnimator transX, rotation;
+        if (direction) {
+            transX = ObjectAnimator.ofFloat(v, "translationX", -this.getWidth());
+            rotation = ObjectAnimator.ofFloat(v, "rotation", 90);
+        } else {
+            transX = ObjectAnimator.ofFloat(v, "translationX", this.getWidth());
+            rotation = ObjectAnimator.ofFloat(v, "rotation", -90);
+        }
+
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(transX, rotation);
+        set.setDuration(Constant.DEFAULT_ANIM_FULL_TIME).setInterpolator(new DecelerateInterpolator());
+        set.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                removeView(v);
+            }
+        });
+
+        set.start();
+    }
+
+    private void restCardAnimation() {
+        for (int i = 0; i < viewList.size(); i++) {
+            View view = viewList.get(i);
+
+            ObjectAnimator transY = ObjectAnimator.ofFloat(view, "translationY", view.getTranslationY() - yOffset);
+            ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, "scaleX", view.getScaleX() + scaleStep);
+            ObjectAnimator scaleY = ObjectAnimator.ofFloat(view, "scaleY", view.getScaleY() + scaleStep);
+
+            AnimatorSet set = new AnimatorSet();
+            set.playTogether(transY, scaleX, scaleY);
+            set.setDuration(Constant.DEFAULT_ANIM_FULL_TIME).setInterpolator(new DecelerateInterpolator());
+
+            set.start();
+        }
+    }
 
 }

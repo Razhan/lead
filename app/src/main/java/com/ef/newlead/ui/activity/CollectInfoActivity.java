@@ -28,6 +28,6 @@ public class CollectInfoActivity extends BaseActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.collect_fragment, PurposeFragment.newInstance()).commit();
+        transaction.replace(R.id.collect_fragment, LevelFragment.newInstance()).commit();
     }
 }

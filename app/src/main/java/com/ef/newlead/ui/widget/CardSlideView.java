@@ -41,6 +41,17 @@ public class CardSlideView extends ViewGroup {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
+
+        int maxWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int maxHeight = MeasureSpec.getSize(heightMeasureSpec);
+
+        setMeasuredDimension(resolveSizeAndState(maxWidth, widthMeasureSpec, 0),
+                resolveSizeAndState(maxHeight, heightMeasureSpec, 0));
+    }
+
+    @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         for (int i = 0; i < viewList.size(); i++) {
             View viewItem = viewList.get(i);

@@ -24,6 +24,8 @@ public class UseCaseUtils {
 
             if (methods.size() == 1) {
                 return methods.get(0);
+            } else {
+                throw new IllegalArgumentException("check the annotated method");
             }
         }
 

@@ -3,10 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.ef.newlead.ui.widget.flowview.FlowView
-        android:id="@+id/level_cover_flow"
+    <com.ef.newlead.ui.widget.CardSlideView
+        android:id="@+id/level_card_slide"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true">
+
+        <include layout="@layout/item_level" />
+
+        <include layout="@layout/item_level" />
+
+        <include layout="@layout/item_level" />
+
+        <include layout="@layout/item_level" />
+
+        <include layout="@layout/item_level" />
+
+        <include layout="@layout/item_level" />
+
+    </com.ef.newlead.ui.widget.CardSlideView>
 
 </RelativeLayout>

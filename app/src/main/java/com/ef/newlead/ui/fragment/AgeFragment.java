@@ -11,7 +11,7 @@ import com.ef.newlead.data.model.Age;
 import com.ef.newlead.data.model.GradientBackground;
 import com.ef.newlead.ui.adapter.AgeAdapter;
 import com.ef.newlead.ui.widget.flowview.FlowView;
-import com.ef.newlead.util.Constant;
+import com.ef.newlead.Constant;
 import com.ef.newlead.util.SystemText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

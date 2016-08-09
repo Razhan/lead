@@ -16,7 +16,7 @@ import com.ef.newlead.presenter.SplashPresenter;
 import com.ef.newlead.ui.view.SplashView;
 import com.ef.newlead.ui.widget.TransmutableView;
 import com.ef.newlead.usecase.InitializationUseCase;
-import com.ef.newlead.util.Constant;
+import com.ef.newlead.Constant;
 
 import butterknife.BindView;
 import butterknife.OnClick;

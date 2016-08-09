@@ -1,6 +1,6 @@
 package com.ef.newlead.data.repostory;
 
-import com.ef.newlead.util.Constant;
+import com.ef.newlead.Constant;
 
 import java.util.concurrent.TimeUnit;
 

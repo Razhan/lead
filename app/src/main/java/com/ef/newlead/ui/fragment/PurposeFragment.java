@@ -16,7 +16,7 @@ import com.ef.newlead.data.model.GradientBackground;
 import com.ef.newlead.data.model.Purpose;
 import com.ef.newlead.ui.widget.BubbleTextVew;
 import com.ef.newlead.ui.widget.DiscreteSlider;
-import com.ef.newlead.util.Constant;
+import com.ef.newlead.Constant;
 import com.ef.newlead.util.SystemText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

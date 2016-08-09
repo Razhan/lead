@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.ef.newlead.ui.view.SplashView;
 import com.ef.newlead.usecase.UseCase;
-import com.ef.newlead.util.Constant;
+import com.ef.newlead.Constant;
 import com.ef.newlead.util.FileUtils;
 
 import java.io.File;

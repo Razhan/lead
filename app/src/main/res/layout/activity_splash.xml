@@ -8,11 +8,11 @@
     <TextView
         android:id="@+id/splash_title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_intro_title"
+        android:layout_height="50dp"
         android:gravity="center"
         android:text="EF TITLE"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_large" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/splash_header"
@@ -23,18 +23,18 @@
         android:gravity="center"
         android:text="太好了"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_xlarge" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/splash_intro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/splash_header"
-        android:layout_margin="@dimen/spacing_normal"
+        android:layout_margin="16sp"
         android:gravity="center"
         android:text="Header and body text describe  the application a bit, and are pulled in from the back end. "
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_medium" />
+        android:textSize="16sp" />
 
     <com.ef.newlead.ui.widget.TransmutableView
         android:id="@+id/splash_indicator"
@@ -42,7 +42,7 @@
         android:layout_height="50dp"
         android:layout_below="@+id/splash_intro"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/spacing_normal" />
+        android:layout_marginTop="16sp" />
 
     <LinearLayout
         android:id="@+id/splash_bottom_bar"

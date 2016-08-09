@@ -14,19 +14,19 @@ public abstract class Presenter<V extends View> {
     }
 
     public void onCreate() {
-        return;
+
     }
 
     public void onStart() {
-        return;
+
     }
 
     public void onResume() {
-        return;
+
     }
 
     public void onPause() {
-        return;
+
     }
 
     public void onStop() {

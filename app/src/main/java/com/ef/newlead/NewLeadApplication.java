@@ -5,6 +5,8 @@ import android.app.Application;
 import com.ef.newlead.util.SystemText;
 import com.squareup.leakcanary.LeakCanary;
 
+import timber.log.Timber;
+
 public class NewLeadApplication extends Application {
 
     @Override
@@ -13,7 +15,11 @@ public class NewLeadApplication extends Application {
 
         SystemText.init(this);
         ErrorHandler.init(this);
-        LeakCanary.install(this);
+
+        if (BuildConfig.DEBUG) {
+            LeakCanary.install(this);
+            Timber.plant(new Timber.DebugTree());
+        }
     }
 
 }

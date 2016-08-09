@@ -27,3 +27,10 @@
 -keepattributes Signature
 # Retain declared checked exceptions for use by a Proxy instance.
 -keepattributes Exceptions
+
+# Gson
+-keepattributes *Annotation*
+-keep class sun.misc.Unsafe { *; }
+
+# Application classes that will be serialized/deserialized over Gson
+-keep com.ef.newlead.data.model.** {*;}

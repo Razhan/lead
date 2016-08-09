@@ -3,9 +3,7 @@ package com.ef.newlead.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.ef.newlead.ErrorHandler;
 import com.ef.newlead.presenter.Presenter;
-import com.ef.newlead.ui.view.View;
 
 public abstract class BaseMVPFragment<P extends Presenter> extends BaseFragment {
 
@@ -49,9 +47,5 @@ public abstract class BaseMVPFragment<P extends Presenter> extends BaseFragment 
         if (presenter != null) {
             presenter.onStop();
         }
-    }
-
-    protected String getErrorMessage(Throwable exception) {
-        return ErrorHandler.getErrorMessage(exception);
     }
 }

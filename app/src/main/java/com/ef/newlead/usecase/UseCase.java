@@ -11,7 +11,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Actions;
-import rx.internal.util.InternalObservableUtils;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
@@ -35,7 +34,7 @@ public abstract class UseCase {
         methodArgs = null;
         methodName = null;
         onSuccessCallback = Actions.empty();
-        onErrorCallback = ErrorHandler::getErrorMessage;
+        onErrorCallback = ErrorHandler::showError;
         onCompleteCallback = Actions.empty();
     }
 
@@ -69,7 +68,7 @@ public abstract class UseCase {
             reset();
         }
 
-        public Builder<T> useCaseFunction(String name) {
+        public Builder<T> useCaseMethod(String name) {
             methodName = name;
             return this;
         }

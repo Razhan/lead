@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="40dp"
+    android:height="40dp"
+    android:viewportHeight="40"
+    android:viewportWidth="40">
+
+    <group
+        android:translateX="-160.000000"
+        android:translateY="-275.000000">
+        <group
+            android:translateX="20.000000"
+            android:translateY="265.000000">
+            <group
+                android:translateX="140.000000"
+                android:translateY="10.000000">
+                <path
+                    android:fillColor="#FFFFFF"
+                    android:pathData="M20,40 C31.045695,40 40,31.045695 40,20 C40,8.954305 31.045695,0 20,0
+C8.954305,0 0,8.954305 0,20 C0,31.045695 8.954305,40 20,40 Z"
+                    android:strokeWidth="1" />
+                <group
+                    android:translateX="12.857143"
+                    android:translateY="12.857143">
+                    <path
+                        android:fillColor="#E5E5E5"
+                        android:pathData="M 0.714285714 0 L 0.714285716 0 Q 1.42857143 0 1.42857143 0.714285714 L 1.42857143 13.571428586 Q 1.42857143 14.2857143 0.714285716 14.2857143 L 0.714285714 14.2857143 Q 0 14.2857143 0 13.571428586 L 0 0.714285714 Q 0 0 0.714285714 0 Z"
+                        android:strokeWidth="1" />
+                    <path
+                        android:fillColor="#E5E5E5"
+                        android:pathData="M 7.142857144 0 L 7.142857146 0 Q 7.85714286 0 7.85714286 0.714285714 L 7.85714286 13.571428586 Q 7.85714286 14.2857143 7.142857146 14.2857143 L 7.142857144 14.2857143 Q 6.42857143 14.2857143 6.42857143 13.571428586 L 6.42857143 0.714285714 Q 6.42857143 0 7.142857144 0 Z"
+                        android:strokeWidth="1" />
+                    <path
+                        android:fillColor="#E5E5E5"
+                        android:pathData="M 13.571428614 0 L 13.571428616 0 Q 14.28571433 0 14.28571433 0.714285714 L 14.28571433 13.571428586 Q 14.28571433 14.2857143 13.571428616 14.2857143 L 13.571428614 14.2857143 Q 12.8571429 14.2857143 12.8571429 13.571428586 L 12.8571429 0.714285714 Q 12.8571429 0 13.571428614 0 Z"
+                        android:strokeWidth="1" />
+                </group>
+            </group>
+        </group>
+    </group>
+</vector>

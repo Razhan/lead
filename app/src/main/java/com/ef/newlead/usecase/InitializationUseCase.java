@@ -1,7 +1,5 @@
 package com.ef.newlead.usecase;
 
-import android.content.Context;
-
 import com.ef.newlead.data.repostory.RestfulDataSource;
 import com.ef.newlead.util.FileUtils;
 
@@ -11,7 +9,7 @@ import rx.Subscriber;
 
 public class InitializationUseCase extends UseCase {
 
-    public Observable<Boolean> unzip(Context context, String targetDirectory, String zipFile) {
+    public Observable<Boolean> unzip(String targetDirectory, String zipFile) {
         return Observable.create(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {

@@ -22,15 +22,16 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected final String TAG = this.getClass().getSimpleName();
-
-    @Nullable @BindView(R.id.toolbar)             Toolbar toolbar;
-    @Nullable @BindView(R.id.toolbar_title)       TextView toolbarTitle;
-
     protected boolean translucentStatusBar = false;
     protected boolean fullScreen = false;
     protected boolean screenRotate = false;
     protected boolean doubleClickExit = false;
-
+    @Nullable
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @Nullable
+    @BindView(R.id.toolbar_title)
+    TextView toolbarTitle;
     private ProgressDialog progressDialog;
 
     private boolean doubleBackToExitPressedOnce = true;

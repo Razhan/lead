@@ -3,9 +3,7 @@ package com.ef.newlead.ui.activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.ef.newlead.ErrorHandler;
 import com.ef.newlead.presenter.Presenter;
-import com.ef.newlead.ui.view.View;
 
 public abstract class BaseMVPActivity<P extends Presenter> extends BaseActivity {
 
@@ -51,9 +49,5 @@ public abstract class BaseMVPActivity<P extends Presenter> extends BaseActivity 
         if (presenter != null) {
             presenter.onStop();
         }
-    }
-
-    protected String getErrorMessage(Throwable exception) {
-        return ErrorHandler.getErrorMessage(exception);
     }
 }

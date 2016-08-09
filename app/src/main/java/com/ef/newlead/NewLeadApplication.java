@@ -10,8 +10,9 @@ public class NewLeadApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        SystemText.init(this);
 
+        SystemText.init(this);
+        ErrorHandler.init(this);
         LeakCanary.install(this);
     }
 

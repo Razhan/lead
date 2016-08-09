@@ -12,7 +12,7 @@ public class Constant {
     public static final String MAPPING_FILE = "language_mapping.json";
 
 
-    public static final int DEFAULT_ANIM_FULL_TIME = 600;
-    public static final int DEFAULT_ANIM_HALF_TIME = 300;
+    public static final int DEFAULT_ANIM_FULL_TIME = 500;
+    public static final int DEFAULT_ANIM_HALF_TIME = 250;
 
 }

@@ -1,28 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.ef.newlead.ui.widget.CardSlideView
-        android:id="@+id/image_slide_panel"
+    <com.ef.newlead.ui.widget.flowview.FlowView
+        android:id="@+id/level_cover_flow"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 
-        <include layout="@layout/item_level" />
-
-        <include layout="@layout/item_level" />
-
-        <include layout="@layout/item_level" />
-
-        <include layout="@layout/item_level" />
-
-        <include layout="@layout/item_level" />
-
-        <include layout="@layout/item_level" />
-
-    </com.ef.newlead.ui.widget.CardSlideView>
-
-
-</LinearLayout>
+</RelativeLayout>

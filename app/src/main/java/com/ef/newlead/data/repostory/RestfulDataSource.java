@@ -14,9 +14,9 @@ import rx.Observable;
 
 public class RestfulDataSource implements Repository {
 
-    private final static RestfulDataSource dataSource = new RestfulDataSource();
-    private final NewLeadService service;
     private final static int CONNECTION_TIMEOUT = 10;
+    private static RestfulDataSource dataSource;
+    private final NewLeadService service;
 
     private RestfulDataSource() {
         OkHttpClient client = new OkHttpClient.Builder()
@@ -43,6 +43,10 @@ public class RestfulDataSource implements Repository {
     }
 
     public static RestfulDataSource getInstance() {
+        if (dataSource == null) {
+            dataSource = new RestfulDataSource();
+        }
+
         return dataSource;
     }
 

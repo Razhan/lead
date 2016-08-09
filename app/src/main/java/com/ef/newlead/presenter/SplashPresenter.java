@@ -20,7 +20,7 @@ public class SplashPresenter extends Presenter<SplashView> {
 
     public void downloadResourceFile(Context context) {
         useCase.new Builder<ResponseBody>()
-                .useCaseFunction("download")
+                .useCaseMethod("download")
                 .onSuccess(responseBody -> saveFile(context, responseBody))
                 .build();
     }

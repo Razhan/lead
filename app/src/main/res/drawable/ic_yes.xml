@@ -16,8 +16,6 @@
                     android:translateY="259.000000">
                 <path
                     android:fillColor="#000000"
-                    android:fillAlpha="0.200000003"
-                    android:strokeAlpha="0.200000003"
                     android:strokeWidth="1"
                     android:pathData="M24.0697544,50.1914862 L24.0767544,50.1914862 C24.2577544,50.1914862
 24.4297544,50.1124862 24.5487544,49.9764862 L54.0827544,16.0354862

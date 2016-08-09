@@ -6,6 +6,12 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -27,6 +33,9 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
     private final int yOffset = 25;
     private final float scaleStep = 0.03f;
 
+    private int count = 0;
+    private CardSlideListener listener;
+
     private List<View> viewList = new ArrayList<>();
 
     public CardSlideView(Context context) {
@@ -39,6 +48,10 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
 
     public CardSlideView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+    }
+
+    public void setListener(CardSlideListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -120,8 +133,14 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         v.setAlpha(1);
+
+        if (listener != null) {
+            listener.onSlide(count);
+        }
+        count++;
+
         View view = viewList.remove(0);
-        if (v.getTag().equals("select")) {
+        if (v.getTag().equals("yes")) {
             selectedCardAnimation(view, true);
         } else {
             selectedCardAnimation(view, false);
@@ -167,6 +186,10 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
 
             set.start();
         }
+    }
+
+    public interface CardSlideListener {
+        void onSlide(int count);
     }
 
 }

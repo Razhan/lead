@@ -3,6 +3,7 @@ package com.ef.newlead.ui.fragment;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import com.ef.newlead.ui.widget.CardSlideView;
 
 import butterknife.BindView;
 
-public class LevelFragment extends BaseFragment {
+public class LevelFragment extends BaseFragment implements CardSlideView.CardSlideListener{
 
     @BindView(R.id.level_card_slide)    CardSlideView cardSlide;
     @BindView(R.id.level_wrapper)       LinearLayout levelWrapper;
@@ -32,6 +33,7 @@ public class LevelFragment extends BaseFragment {
     public void initView() {
         setBackground();
 
+        cardSlide.setListener(this);
     }
 
     private void setBackground() {
@@ -43,4 +45,8 @@ public class LevelFragment extends BaseFragment {
         levelWrapper.setBackground(drawable);
     }
 
+    @Override
+    public void onSlide(int count) {
+        Log.d("onSlide", String.valueOf(count));
+    }
 }

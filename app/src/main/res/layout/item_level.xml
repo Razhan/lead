@@ -28,20 +28,22 @@
 
             <ImageView
                 android:id="@+id/level_select"
-                android:tag="select"
+                android:tag="yes"
                 android:layout_width="66dp"
                 android:layout_height="66dp"
                 android:padding="10dp"
                 android:layout_alignParentStart="true"
+                android:alpha="0.3"
                 android:src="@drawable/ic_yes"/>
 
             <ImageView
                 android:id="@+id/level_not_select"
-                android:tag="unselect"
+                android:tag="no"
                 android:layout_width="66dp"
                 android:layout_height="66dp"
                 android:padding="10dp"
                 android:layout_alignParentEnd="true"
+                android:alpha="0.3"
                 android:src="@drawable/ic_no"
                 android:rotation="-45"/>
 

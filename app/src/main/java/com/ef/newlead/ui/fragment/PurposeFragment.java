@@ -27,18 +27,12 @@ import butterknife.BindView;
 
 public class PurposeFragment extends BaseFragment implements DiscreteSlider.OnSlideListener {
 
-    @BindView(R.id.purpose_wrapper)
-    FrameLayout purposeWrapper;
-    @BindView(R.id.purpose_hint)
-    BubbleTextVew hint;
-    @BindView(R.id.purpose_slider)
-    DiscreteSlider slider;
-    @BindView(R.id.purpose_title)
-    TextView title;
-    @BindView(R.id.purpose_next_button)
-    Button next;
-    @BindView(R.id.purpose_description)
-    TextView description;
+    @BindView(R.id.purpose_wrapper)         FrameLayout purposeWrapper;
+    @BindView(R.id.purpose_hint)            BubbleTextVew hint;
+    @BindView(R.id.purpose_slider)          DiscreteSlider slider;
+    @BindView(R.id.purpose_title)           TextView title;
+    @BindView(R.id.purpose_next_button)     Button next;
+    @BindView(R.id.purpose_description)     TextView description;
 
     private List<Purpose> purposes;
 
@@ -53,16 +47,10 @@ public class PurposeFragment extends BaseFragment implements DiscreteSlider.OnSl
 
     @Override
     public void initView() {
-        String backgroundStr = SystemText.getSystemText(getContext(), "purpose_select_gradient_color");
-        GradientBackground background = new Gson().fromJson(backgroundStr, new TypeToken<GradientBackground>() {
-        }.getType());
-        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
-                new int[]{background.getBottomGradient().toHex(), background.getTopGradient().toHex()});
-        purposeWrapper.setBackground(drawable);
+        setBackground();
 
         String descriptionStr = SystemText.getSystemText(getContext(), "purpose_selections");
-        purposes = new Gson().fromJson(descriptionStr, new TypeToken<List<Purpose>>() {
-        }.getType());
+        purposes = new Gson().fromJson(descriptionStr, new TypeToken<List<Purpose>>() {}.getType());
 
         title.setText(SystemText.getSystemText(getContext(), "purpose_select_title"));
         next.setText(SystemText.getSystemText(getContext(), "purpose_select_next"));
@@ -70,6 +58,15 @@ public class PurposeFragment extends BaseFragment implements DiscreteSlider.OnSl
 
         slider.setOnSlideListener(this);
         new Handler().postDelayed(() -> animateHint(true, 0, 1), 100);
+    }
+
+    private void setBackground() {
+        String backgroundStr = SystemText.getSystemText(getContext(), "purpose_select_gradient_color");
+        GradientBackground background = new Gson().fromJson(backgroundStr,
+                new TypeToken<GradientBackground>() {}.getType());
+        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[]{background.getBottomGradient().toHex(), background.getTopGradient().toHex()});
+        purposeWrapper.setBackground(drawable);
     }
 
     @Override
@@ -82,7 +79,6 @@ public class PurposeFragment extends BaseFragment implements DiscreteSlider.OnSl
 
     @Override
     public void onMove(int index) {
-
     }
 
     private void animateHint(boolean show, float start, float end) {

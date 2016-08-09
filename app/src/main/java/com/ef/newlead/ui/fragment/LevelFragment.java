@@ -15,6 +15,5 @@ public class LevelFragment extends BaseFragment {
 
     @Override
     public void initView() {
-
     }
 }

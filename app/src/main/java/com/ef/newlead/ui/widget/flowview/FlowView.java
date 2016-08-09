@@ -10,6 +10,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ef.newlead.ui.widget.recycleview.DividerItemDecoration;
+
 public class FlowView extends RecyclerView {
 
     public static final int VERTICAL = 1;
@@ -199,29 +201,6 @@ public class FlowView extends RecyclerView {
                     scrollToCenter(currentPos);
                 }
             }
-        }
-    }
-
-    private class DividerItemDecoration extends RecyclerView.ItemDecoration {
-
-        private int leftPadding, topPadding, rightPadding, bottomPadding;
-
-        public DividerItemDecoration(int leftPadding, int topPadding, int rightPadding, int bottomPadding) {
-            this.leftPadding = leftPadding;
-            this.topPadding = topPadding;
-            this.rightPadding = rightPadding;
-            this.bottomPadding = bottomPadding;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            if (view.getId() == 0) {
-                return;
-            }
-            outRect.left = leftPadding;
-            outRect.top = topPadding;
-            outRect.right = rightPadding;
-            outRect.bottom = bottomPadding;
         }
     }
 }

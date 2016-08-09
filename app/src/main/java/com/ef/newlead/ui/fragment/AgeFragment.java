@@ -47,19 +47,13 @@ public class AgeFragment extends BaseFragment implements FlowView.CoverFlowItemL
 
     @Override
     public void initView() {
+        setBackground();
+
         title.setText(SystemText.getSystemText(getContext(), "age_select_title"));
         next.setText(SystemText.getSystemText(getContext(), "age_select_next"));
 
-        String backgroundStr = SystemText.getSystemText(getContext(), "age_select_gradient_color");
-        GradientBackground background = new Gson().fromJson(backgroundStr, new TypeToken<GradientBackground>() {
-        }.getType());
-        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
-                new int[]{background.getBottomGradient().toHex(), background.getTopGradient().toHex()});
-        ageWrapper.setBackground(drawable);
-
         String ageStr = SystemText.getSystemText(getContext(), "age_select");
-        List<Age> ages = new Gson().fromJson(ageStr, new TypeToken<LinkedList<Age>>() {
-        }.getType());
+        List<Age> ages = new Gson().fromJson(ageStr, new TypeToken<LinkedList<Age>>() {}.getType());
 
         ageCoverFlow.setOrientation(FlowView.VERTICAL);
         mAdapter = new AgeAdapter(getContext(), ages);
@@ -68,6 +62,15 @@ public class AgeFragment extends BaseFragment implements FlowView.CoverFlowItemL
         ageCoverFlow.setAdapter(mAdapter);
         ageCoverFlow.setCoverFlowListener(this);
         ageCoverFlow.postDelayed(() -> ageCoverFlow.scrollToCenter(DEFAULT_POSITION), Constant.DEFAULT_ANIM_HALF_TIME);
+    }
+
+    private void setBackground() {
+        String backgroundStr = SystemText.getSystemText(getContext(), "age_select_gradient_color");
+        GradientBackground background = new Gson().fromJson(backgroundStr,
+                new TypeToken<GradientBackground>() {}.getType());
+        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[]{background.getBottomGradient().toHex(), background.getTopGradient().toHex()});
+        ageWrapper.setBackground(drawable);
     }
 
     @Override

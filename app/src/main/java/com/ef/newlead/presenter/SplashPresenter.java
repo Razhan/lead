@@ -2,13 +2,12 @@ package com.ef.newlead.presenter;
 
 import android.content.Context;
 
+import com.ef.newlead.Constant;
 import com.ef.newlead.ui.view.SplashView;
 import com.ef.newlead.usecase.UseCase;
-import com.ef.newlead.Constant;
 import com.ef.newlead.util.FileUtils;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.IOException;
 
 import okhttp3.ResponseBody;
 
@@ -26,23 +25,21 @@ public class SplashPresenter extends Presenter<SplashView> {
     }
 
     private boolean saveFile(Context context, ResponseBody responseBody) {
-        String path = FileUtils.getInternalFolderPath(context, null);
-        File file = new File(path + Constant.RESOURCE_ZIP_FILE_NAME);
-
+        boolean result;
         try {
-            if (file.exists()) {
-                file.delete();
-            }
+            /***
+             * FIXME: We'd better have a isolated persistence part instead of using a simple util
+             * tool here. Also it's not the presenter's responsibility to persist things.
+             *
+             */
+            result = FileUtils.saveToInternalStorage(context, responseBody.bytes(),
+                    Constant.RESOURCE_ZIP_FILE_NAME);
 
-            FileOutputStream stream = new FileOutputStream(file);
-            byte[] buf = responseBody.bytes();
-            stream.write(buf);
-            stream.close();
-            return true;
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
+            result = false;
         }
-        return false;
+        return result;
     }
 
 }

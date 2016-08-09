@@ -86,11 +86,6 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
             startBottomBarAnim(false, Constant.DEFAULT_ANIM_HALF_TIME);
 
             presenter.downloadResourceFile(this);
-
-//            new Handler().postDelayed(() -> {
-//                startActivity(new Intent(this, CollectInfoActivity.class));
-//                finish();
-//            }, Constant.DEFAULT_ANIM_HALF_TIME);
         }
     }
 }

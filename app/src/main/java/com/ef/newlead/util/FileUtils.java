@@ -48,6 +48,25 @@ public final class FileUtils {
         return file.delete();
     }
 
+    public static boolean saveToInternalStorage(Context context, byte[] buf, String fileName) {
+        String path = FileUtils.getInternalFolderPath(context, null);
+        File file = new File(path + fileName);
+
+        try {
+            if (file.exists()) {
+                file.delete();
+            }
+
+            FileOutputStream stream = new FileOutputStream(file);
+            stream.write(buf);
+            stream.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static String getInternalFolderPath(Context context, String folderName) {
         if (folderName == null || folderName.isEmpty()) {
             return context.getFilesDir().getAbsolutePath() + File.separator;

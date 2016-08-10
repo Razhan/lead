@@ -5,57 +5,64 @@ import android.content.SharedPreferences;
 
 public final class SharedPreUtils {
 
-    private static final String NAME = "save_new_lead";
+    private static final String NAME = "NewLeadSaved";
     private static Context mContext;
+    private static SharedPreferences prefs;
 
     private SharedPreUtils() {
     }
 
     public static void init(Context context) {
         mContext = context;
+        prefs = mContext.getSharedPreferences(NAME, Context.MODE_PRIVATE);
     }
 
-    public static void set(String key, Object data) {
-
-        SharedPreferences.Editor editor = mContext.getSharedPreferences(NAME, Context.MODE_PRIVATE).edit();
-
-        if (data instanceof Integer) {
-            editor.putInt(key, (Integer) data);
-        } else if (data instanceof Boolean) {
-            editor.putBoolean(key, (Boolean) data);
-        } else if (data instanceof String) {
-            editor.putString(key, (String) data);
-        } else if (data instanceof Float) {
-            editor.putFloat(key, (Float) data);
-        } else if (data instanceof Long) {
-            editor.putLong(key, (Long) data);
-        }
-
-        editor.apply();
+    public static int getInt(final String key, int defValue) {
+        return prefs.getInt(key, defValue);
     }
 
-    public static Object get(String key, Object defValue) {
+    public static boolean getBoolean(final String key, final boolean defValue) {
+        return prefs.getBoolean(key, defValue);
+    }
 
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences(NAME, Context.MODE_PRIVATE);
+    public static long getLong(final String key, final long defValue) {
+        return prefs.getLong(key, defValue);
+    }
 
-        if (defValue instanceof Integer) {
-            return sharedPreferences.getInt(key, (Integer) defValue);
-        } else if (defValue instanceof Boolean) {
-            return sharedPreferences.getBoolean(key, (Boolean) defValue);
-        } else if (defValue instanceof String) {
-            return sharedPreferences.getString(key, (String) defValue);
-        } else if (defValue instanceof Float) {
-            return sharedPreferences.getFloat(key, (Float) defValue);
-        } else if (defValue instanceof Long) {
-            return sharedPreferences.getLong(key, (Long) defValue);
-        }
+    public static float getFloat(final String key, final float defValue) {
+        return prefs.getFloat(key, defValue);
+    }
 
-        return null;
+    public static String getString(final String key, final String defValue) {
+        return prefs.getString(key, defValue);
+    }
+
+    public static void putInt(final String key, final int value) {
+        prefs.edit().putInt(key, value).apply();
+    }
+
+    public static void putBoolean(final String key, final Boolean value) {
+        prefs.edit().putBoolean(key, value).apply();
+    }
+
+    public static void putLong(final String key, final Long value) {
+        prefs.edit().putLong(key, value).apply();
+    }
+
+    public static void putFloat(final String key, final Float value) {
+        prefs.edit().putFloat(key, value).apply();
+    }
+
+    public static void putString(final String key, final String value) {
+        prefs.edit().putString(key, value).apply();
     }
 
     public static boolean contain(String key) {
-        SharedPreferences prefs = mContext.getSharedPreferences(NAME, Context.MODE_PRIVATE);
         return prefs.contains(key);
+    }
+
+    public static void remove(final String key) {
+        prefs.edit().remove(key).apply();
     }
 
 }

@@ -1,6 +1,7 @@
 package com.ef.newlead.data.repostory;
 
 import com.ef.newlead.Constant;
+import com.ef.newlead.data.model.ResourceResponse;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,7 +17,7 @@ public class RestfulDataSource implements Repository {
 
     private final static int CONNECTION_TIMEOUT = 10;
     private static RestfulDataSource dataSource;
-    private final NewLeadService service;
+    private final NewLeadService restService;
 
     private RestfulDataSource() {
         OkHttpClient client = new OkHttpClient.Builder()
@@ -33,13 +34,13 @@ public class RestfulDataSource implements Repository {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.END_POINT)
+                .baseUrl(Constant.API_END_POINT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(client)
                 .build();
 
-        service = retrofit.create(NewLeadService.class);
+        restService = retrofit.create(NewLeadService.class);
     }
 
     public static RestfulDataSource getInstance() {
@@ -51,8 +52,12 @@ public class RestfulDataSource implements Repository {
     }
 
     @Override
-    public Observable<ResponseBody> downloadFile() {
-        return service.downloadFile();
+    public Observable<ResponseBody> downloadFile(String url) {
+        return restService.downloadFile(url);
     }
 
+    @Override
+    public Observable<ResourceResponse> resourceInfo() {
+        return restService.resourceInfo();
+    }
 }

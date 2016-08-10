@@ -5,24 +5,18 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.graphics.drawable.VectorDrawableCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.view.ContextThemeWrapper;
+import android.graphics.Canvas;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
+import com.ef.newlead.data.model.Level;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +26,17 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
     private int elevation = 10;
     private final int yOffset = 25;
     private final float scaleStep = 0.03f;
+    private final static int DEFAULT_DELAY = 30;
 
     private int count = 0;
     private CardSlideListener listener;
 
     private List<View> viewList = new ArrayList<>();
+    private List<Level> data;
+    private boolean firstTime = true;
+
+    private AnimatorSet selectedCardAnimation;
+    private AnimatorSet otherCardAnimation;
 
     public CardSlideView(Context context) {
         this(context, null);
@@ -54,6 +54,10 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
         this.listener = listener;
     }
 
+    public void setData(List<Level> data) {
+        this.data = data;
+    }
+
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
@@ -67,7 +71,7 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
                 cardView.setCardElevation(elevation--);
 
                 ImageView select = (ImageView)cardView.findViewById(R.id.level_select);
-                ImageView refuse = (ImageView)cardView.findViewById(R.id.level_not_select);
+                ImageView refuse = (ImageView)cardView.findViewById(R.id.level_unselect);
 
                 select.setOnClickListener(this);
                 refuse.setOnClickListener(this);
@@ -131,7 +135,28 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
     }
 
     @Override
+    protected void dispatchDraw(Canvas canvas) {
+        if (data != null && firstTime) {
+            for (int i = 0; i < viewList.size(); i++) {
+                ((FontTextView)viewList.get(i).findViewById(R.id.level_content)).setText(data.get(i).getLevelExample());
+            }
+
+            firstTime = false;
+        }
+
+        super.dispatchDraw(canvas);
+    }
+
+    @Override
     public void onClick(View v) {
+        if (selectedCardAnimation!= null && selectedCardAnimation.isRunning()) {
+            selectedCardAnimation.end();
+        }
+
+        if (otherCardAnimation!= null && otherCardAnimation.isRunning()) {
+            otherCardAnimation.end();
+        }
+
         v.setAlpha(1);
 
         if (listener != null) {
@@ -146,7 +171,7 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
             selectedCardAnimation(view, false);
         }
 
-        restCardAnimation();
+        otherCardAnimation();
     }
 
     private void selectedCardAnimation(View v, boolean direction) {
@@ -159,20 +184,20 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
             rotation = ObjectAnimator.ofFloat(v, "rotation", -90);
         }
 
-        AnimatorSet set = new AnimatorSet();
-        set.playTogether(transX, rotation);
-        set.setDuration(Constant.DEFAULT_ANIM_FULL_TIME).setInterpolator(new DecelerateInterpolator());
-        set.addListener(new AnimatorListenerAdapter() {
+        selectedCardAnimation = new AnimatorSet();
+        selectedCardAnimation.playTogether(transX, rotation);
+        selectedCardAnimation.setDuration(Constant.DEFAULT_ANIM_FULL_TIME);
+        selectedCardAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 removeView(v);
             }
         });
 
-        set.start();
+        selectedCardAnimation.start();
     }
 
-    private void restCardAnimation() {
+    private void otherCardAnimation() {
         for (int i = 0; i < viewList.size(); i++) {
             View view = viewList.get(i);
 
@@ -180,11 +205,12 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
             ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, "scaleX", view.getScaleX() + scaleStep);
             ObjectAnimator scaleY = ObjectAnimator.ofFloat(view, "scaleY", view.getScaleY() + scaleStep);
 
-            AnimatorSet set = new AnimatorSet();
-            set.playTogether(transY, scaleX, scaleY);
-            set.setDuration(Constant.DEFAULT_ANIM_FULL_TIME).setInterpolator(new DecelerateInterpolator());
+            otherCardAnimation = new AnimatorSet();
+            otherCardAnimation.playTogether(transY, scaleX, scaleY);
+            otherCardAnimation.setDuration(Constant.DEFAULT_ANIM_FULL_TIME);
 
-            set.start();
+            otherCardAnimation.setStartDelay(i * DEFAULT_DELAY);
+            otherCardAnimation.start();
         }
     }
 

@@ -12,13 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <com.ef.newlead.ui.widget.FontTextView
+            android:id="@+id/level_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="210dp"
             android:layout_margin="30dp"
-            android:text="sddddddwddddddddddddddddddddddddddddddddddddddddddddddddddddd"
-            android:textSize="21sp"
-            android:textStyle="italic"/>
+            android:lineSpacingExtra="6dp"
+            android:textColor="@android:color/black"
+            android:maxLines="8"
+            android:ellipsize="end"
+            android:textSize="21sp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -33,17 +36,17 @@
                 android:layout_height="66dp"
                 android:padding="10dp"
                 android:layout_alignParentStart="true"
-                android:alpha="0.3"
+                android:alpha="0.2"
                 android:src="@drawable/ic_yes"/>
 
             <ImageView
-                android:id="@+id/level_not_select"
+                android:id="@+id/level_unselect"
                 android:tag="no"
                 android:layout_width="66dp"
                 android:layout_height="66dp"
                 android:padding="10dp"
                 android:layout_alignParentEnd="true"
-                android:alpha="0.3"
+                android:alpha="0.2"
                 android:src="@drawable/ic_no"
                 android:rotation="-45"/>
 

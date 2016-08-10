@@ -78,7 +78,7 @@ public class UseCaseUtils {
 
             boolean flag = true;
             for (int i = 0; i < params.length; i++) {
-                if (!args[i].getClass().isAssignableFrom(params[i].getClass())) {
+                if (!args[i].getClass().isAssignableFrom(params[i])) {
                     flag = false;
                 }
             }

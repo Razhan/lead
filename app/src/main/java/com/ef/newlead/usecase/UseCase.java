@@ -27,7 +27,6 @@ public abstract class UseCase {
 
     public UseCase() {
         compositeSubscription = new CompositeSubscription();
-        reset();
     }
 
     private void reset() {
@@ -41,7 +40,7 @@ public abstract class UseCase {
     protected Observable buildUseCaseObservable() {
         Method methodToInvoke = UseCaseUtils.findMethod(this, methodName, methodArgs);
         try {
-            return (Observable) methodToInvoke.invoke(this);
+            return (Observable) methodToInvoke.invoke(this, methodArgs);
         } catch (Exception e) {
             return Observable.empty();
         }

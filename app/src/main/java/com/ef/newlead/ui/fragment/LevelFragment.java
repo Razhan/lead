@@ -7,11 +7,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.ef.newlead.R;
+import com.ef.newlead.data.model.Level;
 import com.ef.newlead.ui.widget.CardSlideView;
+import com.ef.newlead.util.SystemText;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -32,6 +39,18 @@ public class LevelFragment extends BaseFragment implements CardSlideView.CardSli
     @Override
     public void initView() {
         setBackground();
+
+        String jsonStr = SystemText.getSystemText(getContext(), "level_select");
+        List<Level> levels = new Gson().fromJson(jsonStr, new TypeToken<List<Level>>(){}.getType());
+
+        cardSlide.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                cardSlide.setData(levels);
+                cardSlide.getViewTreeObserver().removeOnPreDrawListener(this);
+                return true;
+            }
+        });
 
         cardSlide.setListener(this);
     }

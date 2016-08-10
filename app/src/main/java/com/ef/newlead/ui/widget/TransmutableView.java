@@ -226,7 +226,7 @@ public class TransmutableView extends View {
 
     public void startAnim() {
         if (mValueAnimator != null) {
-            mValueAnimator.cancel();
+            mValueAnimator.end();
         }
 
         if (mState == STATE_ANIM_NONE) {

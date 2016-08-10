@@ -1,14 +1,18 @@
 package com.ef.newlead.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.ef.newlead.Constant;
+import com.ef.newlead.data.model.ResourceResponse;
 import com.ef.newlead.ui.view.SplashView;
 import com.ef.newlead.usecase.UseCase;
 import com.ef.newlead.util.FileUtils;
+import com.ef.newlead.util.SharedPreUtils;
 
 import java.io.IOException;
 
+import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class SplashPresenter extends Presenter<SplashView> {
@@ -17,21 +21,32 @@ public class SplashPresenter extends Presenter<SplashView> {
         super(view, useCase);
     }
 
-    public void downloadResourceFile(Context context) {
+    private void downloadResourceFile(Context context, String url, String hash) {
         useCase.new Builder<ResponseBody>()
-                .useCaseMethod("download")
-                .onSuccess(responseBody -> saveFile(context, responseBody))
+                .useCaseArgs(url)
+                .onSuccess(responseBody -> {
+                        if (saveFile(context, responseBody)) {
+                            SharedPreUtils.putString(Constant.RESOURCE_HASH, hash);
+                        }
+                })
+                .build();
+    }
+
+    public void getResourceInfo(Context context) {
+        useCase.new Builder<ResourceResponse>()
+                .useCaseMethod("ResourceInfo")
+                .onSuccess(response -> {
+                    if (!SharedPreUtils.contain(Constant.RESOURCE_HASH) || !SharedPreUtils.getString(Constant.RESOURCE_HASH, "")
+                                    .equals(response.getData().getHash())) {
+                        downloadResourceFile(context, response.getData().getSrc(), response.getData().getHash());
+                    }
+                })
                 .build();
     }
 
     private boolean saveFile(Context context, ResponseBody responseBody) {
         boolean result;
         try {
-            /***
-             * FIXME: We'd better have a isolated persistence part instead of using a simple util
-             * tool here. Also it's not the presenter's responsibility to persist things.
-             *
-             */
             result = FileUtils.saveToInternalStorage(context, responseBody.bytes(),
                     Constant.RESOURCE_ZIP_FILE_NAME);
 
@@ -39,6 +54,7 @@ public class SplashPresenter extends Presenter<SplashView> {
             e.printStackTrace();
             result = false;
         }
+
         return result;
     }
 

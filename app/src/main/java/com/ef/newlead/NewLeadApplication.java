@@ -2,6 +2,7 @@ package com.ef.newlead;
 
 import android.app.Application;
 
+import com.ef.newlead.util.SharedPreUtils;
 import com.ef.newlead.util.SystemText;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -15,6 +16,7 @@ public class NewLeadApplication extends Application {
 
         SystemText.init(this);
         ErrorHandler.init(this);
+        SharedPreUtils.init(this);
 
         if (BuildConfig.DEBUG) {
             LeakCanary.install(this);

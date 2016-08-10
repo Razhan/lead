@@ -49,8 +49,7 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
     public void initView() {
         super.initView();
 
-        ViewTreeObserver observer = indicator.getViewTreeObserver();
-        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        indicator.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 indicator.startAnim();
@@ -85,7 +84,7 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
             indicator.startAnim();
             startBottomBarAnim(false, Constant.DEFAULT_ANIM_HALF_TIME);
 
-            presenter.downloadResourceFile(this);
+            presenter.getResourceInfo(this);
         }
     }
 }

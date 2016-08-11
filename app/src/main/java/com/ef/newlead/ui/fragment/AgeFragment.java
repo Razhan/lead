@@ -23,7 +23,7 @@ import butterknife.BindView;
 
 public class AgeFragment extends BaseFragment implements FlowView.CoverFlowItemListener {
 
-    private static final int DEFAULT_POSITION = 3;
+    private static final int DEFAULT_POSITION = 5;
 
     @BindView(R.id.age_cover_flow)
     FlowView ageCoverFlow;

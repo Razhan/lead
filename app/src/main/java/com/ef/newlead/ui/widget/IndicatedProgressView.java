@@ -27,7 +27,7 @@ public class IndicatedProgressView extends View {
 
     private int mColorTran = R.color.tranBlack;
     private int mAngle = 10;
-    private static final float threshold = 0.30f;
+    private static final float threshold = 0.35f;
 
     private int mState = STATE_ANIM_NONE;
     private ValueAnimator mValueAnimator;
@@ -56,7 +56,7 @@ public class IndicatedProgressView extends View {
     private void init(Context context, AttributeSet attrs) {
         TypedArray mTypedArray = context.obtainStyledAttributes(attrs, R.styleable.IndicatedProgressView);
         ringWidth = mTypedArray.getDimension(R.styleable.IndicatedProgressView_progressRingWidth,
-                ViewUtils.dpToPx(getContext(), 3));
+                ViewUtils.dpToPx(getContext(), 2));
 
         mRectF = new RectF();
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -129,9 +129,9 @@ public class IndicatedProgressView extends View {
 
     private void drawStartAnimView(Canvas canvas) {
         mPaint.setColor(Color.BLACK);
-        canvas.drawCircle(cx, cy, radius, mPaint);
+//        canvas.drawArc(mRectF, -90, -360 * mProgress, false, mPaint);
 
-        line1_x = mProgress * radius * 0.8f;
+        line1_x = mProgress * radius;
         line1_y = line1_x;
         line2_x = line1_x;
         line2_y = line1_y;
@@ -140,7 +140,7 @@ public class IndicatedProgressView extends View {
         canvas.drawLine(markStart, cx, markStart + length, cx + length, mPaint);
 
         if (mProgress >= threshold) {
-            line2_y = (length - radius * (mProgress - threshold)) * 0.8f;
+            line2_y = (length - radius * (mProgress - threshold));
             canvas.drawLine(markStart + length - ringWidth / 2, cx + length, markStart + line2_x, cx + line2_y, mPaint);
         }
     }

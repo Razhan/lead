@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_red_light">
+
+    <com.ef.newlead.ui.widget.RoundedEditText
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="30dp"/>
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/number_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="24sp"
+        android:gravity="center_horizontal"
+        app:backgroundTint="@color/white"
+        android:textColorHint="@color/tranBlack"
+        android:textColor="@color/white"
+        android:inputType="number"
+        android:cursorVisible="false"
+        android:hint="输入手机号"/>
+
+</LinearLayout>

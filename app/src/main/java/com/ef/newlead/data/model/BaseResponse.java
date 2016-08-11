@@ -12,4 +12,8 @@ public class BaseResponse {
     public String getMessage() {
         return message;
     }
+
+    public boolean isOK() {
+        return status == 0;
+    }
 }

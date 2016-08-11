@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.ef.newlead.R;
 import com.ef.newlead.ui.fragment.AgeFragment;
 import com.ef.newlead.ui.fragment.LevelFragment;
+import com.ef.newlead.ui.fragment.PhoneNumberFragment;
 import com.ef.newlead.ui.fragment.PurposeFragment;
 
 public class CollectInfoActivity extends BaseActivity {
@@ -28,6 +29,6 @@ public class CollectInfoActivity extends BaseActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.collect_fragment, LevelFragment.newInstance()).commit();
+        transaction.replace(R.id.collect_fragment, PhoneNumberFragment.newInstance()).commit();
     }
 }

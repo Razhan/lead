@@ -17,7 +17,7 @@ public class RestfulDataSource implements Repository {
 
     private final static int CONNECTION_TIMEOUT = 10;
     private static RestfulDataSource dataSource;
-    private final NewLeadService restService;
+    private final NewLeadService restfulService;
 
     private RestfulDataSource() {
         OkHttpClient client = new OkHttpClient.Builder()
@@ -40,7 +40,7 @@ public class RestfulDataSource implements Repository {
                 .client(client)
                 .build();
 
-        restService = retrofit.create(NewLeadService.class);
+        restfulService = retrofit.create(NewLeadService.class);
     }
 
     public static RestfulDataSource getInstance() {
@@ -53,11 +53,11 @@ public class RestfulDataSource implements Repository {
 
     @Override
     public Observable<ResponseBody> downloadFile(String url) {
-        return restService.downloadFile(url);
+        return restfulService.downloadFile(url);
     }
 
     @Override
     public Observable<ResourceResponse> resourceInfo() {
-        return restService.resourceInfo();
+        return restfulService.resourceInfo();
     }
 }

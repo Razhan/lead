@@ -31,11 +31,10 @@ public class TransmutableView extends View {
     private int mColorTran = R.color.tranBlack;
     private int mAngle = 10;
 
-    private Paint mPaint;
+    private Paint mPaint, mFontPaint;
     private float cx, cy, cr;
     private RectF mRectF, mRectF2;
     private float mCirCleDis = 150;
-    private Paint mFontPaint;
     private Paint.FontMetricsInt fontMetrics;
     private ValueAnimator mValueAnimator;
     private float mProgress = -1;
@@ -86,16 +85,15 @@ public class TransmutableView extends View {
         super.onDraw(canvas);
         switch (mState) {
             case STATE_ANIM_NONE:
-                drawNormalView(mPaint, canvas);
                 break;
             case STATE_ANIM_LOOP:
-                drawLoopView(mPaint, canvas);
+                drawLoopView(canvas);
                 break;
             case STATE_ANIM_START:
-                drawStartAnimView(mPaint, canvas);
+                drawStartAnimView(canvas);
                 break;
             case STATE_ANIM_STOP:
-                drawStopAnimView(mPaint, canvas);
+                drawStopAnimView(canvas);
                 break;
         }
     }
@@ -135,52 +133,40 @@ public class TransmutableView extends View {
         return result;
     }
 
-    private void drawNormalView(Paint paint, Canvas canvas) {
-        paint.reset();
-        paint.setAntiAlias(true);
-        paint.setStrokeCap(Paint.Cap.ROUND);
-        canvas.save();
-        paint.setColor(ContextCompat.getColor(getContext(), mColorTran));
-        paint.setStrokeWidth(6);
-        paint.setStyle(Paint.Style.STROKE);
-        canvas.drawCircle(cx, cy, cr, paint);
-        canvas.restore();
-    }
+    private void drawLoopView(Canvas canvas) {
+        mPaint.setColor(ContextCompat.getColor(getContext(), mColorTran));
+        mPaint.setStrokeWidth(6);
+        mPaint.setStyle(Paint.Style.STROKE);
+        canvas.drawCircle(cx, cy, cr, mPaint);
 
-    private void drawLoopView(Paint paint, Canvas canvas) {
-        paint.setAntiAlias(true);
-        paint.setColor(ContextCompat.getColor(getContext(), mColorTran));
-        paint.setStrokeWidth(6);
-        paint.setStyle(Paint.Style.STROKE);
-        canvas.drawCircle(cx, cy, cr, paint);
         mRectF.left = cx - cr;
         mRectF.right = cx + cr;
         mRectF.top = cy - cr;
         mRectF.bottom = cy + cr;
 
         canvas.save();
-        paint.setColor(Color.WHITE);
+        mPaint.setColor(Color.WHITE);
         mAngle += 10;
         canvas.rotate(mAngle, cx, cy);
-        canvas.drawArc(mRectF, 0, 20, false, paint);
+        canvas.drawArc(mRectF, 0, 20, false, mPaint);
         canvas.restore();
     }
 
-    private void drawStartAnimView(Paint paint, Canvas canvas) {
+    private void drawStartAnimView(Canvas canvas) {
         canvas.save();
 
         if (mProgress <= 0.25) {
-            canvas.drawCircle(cx, cy, cr, paint);
+            canvas.drawCircle(cx, cy, cr, mPaint);
         } else if (mProgress > 0.25f && mProgress <= 0.80f) {
             mRectF.left = cx - cr + mCirCleDis * mProgress;
             mRectF.right = cx + cr + mCirCleDis * mProgress;
             mRectF2.left = cx - cr - mCirCleDis * mProgress;
             mRectF2.right = cx + cr - mCirCleDis * mProgress;
 
-            canvas.drawArc(mRectF, 90, -180, false, paint);
-            canvas.drawLine(mRectF2.left + cr, mRectF.top, mRectF.right - cr, mRectF.top, paint);
-            canvas.drawLine(mRectF2.left + cr, mRectF.bottom, mRectF.right - cr, mRectF.bottom, paint);
-            canvas.drawArc(mRectF2, 90, 180, false, paint);
+            canvas.drawArc(mRectF, 90, -180, false, mPaint);
+            canvas.drawLine(mRectF2.left + cr, mRectF.top, mRectF.right - cr, mRectF.top, mPaint);
+            canvas.drawLine(mRectF2.left + cr, mRectF.bottom, mRectF.right - cr, mRectF.bottom, mPaint);
+            canvas.drawArc(mRectF2, 90, 180, false, mPaint);
         } else {
             float baseline = (mRectF.bottom + mRectF.top - fontMetrics.bottom - fontMetrics.top) / 2;
 
@@ -194,31 +180,31 @@ public class TransmutableView extends View {
                 canvas.drawText("点击开始", cx, baseline, mFontPaint);
             }
 
-            canvas.drawArc(mRectF, 90, -180, false, paint);
-            canvas.drawLine(mRectF2.left + cr, mRectF.top, mRectF.right - cr, mRectF.top, paint);
-            canvas.drawLine(mRectF2.left + cr, mRectF.bottom, mRectF.right - cr, mRectF.bottom, paint);
-            canvas.drawArc(mRectF2, 90, 180, false, paint);
+            canvas.drawArc(mRectF, 90, -180, false, mPaint);
+            canvas.drawLine(mRectF2.left + cr, mRectF.top, mRectF.right - cr, mRectF.top, mPaint);
+            canvas.drawLine(mRectF2.left + cr, mRectF.bottom, mRectF.right - cr, mRectF.bottom, mPaint);
+            canvas.drawArc(mRectF2, 90, 180, false, mPaint);
         }
 
         canvas.restore();
     }
 
-    private void drawStopAnimView(Paint paint, Canvas canvas) {
+    private void drawStopAnimView(Canvas canvas) {
         canvas.save();
 
         if (mProgress >= 0.8) {
-            canvas.drawCircle(cx, cy, cr, paint);
+            canvas.drawCircle(cx, cy, cr, mPaint);
         } else {
             mRectF.left = cx - cr + mCirCleDis * (0.80f - mProgress);
             mRectF.right = cx + cr + mCirCleDis * (0.80f - mProgress);
             mRectF2.left = cx - cr - mCirCleDis * (0.80f - mProgress);
             mRectF2.right = cx + cr - mCirCleDis * (0.80f - mProgress);
 
-            canvas.drawArc(mRectF, 90, -180, false, paint);
-            canvas.drawLine(mRectF2.left + cr, mRectF.top, mRectF.right - cr, mRectF.top, paint);
+            canvas.drawArc(mRectF, 90, -180, false, mPaint);
+            canvas.drawLine(mRectF2.left + cr, mRectF.top, mRectF.right - cr, mRectF.top, mPaint);
             canvas.drawLine(mRectF2.left + cr, mRectF.bottom, mRectF.right - cr, mRectF.bottom,
-                    paint);
-            canvas.drawArc(mRectF2, 90, 180, false, paint);
+                    mPaint);
+            canvas.drawArc(mRectF2, 90, 180, false, mPaint);
         }
 
         canvas.restore();

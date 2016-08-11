@@ -14,20 +14,20 @@ android {
             versionCode 1
             versionName "1.0"
         }
-//        signingConfigs {
-//            release {
-//                storeFile file("./cat.jks")
-//                storePassword "efef@123"
-//                keyAlias "cat"
-//                keyPassword "efef@123"
-//            }
-//        }
+        signingConfigs {
+            release {
+                storeFile file("./newlead.jks")
+                storePassword "efef@123"
+                keyAlias "newlead"
+                keyPassword "efef@123"
+            }
+        }
 
         buildTypes {
             release {
                 minifyEnabled false
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//                signingConfig signingConfigs.release
+                signingConfig signingConfigs.release
             }
         }
         compileOptions {

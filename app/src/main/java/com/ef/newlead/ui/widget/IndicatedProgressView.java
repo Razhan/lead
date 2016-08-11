@@ -25,9 +25,9 @@ public class IndicatedProgressView extends View {
     private static final float DEFAULT_ANIM_START = 0;
     private static final float DEFAULT_ANIM_END = 1;
 
-    private int mColorTran = R.color.tranBlack;
     private int mAngle = 10;
     private static final float threshold = 0.35f;
+    private static final float factor = 1.5f;
 
     private int mState = STATE_ANIM_NONE;
     private ValueAnimator mValueAnimator;
@@ -113,34 +113,28 @@ public class IndicatedProgressView extends View {
     }
 
     private void drawLoopView(Canvas canvas) {
-        mPaint.setColor(ContextCompat.getColor(getContext(), mColorTran));
         mPaint.setStrokeWidth(ringWidth);
         mPaint.setStyle(Paint.Style.STROKE);
-
-        canvas.drawCircle(cx, cy, radius, mPaint);
+        mPaint.setColor(Color.BLACK);
 
         canvas.save();
-        mPaint.setColor(Color.WHITE);
-        mAngle += 10;
+        mAngle += 13;
         canvas.rotate(mAngle, cx, cy);
-        canvas.drawArc(mRectF, 0, 20, false, mPaint);
+        canvas.drawArc(mRectF, 0, 270, false, mPaint);
         canvas.restore();
     }
 
     private void drawStartAnimView(Canvas canvas) {
-        mPaint.setColor(Color.BLACK);
-//        canvas.drawArc(mRectF, -90, -360 * mProgress, false, mPaint);
-
-        line1_x = mProgress * radius;
+        line1_x = mProgress * radius * factor;
         line1_y = line1_x;
         line2_x = line1_x;
         line2_y = line1_y;
 
-        float length = Math.min(line1_x, radius * threshold);
+        float length = Math.min(line1_x, radius * threshold * factor);
         canvas.drawLine(markStart, cx, markStart + length, cx + length, mPaint);
 
         if (mProgress >= threshold) {
-            line2_y = (length - radius * (mProgress - threshold));
+            line2_y = (length - radius * (mProgress - threshold) * factor);
             canvas.drawLine(markStart + length - ringWidth / 2, cx + length, markStart + line2_x, cx + line2_y, mPaint);
         }
     }

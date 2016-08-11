@@ -8,7 +8,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 
 import com.ef.newlead.R;
 
@@ -44,11 +43,11 @@ public class DeletableEditText extends AppCompatEditText implements TextWatcher 
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             if (getCompoundDrawables()[2] != null) {
-
-                boolean touchable = event.getX() > (getWidth() - getTotalPaddingRight()) && (event.getX() < ((getWidth() - getPaddingRight())));
+                boolean touchable = event.getX() > (getWidth() - getTotalPaddingRight() - 100);
 
                 if (touchable) {
-                    this.setText("");
+                    String text = this.getText().toString();
+                    this.setText(text.substring(0, text.length() - 1));
                 }
             }
         }

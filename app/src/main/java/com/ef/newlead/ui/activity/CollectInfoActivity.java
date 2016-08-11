@@ -5,9 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.ef.newlead.R;
-import com.ef.newlead.ui.fragment.AgeFragment;
 import com.ef.newlead.ui.fragment.NumberFragment;
-import com.ef.newlead.ui.fragment.VerificationFragment;
 
 public class CollectInfoActivity extends BaseActivity {
 
@@ -28,6 +26,6 @@ public class CollectInfoActivity extends BaseActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.collect_fragment, AgeFragment.newInstance()).commit();
+        transaction.replace(R.id.collect_fragment, NumberFragment.newInstance()).commit();
     }
 }

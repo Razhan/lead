@@ -1,28 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    android:id="@+id/verification_wrapper"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_red_light">
+    android:fitsSystemWindows="true">
+        
+    <TextView
+        android:id="@+id/verification_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginStart="30dp"
+        android:paddingEnd="30dp"
+        android:clickable="true"
+        android:gravity="start"
+        android:drawableEnd="@drawable/ic_x"
+        android:drawablePadding="12dp"
+        android:textSize="17sp"
+        android:textColor="@color/white"
+        android:text="+86 189 1890 1890"/>
 
-    <com.ef.newlead.ui.widget.RoundedEditText
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_margin="30dp"/>
+    <com.ef.newlead.ui.widget.VerificationView
+        android:id="@+id/verification_input"
+        android:layout_below="@+id/verification_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:divider="@drawable/divider"
+        android:showDividers="middle"
+        android:orientation="horizontal">
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/number_input"
+        <android.support.v7.widget.AppCompatEditText
+            android:layout_width="42dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_rounded_corners"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:cursorVisible="false"
+            android:maxLength="1"
+            android:textColor="@android:color/black"
+            android:inputType="number"/>
+
+        <android.support.v7.widget.AppCompatEditText
+            android:layout_width="42dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_rounded_corners"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:cursorVisible="false"
+            android:maxLength="1"
+            android:textColor="@android:color/black"
+            android:inputType="number"/>
+
+        <android.support.v7.widget.AppCompatEditText
+            android:layout_width="42dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_rounded_corners"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:cursorVisible="false"
+            android:maxLength="1"
+            android:textColor="@android:color/black"
+            android:inputType="number"/>
+
+        <android.support.v7.widget.AppCompatEditText
+            android:layout_width="42dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_rounded_corners"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:cursorVisible="false"
+            android:maxLength="1"
+            android:textColor="@android:color/black"
+            android:inputType="number"/>
+
+        <android.support.v7.widget.AppCompatEditText
+            android:layout_width="42dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_rounded_corners"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:cursorVisible="false"
+            android:maxLength="1"
+            android:textColor="@android:color/black"
+            android:inputType="number"/>
+
+        <android.support.v7.widget.AppCompatEditText
+            android:layout_width="42dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_rounded_corners"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:cursorVisible="false"
+            android:maxLength="1"
+            android:textColor="@android:color/black"
+            android:inputType="number"/>
+
+    </com.ef.newlead.ui.widget.VerificationView>
+
+    <TextView
+        android:id="@+id/verification_hint"
+        android:layout_below="@+id/verification_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:textSize="24sp"
-        android:gravity="center_horizontal"
-        app:backgroundTint="@color/white"
-        android:textColorHint="@color/tranBlack"
-        android:textColor="@color/white"
-        android:inputType="number"
-        android:cursorVisible="false"
-        android:hint="输入手机号"/>
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="23dp"
+        android:textSize="14sp"
+        android:text="Oh no! it seems the code is wrong"
+        android:textColor="@color/white"/>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/verification_submit"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:alpha="0.3"
+            android:background="@drawable/bg_rounded_corners"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:text="提交"/>
+
+        <Button
+            android:id="@+id/verification_retry"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_rounded_corners_stroke"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:text="重新获取"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

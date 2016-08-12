@@ -31,13 +31,6 @@ public class NumberFragment extends BaseFragment {
     public void initView() {
         setBackground();
 
-//        progressView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @Override
-//            public void onGlobalLayout() {
-//                progressView.startAnim();
-//                progressView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//            }
-//        });
     }
 
     private void setBackground() {

@@ -1,0 +1,125 @@
+package com.ef.newlead.ui.adapter;
+
+import android.content.Context;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import com.ef.newlead.R;
+import com.ef.newlead.data.model.City;
+
+import java.util.LinkedList;
+import java.util.List;
+
+/**
+ * Created by seanzhou on 8/12/16.
+ * <p>
+ * Adapter provides {@link City} info, allows setting filter to display city items correspondingly.
+ */
+public class CityAdapter extends BaseAdapter {
+    private List<City> cityList;
+    private List<String> targetCities = new LinkedList<>();
+
+    private Context context;
+    private final LayoutInflater layoutInflater;
+    private String filter;
+
+    public CityAdapter(Context context, List<City> cities) {
+        this.context = context;
+        this.cityList = cities;
+
+        layoutInflater = LayoutInflater.from(context);
+    }
+
+    public void setFilter(String filter) {
+        this.filter = filter;
+        if (!TextUtils.isEmpty(filter) && filter.length() > 0) {
+            targetCities.clear();
+
+            String capFilter = null;
+            char firstChar = filter.charAt(0);
+            //capFilter = Character.toUpperCase(firstChar) + filter.substring(1);
+
+            // pre-check for pinyin
+            String pinyinFilter = null;
+            if ((firstChar >= 'A' && firstChar <= 'Z') || (firstChar >= 'a' && firstChar <= 'z')) {
+                pinyinFilter = filter.toLowerCase();
+
+                if (Character.isLowerCase(firstChar)) {
+                    char prefix = Character.toUpperCase(firstChar);
+                    capFilter = prefix + filter.substring(1).toLowerCase();
+                } else {
+                    capFilter = firstChar + filter.substring(1).toLowerCase();
+                }
+            }
+
+            //String reg = "([A-Z]*)([a-z]*)";
+
+            for (City city : cityList) {
+                String pinyin = city.getPinyin();
+
+               // boolean matched = filter.regionMatches(true, 0, pinyin, 0, filter.length());
+                //System.out.println(">>> matched : " + matched + " ->" + filter);
+
+                // the first char in pinyin will be a capital letter.
+                if (city.getName().contains(filter)
+                        || city.getFullName().contains(filter) // selected full name
+                        || (capFilter != null && pinyin.contains(capFilter)) // Cap letter
+                        || (pinyinFilter != null && pinyin.contains(pinyinFilter)) // raw pinyin
+
+                        ) {
+
+                    targetCities.add(city.getFullName());
+                }
+            }
+
+            // seems we can't find the required city, just show a tips.
+            if (targetCities.size() == 0) {
+                targetCities.add("未能找到匹配的城市");
+            }
+            update();
+
+        } else {
+            targetCities.clear();
+            update();
+        }
+    }
+
+    private void update() {
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getCount() {
+        return targetCities.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return targetCities.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View view = convertView;
+        TextView currentView;
+
+        if (view == null) {
+            currentView = (TextView) layoutInflater.inflate(R.layout.list_item_city, null);
+        } else {
+            currentView = (TextView) view;
+        }
+
+        currentView.setText(targetCities.get(position));
+
+        return currentView;
+    }
+}

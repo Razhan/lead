@@ -4,4 +4,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="city_location">定位城市</string>
+    <string name="from_where">你来自于... ?</string>
+    <string name="submit">提交</string>
 </resources>

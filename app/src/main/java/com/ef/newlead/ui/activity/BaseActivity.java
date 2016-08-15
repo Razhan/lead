@@ -1,5 +1,7 @@
 package com.ef.newlead.ui.activity;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
@@ -8,8 +10,6 @@ import android.os.Handler;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.WindowManager;
@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ef.newlead.R;
-import com.ef.newlead.ui.fragment.NumberFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,7 +84,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void onBackPressed() {
 
         if (!doubleClickExit && doubleBackToExitPressedOnce) {
-            finish();
+            super.onBackPressed();
             return;
         }
 
@@ -141,17 +140,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 //            Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content), msg,
 //                    Snackbar.LENGTH_SHORT).show();
         }
-    }
-
-    public void switchFragment(Fragment fragment, boolean addToBackStack, String name) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.collect_fragment, fragment);
-
-        if (addToBackStack) {
-            transaction.addToBackStack(name);
-        }
-
-        transaction.commit();
     }
 
 }

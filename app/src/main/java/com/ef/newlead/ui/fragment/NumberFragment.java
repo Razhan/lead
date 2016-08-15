@@ -2,16 +2,18 @@ package com.ef.newlead.ui.fragment;
 
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Handler;
-import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ef.newlead.R;
-import com.ef.newlead.ui.activity.BaseActivity;
 import com.ef.newlead.ui.widget.DeletableEditText;
 import com.ef.newlead.ui.widget.IndicatedProgressView;
 import com.ef.newlead.util.ViewUtils;
@@ -27,6 +29,8 @@ public class NumberFragment extends BaseFragment {
     @BindView(R.id.number_hint)             TextView numberHint;
     @BindView(R.id.number_bottom_bar)       RelativeLayout submit;
     @BindView(R.id.number_next)             TextView next;
+
+    private boolean clickable = false;
 
     public static NumberFragment newInstance() {
         return new NumberFragment();
@@ -65,15 +69,15 @@ public class NumberFragment extends BaseFragment {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() == 13) {
-                    submit.setEnabled(true);
                     submit.setAlpha(1);
+                    clickable = true;
                 } else {
-                    submit.setEnabled(false);
                     submit.setAlpha(0.2f);
 
                     if (progressView.getState() == IndicatedProgressView.STATE_ANIM_STOP) {
                         progressView.startAnim();
                         next.setVisibility(View.VISIBLE);
+                        clickable = false;
                     }
                 }
             }
@@ -91,6 +95,10 @@ public class NumberFragment extends BaseFragment {
 
     @OnClick(R.id.number_bottom_bar)
     public void onClick() {
+        if (!clickable) {
+            return;
+        }
+
         if (progressView.getState() != IndicatedProgressView.STATE_ANIM_STOP) {
             ViewUtils.hideKeyboard(getActivity());
             next.setVisibility(View.GONE);
@@ -98,7 +106,19 @@ public class NumberFragment extends BaseFragment {
 
             new Handler().postDelayed(() -> progressView.startAnim(), 1000);
         } else {
-            ((BaseActivity)getActivity()).switchFragment(VerificationFragment.newInstance(), true, null);
+            VerificationFragment fragment = VerificationFragment.newInstance();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                fragment.setAllowReturnTransitionOverlap(false);
+
+                this.setExitTransition(new Slide(Gravity.RIGHT).setDuration(500));
+                fragment.setEnterTransition(new Fade(Fade.IN).setDuration(500));
+            }
+
+            getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.collect_fragment, fragment)
+                .addToBackStack(null)
+                .commit();
         }
     }
 

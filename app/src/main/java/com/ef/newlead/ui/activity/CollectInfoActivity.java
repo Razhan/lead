@@ -25,15 +25,17 @@ public class CollectInfoActivity extends BaseActivity {
     public void initView() {
         super.initView();
 
-        switchFragment(NumberFragment.newInstance(), false, null);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.collect_fragment, NumberFragment.newInstance())
+                .commit();
     }
 
-    @Override
-    public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager().popBackStack();
-        } else {
-            super.onBackPressed();
-        }
-    }
+//    @Override
+//    public void onBackPressed() {
+//        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+//            getSupportFragmentManager().popBackStack();
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
 }

@@ -17,7 +17,7 @@ import butterknife.OnClick;
 
 public class VerificationFragment extends BaseFragment {
 
-    private final static long DEFAULT_COUNT_DOWN_TIME = 5 * 1000 + 100;
+    private final static long DEFAULT_COUNT_DOWN_TIME = 30 * 1000 + 100;
 
     @BindView(R.id.verification_number)     TextView number;
     @BindView(R.id.verification_input)      VerificationView input;

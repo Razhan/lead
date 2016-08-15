@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.City;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,14 +35,19 @@ public class CityAdapter extends BaseAdapter {
         layoutInflater = LayoutInflater.from(context);
     }
 
+    /***
+     * Applies the specified filter when displaying the city info.
+     *
+     * @param filter
+     */
     public void setFilter(String filter) {
+        filter = filter.trim();
         this.filter = filter;
         if (!TextUtils.isEmpty(filter) && filter.length() > 0) {
             targetCities.clear();
 
             String capFilter = null;
             char firstChar = filter.charAt(0);
-            //capFilter = Character.toUpperCase(firstChar) + filter.substring(1);
 
             // pre-check for pinyin
             String pinyinFilter = null;
@@ -56,29 +62,33 @@ public class CityAdapter extends BaseAdapter {
                 }
             }
 
-            //String reg = "([A-Z]*)([a-z]*)";
-
+            List<City> dstCities = new LinkedList<>();
             for (City city : cityList) {
                 String pinyin = city.getPinyin();
-
-               // boolean matched = filter.regionMatches(true, 0, pinyin, 0, filter.length());
-                //System.out.println(">>> matched : " + matched + " ->" + filter);
 
                 // the first char in pinyin will be a capital letter.
                 if (city.getName().contains(filter)
                         || city.getFullName().contains(filter) // selected full name
-                        || (capFilter != null && pinyin.contains(capFilter)) // Cap letter
-                        || (pinyinFilter != null && pinyin.contains(pinyinFilter)) // raw pinyin
-
+                        || (capFilter != null && pinyin.startsWith(capFilter)) // Cap letter
+                        || (pinyinFilter != null && pinyin.startsWith(pinyinFilter)) // raw pinyin
                         ) {
 
-                    targetCities.add(city.getFullName());
+                    dstCities.add(city);
                 }
             }
 
-            // seems we can't find the required city, just show a tips.
+            if (dstCities.size() > 0) {
+                // respecting the alpha order of PinYin
+                Collections.sort(dstCities, (City lhs, City rhs) -> lhs.getPinyin().compareTo(rhs.getPinyin()));
+
+                for (City c : dstCities) {
+                    targetCities.add(c.getFullName());
+                }
+            }
+
+            // It seems we can't find the required city, just show a tips.
             if (targetCities.size() == 0) {
-                targetCities.add("未能找到匹配的城市");
+                targetCities.add(context.getString(R.string.city_not_found));
             }
             update();
 

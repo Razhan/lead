@@ -1,16 +1,18 @@
 package com.ef.newlead.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.ef.newlead.R;
-import com.ef.newlead.ui.fragment.AgeFragment;
 import com.ef.newlead.ui.fragment.CityLocationFragment;
-import com.ef.newlead.ui.fragment.NumberFragment;
-import com.ef.newlead.ui.fragment.VerificationFragment;
 
-public class CollectInfoActivity extends BaseActivity {
+public class CollectInfoActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
+
+    private Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,15 @@ public class CollectInfoActivity extends BaseActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.collect_fragment, new CityLocationFragment()).commit();
+        fragment = new CityLocationFragment();
+        transaction.replace(R.id.collect_fragment, fragment).commit();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (fragment != null) {
+            fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }

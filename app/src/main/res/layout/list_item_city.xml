@@ -5,7 +5,7 @@
     android:text="item"
     android:textColor="@android:color/white"
     android:singleLine="true"
-    android:textSize="24sp"
+    android:textSize="@dimen/font_size_large"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
     android:gravity="center_vertical">

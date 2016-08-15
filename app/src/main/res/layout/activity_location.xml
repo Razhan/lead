@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_purple"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button"
+    <!-- Since the button has custom shape as background, we apply the foreground ripple effect -->
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/buttonParent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center_horizontal"
         android:layout_margin="32dp"
-        android:text="@string/submit" />
+        app:mrl_rippleOverlay="true"
+        app:mrl_rippleRoundedCorners="@dimen/round_corner_radius">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:background="@drawable/bg_rounded_corners"
+            android:text="@string/submit"
+            android:textSize="@dimen/font_size_small" />
+    </com.balysv.materialripple.MaterialRippleLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/button"
+        android:layout_above="@id/buttonParent"
         android:orientation="vertical">
 
         <TextView
@@ -26,10 +38,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:padding="32dp"
+            android:padding="64dp"
             android:text="@string/from_where"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_large"
+            android:textStyle="bold" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -40,31 +54,44 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp" />
+                android:layout_marginRight="32dp"
+                android:hint="@string/hint_city_search"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/location_hint_color"
+                android:textSize="@dimen/font_size_large" />
 
             <ImageView
                 android:id="@+id/cancel_input"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="32dp"
-                android:src="@drawable/x" />
+                android:padding="12dp"
+                android:src="@drawable/close" />
+
         </RelativeLayout>
 
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="16dp"
-            android:drawableLeft="@drawable/location"
-            android:drawablePadding="6dp"
-            android:text="@string/city_location"
-            android:id="@+id/city_location"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/city_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                android:drawableLeft="@drawable/location"
+                android:drawablePadding="6dp"
+                android:text="@string/city_location"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_small" />
+        </com.balysv.materialripple.MaterialRippleLayout>
 
         <View
             android:layout_width="match_parent"
@@ -74,18 +101,16 @@
             android:background="@android:color/white" />
 
         <ListView
+            android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
+            android:layout_weight="1"
             android:cacheColorHint="#000000"
             android:divider="#FFFFFF"
-            android:dividerHeight="1px"
-            android:id="@+id/listView" />
-
+            android:dividerHeight="1px" />
 
     </LinearLayout>
-
 
 </RelativeLayout>

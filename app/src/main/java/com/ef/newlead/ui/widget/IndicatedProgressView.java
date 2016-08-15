@@ -53,6 +53,10 @@ public class IndicatedProgressView extends View {
         init(context, attrs);
     }
 
+    public int getState() {
+        return mState;
+    }
+
     private void init(Context context, AttributeSet attrs) {
         TypedArray mTypedArray = context.obtainStyledAttributes(attrs, R.styleable.IndicatedProgressView);
         ringWidth = mTypedArray.getDimension(R.styleable.IndicatedProgressView_progressRingWidth,
@@ -60,8 +64,6 @@ public class IndicatedProgressView extends View {
 
         mRectF = new RectF();
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
-        setOnClickListener(v -> startAnim());
     }
 
     @Override
@@ -150,6 +152,9 @@ public class IndicatedProgressView extends View {
         } else if (mState == STATE_ANIM_START) {
             mState = STATE_ANIM_STOP;
             mValueAnimator = startViewAnim(DEFAULT_ANIM_START, DEFAULT_ANIM_END, Constant.DEFAULT_ANIM_FULL_TIME, false);
+        } else {
+            mState = STATE_ANIM_NONE;
+            invalidate();
         }
     }
 

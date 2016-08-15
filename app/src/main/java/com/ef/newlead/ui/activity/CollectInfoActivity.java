@@ -25,8 +25,15 @@ public class CollectInfoActivity extends BaseActivity {
     public void initView() {
         super.initView();
 
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.collect_fragment, VerificationFragment.newInstance()).commit();
+        switchFragment(NumberFragment.newInstance(), false, null);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

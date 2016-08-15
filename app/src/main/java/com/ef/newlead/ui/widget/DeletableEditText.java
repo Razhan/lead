@@ -43,7 +43,7 @@ public class DeletableEditText extends AppCompatEditText implements TextWatcher 
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             if (getCompoundDrawables()[2] != null) {
-                boolean touchable = event.getX() > (getWidth() - getTotalPaddingRight() - 100);
+                boolean touchable = event.getX() > (getWidth() - getTotalPaddingRight());
 
                 if (touchable) {
                     String text = this.getText().toString();

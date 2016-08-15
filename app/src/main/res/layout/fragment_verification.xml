@@ -14,7 +14,6 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"
         android:layout_marginStart="30dp"
-        android:paddingEnd="30dp"
         android:clickable="true"
         android:gravity="start"
         android:drawableEnd="@drawable/ic_x"
@@ -29,6 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:focusable="true"
         android:divider="@drawable/divider"
         android:showDividers="middle"
         android:orientation="horizontal">
@@ -126,6 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="57dp"
             android:alpha="0.3"
+            android:enabled="false"
             android:background="@drawable/bg_rounded_corners"
             android:textColor="@android:color/black"
             android:textSize="14sp"

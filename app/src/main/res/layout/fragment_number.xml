@@ -25,10 +25,12 @@
         android:layout_marginTop="60dp"
         android:background="@android:color/transparent"
         android:textSize="24sp"
-        android:gravity="center_horizontal"
+        android:gravity="start"
         android:textColorHint="@color/tranBlack"
         android:textColor="@color/white"
-        android:inputType="number"
+        android:inputType="phone"
+        android:lines="1"
+        android:maxLength="13"
         android:cursorVisible="false"
         android:hint="输入手机号"/>
 
@@ -48,9 +50,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/number_divide"
-        android:layout_marginStart="67dp"
-        android:layout_marginEnd="67dp"
-        android:gravity="center"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="105dp"
+        android:gravity="start"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:text="A code will be sent to you in order to verify your phone number."/>
@@ -62,9 +64,11 @@
             android:layout_margin="30dp"
             android:layout_alignParentBottom="true"
             android:alpha="0.2"
+            android:clickable="false"
             android:background="@drawable/bg_rounded_corners">
 
             <TextView
+                android:id="@+id/number_next"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -74,7 +78,7 @@
                 android:textSize="14sp"/>
 
             <com.ef.newlead.ui.widget.IndicatedProgressView
-                android:id="@+id/phone_progress_view"
+                android:id="@+id/number_progress_view"
                 android:layout_width="30dp"
                 android:layout_height="80dp"
                 android:layout_centerInParent="true"/>

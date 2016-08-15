@@ -1,7 +1,7 @@
 package com.ef.newlead.ui.widget;
 
 import android.content.Context;
-import android.graphics.Canvas;
+import android.graphics.Color;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,7 +13,8 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VerificationView extends LinearLayout implements TextWatcher, View.OnKeyListener {
+public class VerificationView extends LinearLayout implements TextWatcher, View.OnKeyListener,
+        View.OnFocusChangeListener {
 
     private int maxTextLength = 1;
     private int currentIndex = 0;
@@ -36,7 +37,7 @@ public class VerificationView extends LinearLayout implements TextWatcher, View.
         super(context, attrs, defStyle);
     }
 
-    public void setListener(FillFullListener listener) {
+    public void setFullListener(FillFullListener listener) {
         this.listener = listener;
     }
 
@@ -51,6 +52,7 @@ public class VerificationView extends LinearLayout implements TextWatcher, View.
             if (childView instanceof AppCompatEditText) {
                 ((AppCompatEditText) childView).addTextChangedListener(this);
                 childView.setOnKeyListener(this);
+                childView.setOnFocusChangeListener(this);
                 viewList.add((AppCompatEditText)childView);
             }
         }
@@ -66,11 +68,15 @@ public class VerificationView extends LinearLayout implements TextWatcher, View.
 
     @Override
     public void afterTextChanged(Editable s) {
+        isDelete = false;
+
         if (!isDelete && s.length() >= maxTextLength && currentIndex < viewList.size() - 1) {
             viewList.get(++currentIndex).requestFocus();
         }
 
-        isDelete = false;
+        if (viewList.get(0).getText().toString().equals("")) {
+            changeTextColor(Color.BLACK);
+        }
 
         if (listener != null) {
             if (!viewList.get(currentIndex).getText().toString().equals("")) {
@@ -93,10 +99,10 @@ public class VerificationView extends LinearLayout implements TextWatcher, View.
                 if (text.length() >= maxTextLength) {
                     editText.setText(text.substring(0, text.length() - 1));
                 } else if (currentIndex > 0) {
-                    AppCompatEditText previousEditText = viewList.get(viewList.indexOf(v) - 1);
-                    previousEditText.setText("");
+                    AppCompatEditText previousEditText = viewList.get(--currentIndex);
+                    String preStr = previousEditText.getText().toString();
+                    previousEditText.setText(preStr.substring(0, preStr.length() - 1));
                     previousEditText.requestFocus();
-                    currentIndex--;
                 }
             }
         } else {
@@ -104,6 +110,15 @@ public class VerificationView extends LinearLayout implements TextWatcher, View.
         }
 
         return false;
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            if (v instanceof AppCompatEditText && viewList.indexOf(v) != currentIndex) {
+                viewList.get(currentIndex).requestFocus();
+            }
+        }
     }
 
     public void changeTextColor(int color) {

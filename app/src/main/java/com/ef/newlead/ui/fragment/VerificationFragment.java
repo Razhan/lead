@@ -3,7 +3,6 @@ package com.ef.newlead.ui.fragment;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -43,10 +42,12 @@ public class VerificationFragment extends BaseFragment {
         setBackground();
         startCountDown();
 
-        input.setListener(isFull -> {
+        input.setFullListener(isFull -> {
             if (isFull) {
+                submit.setEnabled(true);
                 submit.setAlpha(1);
             } else {
+                submit.setEnabled(false);
                 submit.setAlpha(0.3f);
             }
         });
@@ -54,7 +55,7 @@ public class VerificationFragment extends BaseFragment {
         number.setOnTouchListener((v, event) -> {
                 if(event.getAction() == MotionEvent.ACTION_UP) {
                     if (event.getX() > (number.getWidth() - number.getTotalPaddingRight())) {
-                        Log.d("onTouch", "onTouch");
+                        getActivity().onBackPressed();
                     }
                     return true;
                 }

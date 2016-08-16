@@ -1,6 +1,7 @@
 package com.ef.newlead.ui.fragment;
 
 import android.graphics.drawable.GradientDrawable;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -65,11 +66,7 @@ public class AgeFragment extends BaseFragment implements FlowView.CoverFlowItemL
     }
 
     private void setBackground() {
-        String backgroundStr = SystemText.getSystemText(getContext(), "age_select_gradient_color");
-        GradientBackground background = new Gson().fromJson(backgroundStr,
-                new TypeToken<GradientBackground>() {}.getType());
-        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
-                new int[]{background.getBottomGradient().toHex(), background.getTopGradient().toHex()});
+        GradientDrawable drawable = getGradientDrawable("age_select_gradient_color");
         ageWrapper.setBackground(drawable);
     }
 

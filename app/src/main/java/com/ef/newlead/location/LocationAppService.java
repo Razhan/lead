@@ -11,16 +11,19 @@ public interface LocationAppService {
     void dispose();
 
     /***
-     * Set the listener for observing the location result.
-     * Currently only one listener will be accepted.
+     * Set the listener for observing the location result. Currently only one listener will be accepted.
+     *
      * @param callback
      */
     void setListener(ResultCallback callback);
 
     interface ResultCallback {
         void onStartLocation();
+
         void onStopLocation();
+
         void onLocationError(int errorCode, String msg);
+
         void onLocationComplete(LocationInfo location);
     }
 

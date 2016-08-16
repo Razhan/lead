@@ -53,6 +53,12 @@
     "purpose_select_title":"Do you want to travel or study?",
     "purpose_select_next":"Next",
     "purpose_tip_label":"拖曳并选择",
-    "purpose_selections":[{"order":0,"id":"0","text":"为了<b>工作</b>我需要学英语,但我也想出国旅游。"},{"order":1,"id":"1","text":"我专注在学英语上,这和我的<b>工作</b>有直接关系。"},{"order":2,"id":"2","text":"我喜欢<b>旅游</b>,工作原因我也要学点英语。"},{"order":3,"id":"3","text":"我太爱<b>旅游</b>了,我想去世界各地走走。"}]
-    
+    "purpose_selections":[{"order":0,"id":"0","text":"为了<b>工作</b>我需要学英语,但我也想出国旅游。"},{"order":1,"id":"1","text":"我专注在学英语上,这和我的<b>工作</b>有直接关系。"},{"order":2,"id":"2","text":"我喜欢<b>旅游</b>,工作原因我也要学点英语。"},{"order":3,"id":"3","text":"我太爱<b>旅游</b>了,我想去世界各地走走。"}],
+    "city_select_gradient_color":{"top_gradient":{"r":139,"g":109,"b":178,"a":255},"bottom_gradient":{"r":200,"g":109,"b":215,"a":255}},
+    "city_select_top_label":"你来自于..?",
+    "city_select_placeholder":"城市名、拼音",
+    "city_select_locate":"定位城市",
+    "city_select_locating":"定位中...",
+    "city_select_error":"定位错误",
+    "city_select_submit":"提交"
 }

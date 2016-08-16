@@ -20,20 +20,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.City;
-import com.ef.newlead.location.AMapService;
-import com.ef.newlead.location.LocationAppService;
-import com.ef.newlead.location.LocationInfo;
+import com.ef.newlead.presenter.CityInfoPresenter;
 import com.ef.newlead.ui.adapter.CityAdapter;
-import com.ef.newlead.util.FileUtils;
+import com.ef.newlead.ui.view.CityLocationView;
 import com.ef.newlead.util.MiscUtils;
-import com.google.gson.reflect.TypeToken;
+import com.ef.newlead.util.SystemText;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import butterknife.BindView;
@@ -45,7 +43,7 @@ import butterknife.OnClick;
  * Fragment provides user the ability to select city or just locate the position automatically.
  */
 public class CityLocationFragment extends BaseFragment implements TextWatcher,
-        AdapterView.OnItemClickListener, LocationAppService.ResultCallback {
+        AdapterView.OnItemClickListener, CityLocationView {
 
     public static final int WRITE_COARSE_LOCATION_REQUEST_CODE = 0xFF;
 
@@ -64,8 +62,15 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
     @BindView(R.id.button)
     Button submit;
 
+    @BindView(R.id.textViewCityTitle)
+    TextView title;
+
+    @BindView(R.id.root_layout)
+    RelativeLayout rootLayout;
+
     private CityAdapter adapter;
-    private LocationAppService locationAppService;
+    private CityInfoPresenter cityInfoPresenter;
+    private List<City> cities;
 
     @Override
     public int bindLayout() {
@@ -74,6 +79,8 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
 
     @Override
     public void initView() {
+        rootLayout.setBackground(getGradientDrawable("city_select_gradient_color"));
+
         input.addTextChangedListener(this);
         cancel.setVisibility(View.GONE);
     }
@@ -82,18 +89,20 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Type type = new TypeToken<List<City>>() {
-        }.getType();
+        FragmentActivity activity = this.getActivity();
+        cityInfoPresenter = new CityInfoPresenter(activity, this);
 
-        List<City> cities = FileUtils.readObjectFromAssertFile(this.getContext(), "cities.json", type);
-
-        adapter = new CityAdapter(this.getActivity(), cities);
+        cities = cityInfoPresenter.fetchAllCities();
+        adapter = new CityAdapter(activity, cities);
         cityListView.setAdapter(adapter);
 
         cityListView.setOnItemClickListener(this);
 
-        locationAppService = new AMapService(this.getContext());
-        locationAppService.setListener(this);
+        submit.setText(SystemText.getSystemText(activity, "purpose_select_next"));
+        title.setText(SystemText.getSystemText(activity, "city_select_top_label"));
+        input.setHint(SystemText.getSystemText(activity, "city_select_placeholder"));
+        location.setText(SystemText.getSystemText(activity, "city_select_locate"));
+        submit.setText(SystemText.getSystemText(activity, "city_select_submit"));
 
         // activate ripple effect on SDK 21+; otherwise apply alpha animation
         if (MiscUtils.hasLollipop()) {
@@ -125,7 +134,7 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
                 }
             });
 
-            cancel.setOnClickListener( (View v) -> cancel.startAnimation(animFadein));
+            cancel.setOnClickListener((View v) -> cancel.startAnimation(animFadein));
         }
 
     }
@@ -137,6 +146,7 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
         if (!text.equals(getString(R.string.city_not_found))) {
             input.setText(text);
 
+            clearCityList();
             submit.setVisibility(View.VISIBLE);
         }
     }
@@ -156,7 +166,7 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
     }
 
     private void locateNow() {
-        locationAppService.startLocation();
+        cityInfoPresenter.locate();
     }
 
     @OnClick(R.id.cancel_input)
@@ -185,15 +195,8 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
         String filter = s.toString();
         boolean empty = filter.isEmpty();
         cancel.setVisibility(empty ? View.GONE : View.VISIBLE);
-        submit.setVisibility(empty ? View.VISIBLE : View.GONE);
 
         adapter.setFilter(filter);
-    }
-
-    @Override
-    public void onStartLocation() {
-        location.setEnabled(false);
-        location.setText(getString(R.string.city_location) + "  " + getString(R.string.location_ongoing));
     }
 
     @Override
@@ -202,25 +205,62 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
     }
 
     @Override
-    public void onLocationError(int errorCode, String msg) {
-        location.setText(getString(R.string.city_location) + "  " + getString(R.string.location_failure));
-        locationAppService.stopLocation();
+    public void onStartLocation(String msg) {
+        location.setEnabled(false);
+        location.setText(msg);
     }
 
     @Override
-    public void onLocationComplete(LocationInfo location) {
+    public void onLocationError(String msg) {
+        location.setText(msg);
+    }
+
+    @Override
+    public void onLocationComplete(String location) {
         this.location.setText(getString(R.string.city_location));
-
-        input.setText(location.getCity());
-        locationAppService.stopLocation();
-
+        input.setText(location);
         submit.setVisibility(View.VISIBLE);
+
+        String cityName = location;
+        String postfix = getString(R.string.city);
+        if (location.endsWith(postfix)) {
+            int pos = location.lastIndexOf(postfix);
+            cityName = location.substring(0, pos);
+        }
+
+        City destCity = null;
+        for (City city : cities) {
+            if (city.getName().startsWith(cityName)) {
+                destCity = city;
+                break;
+            }
+        }
+
+        if (destCity != null) { // matched
+            input.setText(destCity.getFullName());
+            clearCityList();
+
+        } else {
+            this.location.setText(cityInfoPresenter.getLocationErrorMsg());
+        }
+        submit.setVisibility(destCity != null ? View.VISIBLE : View.GONE);
+
+    }
+
+    private void clearCityList() {
+        // to clear the city list data
+        cityListView.setVisibility(View.INVISIBLE);
+
+        cityListView.postDelayed(() -> {
+            adapter.setFilter("");
+            cityListView.setVisibility(View.VISIBLE);
+        }, 100);
     }
 
     @Override
     public void onDestroy() {
-        if (locationAppService != null) {
-            locationAppService.dispose();
+        if (cityInfoPresenter != null) {
+            cityInfoPresenter.dispose();
         }
         super.onDestroy();
     }

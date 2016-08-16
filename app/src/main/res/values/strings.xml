@@ -11,4 +11,5 @@
     <string name="location_failure">定位失败.</string>
     <string name="location_ongoing">定位中...</string>
     <string name="city_not_found">未能找到匹配的城市</string>
+    <string name="city">市</string>
 </resources>

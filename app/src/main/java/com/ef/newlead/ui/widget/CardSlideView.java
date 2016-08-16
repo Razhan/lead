@@ -188,6 +188,10 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
             @Override
             public void onAnimationEnd(Animator animation) {
                 removeView(v);
+
+                if (!direction) {
+                    listener.onFinish();
+                }
             }
         });
 
@@ -213,6 +217,8 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
 
     public interface CardSlideListener {
         void onSlide(int count);
+
+        void onFinish();
     }
 
 }

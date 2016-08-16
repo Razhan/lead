@@ -8,6 +8,7 @@ import android.view.Gravity;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
+import com.ef.newlead.ui.fragment.LevelFragment;
 import com.ef.newlead.ui.fragment.NumberFragment;
 
 public class CollectInfoActivity extends BaseActivity {
@@ -37,7 +38,7 @@ public class CollectInfoActivity extends BaseActivity {
 
     public Fragment getFragment() {
         //just for temporary test
-        Fragment fragment = NumberFragment.newInstance();
+        Fragment fragment = LevelFragment.newInstance();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Slide slide = new Slide(Gravity.START);

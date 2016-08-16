@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
 
@@ -52,6 +53,10 @@ public abstract class BaseFragment extends Fragment {
 
     public void onSaveInstanceState(Bundle outState) {
         outState.putBoolean(SAVED_STATE, isHidden());
+    }
+
+    public void showMessage(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
 }

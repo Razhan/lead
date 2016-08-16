@@ -1,5 +1,6 @@
 package com.ef.newlead.ui.fragment;
 
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.ViewTreeObserver;
@@ -55,5 +56,11 @@ public class LevelFragment extends BaseCollectInfoFragment implements CardSlideV
     @Override
     public void onSlide(int count) {
         Log.d("onSlide", String.valueOf(count));
+    }
+
+    @Override
+    public void onFinish() {
+        showMessage("结束");
+        new Handler().postDelayed(() -> getActivity().finish(), 300);
     }
 }

@@ -36,6 +36,7 @@ public class CollectInfoActivity extends BaseActivity {
     }
 
     public Fragment getFragment() {
+        //just for temporary test
         Fragment fragment = NumberFragment.newInstance();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

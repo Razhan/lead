@@ -20,7 +20,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class AgeFragmentCollect extends BaseCollectInfoFragment implements FlowView.CoverFlowItemListener {
+public class AgeFragment extends BaseCollectInfoFragment implements FlowView.CoverFlowItemListener {
 
     private static final int DEFAULT_POSITION = 5;
 
@@ -36,7 +36,7 @@ public class AgeFragmentCollect extends BaseCollectInfoFragment implements FlowV
     private AgeAdapter mAdapter;
 
     public static Fragment newInstance() {
-        return new AgeFragmentCollect();
+        return new AgeFragment();
     }
 
     @Override

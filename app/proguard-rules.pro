@@ -34,3 +34,8 @@
 
 # Application classes that will be serialized/deserialized over Gson
 -keep com.ef.newlead.data.model.** {*;}
+
+# AMap
+-keep class com.amap.api.location.**{*;}
+-keep class com.amap.api.fence.**{*;}
+-keep class com.autonavi.aps.amapapi.model.**{*;}

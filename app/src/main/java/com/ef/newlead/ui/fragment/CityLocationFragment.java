@@ -1,6 +1,7 @@
 package com.ef.newlead.ui.fragment;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.RippleDrawable;
@@ -98,11 +99,11 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
 
         cityListView.setOnItemClickListener(this);
 
-        submit.setText(SystemText.getSystemText(activity, "purpose_select_next"));
-        title.setText(SystemText.getSystemText(activity, "city_select_top_label"));
-        input.setHint(SystemText.getSystemText(activity, "city_select_placeholder"));
-        location.setText(SystemText.getSystemText(activity, "city_select_locate"));
-        submit.setText(SystemText.getSystemText(activity, "city_select_submit"));
+        submit.setText(getLocaleText(activity, "purpose_select_next"));
+        title.setText(getLocaleText(activity, "city_select_top_label"));
+        input.setHint(getLocaleText(activity, "city_select_placeholder"));
+        location.setText(getLocaleText(activity, "city_select_locate"));
+        submit.setText(getLocaleText(activity, "city_select_submit"));
 
         // activate ripple effect on SDK 21+; otherwise apply alpha animation
         if (MiscUtils.hasLollipop()) {
@@ -143,7 +144,7 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String text = (String) adapter.getItem(position);
-        if (!text.equals(SystemText.getSystemText(getActivity(), "city_not_found"))) {
+        if (!text.equals(getLocaleText(getActivity(), "city_not_found"))) {
             input.setText(text);
 
             clearCityList();
@@ -212,12 +213,14 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
 
     @Override
     public void onLocationError(String msg) {
-        location.setText(msg);
+        location.setText(getLocaleText(getActivity(), "city_select_locate"));
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onLocationComplete(String location) {
-        this.location.setText(getString(R.string.city_location));
+        this.location.setText(getLocaleText(getActivity(), "city_select_locate"));
+
         input.setText(location);
         submit.setVisibility(View.VISIBLE);
 
@@ -241,7 +244,8 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
             clearCityList();
 
         } else {
-            this.location.setText(cityInfoPresenter.getLocationErrorMsg());
+            // City on the support list will be regarded as location failure.
+            onLocationError(cityInfoPresenter.getLocationErrorMsg());
         }
         submit.setVisibility(destCity != null ? View.VISIBLE : View.GONE);
 

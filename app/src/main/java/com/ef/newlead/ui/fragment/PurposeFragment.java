@@ -54,13 +54,13 @@ public class PurposeFragment extends BaseCollectInfoFragment implements Discrete
     public void initView() {
         purposeWrapper.setBackground(getBackgroundDrawable("purpose_select_gradient_color"));
 
-        String descriptionStr = SystemText.getSystemText(getContext(), "purpose_selections");
+        String descriptionStr = getLocaleText(getContext(), "purpose_selections");
         purposes = new Gson().fromJson(descriptionStr, new TypeToken<List<Purpose>>() {
         }.getType());
 
-        title.setText(SystemText.getSystemText(getContext(), "purpose_select_title"));
-        next.setText(SystemText.getSystemText(getContext(), "purpose_select_next"));
-        hint.setText(SystemText.getSystemText(getContext(), "purpose_tip_label"));
+        title.setText(getLocaleText(getContext(), "purpose_select_title"));
+        next.setText(getLocaleText(getContext(), "purpose_select_next"));
+        hint.setText(getLocaleText(getContext(), "purpose_tip_label"));
 
         slider.setOnSlideListener(this);
         new Handler().postDelayed(() -> animateHint(true, 0, 1), 100);

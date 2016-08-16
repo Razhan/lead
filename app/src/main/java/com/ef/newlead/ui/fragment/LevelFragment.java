@@ -37,7 +37,7 @@ public class LevelFragment extends BaseCollectInfoFragment implements CardSlideV
     public void initView() {
         levelWrapper.setBackground(getBackgroundDrawable("age_select_gradient_color"));
 
-        String jsonStr = SystemText.getSystemText(getContext(), "level_select");
+        String jsonStr = getLocaleText(getContext(), "level_select");
         List<Level> levels = new Gson().fromJson(jsonStr, new TypeToken<List<Level>>() {
         }.getType());
 

@@ -10,6 +10,7 @@ import android.view.Gravity;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
+import com.ef.newlead.ui.fragment.CityLocationFragment;
 import com.ef.newlead.ui.fragment.LevelFragment;
 
 
@@ -42,7 +43,7 @@ public class CollectInfoActivity extends BaseActivity implements ActivityCompat.
 
     public Fragment getFragment() {
         //just for temporary test
-        Fragment fragment = LevelFragment.newInstance();
+        Fragment fragment = new CityLocationFragment();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Slide slide = new Slide(Gravity.LEFT);

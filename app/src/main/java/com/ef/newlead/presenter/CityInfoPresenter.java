@@ -88,9 +88,7 @@ public class CityInfoPresenter extends Presenter<CityLocationView> implements Lo
 
     @NonNull
     public String getLocationErrorMsg() {
-        String errorMsg = SystemText.getSystemText(context, "city_select_locate") + "  " +
-        SystemText.getSystemText(context, "city_select_error");
-        return errorMsg;
+        return SystemText.getSystemText(context, "city_location_error");
     }
 
     @Override

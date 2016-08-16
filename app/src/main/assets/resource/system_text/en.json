@@ -163,7 +163,7 @@
   "city_select_placeholder": "城市名、拼音",
   "city_select_locate": "定位城市",
   "city_select_locating": "定位中...",
-  "city_select_error": "定位错误",
+  "city_location_error": "定位失败",
   "city_select_submit":"提交",
   "city_not_found":"未找到结果"
 }

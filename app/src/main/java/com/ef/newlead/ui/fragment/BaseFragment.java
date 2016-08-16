@@ -74,4 +74,8 @@ public abstract class BaseFragment extends Fragment {
         return new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
                 new int[]{background.getBottomGradient().toHex(), background.getTopGradient().toHex()});
     }
+
+    protected String getLocaleText(Context context, String key) {
+        return SystemText.getSystemText(context, key);
+    }
 }

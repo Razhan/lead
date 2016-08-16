@@ -10,12 +10,8 @@ import android.view.Gravity;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
-<<<<<<< HEAD
 import com.ef.newlead.ui.fragment.LevelFragment;
-=======
-import com.ef.newlead.ui.fragment.CityLocationFragment;
->>>>>>> 1b141f9c83480a57026d2d2cc400d33a12660222
-import com.ef.newlead.ui.fragment.NumberFragment;
+
 
 public class CollectInfoActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -46,12 +42,7 @@ public class CollectInfoActivity extends BaseActivity implements ActivityCompat.
 
     public Fragment getFragment() {
         //just for temporary test
-<<<<<<< HEAD
         Fragment fragment = LevelFragment.newInstance();
-=======
-        //fragment = NumberFragment.newInstance();
-        fragment = new CityLocationFragment();
->>>>>>> 1b141f9c83480a57026d2d2cc400d33a12660222
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Slide slide = new Slide(Gravity.LEFT);

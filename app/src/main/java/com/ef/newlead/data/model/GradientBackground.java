@@ -65,7 +65,7 @@ public class GradientBackground {
         }
 
         public int toHex() {
-            return (int) Long.parseLong(String.format("%02x%02x%02x%02x", a * 255, r, g, b), 16);
+            return (int) Long.parseLong(String.format("%02x%02x%02x%02x", a, r, g, b), 16);
         }
     }
 }

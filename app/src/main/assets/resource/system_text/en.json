@@ -96,13 +96,13 @@
       "r": 91,
       "g": 217,
       "b": 191,
-      "a": 1
+      "a": 255
     },
     "bottom_gradient": {
       "r": 121,
       "g": 220,
       "b": 144,
-      "a": 1
+      "a": 255
     }
   },
   "purpose_select_gradient_color": {
@@ -110,13 +110,13 @@
       "r": 255,
       "g": 177,
       "b": 45,
-      "a": 1
+      "a": 255
     },
     "bottom_gradient": {
       "r": 247,
       "g": 108,
       "b": 28,
-      "a": 1
+      "a": 255
     }
   },
   "purpose_select_title": "Do you want to travel or study?",
@@ -143,5 +143,27 @@
       "id": "3",
       "text": "我太爱<b>旅游</b>了,我想去世界各地走走。"
     }
-  ]
+  ],
+
+  "city_select_gradient_color": {
+    "top_gradient": {
+      "r": 139,
+      "g": 109,
+      "b": 178,
+      "a": 255
+    },
+    "bottom_gradient": {
+      "r": 200,
+      "g": 109,
+      "b": 215,
+      "a": 255
+    }
+  },
+  "city_select_top_label": "你来自于..?",
+  "city_select_placeholder": "城市名、拼音",
+  "city_select_locate": "定位城市",
+  "city_select_locating": "定位中...",
+  "city_select_error": "定位错误",
+  "city_select_submit":"提交",
+  "city_not_found":"未找到结果"
 }

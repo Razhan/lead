@@ -119,7 +119,7 @@ public class NumberFragment extends BaseCollectInfoFragment {
         Fragment fragment = VerificationFragment.newInstance(input.getText().toString());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            fragment.setEnterTransition(new Slide(Gravity.END).setDuration(Constant.DEFAULT_ANIM_FULL_TIME));
+            fragment.setEnterTransition(new Slide(Gravity.RIGHT).setDuration(Constant.DEFAULT_ANIM_FULL_TIME));
         }
         return fragment;
     }

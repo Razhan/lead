@@ -6,20 +6,19 @@ import com.ef.newlead.util.FileUtils;
 
 import okhttp3.ResponseBody;
 import rx.Observable;
-import rx.Subscriber;
 
 public class InitializationUseCase extends UseCase {
 
     public Observable<Boolean> unzip(String targetDirectory, String zipFile) {
         return Observable.create(subscriber -> {
-                try {
-                    FileUtils.unzip(targetDirectory, zipFile);
-                    subscriber.onNext(true);
-                    subscriber.onCompleted();
-                } catch (Exception e) {
-                    subscriber.onError(e);
+                    try {
+                        FileUtils.unzip(targetDirectory, zipFile);
+                        subscriber.onNext(true);
+                        subscriber.onCompleted();
+                    } catch (Exception e) {
+                        subscriber.onError(e);
+                    }
                 }
-            }
         );
     }
 

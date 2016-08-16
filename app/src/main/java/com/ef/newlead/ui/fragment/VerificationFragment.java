@@ -1,8 +1,11 @@
 package com.ef.newlead.ui.fragment;
 
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
+import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -10,26 +13,51 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ef.newlead.R;
+import com.ef.newlead.ui.widget.IndicatedProgressView;
 import com.ef.newlead.ui.widget.VerificationView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class VerificationFragment extends BaseFragment {
+public class VerificationFragment extends BaseCollectInfoFragment {
 
-    private final static long DEFAULT_COUNT_DOWN_TIME = 30 * 1000 + 100;
+    private final static long DEFAULT_COUNT_DOWN_TIME = 5 * 1000 + 100;
+    private final static String NUMBER_KEY = "phone_number";
 
-    @BindView(R.id.verification_number)     TextView number;
-    @BindView(R.id.verification_input)      VerificationView input;
-    @BindView(R.id.verification_hint)       TextView hint;
-    @BindView(R.id.verification_submit)     Button submit;
-    @BindView(R.id.verification_wrapper)    RelativeLayout verificationWrapper;
-    @BindView(R.id.verification_retry)      Button retry;
+    @BindView(R.id.verification_number)
+    TextView number;
+    @BindView(R.id.verification_input)
+    VerificationView input;
+    @BindView(R.id.verification_hint)
+    TextView hint;
+    @BindView(R.id.verification_submit)
+    Button submit;
+    @BindView(R.id.verification_wrapper)
+    RelativeLayout verificationWrapper;
+    @BindView(R.id.verification_timer)
+    TextView countDownText;
+    @BindView(R.id.verification_retry)
+    RelativeLayout retry;
+    @BindView(R.id.verification_progress_view)
+    IndicatedProgressView progressView;
 
+    private String phone_number;
     private CountDownTimer timer;
 
-    public static VerificationFragment newInstance() {
-        return new VerificationFragment();
+    public static Fragment newInstance(String number) {
+        VerificationFragment fragment = new VerificationFragment();
+
+        Bundle args = new Bundle();
+        args.putString(NUMBER_KEY, number);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        phone_number = getArguments().getString(NUMBER_KEY, "");
     }
 
     @Override
@@ -39,7 +67,9 @@ public class VerificationFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        setBackground();
+        number.setText(phone_number);
+
+        verificationWrapper.setBackground(getBackgroundDrawable("age_select_gradient_color"));
         startCountDown();
 
         input.setFullListener(isFull -> {
@@ -49,41 +79,45 @@ public class VerificationFragment extends BaseFragment {
             } else {
                 submit.setEnabled(false);
                 submit.setAlpha(0.3f);
+                hint.setText(null);
             }
         });
 
         number.setOnTouchListener((v, event) -> {
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if (event.getX() > (number.getWidth() - number.getTotalPaddingRight())) {
-                        getActivity().onBackPressed();
-                    }
-                    return true;
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (event.getX() > (number.getWidth() - number.getTotalPaddingRight())) {
+                    getActivity().onBackPressed();
                 }
-                return false;
+                return true;
+            }
+            return false;
+        });
+
+        progressView.setEndAnimationListener(() -> {
+            inProgress = false;
+            startCountDown();
         });
     }
 
-    private void setBackground() {
-//        String backgroundStr = SystemText.getSystemText(getContext(), "age_select_gradient_color");
-//        GradientBackground background = new Gson().fromJson(backgroundStr,
-//                new TypeToken<GradientBackground>() {}.getType());
-        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
-                new int[]{Color.parseColor("#f8c144"), Color.parseColor("#f66f9f")});
-
-        verificationWrapper.setBackground(drawable);
-    }
-
     private void startCountDown() {
+        if (timer != null) {
+            timer.cancel();
+        }
+
         timer = new CountDownTimer(DEFAULT_COUNT_DOWN_TIME, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 String str = "重新获取" + "(" + (millisUntilFinished / 1000) + ")";
-                retry.setText(str);
+                countDownText.setText(str);
+
+                if (countDownText.getVisibility() != View.VISIBLE) {
+                    countDownText.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
             public void onFinish() {
-                retry.setText("重新获取");
+                countDownText.setText("重新获取");
                 timer = null;
             }
         }.start();
@@ -99,13 +133,31 @@ public class VerificationFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.verification_submit:
-                input.changeTextColor(Color.RED);
+                new Handler().postDelayed(() -> afterSubmit(false), 1000);
+                submit.setEnabled(false);
                 break;
             case R.id.verification_retry:
-                if (timer == null) {
-                    startCountDown();
+                if (timer == null && !inProgress) {
+                    countDownText.setVisibility(View.GONE);
+
+                    inProgress = true;
+                    progressView.startAnim();
+                    new Handler().postDelayed(() -> afterResent(), 1000);
                 }
                 break;
+        }
+    }
+
+    public void afterResent() {
+        progressView.startAnim();
+    }
+
+    public void afterSubmit(boolean isSuccess) {
+        submit.setEnabled(true);
+
+        if (!isSuccess) {
+            input.changeTextColor(Color.RED);
+            hint.setText("Oh no! it seems the code is wrong");
         }
     }
 }

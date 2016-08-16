@@ -1,5 +1,7 @@
 package com.ef.newlead.ui.widget;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -23,11 +25,9 @@ public class IndicatedProgressView extends View {
 
     private static final float DEFAULT_ANIM_START = 0;
     private static final float DEFAULT_ANIM_END = 1;
-
-    private int mAngle = 10;
     private static final float threshold = 0.35f;
     private static final float factor = 1.5f;
-
+    private int mAngle = 10;
     private int mState = STATE_ANIM_NONE;
     private ValueAnimator mValueAnimator;
     private float mProgress;
@@ -35,9 +35,12 @@ public class IndicatedProgressView extends View {
     private float cx, cy, markStart;
     private float line1_x, line1_y, line2_x, line2_y;
     private float ringWidth;
+    private int progressColor;
 
     private RectF mRectF;
     private Paint mPaint;
+
+    private AfterAnimationListener listener;
 
     public IndicatedProgressView(Context context) {
         this(context, null);
@@ -56,10 +59,18 @@ public class IndicatedProgressView extends View {
         return mState;
     }
 
+    public void setEndAnimationListener(AfterAnimationListener listener) {
+        this.listener = listener;
+    }
+
     private void init(Context context, AttributeSet attrs) {
         TypedArray mTypedArray = context.obtainStyledAttributes(attrs, R.styleable.IndicatedProgressView);
         ringWidth = mTypedArray.getDimension(R.styleable.IndicatedProgressView_progressRingWidth,
                 ViewUtils.dpToPx(getContext(), 2));
+
+        progressColor = mTypedArray.getColor(R.styleable.IndicatedProgressView_progressColor, Color.BLACK);
+
+        mTypedArray.recycle();
 
         mRectF = new RectF();
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -116,7 +127,7 @@ public class IndicatedProgressView extends View {
     private void drawLoopView(Canvas canvas) {
         mPaint.setStrokeWidth(ringWidth);
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setColor(Color.BLACK);
+        mPaint.setColor(progressColor);
 
         canvas.save();
         mAngle += 13;
@@ -141,7 +152,7 @@ public class IndicatedProgressView extends View {
     }
 
     public void startAnim() {
-        if (mValueAnimator != null) {
+        if (mValueAnimator != null && mValueAnimator.isRunning()) {
             mValueAnimator.cancel();
         }
 
@@ -172,11 +183,25 @@ public class IndicatedProgressView extends View {
             IndicatedProgressView.this.invalidate();
         });
 
+        valueAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (IndicatedProgressView.this.mState == STATE_ANIM_STOP && listener != null) {
+                    IndicatedProgressView.this.startAnim();
+                    post(() -> listener.afterAnimation());
+                }
+            }
+        });
+
         if (!valueAnimator.isRunning()) {
             valueAnimator.start();
         }
 
         return valueAnimator;
+    }
+
+    public interface AfterAnimationListener {
+        void afterAnimation();
     }
 
 }

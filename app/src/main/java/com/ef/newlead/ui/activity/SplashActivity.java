@@ -11,23 +11,28 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.presenter.SplashPresenter;
 import com.ef.newlead.ui.view.SplashView;
 import com.ef.newlead.ui.widget.TransmutableView;
 import com.ef.newlead.usecase.InitializationUseCase;
-import com.ef.newlead.Constant;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements SplashView {
 
-    @BindView(R.id.splash_bottom_bar)       LinearLayout bottomBar;
-    @BindView(R.id.splash_title)            TextView title;
-    @BindView(R.id.splash_header)           TextView header;
-    @BindView(R.id.splash_intro)            TextView intro;
-    @BindView(R.id.splash_indicator)        TransmutableView indicator;
+    @BindView(R.id.splash_bottom_bar)
+    LinearLayout bottomBar;
+    @BindView(R.id.splash_title)
+    TextView title;
+    @BindView(R.id.splash_header)
+    TextView header;
+    @BindView(R.id.splash_intro)
+    TextView intro;
+    @BindView(R.id.splash_indicator)
+    TransmutableView indicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

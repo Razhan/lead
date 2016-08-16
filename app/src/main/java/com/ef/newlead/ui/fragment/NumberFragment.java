@@ -1,18 +1,17 @@
 package com.ef.newlead.ui.fragment;
 
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.transition.Fade;
 import android.transition.Slide;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.ui.widget.DeletableEditText;
 import com.ef.newlead.ui.widget.IndicatedProgressView;
@@ -21,18 +20,24 @@ import com.ef.newlead.util.ViewUtils;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class NumberFragment extends BaseFragment {
+public class NumberFragment extends BaseCollectInfoFragment {
 
-    @BindView(R.id.number_wrapper)          RelativeLayout numberWrapper;
-    @BindView(R.id.number_progress_view)    IndicatedProgressView progressView;
-    @BindView(R.id.number_input)            DeletableEditText input;
-    @BindView(R.id.number_hint)             TextView numberHint;
-    @BindView(R.id.number_bottom_bar)       RelativeLayout submit;
-    @BindView(R.id.number_next)             TextView next;
+    @BindView(R.id.number_wrapper)
+    RelativeLayout numberWrapper;
+    @BindView(R.id.number_progress_view)
+    IndicatedProgressView progressView;
+    @BindView(R.id.number_input)
+    DeletableEditText input;
+    @BindView(R.id.number_hint)
+    TextView hint;
+    @BindView(R.id.number_bottom_bar)
+    RelativeLayout submit;
+    @BindView(R.id.number_next)
+    TextView next;
 
     private boolean clickable = false;
 
-    public static NumberFragment newInstance() {
+    public static Fragment newInstance() {
         return new NumberFragment();
     }
 
@@ -43,8 +48,8 @@ public class NumberFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        setBackground();
-
+        numberWrapper.setBackground(getBackgroundDrawable("age_select_gradient_color"));
+        hint.setText("A code will be sent to you in order to verify your phone number.");
         input.addTextChangedListener(new TextWatcher() {
             String lastChar = "";
 
@@ -82,44 +87,41 @@ public class NumberFragment extends BaseFragment {
                 }
             }
         });
-    }
 
-    private void setBackground() {
-//        String backgroundStr = SystemText.getSystemText(getContext(), "age_select_gradient_color");
-//        GradientBackground background = new Gson().fromJson(backgroundStr,
-//                new TypeToken<GradientBackground>() {}.getType());
-        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
-                new int[]{Color.parseColor("#f8c144"), Color.parseColor("#f66f9f")});
-        numberWrapper.setBackground(drawable);
+        progressView.setEndAnimationListener(() -> {
+            inProgress = false;
+            hint.setText("Code already sent to you.");
+            startNextFragment(true);
+        });
     }
 
     @OnClick(R.id.number_bottom_bar)
     public void onClick() {
-        if (!clickable) {
+        if (!clickable || inProgress) {
             return;
         }
 
-        if (progressView.getState() != IndicatedProgressView.STATE_ANIM_STOP) {
-            ViewUtils.hideKeyboard(getActivity());
-            next.setVisibility(View.GONE);
-            progressView.startAnim();
+        ViewUtils.hideKeyboard(getActivity());
+        next.setVisibility(View.GONE);
+        inProgress = true;
+        progressView.startAnim();
+        hint.setText("Your code is on its way..");
 
-            new Handler().postDelayed(() -> progressView.startAnim(), 1000);
-        } else {
-            VerificationFragment fragment = VerificationFragment.newInstance();
+        new Handler().postDelayed(() -> afterSubmitNumber(), 1000);
+    }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                fragment.setAllowReturnTransitionOverlap(false);
+    private void afterSubmitNumber() {
+        progressView.startAnim();
+    }
 
-                this.setExitTransition(new Slide(Gravity.RIGHT).setDuration(500));
-                fragment.setEnterTransition(new Fade(Fade.IN).setDuration(500));
-            }
+    @Override
+    protected Fragment getFragment() {
+        Fragment fragment = VerificationFragment.newInstance(input.getText().toString());
 
-            getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.collect_fragment, fragment)
-                .addToBackStack(null)
-                .commit();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            fragment.setEnterTransition(new Slide(Gravity.END).setDuration(Constant.DEFAULT_ANIM_FULL_TIME));
         }
+        return fragment;
     }
 
 }

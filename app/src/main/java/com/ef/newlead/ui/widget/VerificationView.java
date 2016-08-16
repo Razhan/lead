@@ -53,7 +53,7 @@ public class VerificationView extends LinearLayout implements TextWatcher, View.
                 ((AppCompatEditText) childView).addTextChangedListener(this);
                 childView.setOnKeyListener(this);
                 childView.setOnFocusChangeListener(this);
-                viewList.add((AppCompatEditText)childView);
+                viewList.add((AppCompatEditText) childView);
             }
         }
     }
@@ -93,7 +93,7 @@ public class VerificationView extends LinearLayout implements TextWatcher, View.
             isDelete = true;
 
             if (v instanceof AppCompatEditText) {
-                AppCompatEditText editText = (AppCompatEditText)v;
+                AppCompatEditText editText = (AppCompatEditText) v;
                 String text = editText.getText().toString();
 
                 if (text.length() >= maxTextLength) {

@@ -1,6 +1,5 @@
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/number_wrapper"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -11,58 +10,56 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:gravity="center"
+        android:text="可以留下你的手机号吗?"
         android:textColor="@color/white"
-        android:textSize="24sp"
-        android:text="可以留下你的手机号吗?"/>
+        android:textSize="24sp" />
 
     <com.ef.newlead.ui.widget.DeletableEditText
         android:id="@+id/number_input"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_below="@+id/number_title"
-        android:paddingStart="30dp"
-        android:paddingEnd="30dp"
         android:layout_marginTop="60dp"
         android:background="@android:color/transparent"
-        android:textSize="24sp"
         android:gravity="start"
-        android:textColorHint="@color/tranBlack"
-        android:textColor="@color/white"
+        android:hint="输入手机号"
         android:inputType="phone"
         android:lines="1"
-        android:maxLength="13"
+        android:paddingEnd="30dp"
+        android:paddingStart="30dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/tranBlack"
         android:textCursorDrawable="@drawable/color_cursor"
-        android:hint="输入手机号"/>
+        android:textSize="24sp" />
 
     <View
         android:id="@+id/number_divide"
-        android:layout_below="@+id/number_input"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="12dp"
+        android:layout_below="@+id/number_input"
         android:layout_marginBottom="20dp"
-        android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:background="@color/white"/>
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/white" />
 
     <TextView
         android:id="@+id/number_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/number_divide"
-        android:layout_marginStart="30dp"
         android:layout_marginEnd="105dp"
+        android:layout_marginStart="30dp"
         android:gravity="start"
         android:textColor="@color/white"
-        android:textSize="14sp"
-        android:text="A code will be sent to you in order to verify your phone number."/>
+        android:textSize="14sp"/>
 
     <RelativeLayout
         android:id="@+id/number_bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_margin="30dp"
         android:layout_alignParentBottom="true"
+        android:layout_margin="30dp"
         android:alpha="0.2"
         android:background="@drawable/bg_rounded_corners">
 
@@ -72,15 +69,15 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:textColor="@android:color/black"
             android:text="获取验证码"
-            android:textSize="14sp"/>
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
 
         <com.ef.newlead.ui.widget.IndicatedProgressView
             android:id="@+id/number_progress_view"
             android:layout_width="30dp"
-            android:layout_height="80dp"
-            android:layout_centerInParent="true"/>
+            android:layout_height="30dp"
+            android:layout_centerInParent="true" />
 
     </RelativeLayout>
 

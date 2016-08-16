@@ -10,9 +10,7 @@ import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
@@ -23,11 +21,10 @@ import java.util.List;
 
 public class CardSlideView extends ViewGroup implements View.OnClickListener {
 
-    private int elevation = 10;
+    private final static int DEFAULT_DELAY = 30;
     private final int yOffset = 25;
     private final float scaleStep = 0.03f;
-    private final static int DEFAULT_DELAY = 30;
-
+    private int elevation = 10;
     private int count = 0;
     private CardSlideListener listener;
 
@@ -67,15 +64,15 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
             View childView = getChildAt(i);
 
             if (childView instanceof CardView) {
-                CardView cardView = (CardView)childView;
+                CardView cardView = (CardView) childView;
                 cardView.setCardElevation(elevation--);
 
-                ImageView select = (ImageView)cardView.findViewById(R.id.level_select);
-                ImageView refuse = (ImageView)cardView.findViewById(R.id.level_unselect);
+                ImageView select = (ImageView) cardView.findViewById(R.id.level_select);
+                ImageView refuse = (ImageView) cardView.findViewById(R.id.level_unselect);
 
                 select.setOnClickListener(this);
                 refuse.setOnClickListener(this);
-                
+
                 viewList.add(childView);
             }
         }
@@ -138,7 +135,7 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
     protected void dispatchDraw(Canvas canvas) {
         if (data != null && firstTime) {
             for (int i = 0; i < viewList.size(); i++) {
-                ((FontTextView)viewList.get(i).findViewById(R.id.level_content)).setText(data.get(i).getLevelExample());
+                ((FontTextView) viewList.get(i).findViewById(R.id.level_content)).setText(data.get(i).getLevelExample());
             }
 
             firstTime = false;
@@ -149,11 +146,11 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (selectedCardAnimation!= null && selectedCardAnimation.isRunning()) {
+        if (selectedCardAnimation != null && selectedCardAnimation.isRunning()) {
             selectedCardAnimation.end();
         }
 
-        if (otherCardAnimation!= null && otherCardAnimation.isRunning()) {
+        if (otherCardAnimation != null && otherCardAnimation.isRunning()) {
             otherCardAnimation.end();
         }
 

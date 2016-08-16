@@ -1,18 +1,23 @@
 package com.ef.newlead.ui.activity;
 
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.transition.Slide;
+import android.view.Gravity;
 
+import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.ui.fragment.NumberFragment;
-import com.ef.newlead.ui.fragment.VerificationFragment;
 
 public class CollectInfoActivity extends BaseActivity {
+
+    private static int fragmentIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         translucentStatusBar = true;
+
         super.onCreate(savedInstanceState);
     }
 
@@ -26,16 +31,23 @@ public class CollectInfoActivity extends BaseActivity {
         super.initView();
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.collect_fragment, NumberFragment.newInstance())
+                .replace(R.id.collect_info_fragment, getFragment())
                 .commit();
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-//            getSupportFragmentManager().popBackStack();
-//        } else {
-//            super.onBackPressed();
-//        }
-//    }
+    public Fragment getFragment() {
+        Fragment fragment = NumberFragment.newInstance();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Slide slide = new Slide(Gravity.START);
+            slide.setDuration(Constant.DEFAULT_ANIM_FULL_TIME);
+
+            fragment.setEnterTransition(slide);
+            fragment.setExitTransition(slide);
+            fragment.setAllowReturnTransitionOverlap(true);
+        }
+
+        return fragment;
+    }
+
 }

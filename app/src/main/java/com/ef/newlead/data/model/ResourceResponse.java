@@ -27,6 +27,7 @@ public class ResourceResponse extends BaseResponse {
         public String getSrc() {
             return src;
         }
+
         public String getHash() {
             return hash;
         }

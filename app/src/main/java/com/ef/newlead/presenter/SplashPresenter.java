@@ -1,7 +1,6 @@
 package com.ef.newlead.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.data.model.ResourceResponse;
@@ -12,7 +11,6 @@ import com.ef.newlead.util.SharedPreUtils;
 
 import java.io.IOException;
 
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class SplashPresenter extends Presenter<SplashView> {
@@ -25,9 +23,9 @@ public class SplashPresenter extends Presenter<SplashView> {
         useCase.new Builder<ResponseBody>()
                 .useCaseArgs(url)
                 .onSuccess(responseBody -> {
-                        if (saveFile(context, responseBody)) {
-                            SharedPreUtils.putString(Constant.RESOURCE_HASH, hash);
-                        }
+                    if (saveFile(context, responseBody)) {
+                        SharedPreUtils.putString(Constant.RESOURCE_HASH, hash);
+                    }
                 })
                 .build();
     }
@@ -37,7 +35,7 @@ public class SplashPresenter extends Presenter<SplashView> {
                 .useCaseMethod("ResourceInfo")
                 .onSuccess(response -> {
                     if (!SharedPreUtils.contain(Constant.RESOURCE_HASH) || !SharedPreUtils.getString(Constant.RESOURCE_HASH, "")
-                                    .equals(response.getData().getHash())) {
+                            .equals(response.getData().getHash())) {
                         downloadResourceFile(context, response.getData().getSrc(), response.getData().getHash());
                     }
                 })

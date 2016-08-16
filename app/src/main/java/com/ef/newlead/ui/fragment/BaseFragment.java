@@ -24,7 +24,7 @@ public abstract class BaseFragment extends Fragment {
         if (savedInstanceState != null) {
             boolean isSupportHidden = savedInstanceState.getBoolean(SAVED_STATE);
 
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
             if (isSupportHidden) {
                 ft.hide(this);
             } else {

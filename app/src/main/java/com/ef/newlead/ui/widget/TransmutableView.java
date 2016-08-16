@@ -14,8 +14,8 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
-import com.ef.newlead.R;
 import com.ef.newlead.Constant;
+import com.ef.newlead.R;
 
 public class TransmutableView extends View {
 

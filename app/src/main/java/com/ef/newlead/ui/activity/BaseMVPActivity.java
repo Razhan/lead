@@ -50,4 +50,12 @@ public abstract class BaseMVPActivity<P extends Presenter> extends BaseActivity 
             presenter.onStop();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(presenter != null){
+            presenter.dispose();
+        }
+    }
 }

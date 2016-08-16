@@ -30,6 +30,10 @@ public abstract class Presenter<V extends View> {
     }
 
     public void onStop() {
+
+    }
+
+    public void dispose(){
         view = null;
 
         if (useCase != null) {

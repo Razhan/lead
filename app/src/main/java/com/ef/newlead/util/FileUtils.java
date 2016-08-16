@@ -2,16 +2,21 @@ package com.ef.newlead.util;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.Type;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
@@ -193,6 +198,28 @@ public final class FileUtils {
                 out.close();
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    public static <T> T readObjectFromAssertFile(Context context, String fileName, Type type) {
+        InputStream inputStream = null;
+        try {
+            inputStream = context.getResources().getAssets().open(fileName);
+            Gson gson = new Gson();
+            return gson.fromJson(new BufferedReader(new InputStreamReader(inputStream)), type);
+        } catch (IOException e) {
+            e.printStackTrace();
+
+            return null;
+            
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    /** ignored **/
+                }
             }
         }
     }

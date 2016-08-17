@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/root_layout"
     android:background="@android:color/holo_purple"
     android:orientation="vertical">
 
@@ -15,6 +15,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="center_horizontal"
         android:layout_margin="32dp"
+        android:animateLayoutChanges="true"
         app:mrl_rippleOverlay="true"
         app:mrl_rippleRoundedCorners="@dimen/round_corner_radius">
 
@@ -50,17 +51,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/editText"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-                android:hint="@string/hint_city_search"
-                android:textColor="@android:color/white"
-                android:textColorHint="@color/location_hint_color"
-                android:singleLine="true"
-                android:textSize="@dimen/font_size_large" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    android:background="@null"
+                    android:hint="@string/hint_city_search"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:singleLine="true"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@color/location_hint_color"
+                    android:textSize="@dimen/font_size_large" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    android:background="@android:color/white" />
+            </FrameLayout>
+
 
             <ImageView
                 android:id="@+id/cancel_input"
@@ -69,30 +88,26 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="32dp"
-                android:padding="12dp"
+                android:padding="8dp"
                 android:src="@drawable/close" />
 
         </RelativeLayout>
 
-        <com.balysv.materialripple.MaterialRippleLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp">
+        <TextView
+            android:id="@+id/city_location"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:layout_gravity="center_vertical"
+            android:background="?attr/selectableItemBackground"
+            android:drawableLeft="@drawable/location"
+            android:drawablePadding="6dp"
+            android:gravity="center|left"
+            android:paddingLeft="32dp"
+            android:text="@string/city_location"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_small" />
 
-            <TextView
-                android:id="@+id/city_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp"
-                android:drawableLeft="@drawable/location"
-                android:drawablePadding="6dp"
-                android:text="@string/city_location"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/font_size_small" />
-        </com.balysv.materialripple.MaterialRippleLayout>
 
         <View
             android:layout_width="match_parent"

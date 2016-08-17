@@ -14,7 +14,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="54dp"
         android:clickable="true"
-        android:drawableEnd="@drawable/ic_x"
+        android:drawableEnd="@drawable/ic_close_small"
         android:drawablePadding="12dp"
         android:gravity="start"
         android:textColor="@color/white"

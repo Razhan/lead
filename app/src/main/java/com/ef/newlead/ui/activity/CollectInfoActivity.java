@@ -12,6 +12,7 @@ import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.ui.fragment.CityLocationFragment;
 import com.ef.newlead.ui.fragment.LevelFragment;
+import com.ef.newlead.ui.fragment.NumberFragment;
 
 
 public class CollectInfoActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {

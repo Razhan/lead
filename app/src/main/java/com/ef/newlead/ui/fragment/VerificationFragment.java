@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.ef.newlead.R;
 import com.ef.newlead.ui.widget.IndicatedProgressView;
 import com.ef.newlead.ui.widget.VerificationView;
+import com.ef.newlead.util.ViewUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -96,6 +98,15 @@ public class VerificationFragment extends BaseCollectInfoFragment {
         progressView.setEndAnimationListener(() -> {
             inProgress = false;
             startCountDown();
+        });
+
+        input.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                input.requestFocus();
+                ViewUtils.showKeyboard(getActivity());
+                input.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
         });
     }
 

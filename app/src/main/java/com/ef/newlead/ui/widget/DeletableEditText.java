@@ -31,7 +31,7 @@ public class DeletableEditText extends AppCompatEditText implements TextWatcher 
     private void init() {
         mClearDrawable = getCompoundDrawables()[2];
         if (mClearDrawable == null) {
-            mClearDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_x, null);
+            mClearDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_close, null);
         }
 
         mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(), mClearDrawable.getIntrinsicHeight());

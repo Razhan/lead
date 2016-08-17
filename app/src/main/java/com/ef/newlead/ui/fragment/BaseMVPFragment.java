@@ -10,7 +10,8 @@ public abstract class BaseMVPFragment<P extends Presenter> extends BaseFragment 
     protected P presenter;
 
     @Override
-    public void onViewCreated(android.view.View view, @Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         presenter = createPresent();
         presenter.onCreate();
     }

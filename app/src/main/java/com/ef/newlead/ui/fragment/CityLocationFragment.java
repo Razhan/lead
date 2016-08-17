@@ -109,7 +109,7 @@ public class CityLocationFragment extends BaseMVPFragment<CityInfoPresenter> imp
             int rippleColor = 0xFF8755A1;
             ColorStateList colorStateList = ColorStateList.valueOf(rippleColor);
             RippleDrawable rippledImage = new
-                    RippleDrawable(colorStateList, getResources().getDrawable(R.drawable.x, getActivity().getTheme()), null);
+                    RippleDrawable(colorStateList, getResources().getDrawable(R.drawable.ic_close, getActivity().getTheme()), null);
             cancel.setImageDrawable(rippledImage);
         } else {
             final Animation animFadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);

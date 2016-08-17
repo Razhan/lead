@@ -25,6 +25,7 @@
         android:hint="输入手机号"
         android:inputType="phone"
         android:lines="1"
+        android:maxLength="13"
         android:paddingEnd="30dp"
         android:paddingStart="30dp"
         android:textColor="@color/white"

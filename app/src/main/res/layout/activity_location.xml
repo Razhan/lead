@@ -70,7 +70,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="32dp"
                 android:padding="12dp"
-                android:src="@drawable/close" />
+                android:src="@drawable/ic_close" />
 
         </RelativeLayout>
 
@@ -86,7 +86,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"
-                android:drawableLeft="@drawable/location"
+                android:drawableLeft="@drawable/ic_location"
                 android:drawablePadding="6dp"
                 android:text="@string/city_location"
                 android:textAppearance="?android:attr/textAppearanceSmall"

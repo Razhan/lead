@@ -76,10 +76,10 @@ public class VerificationFragment extends BaseCollectInfoFragment {
 
         input.setFullListener(isFull -> {
             if (isFull) {
-                submit.setEnabled(true);
+                submit.setClickable(true);
                 submit.setAlpha(1);
             } else {
-                submit.setEnabled(false);
+                submit.setClickable(false);
                 submit.setAlpha(0.3f);
                 hint.setText(null);
             }
@@ -145,7 +145,7 @@ public class VerificationFragment extends BaseCollectInfoFragment {
         switch (view.getId()) {
             case R.id.verification_submit:
                 new Handler().postDelayed(() -> afterSubmit(false), 1000);
-                submit.setEnabled(false);
+                submit.setClickable(false);
                 break;
             case R.id.verification_retry:
                 if (timer == null && !inProgress) {

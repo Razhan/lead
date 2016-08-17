@@ -3,7 +3,6 @@ package com.ef.newlead.presenter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.ef.newlead.R;
 import com.ef.newlead.data.model.City;
 import com.ef.newlead.location.AMapService;
 import com.ef.newlead.location.LocationAppService;
@@ -25,12 +24,9 @@ import java.util.List;
  */
 public class CityInfoPresenter extends Presenter<CityLocationView> implements LocationAppService.ResultCallback {
     private final AMapService locationAppService;
-    private final Context context;
 
     public CityInfoPresenter(Context context, CityLocationView view) {
-        super(view, null);
-
-        this.context = context;
+        super(context, view);
 
         locationAppService = new AMapService(context.getApplicationContext());
         locationAppService.setListener(this);
@@ -52,15 +48,14 @@ public class CityInfoPresenter extends Presenter<CityLocationView> implements Lo
         locationAppService.stopLocation();
     }
 
-    public void dispose() {
-        super.dispose();
+    public void onDestroy() {
+        super.onDestroy();
 
         if (locationAppService != null) {
             locationAppService.dispose();
         }
 
     }
-
 
     String getString(int res) {
         return context.getString(res);

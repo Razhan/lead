@@ -75,7 +75,7 @@ public abstract class BaseFragment extends Fragment {
                 new int[]{background.getBottomGradient().toHex(), background.getTopGradient().toHex()});
     }
 
-    protected String getLocaleText(Context context, String key) {
-        return SystemText.getSystemText(context, key);
+    protected String getLocaleText(String key) {
+        return SystemText.getSystemText(getContext(), key);
     }
 }

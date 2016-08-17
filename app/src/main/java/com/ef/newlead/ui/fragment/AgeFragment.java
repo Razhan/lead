@@ -48,10 +48,10 @@ public class AgeFragment extends BaseCollectInfoFragment implements FlowView.Cov
     public void initView() {
         ageWrapper.setBackground(getBackgroundDrawable("age_select_gradient_color"));
 
-        title.setText(getLocaleText(getContext(), "age_select_title"));
-        next.setText(getLocaleText(getContext(), "age_select_next"));
+        title.setText(getLocaleText("age_select_title"));
+        next.setText(getLocaleText("age_select_next"));
 
-        String ageStr = getLocaleText(getContext(), "age_select");
+        String ageStr = getLocaleText("age_select");
         List<Age> ages = new Gson().fromJson(ageStr, new TypeToken<LinkedList<Age>>() {
         }.getType());
 

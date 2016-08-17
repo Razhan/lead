@@ -43,7 +43,7 @@ public class CollectInfoActivity extends BaseActivity implements ActivityCompat.
 
     public Fragment getFragment() {
         //just for temporary test
-        Fragment fragment = new CityLocationFragment();
+        fragment = new CityLocationFragment();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Slide slide = new Slide(Gravity.LEFT);

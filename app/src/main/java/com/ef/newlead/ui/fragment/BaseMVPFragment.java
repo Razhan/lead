@@ -19,33 +19,33 @@ public abstract class BaseMVPFragment<P extends Presenter> extends BaseFragment 
 
     @Override
     public void onStart() {
-        super.onStart();
         if (presenter != null) {
             presenter.onStart();
         }
+        super.onStart();
     }
 
     @Override
     public void onResume() {
-        super.onResume();
         if (presenter != null) {
             presenter.onResume();
         }
+        super.onResume();
     }
 
     @Override
     public void onPause() {
-        super.onPause();
         if (presenter != null) {
             presenter.onPause();
         }
+        super.onPause();
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onDestroy() {
         if (presenter != null) {
-            presenter.onStop();
+            presenter.onDestroy();
         }
+        super.onDestroy();
     }
 }

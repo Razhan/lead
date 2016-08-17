@@ -1,9 +1,8 @@
 package com.ef.newlead.data.model;
 
-import com.ef.newlead.ui.widget.recycleview.MultipleTypeItem;
 import com.google.gson.annotations.SerializedName;
 
-public class Age implements MultipleTypeItem {
+public class Age extends OnlyItemData {
 
     public boolean isBorder = false;
 
@@ -18,11 +17,6 @@ public class Age implements MultipleTypeItem {
 
     public Age(boolean border) {
         this.isBorder = border;
-    }
-
-    @Override
-    public int getType() {
-        return MultipleTypeItem.ITEM;
     }
 
     public boolean isBorder() {

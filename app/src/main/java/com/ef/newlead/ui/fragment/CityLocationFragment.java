@@ -1,7 +1,6 @@
 package com.ef.newlead.ui.fragment;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.RippleDrawable;
@@ -31,7 +30,6 @@ import com.ef.newlead.presenter.CityInfoPresenter;
 import com.ef.newlead.ui.adapter.CityAdapter;
 import com.ef.newlead.ui.view.CityLocationView;
 import com.ef.newlead.util.MiscUtils;
-import com.ef.newlead.util.SystemText;
 
 import java.util.List;
 
@@ -43,7 +41,7 @@ import butterknife.OnClick;
  * <p>
  * Fragment provides user the ability to select city or just locate the position automatically.
  */
-public class CityLocationFragment extends BaseFragment implements TextWatcher,
+public class CityLocationFragment extends BaseMVPFragment<CityInfoPresenter> implements TextWatcher,
         AdapterView.OnItemClickListener, CityLocationView {
 
     public static final int WRITE_COARSE_LOCATION_REQUEST_CODE = 0xFF;
@@ -70,7 +68,6 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
     RelativeLayout rootLayout;
 
     private CityAdapter adapter;
-    private CityInfoPresenter cityInfoPresenter;
     private List<City> cities;
 
     @Override
@@ -87,23 +84,25 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
     }
 
     @Override
+    protected CityInfoPresenter createPresent() {
+        return new CityInfoPresenter(getActivity(), this);
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        FragmentActivity activity = this.getActivity();
-        cityInfoPresenter = new CityInfoPresenter(activity, this);
-
-        cities = cityInfoPresenter.fetchAllCities();
-        adapter = new CityAdapter(activity, cities);
+        cities = presenter.fetchAllCities();
+        adapter = new CityAdapter(getContext(), cities);
         cityListView.setAdapter(adapter);
 
         cityListView.setOnItemClickListener(this);
 
-        submit.setText(getLocaleText(activity, "purpose_select_next"));
-        title.setText(getLocaleText(activity, "city_select_top_label"));
-        input.setHint(getLocaleText(activity, "city_select_placeholder"));
-        location.setText(getLocaleText(activity, "city_select_locate"));
-        submit.setText(getLocaleText(activity, "city_select_submit"));
+        submit.setText(getLocaleText("purpose_select_next"));
+        title.setText(getLocaleText("city_select_top_label"));
+        input.setHint(getLocaleText("city_select_placeholder"));
+        location.setText(getLocaleText("city_select_locate"));
+        submit.setText(getLocaleText("city_select_submit"));
 
         // activate ripple effect on SDK 21+; otherwise apply alpha animation
         if (MiscUtils.hasLollipop()) {
@@ -113,9 +112,9 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
                     RippleDrawable(colorStateList, getResources().getDrawable(R.drawable.x, getActivity().getTheme()), null);
             cancel.setImageDrawable(rippledImage);
         } else {
-            final Animation animFadein = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
-            animFadein.setDuration(200);
-            animFadein.setAnimationListener(new Animation.AnimationListener() {
+            final Animation animFadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+            animFadeIn.setDuration(200);
+            animFadeIn.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
 
@@ -135,7 +134,7 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
                 }
             });
 
-            cancel.setOnClickListener((View v) -> cancel.startAnimation(animFadein));
+            cancel.setOnClickListener((v) -> cancel.startAnimation(animFadeIn));
         }
 
     }
@@ -144,7 +143,7 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String text = (String) adapter.getItem(position);
-        if (!text.equals(getLocaleText(getActivity(), "city_not_found"))) {
+        if (!text.equals(getLocaleText("city_not_found"))) {
             input.setText(text);
 
             clearCityList();
@@ -167,7 +166,7 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
     }
 
     private void locateNow() {
-        cityInfoPresenter.locate();
+        presenter.locate();
     }
 
     @OnClick(R.id.cancel_input)
@@ -213,13 +212,13 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
 
     @Override
     public void onLocationError(String msg) {
-        location.setText(getLocaleText(getActivity(), "city_select_locate"));
+        location.setText(getLocaleText("city_select_locate"));
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onLocationComplete(String location) {
-        this.location.setText(getLocaleText(getActivity(), "city_select_locate"));
+        this.location.setText(getLocaleText("city_select_locate"));
 
         input.setText(location);
         submit.setVisibility(View.VISIBLE);
@@ -245,7 +244,7 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
 
         } else {
             // City on the support list will be regarded as location failure.
-            onLocationError(cityInfoPresenter.getLocationErrorMsg());
+            onLocationError(presenter.getLocationErrorMsg());
         }
         submit.setVisibility(destCity != null ? View.VISIBLE : View.GONE);
 
@@ -259,14 +258,6 @@ public class CityLocationFragment extends BaseFragment implements TextWatcher,
             adapter.setFilter("");
             cityListView.setVisibility(View.VISIBLE);
         }, 100);
-    }
-
-    @Override
-    public void onDestroy() {
-        if (cityInfoPresenter != null) {
-            cityInfoPresenter.dispose();
-        }
-        super.onDestroy();
     }
 
     @Override

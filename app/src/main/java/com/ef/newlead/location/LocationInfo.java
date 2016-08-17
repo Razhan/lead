@@ -16,7 +16,7 @@ public class LocationInfo {
         this.provider = provider;
     }
 
-    public LocationInfo(){
+    public LocationInfo() {
 
     }
 

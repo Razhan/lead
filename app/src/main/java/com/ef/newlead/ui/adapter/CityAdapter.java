@@ -69,7 +69,7 @@ public class CityAdapter extends BaseAdapter {
 
                 // the first char in pinyin will be a capital letter.
                 if (city.getName().contains(filter)
-                        || city.getFullName().contains(filter) // selected full name
+                        || (pinyinFilter == null && city.getFullName().contains(filter)) // selected full name
                         || (capFilter != null && pinyin.startsWith(capFilter)) // Cap letter
                         || (pinyinFilter != null && pinyin.startsWith(pinyinFilter)) // raw pinyin
                         ) {

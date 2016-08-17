@@ -2,8 +2,6 @@ package com.ef.newlead.ui.fragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
-import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -70,9 +68,12 @@ public class CityLocationFragment extends BaseMVPFragment<CityInfoPresenter> imp
     private CityAdapter adapter;
     private List<City> cities;
 
+    private int previousInputLength = 0;
+    private boolean backSpaceDetected = false;
+
     @Override
     public int bindLayout() {
-        return R.layout.activity_location;
+        return R.layout.fragment_location;
     }
 
     @Override
@@ -105,13 +106,8 @@ public class CityLocationFragment extends BaseMVPFragment<CityInfoPresenter> imp
         submit.setText(getLocaleText("city_select_submit"));
 
         // activate ripple effect on SDK 21+; otherwise apply alpha animation
-        if (MiscUtils.hasLollipop()) {
-            int rippleColor = 0xFF8755A1;
-            ColorStateList colorStateList = ColorStateList.valueOf(rippleColor);
-            RippleDrawable rippledImage = new
-                    RippleDrawable(colorStateList, getResources().getDrawable(R.drawable.ic_close, getActivity().getTheme()), null);
-            cancel.setImageDrawable(rippledImage);
-        } else {
+
+        if (!MiscUtils.hasLollipop()) {
             final Animation animFadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
             animFadeIn.setDuration(200);
             animFadeIn.setAnimationListener(new Animation.AnimationListener() {
@@ -181,7 +177,7 @@ public class CityLocationFragment extends BaseMVPFragment<CityInfoPresenter> imp
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        previousInputLength = s.length();
     }
 
     @Override
@@ -191,11 +187,17 @@ public class CityLocationFragment extends BaseMVPFragment<CityInfoPresenter> imp
 
     @Override
     public void afterTextChanged(Editable s) {
-        // update list
+        // Check whether user is re-inputting.
+        backSpaceDetected = previousInputLength - s.length() > 0;
+
         String filter = s.toString();
+
         boolean empty = filter.isEmpty();
         cancel.setVisibility(empty ? View.GONE : View.VISIBLE);
 
+        if (empty || backSpaceDetected) {
+            submit.setVisibility(View.GONE);
+        }
         adapter.setFilter(filter);
     }
 
@@ -221,7 +223,6 @@ public class CityLocationFragment extends BaseMVPFragment<CityInfoPresenter> imp
         this.location.setText(getLocaleText("city_select_locate"));
 
         input.setText(location);
-        submit.setVisibility(View.VISIBLE);
 
         String cityName = location;
         String postfix = getString(R.string.city);

@@ -54,7 +54,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
-        initView();
+        initView(savedInstanceState);
     }
 
     public abstract int bindLayout();
@@ -92,7 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @CallSuper
-    public void initView() {
+    public void initView(Bundle savedInstanceState) {
         if (toolbar == null || toolbarTitle == null) {
             return;
         }

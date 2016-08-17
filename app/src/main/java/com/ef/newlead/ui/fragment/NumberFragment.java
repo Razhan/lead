@@ -77,7 +77,7 @@ public class NumberFragment extends BaseCollectInfoFragment {
                     submit.setAlpha(1);
                     clickable = true;
                 } else {
-                    submit.setAlpha(0.2f);
+                    submit.setAlpha(0.3f);
 
                     if (progressView.getState() == IndicatedProgressView.STATE_ANIM_STOP) {
                         progressView.startAnim();

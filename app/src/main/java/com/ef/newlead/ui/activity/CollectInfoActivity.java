@@ -10,21 +10,17 @@ import android.view.Gravity;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
-import com.ef.newlead.ui.fragment.CityLocationFragment;
-import com.ef.newlead.ui.fragment.LevelFragment;
 import com.ef.newlead.ui.fragment.NumberFragment;
 
 
 public class CollectInfoActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     private Fragment fragment;
-
     private static int fragmentIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         translucentStatusBar = true;
-
         super.onCreate(savedInstanceState);
     }
 
@@ -34,12 +30,14 @@ public class CollectInfoActivity extends BaseActivity implements ActivityCompat.
     }
 
     @Override
-    public void initView() {
-        super.initView();
+    public void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.collect_info_fragment, getFragment())
-                .commit();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.collect_info_fragment, getFragment())
+                    .commit();
+        }
     }
 
     public Fragment getFragment() {

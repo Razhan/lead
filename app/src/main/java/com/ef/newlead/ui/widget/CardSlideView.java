@@ -147,11 +147,11 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (selectedCardAnimation != null && selectedCardAnimation.isRunning()) {
-            selectedCardAnimation.end();
+            return;
         }
 
         if (otherCardAnimation != null && otherCardAnimation.isRunning()) {
-            otherCardAnimation.end();
+            return;
         }
 
         v.setAlpha(1);

@@ -61,6 +61,6 @@ public class LevelFragment extends BaseCollectInfoFragment implements CardSlideV
     @Override
     public void onFinish() {
         showMessage("结束");
-        new Handler().postDelayed(() -> getActivity().finish(), 300);
+        new Handler().post(() -> getActivity().finish());
     }
 }

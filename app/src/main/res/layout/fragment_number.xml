@@ -41,7 +41,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="30dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/editor_vertical_padding"
         android:background="@color/white" />
 
     <TextView
@@ -61,7 +61,7 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_margin="30dp"
-        android:alpha="0.2"
+        android:alpha="0.3"
         android:background="@drawable/bg_rounded_corners">
 
         <TextView

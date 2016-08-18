@@ -1,9 +1,12 @@
 package com.ef.newlead.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.ef.newlead.Constant;
-import com.ef.newlead.data.model.ResourceResponse;
+import com.ef.newlead.data.model.DataBean.ResourceBean;
+import com.ef.newlead.data.model.DataBean.UserBean;
+import com.ef.newlead.data.model.Response;
 import com.ef.newlead.ui.view.SplashView;
 import com.ef.newlead.usecase.UseCase;
 import com.ef.newlead.util.FileUtils;
@@ -31,13 +34,22 @@ public class SplashPresenter extends Presenter<SplashView> {
     }
 
     public void getResourceInfo(Context context) {
-        useCase.new Builder<ResourceResponse>()
+        useCase.new Builder<Response<ResourceBean>>()
                 .useCaseMethod("ResourceInfo")
                 .onSuccess(response -> {
                     if (!SharedPreUtils.contain(Constant.RESOURCE_HASH) || !SharedPreUtils.getString(Constant.RESOURCE_HASH, "")
                             .equals(response.getData().getHash())) {
                         downloadResourceFile(context, response.getData().getSrc(), response.getData().getHash());
                     }
+                })
+                .build();
+    }
+
+    public void getUserInfo() {
+        useCase.new Builder<Response<UserBean>>()
+                .useCaseArgs("android", "", "", "")
+                .onSuccess(user -> {
+                    Log.d("", user.getData().getId());
                 })
                 .build();
     }

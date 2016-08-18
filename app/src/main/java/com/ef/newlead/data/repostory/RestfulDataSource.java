@@ -1,7 +1,9 @@
 package com.ef.newlead.data.repostory;
 
 import com.ef.newlead.Constant;
-import com.ef.newlead.data.model.ResourceResponse;
+import com.ef.newlead.data.model.DataBean.ResourceBean;
+import com.ef.newlead.data.model.DataBean.UserBean;
+import com.ef.newlead.data.model.Response;
 
 import java.util.concurrent.TimeUnit;
 
@@ -57,7 +59,12 @@ public class RestfulDataSource implements Repository {
     }
 
     @Override
-    public Observable<ResourceResponse> resourceInfo() {
+    public Observable<Response<ResourceBean>> resourceInfo() {
         return restfulService.resourceInfo();
+    }
+
+    @Override
+    public Observable<Response<UserBean>> getUserInfo(String device, String campaign, String source, String appStore) {
+        return restfulService.getUserInfo(device, campaign, source, appStore);
     }
 }

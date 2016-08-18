@@ -89,7 +89,7 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
             indicator.startAnim();
             startBottomBarAnim(false, Constant.DEFAULT_ANIM_HALF_TIME);
 
-            presenter.getResourceInfo(this);
+            presenter.getUserInfo();
         }
     }
 }

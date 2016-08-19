@@ -26,17 +26,17 @@ public class InitializationUseCase extends UseCase {
 
     @UseCaseMethod(name = "Download")
     public Observable<ResponseBody> getResourceFile(String url) {
-        return RestfulDataSource.getInstance().downloadFile(url);
+        return repository.downloadFile(url);
     }
 
     @UseCaseMethod(name = "ResourceInfo")
     public Observable<Response<ResourceBean>> getResourceInfo() {
-        return RestfulDataSource.getInstance().resourceInfo();
+        return repository.resourceInfo();
     }
 
     @UseCaseMethod
     public Observable<Response<UserBean>> getUserInfo(String device, String campaign, String source, String appStore) {
-        return RestfulDataSource.getInstance().getUserInfo(device, campaign, source, appStore);
+        return repository.getUserInfo(device, campaign, source, appStore);
     }
 
 }

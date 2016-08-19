@@ -66,7 +66,7 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
     @NonNull
     @Override
     public SplashPresenter createPresenter() {
-        return new SplashPresenter(this, new InitializationUseCase());
+        return new SplashPresenter(this, this, new InitializationUseCase());
     }
 
     private void startBottomBarAnim(boolean isEntry, long duration) {
@@ -89,7 +89,7 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
             indicator.startAnim();
             startBottomBarAnim(false, Constant.DEFAULT_ANIM_HALF_TIME);
 
-            presenter.getUserInfo();
+            presenter.getResourceInfo();
         }
     }
 }

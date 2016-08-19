@@ -132,11 +132,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showMessage(String msg) {
-        if (!isFinishing()) {
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-//            Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content), msg,
-//                    Snackbar.LENGTH_SHORT).show();
-        }
     }
 
 }

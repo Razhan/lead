@@ -17,11 +17,10 @@ import rx.Observable;
 
 public class RestfulDataSource implements Repository {
 
-    private final static int CONNECTION_TIMEOUT = 10;
-    private static RestfulDataSource dataSource;
+    private final static int CONNECTION_TIMEOUT = 30;
     private final NewLeadService restfulService;
 
-    private RestfulDataSource() {
+    public RestfulDataSource() {
         OkHttpClient client = new OkHttpClient.Builder()
                 .readTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
                 .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
@@ -45,14 +44,6 @@ public class RestfulDataSource implements Repository {
         restfulService = retrofit.create(NewLeadService.class);
     }
 
-    public static RestfulDataSource getInstance() {
-        if (dataSource == null) {
-            dataSource = new RestfulDataSource();
-        }
-
-        return dataSource;
-    }
-
     @Override
     public Observable<ResponseBody> downloadFile(String url) {
         return restfulService.downloadFile(url);
@@ -64,7 +55,8 @@ public class RestfulDataSource implements Repository {
     }
 
     @Override
-    public Observable<Response<UserBean>> getUserInfo(String device, String campaign, String source, String appStore) {
+    public Observable<Response<UserBean>> getUserInfo(String device, String campaign,
+                                                      String source, String appStore) {
         return restfulService.getUserInfo(device, campaign, source, appStore);
     }
 }

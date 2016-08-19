@@ -1,9 +1,14 @@
 package com.ef.newlead;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+
+import retrofit2.adapter.rxjava.HttpException;
 
 public class ErrorHandler {
 
@@ -13,9 +18,24 @@ public class ErrorHandler {
         mContext = context;
     }
 
+    @NonNull
     private static String getErrorMessage(Throwable exception) {
         if (exception instanceof UnknownHostException) {
             return "An network error has occurred";
+        } else if (exception instanceof SocketTimeoutException) {
+            return "Time Out";
+        } else if (exception instanceof HttpException) {
+            HttpException httpException = (HttpException) exception;
+            switch(httpException.code()) {
+                // confirm with backend
+
+                default:
+                    try {
+                        return httpException.response().errorBody().string();
+                    } catch (IOException e) {
+                        return "An unknown error has occurred";
+                    }
+            }
         }
 
         return "An unknown error has occurred";

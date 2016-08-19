@@ -1,6 +1,8 @@
 package com.ef.newlead.usecase;
 
 import com.ef.newlead.ErrorHandler;
+import com.ef.newlead.data.repostory.Repository;
+import com.ef.newlead.data.repostory.RepositoryImp;
 import com.ef.newlead.util.UseCaseUtils;
 
 import java.lang.reflect.Method;
@@ -25,7 +27,10 @@ public abstract class UseCase {
 
     private CompositeSubscription compositeSubscription;
 
+    protected Repository repository;
+
     public UseCase() {
+        repository = RepositoryImp.getInstance();
         compositeSubscription = new CompositeSubscription();
     }
 

@@ -18,8 +18,8 @@ import okhttp3.ResponseBody;
 
 public class SplashPresenter extends Presenter<SplashView> {
 
-    public SplashPresenter(SplashView view, UseCase useCase) {
-        super(view, useCase);
+    public SplashPresenter(Context context, SplashView view, UseCase useCase) {
+        super(context, view, useCase);
     }
 
     private void downloadResourceFile(Context context, String url, String hash) {
@@ -33,7 +33,7 @@ public class SplashPresenter extends Presenter<SplashView> {
                 .build();
     }
 
-    public void getResourceInfo(Context context) {
+    public void getResourceInfo() {
         useCase.new Builder<Response<ResourceBean>>()
                 .useCaseMethod("ResourceInfo")
                 .onSuccess(response -> {
@@ -41,6 +41,7 @@ public class SplashPresenter extends Presenter<SplashView> {
                             .equals(response.getData().getHash())) {
                         downloadResourceFile(context, response.getData().getSrc(), response.getData().getHash());
                     }
+                    getView().showMessage(response.getData().getHash());
                 })
                 .build();
     }
@@ -48,9 +49,7 @@ public class SplashPresenter extends Presenter<SplashView> {
     public void getUserInfo() {
         useCase.new Builder<Response<UserBean>>()
                 .useCaseArgs("android", "", "", "")
-                .onSuccess(user -> {
-                    Log.d("", user.getData().getId());
-                })
+                .onSuccess(user -> getView().showMessage(user.getData().getId()))
                 .build();
     }
 

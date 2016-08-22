@@ -119,9 +119,13 @@ public class NumberFragment extends BaseCollectInfoFragment {
         Fragment fragment = VerificationFragment.newInstance(input.getText().toString());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            fragment.setEnterTransition(new Slide(Gravity.RIGHT).setDuration(Constant.DEFAULT_ANIM_FULL_TIME));
-            fragment.setExitTransition(new Slide(Gravity.LEFT).setDuration(Constant.DEFAULT_ANIM_FULL_TIME));
+            Slide slide = new Slide(Gravity.RIGHT);
+            slide.setDuration(Constant.DEFAULT_ANIM_FULL_TIME);
+
+            fragment.setEnterTransition(slide);
+            fragment.setExitTransition(slide);
         }
+
         return fragment;
     }
 

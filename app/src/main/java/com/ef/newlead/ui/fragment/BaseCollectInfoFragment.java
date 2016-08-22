@@ -12,7 +12,7 @@ import com.ef.newlead.ui.activity.CollectInfoActivity;
 
 public abstract class BaseCollectInfoFragment<P extends Presenter> extends BaseMVPFragment<P> {
 
-    private FragmentManager fragmentManager;
+    protected FragmentManager fragmentManager;
 
     protected boolean inProgress = false;
 

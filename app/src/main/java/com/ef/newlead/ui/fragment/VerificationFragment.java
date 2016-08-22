@@ -92,7 +92,7 @@ public class VerificationFragment extends BaseCollectInfoFragment {
         number.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 if (event.getX() > (number.getWidth() - number.getTotalPaddingRight())) {
-                    getActivity().onBackPressed();
+                    backToPreviousFragment();
                 }
                 return true;
             }
@@ -178,6 +178,18 @@ public class VerificationFragment extends BaseCollectInfoFragment {
         }
     }
 
+    private void backToPreviousFragment() {
+        Fragment fragment = NumberFragment.newInstance();
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Slide slide = new Slide(Gravity.LEFT);
+            slide.setDuration(Constant.DEFAULT_ANIM_FULL_TIME);
+
+            fragment.setEnterTransition(slide);
+            fragment.setExitTransition(slide);
+        }
+
+        fragmentManager.beginTransaction().replace(R.id.collect_info_fragment, fragment).commit();
+    }
 
 }

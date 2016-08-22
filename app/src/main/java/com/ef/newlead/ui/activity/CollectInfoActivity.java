@@ -70,13 +70,13 @@ public class CollectInfoActivity extends BaseActivity implements ActivityCompat.
         }
 
         String[] fragments = fragmentStr.split(" \\| ");
-//        try {
-//            fragment = (Fragment)fragmentMapper.get(fragments[fragmentIndex++]).newInstance();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            fragment = (Fragment)fragmentMapper.get(fragments[fragmentIndex++]).newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        fragment = NumberFragment.newInstance();
+//        fragment = NumberFragment.newInstance();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             fragment.setEnterTransition(new Slide(Gravity.RIGHT).setDuration(Constant.DEFAULT_ANIM_FULL_TIME));

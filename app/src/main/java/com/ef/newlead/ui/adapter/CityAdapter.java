@@ -22,11 +22,10 @@ import java.util.List;
  * Adapter provides {@link City} info, allows setting filter to display city items correspondingly.
  */
 public class CityAdapter extends BaseAdapter {
+    private final LayoutInflater layoutInflater;
     private List<City> cityList;
     private List<String> targetCities = new LinkedList<>();
-
     private Context context;
-    private final LayoutInflater layoutInflater;
     private String filter;
 
     public CityAdapter(Context context, List<City> cities) {

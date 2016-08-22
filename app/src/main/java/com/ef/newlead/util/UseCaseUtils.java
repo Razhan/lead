@@ -1,6 +1,6 @@
 package com.ef.newlead.util;
 
-import com.ef.newlead.usecase.UseCaseMethod;
+import com.ef.newlead.domain.usecase.UseCaseMethod;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

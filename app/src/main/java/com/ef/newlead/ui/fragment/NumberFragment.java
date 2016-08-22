@@ -48,7 +48,7 @@ public class NumberFragment extends BaseCollectInfoFragment {
 
     @Override
     public void initView() {
-        numberWrapper.setBackground(getBackgroundDrawable("age_select_gradient_color"));
+        numberWrapper.setBackground(getGradientDrawable("age_select_gradient_color"));
         hint.setText("A code will be sent to you in order to verify your phone number.");
         input.addTextChangedListener(new TextWatcher() {
             String lastChar = "";
@@ -91,7 +91,7 @@ public class NumberFragment extends BaseCollectInfoFragment {
         progressView.setEndAnimationListener(() -> {
             inProgress = false;
             hint.setText("Code already sent to you.");
-            startNextFragment(true);
+            startNextFragment();
         });
     }
 
@@ -115,11 +115,12 @@ public class NumberFragment extends BaseCollectInfoFragment {
     }
 
     @Override
-    protected Fragment getFragment() {
+    protected Fragment getNextFragment() {
         Fragment fragment = VerificationFragment.newInstance(input.getText().toString());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             fragment.setEnterTransition(new Slide(Gravity.RIGHT).setDuration(Constant.DEFAULT_ANIM_FULL_TIME));
+            fragment.setExitTransition(new Slide(Gravity.LEFT).setDuration(Constant.DEFAULT_ANIM_FULL_TIME));
         }
         return fragment;
     }

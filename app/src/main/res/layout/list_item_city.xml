@@ -2,12 +2,12 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:paddingBottom="16dp"
+    android:paddingTop="16dp"
+    android:singleLine="true"
     android:text="item"
     android:textColor="@android:color/white"
-    android:singleLine="true"
-    android:textSize="@dimen/font_size_large"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"
-    android:gravity="center_vertical">
+    android:textSize="@dimen/font_size_large">
 
 </TextView>

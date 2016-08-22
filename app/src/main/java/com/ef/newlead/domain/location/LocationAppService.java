@@ -1,4 +1,4 @@
-package com.ef.newlead.location;
+package com.ef.newlead.domain.location;
 
 /**
  * Created by seanzhou on 8/12/16.

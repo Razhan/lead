@@ -26,8 +26,8 @@ public class City {
         return code;
     }
 
-    public String getFullName(){
-        return  getName() + " " + getPinyin();
+    public String getFullName() {
+        return getName() + " " + getPinyin();
     }
 
     @Override

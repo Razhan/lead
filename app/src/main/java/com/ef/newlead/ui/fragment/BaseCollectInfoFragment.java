@@ -1,32 +1,44 @@
 package com.ef.newlead.ui.fragment;
 
-import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.ef.newlead.R;
+import com.ef.newlead.presenter.Presenter;
 import com.ef.newlead.ui.activity.CollectInfoActivity;
 
-public abstract class BaseCollectInfoFragment extends BaseFragment {
+public abstract class BaseCollectInfoFragment<P extends Presenter> extends BaseMVPFragment<P> {
+
+    private FragmentManager fragmentManager;
 
     protected boolean inProgress = false;
 
-    protected Drawable getBackgroundDrawable(String key) {
-        return getGradientDrawable(key);
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        fragmentManager = getActivity().getSupportFragmentManager();
     }
 
-    protected final void startNextFragment(boolean addToBackStack) {
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.collect_info_fragment, getFragment());
-
-        if (addToBackStack) {
-            ft.addToBackStack(null);
-        }
-
-        ft.commit();
+    @Override
+    protected P createPresent() {
+        return null;
     }
 
-    protected Fragment getFragment() {
-        return ((CollectInfoActivity) getActivity()).getFragment();
+    protected final void startNextFragment() {
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.collect_info_fragment, getNextFragment()).commit();
     }
+
+    protected final void BackToPreviousFragment() {
+        fragmentManager.beginTransaction().remove(this).commit();
+    }
+
+    protected Fragment getNextFragment() {
+        return ((CollectInfoActivity) getActivity())
+                .getNextFragment();
+    }
+
 }

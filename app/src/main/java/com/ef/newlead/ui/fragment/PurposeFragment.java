@@ -16,13 +16,13 @@ import com.ef.newlead.R;
 import com.ef.newlead.data.model.Purpose;
 import com.ef.newlead.ui.widget.BubbleTextVew;
 import com.ef.newlead.ui.widget.DiscreteSlider;
-import com.ef.newlead.util.SystemText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class PurposeFragment extends BaseCollectInfoFragment implements DiscreteSlider.OnSlideListener {
 
@@ -52,7 +52,7 @@ public class PurposeFragment extends BaseCollectInfoFragment implements Discrete
 
     @Override
     public void initView() {
-        purposeWrapper.setBackground(getBackgroundDrawable("purpose_select_gradient_color"));
+        purposeWrapper.setBackground(getGradientDrawable("purpose_select_gradient_color"));
 
         String descriptionStr = getLocaleText("purpose_selections");
         purposes = new Gson().fromJson(descriptionStr, new TypeToken<List<Purpose>>() {
@@ -112,6 +112,11 @@ public class PurposeFragment extends BaseCollectInfoFragment implements Discrete
         ObjectAnimator animator = ObjectAnimator.ofFloat(description, "alpha", 0, 1);
         animator.setDuration(Constant.DEFAULT_ANIM_HALF_TIME);
         animator.start();
+    }
+
+    @OnClick(R.id.purpose_next_button)
+    public void OnClick() {
+        startNextFragment();
     }
 
 }

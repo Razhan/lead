@@ -13,7 +13,10 @@ public abstract class BaseMVPActivity<P extends Presenter> extends BaseActivity 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = createPresenter();
-        presenter.onCreate();
+
+        if (presenter != null) {
+            presenter.onCreate();
+        }
     }
 
     @NonNull
@@ -46,7 +49,7 @@ public abstract class BaseMVPActivity<P extends Presenter> extends BaseActivity 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(presenter != null){
+        if (presenter != null) {
             presenter.onDestroy();
         }
     }

@@ -32,6 +32,14 @@ public final class MiscUtils {
         return null;
     }
 
+    public static boolean hasKitKat() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+    }
+
+    public static boolean hasLollipop() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    }
+
     public String getVersion(Context context) {
         try {
             PackageManager manager = context.getPackageManager();
@@ -41,14 +49,6 @@ public final class MiscUtils {
         } catch (Exception e) {
             return "";
         }
-    }
-
-    public static boolean hasKitKat(){
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-    }
-
-    public static boolean hasLollipop(){
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
 }

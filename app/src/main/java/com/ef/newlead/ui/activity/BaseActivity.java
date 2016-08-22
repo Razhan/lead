@@ -33,7 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     TextView toolbarTitle;
     private ProgressDialog progressDialog;
 
-    private boolean doubleBackToExitPressedOnce = true;
+    private boolean BackPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,16 +79,20 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
-        if (!doubleClickExit && doubleBackToExitPressedOnce) {
+        if (!doubleClickExit) {
             super.onBackPressed();
             return;
         }
 
-        this.doubleBackToExitPressedOnce = true;
+        if (BackPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.BackPressedOnce = true;
         Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
 
-        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+        new Handler().postDelayed(() -> BackPressedOnce = false, 2000);
     }
 
     @CallSuper
@@ -132,7 +136,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showMessage(String msg) {
-            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
 }

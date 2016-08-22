@@ -1,11 +1,14 @@
 package com.ef.newlead.ui.fragment;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -13,6 +16,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.ui.widget.IndicatedProgressView;
 import com.ef.newlead.ui.widget.VerificationView;
@@ -23,7 +27,7 @@ import butterknife.OnClick;
 
 public class VerificationFragment extends BaseCollectInfoFragment {
 
-    private final static long DEFAULT_COUNT_DOWN_TIME = 5 * 1000 + 100;
+    private final static long DEFAULT_COUNT_DOWN_TIME = 60 * 1000 + 100;
     private final static String NUMBER_KEY = "phone_number";
 
     @BindView(R.id.verification_number)
@@ -71,7 +75,7 @@ public class VerificationFragment extends BaseCollectInfoFragment {
     public void initView() {
         number.setText(phone_number);
 
-        verificationWrapper.setBackground(getBackgroundDrawable("age_select_gradient_color"));
+        verificationWrapper.setBackground(getGradientDrawable("age_select_gradient_color"));
         startCountDown();
 
         input.setFullListener(isFull -> {
@@ -144,7 +148,7 @@ public class VerificationFragment extends BaseCollectInfoFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.verification_submit:
-                new Handler().postDelayed(() -> afterSubmit(false), 1000);
+                new Handler().post(() -> afterSubmit(true));
                 submit.setClickable(false);
                 break;
             case R.id.verification_retry:
@@ -169,6 +173,11 @@ public class VerificationFragment extends BaseCollectInfoFragment {
         if (!isSuccess) {
             input.changeTextColor(Color.RED);
             hint.setText("Oh no! it seems the code is wrong");
+        } else {
+            startNextFragment();
         }
     }
+
+
+
 }

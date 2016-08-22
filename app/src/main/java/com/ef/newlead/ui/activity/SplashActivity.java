@@ -1,6 +1,7 @@
 package com.ef.newlead.ui.activity;
 
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -13,10 +14,10 @@ import android.widget.TextView;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
+import com.ef.newlead.domain.usecase.InitializationUseCase;
 import com.ef.newlead.presenter.SplashPresenter;
 import com.ef.newlead.ui.view.SplashView;
 import com.ef.newlead.ui.widget.TransmutableView;
-import com.ef.newlead.usecase.InitializationUseCase;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -38,11 +39,6 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
     protected void onCreate(Bundle savedInstanceState) {
         fullScreen = true;
         super.onCreate(savedInstanceState);
-
-        new Handler().postDelayed(() -> {
-            indicator.startAnim();
-            startBottomBarAnim(true, Constant.DEFAULT_ANIM_FULL_TIME);
-        }, 2000);
     }
 
     @Override
@@ -89,7 +85,17 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
             indicator.startAnim();
             startBottomBarAnim(false, Constant.DEFAULT_ANIM_HALF_TIME);
 
-            presenter.getResourceInfo();
+            new Handler().postDelayed(() -> {
+                startActivity(
+                    new Intent(this, CollectInfoActivity.class));
+                    finish();
+            }, Constant.DEFAULT_ANIM_HALF_TIME);
         }
+    }
+
+    @Override
+    public void afterInit() {
+        indicator.startAnim();
+        startBottomBarAnim(true, Constant.DEFAULT_ANIM_FULL_TIME);
     }
 }

@@ -39,7 +39,7 @@ import butterknife.OnClick;
  * <p>
  * Fragment provides user the ability to select city or just locate the position automatically.
  */
-public class CityLocationFragment extends BaseMVPFragment<CityInfoPresenter> implements TextWatcher,
+public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresenter> implements TextWatcher,
         AdapterView.OnItemClickListener, CityLocationView {
 
     public static final int WRITE_COARSE_LOCATION_REQUEST_CODE = 0xFF;
@@ -113,7 +113,6 @@ public class CityLocationFragment extends BaseMVPFragment<CityInfoPresenter> imp
             animFadeIn.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
-
                 }
 
                 @Override
@@ -126,13 +125,11 @@ public class CityLocationFragment extends BaseMVPFragment<CityInfoPresenter> imp
 
                 @Override
                 public void onAnimationRepeat(Animation animation) {
-
                 }
             });
 
             cancel.setOnClickListener((v) -> cancel.startAnimation(animFadeIn));
         }
-
     }
 
 
@@ -172,7 +169,7 @@ public class CityLocationFragment extends BaseMVPFragment<CityInfoPresenter> imp
 
     @OnClick(R.id.button)
     void onSubmit() {
-        Toast.makeText(getActivity(), "submit button clicked", Toast.LENGTH_SHORT).show();
+        startNextFragment();
     }
 
     @Override

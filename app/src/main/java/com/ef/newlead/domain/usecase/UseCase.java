@@ -1,4 +1,4 @@
-package com.ef.newlead.usecase;
+package com.ef.newlead.domain.usecase;
 
 import com.ef.newlead.ErrorHandler;
 import com.ef.newlead.data.repostory.Repository;
@@ -18,16 +18,13 @@ import rx.subscriptions.CompositeSubscription;
 
 public abstract class UseCase {
 
+    protected Repository repository;
     private String methodName;
     private Object[] methodArgs;
-
     private Action1 onSuccessCallback;
     private Action1<Throwable> onErrorCallback;
     private Action0 onCompleteCallback;
-
     private CompositeSubscription compositeSubscription;
-
-    protected Repository repository;
 
     public UseCase() {
         repository = RepositoryImp.getInstance();
@@ -93,6 +90,10 @@ public abstract class UseCase {
         }
 
         public Builder<T> onError(Action1<Throwable> errorCallback) {
+            if (errorCallback == null) {
+                return this;
+            }
+
             UseCase.this.onErrorCallback = errorCallback;
             return this;
         }

@@ -1,6 +1,7 @@
 package com.ef.newlead.ui.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.ef.newlead.presenter.Presenter;
@@ -13,7 +14,10 @@ public abstract class BaseMVPFragment<P extends Presenter> extends BaseFragment 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         presenter = createPresent();
-        presenter.onCreate();
+
+        if (presenter != null) {
+            presenter.onCreate();
+        }
     }
 
     protected abstract P createPresent();

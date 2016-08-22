@@ -1,4 +1,4 @@
-package com.ef.newlead.location;
+package com.ef.newlead.domain.location;
 
 import android.content.Context;
 import android.os.Handler;
@@ -31,24 +31,6 @@ public class AMapService implements LocationAppService, AMapLocationListener {
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = null;
     private ResultCallback listener;
-
-    public AMapService(Context context) {
-        locationClient = new AMapLocationClient(context.getApplicationContext());
-        locationOption = new AMapLocationClientOption();
-
-        /***
-         * 定位模式，目前支持三种定位模式
-         * 高精度定位模式： 在这种定位模式下，将同时使用高德网络定位和GPS定位,优先返回精度高的定位
-         * 低功耗定位模式： 在这种模式下，将只使用高德网络定位
-         * 仅设备定位模式： 在这种模式下，将只使用GPS定位。
-         */
-        // 设置定位模式为高精度模式
-        locationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);// Hight_Accuracy
-
-        // 设置定位监听
-        locationClient.setLocationListener(this);
-    }
-
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -91,6 +73,23 @@ public class AMapService implements LocationAppService, AMapLocationListener {
             }
         }
     };
+
+    public AMapService(Context context) {
+        locationClient = new AMapLocationClient(context.getApplicationContext());
+        locationOption = new AMapLocationClientOption();
+
+        /***
+         * 定位模式，目前支持三种定位模式
+         * 高精度定位模式： 在这种定位模式下，将同时使用高德网络定位和GPS定位,优先返回精度高的定位
+         * 低功耗定位模式： 在这种模式下，将只使用高德网络定位
+         * 仅设备定位模式： 在这种模式下，将只使用GPS定位。
+         */
+        // 设置定位模式为高精度模式
+        locationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);// Hight_Accuracy
+
+        // 设置定位监听
+        locationClient.setLocationListener(this);
+    }
 
     @Override
     public void startLocation() {

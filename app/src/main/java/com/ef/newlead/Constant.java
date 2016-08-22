@@ -17,4 +17,10 @@ public class Constant {
 
     public static final String RESOURCE_HASH = "ResourceHash";
 
+    public static final String USER_ID = "userId";
+    public static final String USER_TOKEN = "userToken";
+    public static final String USER_GROUP = "userGroup";
+    public static final String USER_RULE = "userRule";
+
+
 }

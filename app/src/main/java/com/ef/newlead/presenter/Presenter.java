@@ -2,8 +2,8 @@ package com.ef.newlead.presenter;
 
 import android.content.Context;
 
+import com.ef.newlead.domain.usecase.UseCase;
 import com.ef.newlead.ui.view.View;
-import com.ef.newlead.usecase.UseCase;
 
 public abstract class Presenter<V extends View> {
 
@@ -47,7 +47,7 @@ public abstract class Presenter<V extends View> {
 
     }
 
-    public void onDestroy(){
+    public void onDestroy() {
         view = null;
         context = null;
 

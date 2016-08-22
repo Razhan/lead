@@ -1,15 +1,17 @@
 package com.ef.newlead.ui.fragment;
 
-import android.os.Handler;
+import android.os.Build;
 import android.support.v4.app.Fragment;
+import android.transition.Slide;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
+import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.Level;
 import com.ef.newlead.ui.widget.CardSlideView;
-import com.ef.newlead.util.SystemText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -35,7 +37,7 @@ public class LevelFragment extends BaseCollectInfoFragment implements CardSlideV
 
     @Override
     public void initView() {
-        levelWrapper.setBackground(getBackgroundDrawable("age_select_gradient_color"));
+        levelWrapper.setBackground(getGradientDrawable("age_select_gradient_color"));
 
         String jsonStr = getLocaleText("level_select");
         List<Level> levels = new Gson().fromJson(jsonStr, new TypeToken<List<Level>>() {
@@ -60,7 +62,7 @@ public class LevelFragment extends BaseCollectInfoFragment implements CardSlideV
 
     @Override
     public void onFinish() {
-        showMessage("结束");
-        new Handler().post(() -> getActivity().finish());
+        startNextFragment();
     }
+
 }

@@ -11,7 +11,6 @@ import com.ef.newlead.R;
 import com.ef.newlead.data.model.Age;
 import com.ef.newlead.ui.adapter.AgeAdapter;
 import com.ef.newlead.ui.widget.flowview.FlowView;
-import com.ef.newlead.util.SystemText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -19,6 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class AgeFragment extends BaseCollectInfoFragment implements FlowView.CoverFlowItemListener {
 
@@ -46,7 +46,7 @@ public class AgeFragment extends BaseCollectInfoFragment implements FlowView.Cov
 
     @Override
     public void initView() {
-        ageWrapper.setBackground(getBackgroundDrawable("age_select_gradient_color"));
+        ageWrapper.setBackground(getGradientDrawable("age_select_gradient_color"));
 
         title.setText(getLocaleText("age_select_title"));
         next.setText(getLocaleText("age_select_next"));
@@ -61,7 +61,7 @@ public class AgeFragment extends BaseCollectInfoFragment implements FlowView.Cov
 
         ageCoverFlow.setAdapter(mAdapter);
         ageCoverFlow.setCoverFlowListener(this);
-        ageCoverFlow.postDelayed(() -> ageCoverFlow.scrollToCenter(DEFAULT_POSITION), Constant.DEFAULT_ANIM_HALF_TIME);
+        ageCoverFlow.postDelayed(() -> ageCoverFlow.scrollToCenter(DEFAULT_POSITION), Constant.DEFAULT_ANIM_FULL_TIME);
     }
 
     @Override
@@ -69,4 +69,8 @@ public class AgeFragment extends BaseCollectInfoFragment implements FlowView.Cov
         Log.i(TAG, "onItemSelectedSelected" + position);
     }
 
+    @OnClick(R.id.age_next_button)
+    public void OnClick() {
+        startNextFragment();
+    }
 }

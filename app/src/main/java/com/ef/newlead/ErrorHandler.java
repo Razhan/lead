@@ -26,7 +26,7 @@ public class ErrorHandler {
             return "Time Out";
         } else if (exception instanceof HttpException) {
             HttpException httpException = (HttpException) exception;
-            switch(httpException.code()) {
+            switch (httpException.code()) {
                 // confirm with backend
 
                 default:

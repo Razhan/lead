@@ -4,9 +4,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.ef.newlead.data.model.City;
-import com.ef.newlead.location.AMapService;
-import com.ef.newlead.location.LocationAppService;
-import com.ef.newlead.location.LocationInfo;
+import com.ef.newlead.domain.location.AMapService;
+import com.ef.newlead.domain.location.LocationAppService;
+import com.ef.newlead.domain.location.LocationInfo;
 import com.ef.newlead.ui.view.CityLocationView;
 import com.ef.newlead.util.FileUtils;
 import com.ef.newlead.util.SystemText;

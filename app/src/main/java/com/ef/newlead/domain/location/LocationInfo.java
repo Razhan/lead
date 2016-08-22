@@ -1,4 +1,4 @@
-package com.ef.newlead.location;
+package com.ef.newlead.domain.location;
 
 /**
  * Created by seanzhou on 8/12/16.
@@ -20,9 +20,17 @@ public class LocationInfo {
 
     }
 
+    public String getCity() {
+        return city;
+    }
+
     public LocationInfo setCity(String city) {
         this.city = city;
         return this;
+    }
+
+    public double getLatitude() {
+        return latitude;
     }
 
     public LocationInfo setLatitude(double latitude) {
@@ -30,29 +38,21 @@ public class LocationInfo {
         return this;
     }
 
+    public double getLongitude() {
+        return longitude;
+    }
+
     public LocationInfo setLongitude(double longitude) {
         this.longitude = longitude;
         return this;
     }
 
+    public String getProvider() {
+        return provider;
+    }
+
     public LocationInfo setProvider(String provider) {
         this.provider = provider;
         return this;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public String getProvider() {
-        return provider;
     }
 }

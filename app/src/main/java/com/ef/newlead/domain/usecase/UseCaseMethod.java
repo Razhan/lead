@@ -1,4 +1,4 @@
-package com.ef.newlead.usecase;
+package com.ef.newlead.domain.usecase;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,25 +1,68 @@
 package com.ef.newlead.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
 import com.ef.newlead.data.model.DataBean.UserBean;
 import com.ef.newlead.data.model.Response;
+import com.ef.newlead.domain.usecase.UseCase;
 import com.ef.newlead.ui.view.SplashView;
-import com.ef.newlead.usecase.UseCase;
 import com.ef.newlead.util.FileUtils;
 import com.ef.newlead.util.SharedPreUtils;
 
 import java.io.IOException;
+import java.security.PrivateKey;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import okhttp3.ResponseBody;
 
 public class SplashPresenter extends Presenter<SplashView> {
 
+    private static final int DEFAULT_INIT_STEP = 2;
+    private AtomicInteger stepCount = new AtomicInteger(0);
+
     public SplashPresenter(Context context, SplashView view, UseCase useCase) {
         super(context, view, useCase);
+    }
+
+    @Override
+    public void onCreate() {
+        getResourceInfo();
+        getUserInfo();
+    }
+
+    private void InitCompleted() {
+        if (stepCount.incrementAndGet() == DEFAULT_INIT_STEP) {
+            getView().afterInit();
+        }
+    }
+
+    private void getResourceInfo() {
+        useCase.new Builder<Response<ResourceBean>>()
+                .useCaseMethod("ResourceInfo")
+                .onSuccess(response -> {
+                    if (!SharedPreUtils.getString(Constant.RESOURCE_HASH, "")
+                            .equals(response.getData().getHash())) {
+                        downloadResourceFile(context, response.getData().getSrc(), response.getData().getHash());
+                    } else {
+                        InitCompleted();
+                    }
+                })
+                .build();
+    }
+
+    private void getUserInfo() {
+        useCase.new Builder<Response<UserBean>>()
+                .useCaseArgs("android", "", "", "")
+                .onSuccess(user -> {
+                    SharedPreUtils.putString(Constant.USER_ID, user.getData().getId());
+                    SharedPreUtils.putString(Constant.USER_TOKEN, user.getData().getToken());
+                    SharedPreUtils.putString(Constant.USER_RULE, user.getData().getRule());
+
+                    InitCompleted();
+                })
+                .build();
     }
 
     private void downloadResourceFile(Context context, String url, String hash) {
@@ -29,27 +72,8 @@ public class SplashPresenter extends Presenter<SplashView> {
                     if (saveFile(context, responseBody)) {
                         SharedPreUtils.putString(Constant.RESOURCE_HASH, hash);
                     }
+                    InitCompleted();
                 })
-                .build();
-    }
-
-    public void getResourceInfo() {
-        useCase.new Builder<Response<ResourceBean>>()
-                .useCaseMethod("ResourceInfo")
-                .onSuccess(response -> {
-                    if (!SharedPreUtils.contain(Constant.RESOURCE_HASH) || !SharedPreUtils.getString(Constant.RESOURCE_HASH, "")
-                            .equals(response.getData().getHash())) {
-                        downloadResourceFile(context, response.getData().getSrc(), response.getData().getHash());
-                    }
-                    getView().showMessage(response.getData().getHash());
-                })
-                .build();
-    }
-
-    public void getUserInfo() {
-        useCase.new Builder<Response<UserBean>>()
-                .useCaseArgs("android", "", "", "")
-                .onSuccess(user -> getView().showMessage(user.getData().getId()))
                 .build();
     }
 

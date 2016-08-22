@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,11 +67,19 @@ public abstract class BaseFragment extends Fragment {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
+    protected void clearFragmentBackStack() {
+        getActivity().getSupportFragmentManager().popBackStack(null,
+                FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+
+    }
+
     @NonNull
     protected GradientDrawable getGradientDrawable(String colorNode) {
         String backgroundStr = SystemText.getSystemText(getContext(), colorNode);
         GradientBackground background = new Gson().fromJson(backgroundStr,
-                new TypeToken<GradientBackground>() {}.getType());
+                new TypeToken<GradientBackground>() {
+                }.getType());
         return new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
                 new int[]{background.getBottomGradient().toHex(), background.getTopGradient().toHex()});
     }

@@ -144,7 +144,6 @@
       "text": "我太爱<b>旅游</b>了,我想去世界各地走走。"
     }
   ],
-
   "city_select_gradient_color": {
     "top_gradient": {
       "r": 139,
@@ -164,6 +163,6 @@
   "city_select_locate": "定位城市",
   "city_select_locating": "定位中...",
   "city_location_error": "定位失败",
-  "city_select_submit":"提交",
-  "city_not_found":"未找到结果"
+  "city_select_submit": "提交",
+  "city_not_found": "未找到结果"
 }

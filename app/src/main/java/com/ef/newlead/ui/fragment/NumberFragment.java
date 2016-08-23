@@ -85,7 +85,7 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
         input.setText(phone_number);
         input.setHint(getLocaleText("phone_select_phone_placeholder"));
         title.setText(getLocaleText("phone_select_title"));
-        next.setText(getContinueText());
+        next.setText(getLocaleText("info_collection_next"));
 
         input.addTextChangedListener(new TextWatcher() {
             String lastChar = "";

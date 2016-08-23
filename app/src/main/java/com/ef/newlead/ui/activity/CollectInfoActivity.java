@@ -27,12 +27,15 @@ import java.util.Map;
 
 public class CollectInfoActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
-    private int fragmentIndex = 0;
+    private static final String CURRENT_FRAGMENT = "currentFragment";
+
+    private int fragmentIndex;
     private Fragment fragment;
 
     private String[] fragmentKeys;
     private static Map<String, Class<?>> fragmentMapper;
     private List<GradientColor> colors;
+
     static {
         fragmentMapper = new ArrayMap<>();
         fragmentMapper.put("age", AgeFragment.class);
@@ -68,6 +71,9 @@ public class CollectInfoActivity extends BaseActivity implements ActivityCompat.
 
         fragmentKeys = fragmentStr.split(" \\| ");
 
+        fragmentIndex = SharedPreUtils.getInt(CURRENT_FRAGMENT, 0);
+
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.collect_info_fragment, getNextFragment())
@@ -79,6 +85,8 @@ public class CollectInfoActivity extends BaseActivity implements ActivityCompat.
         if (fragmentIndex >= fragmentKeys.length) {
             finish();
         }
+
+        SharedPreUtils.putInt(CURRENT_FRAGMENT, fragmentIndex);
 
         try {
             fragment = (Fragment)fragmentMapper.get(fragmentKeys[fragmentIndex++]).newInstance();

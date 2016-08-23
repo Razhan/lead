@@ -131,6 +131,7 @@
             android:id="@+id/verification_submit"
             android:layout_width="match_parent"
             android:layout_height="57dp"
+            android:textAllCaps="false"
             android:alpha="0.3"
             android:background="@drawable/bg_rounded_corners"
             android:clickable="false"

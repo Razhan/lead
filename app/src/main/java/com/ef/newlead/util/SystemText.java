@@ -25,13 +25,14 @@ public class SystemText {
         String language = MiscUtils.getSystemLanguage(context);
 
         JSONObject mapping = FileUtils.readJsonFile(resourceFolder.getAbsolutePath(), Constant.MAPPING_FILE);
-        String textFile;
+        String textFile = DEFAULT_LANGUAGE;
 
-        if (mapping == null || mapping.optString(language).isEmpty()) {
+        // Set hardcoded language type for testing
+        /*if (mapping == null || mapping.optString(language).isEmpty()) {
             textFile = DEFAULT_LANGUAGE;
         } else {
             textFile = mapping.optString(language);
-        }
+        }*/
 
         String textFolder = FileUtils.getInternalFolderPath(context, Constant.SYSTEM_TEXT_FOLDER);
         systemText = FileUtils.readJsonFile(textFolder, textFile + ".json");

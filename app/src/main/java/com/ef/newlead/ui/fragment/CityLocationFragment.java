@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ import com.ef.newlead.presenter.CityInfoPresenter;
 import com.ef.newlead.ui.adapter.CityAdapter;
 import com.ef.newlead.ui.view.CityLocationView;
 import com.ef.newlead.util.MiscUtils;
+import com.ef.newlead.util.ViewUtils;
 
 import java.util.List;
 
@@ -98,8 +100,23 @@ public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresen
         cityListView.setAdapter(adapter);
 
         cityListView.setOnItemClickListener(this);
+        
+        // Hide the keyboard automatically when the user is trying to select the desired city
+        cityListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (scrollState == SCROLL_STATE_TOUCH_SCROLL || scrollState == SCROLL_STATE_FLING) {
+                    ViewUtils.hideKeyboard(CityLocationFragment.this.getActivity());
+                }
+            }
 
-        submit.setText(getContinueText());
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
+
+        submit.setText(getLocaleText("purpose_select_next"));
         title.setText(getLocaleText("city_select_top_label"));
         input.setHint(getLocaleText("city_select_placeholder"));
         location.setText(getLocaleText("city_select_locate"));

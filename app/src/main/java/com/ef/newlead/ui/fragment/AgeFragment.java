@@ -61,7 +61,7 @@ public class AgeFragment extends BaseCollectInfoFragment implements FlowView.Cov
 
         ageCoverFlow.setAdapter(mAdapter);
         ageCoverFlow.setCoverFlowListener(this);
-        ageCoverFlow.postDelayed(() -> ageCoverFlow.scrollToCenter(DEFAULT_POSITION), Constant.DEFAULT_ANIM_FULL_TIME);
+        ageCoverFlow.postDelayed(() -> ageCoverFlow.scrollToCenter(DEFAULT_POSITION), 400);
     }
 
     @Override

@@ -141,8 +141,6 @@ public class TransmutableView extends View {
 
         mRectF.left = cx - cr;
         mRectF.right = cx + cr;
-        mRectF.top = cy - cr;
-        mRectF.bottom = cy + cr;
 
         canvas.save();
         mPaint.setColor(Color.WHITE);

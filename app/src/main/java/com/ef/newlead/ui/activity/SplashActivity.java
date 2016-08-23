@@ -49,13 +49,9 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
     @Override
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-
-        indicator.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                indicator.startAnim();
-                indicator.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
+        indicator.post(() -> {
+            indicator.startAnim();
+            presenter.onInit();
         });
     }
 

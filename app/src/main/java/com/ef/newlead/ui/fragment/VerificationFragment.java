@@ -91,7 +91,7 @@ public class VerificationFragment extends BaseCollectInfoFragment {
 
         number.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_UP) {
-                if (event.getX() > (number.getWidth() - number.getTotalPaddingRight())) {
+                if (event.getX() > (number.getWidth() - number.getTotalPaddingRight() - 200)) {
                     backToPreviousFragment();
                 }
                 return true;
@@ -104,13 +104,9 @@ public class VerificationFragment extends BaseCollectInfoFragment {
             startCountDown();
         });
 
-        input.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                input.requestFocus();
-                ViewUtils.showKeyboard(getActivity());
-                input.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
+        input.post(() -> {
+            input.requestFocus();
+            ViewUtils.showKeyboard(getActivity());
         });
     }
 
@@ -179,7 +175,7 @@ public class VerificationFragment extends BaseCollectInfoFragment {
     }
 
     private void backToPreviousFragment() {
-        Fragment fragment = NumberFragment.newInstance();
+        Fragment fragment = NumberFragment.newInstance(phone_number);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Slide slide = new Slide(Gravity.LEFT);

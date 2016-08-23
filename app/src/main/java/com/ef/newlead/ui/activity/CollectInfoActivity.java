@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class CollectInfoActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
-    private static int fragmentIndex = 0;
+    private int fragmentIndex = 0;
     private Fragment fragment;
     private static Map<String, Class<?>> fragmentMapper;
 
@@ -75,8 +75,6 @@ public class CollectInfoActivity extends BaseActivity implements ActivityCompat.
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-//        fragment = NumberFragment.newInstance();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             fragment.setEnterTransition(new Slide(Gravity.RIGHT).setDuration(Constant.DEFAULT_ANIM_FULL_TIME));

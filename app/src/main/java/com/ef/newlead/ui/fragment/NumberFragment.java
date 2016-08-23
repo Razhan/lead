@@ -1,7 +1,9 @@
 package com.ef.newlead.ui.fragment;
 
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,6 +24,8 @@ import butterknife.OnClick;
 
 public class NumberFragment extends BaseCollectInfoFragment {
 
+    private final static String NUMBER_KEY = "phone_number";
+
     @BindView(R.id.number_wrapper)
     RelativeLayout numberWrapper;
     @BindView(R.id.number_progress_view)
@@ -36,9 +40,29 @@ public class NumberFragment extends BaseCollectInfoFragment {
     TextView next;
 
     private boolean clickable = false;
+    private String phone_number;
 
     public static Fragment newInstance() {
         return new NumberFragment();
+    }
+
+    public static Fragment newInstance(String number) {
+        NumberFragment fragment = new NumberFragment();
+
+        Bundle args = new Bundle();
+        args.putString(NUMBER_KEY, number);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            phone_number = getArguments().getString(NUMBER_KEY, "");
+        }
     }
 
     @Override
@@ -50,6 +74,8 @@ public class NumberFragment extends BaseCollectInfoFragment {
     public void initView() {
         numberWrapper.setBackground(getGradientDrawable("age_select_gradient_color"));
         hint.setText("A code will be sent to you in order to verify your phone number.");
+        input.setText(phone_number);
+
         input.addTextChangedListener(new TextWatcher() {
             String lastChar = "";
 

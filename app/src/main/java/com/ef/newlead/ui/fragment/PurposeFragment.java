@@ -26,8 +26,6 @@ import butterknife.OnClick;
 
 public class PurposeFragment extends BaseCollectInfoFragment implements DiscreteSlider.OnSlideListener {
 
-    @BindView(R.id.purpose_wrapper)
-    FrameLayout purposeWrapper;
     @BindView(R.id.purpose_hint)
     BubbleTextVew hint;
     @BindView(R.id.purpose_slider)
@@ -52,7 +50,7 @@ public class PurposeFragment extends BaseCollectInfoFragment implements Discrete
 
     @Override
     public void initView() {
-        purposeWrapper.setBackground(getGradientDrawable("purpose_select_gradient_color"));
+        super.initView();
 
         String descriptionStr = getLocaleText("purpose_selections");
         purposes = new Gson().fromJson(descriptionStr, new TypeToken<List<Purpose>>() {

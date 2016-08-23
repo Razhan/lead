@@ -26,8 +26,6 @@ public class AgeFragment extends BaseCollectInfoFragment implements FlowView.Cov
 
     @BindView(R.id.age_cover_flow)
     FlowView ageCoverFlow;
-    @BindView(R.id.age_wrapper)
-    FrameLayout ageWrapper;
     @BindView(R.id.age_title)
     TextView title;
     @BindView(R.id.age_next_button)
@@ -46,8 +44,7 @@ public class AgeFragment extends BaseCollectInfoFragment implements FlowView.Cov
 
     @Override
     public void initView() {
-        ageWrapper.setBackground(getGradientDrawable("age_select_gradient_color"));
-
+        super.initView();
         title.setText(getLocaleText("age_select_title"));
         next.setText(getContinueText());
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/root_layout"
+    android:id="@+id/wrapper"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_purple"
@@ -24,7 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="57dp"
             android:background="@drawable/bg_rounded_corners"
-            android:text="@string/submit"
             android:textSize="@dimen/font_size_small" />
     </com.balysv.materialripple.MaterialRippleLayout>
 
@@ -41,7 +40,6 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:padding="64dp"
-            android:text="@string/from_where"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/white"
             android:textSize="@dimen/font_size_large"
@@ -63,7 +61,6 @@
                     android:layout_marginLeft="32dp"
                     android:layout_marginRight="32dp"
                     android:background="@null"
-                    android:hint="@string/hint_city_search"
                     android:paddingBottom="@dimen/editor_vertical_padding"
                     android:paddingTop="@dimen/editor_vertical_padding"
                     android:singleLine="true"
@@ -105,7 +102,6 @@
             android:drawablePadding="6dp"
             android:gravity="center|left"
             android:paddingLeft="32dp"
-            android:text="@string/city_location"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/white"
             android:textSize="@dimen/font_size_small" />

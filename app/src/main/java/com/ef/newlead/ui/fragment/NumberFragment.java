@@ -9,7 +9,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.transition.Slide;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,15 +25,14 @@ import com.ef.newlead.ui.widget.IndicatedProgressView;
 import com.ef.newlead.util.ViewUtils;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class NumberFragment extends BaseCollectInfoFragment<VerificationPresenter>
-                implements VerificationView {
+        implements VerificationView {
 
     private final static String NUMBER_KEY = "phone_number";
 
-    @BindView(R.id.number_wrapper)
-    RelativeLayout numberWrapper;
     @BindView(R.id.number_progress_view)
     IndicatedProgressView progressView;
     @BindView(R.id.number_input)
@@ -42,6 +43,8 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
     RelativeLayout submit;
     @BindView(R.id.number_next)
     TextView next;
+    @BindView(R.id.number_title)
+    TextView title;
 
     private boolean clickable = false;
     private String phone_number;
@@ -76,9 +79,13 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
 
     @Override
     public void initView() {
-        numberWrapper.setBackground(getGradientDrawable("age_select_gradient_color"));
-        hint.setText("A code will be sent to you in order to verify your phone number.");
+        super.initView();
+
+        hint.setText(getLocaleText("phone_select_subtitle_1"));
         input.setText(phone_number);
+        input.setHint(getLocaleText("phone_select_phone_placeholder"));
+        title.setText(getLocaleText("phone_select_title"));
+        next.setText(getContinueText());
 
         input.addTextChangedListener(new TextWatcher() {
             String lastChar = "";
@@ -120,7 +127,7 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
 
         progressView.setEndAnimationListener(() -> {
             inProgress = false;
-            hint.setText("Code already sent to you.");
+            hint.setText(getLocaleText("phone_select_subtitle_3"));
             startNextFragment();
         });
     }
@@ -149,11 +156,11 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
         next.setVisibility(View.GONE);
         inProgress = true;
         progressView.startAnim();
-        hint.setText("Your code is on its way..");
+        hint.setText(getLocaleText("phone_select_subtitle_2"));
     }
 
     @Override
-    public  void afterNumberSubmit(boolean isSucceed) {
+    public void afterNumberSubmit(boolean isSucceed) {
         if (isSucceed) {
             progressView.startAnim();
         } else {

@@ -41,8 +41,6 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
     TextView hint;
     @BindView(R.id.verification_submit)
     Button submit;
-    @BindView(R.id.verification_wrapper)
-    RelativeLayout verificationWrapper;
     @BindView(R.id.verification_timer)
     TextView countDownText;
     @BindView(R.id.verification_retry)
@@ -76,9 +74,10 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
 
     @Override
     public void initView() {
+        super.initView();
+
         number.setText(phone_number);
         submit.setText(getContinueText());
-        verificationWrapper.setBackground(getGradientDrawable("age_select_gradient_color"));
         startCountDown();
 
         input.setFullListener(isFull -> {

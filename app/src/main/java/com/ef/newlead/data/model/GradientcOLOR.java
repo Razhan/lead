@@ -2,7 +2,7 @@ package com.ef.newlead.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class GradientBackground {
+public class GradientColor {
 
     @SerializedName("top_gradient")
     private GradientBean topGradient;
@@ -10,20 +10,30 @@ public class GradientBackground {
     @SerializedName("bottom_gradient")
     private GradientBean bottomGradient;
 
+    private int order;
+
     public GradientBean getTopGradient() {
         return topGradient;
     }
 
-    public void setTopGradient(GradientBean topGradient) {
-        this.topGradient = topGradient;
+    public void setTopGradient(GradientBean top_gradient) {
+        this.topGradient = top_gradient;
     }
 
     public GradientBean getBottomGradient() {
         return bottomGradient;
     }
 
-    public void setBottomGradient(GradientBean bottomGradient) {
-        this.bottomGradient = bottomGradient;
+    public void setBottomgradient(GradientBean bottom_gradient) {
+        this.bottomGradient = bottom_gradient;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 
     public static class GradientBean {

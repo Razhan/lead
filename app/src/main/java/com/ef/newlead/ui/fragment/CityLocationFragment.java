@@ -64,9 +64,6 @@ public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresen
     @BindView(R.id.textViewCityTitle)
     TextView title;
 
-    @BindView(R.id.root_layout)
-    RelativeLayout rootLayout;
-
     private CityAdapter adapter;
     private List<City> cities;
 
@@ -80,8 +77,7 @@ public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresen
 
     @Override
     public void initView() {
-        rootLayout.setBackground(getGradientDrawable("city_select_gradient_color"));
-
+        super.initView();
         input.addTextChangedListener(this);
         cancel.setVisibility(View.GONE);
     }
@@ -100,7 +96,7 @@ public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresen
         cityListView.setAdapter(adapter);
 
         cityListView.setOnItemClickListener(this);
-        
+
         // Hide the keyboard automatically when the user is trying to select the desired city
         cityListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -116,7 +112,7 @@ public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresen
             }
         });
 
-        submit.setText(getLocaleText("purpose_select_next"));
+        submit.setText(getContinueText());
         title.setText(getLocaleText("city_select_top_label"));
         input.setHint(getLocaleText("city_select_placeholder"));
         location.setText(getLocaleText("city_select_locate"));

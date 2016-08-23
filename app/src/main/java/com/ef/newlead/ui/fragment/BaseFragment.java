@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.ef.newlead.data.model.GradientBackground;
+import com.ef.newlead.data.model.GradientColor;
 import com.ef.newlead.util.SystemText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -72,16 +72,6 @@ public abstract class BaseFragment extends Fragment {
                 FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
 
-    }
-
-    @NonNull
-    protected GradientDrawable getGradientDrawable(String colorNode) {
-        String backgroundStr = SystemText.getSystemText(getContext(), colorNode);
-        GradientBackground background = new Gson().fromJson(backgroundStr,
-                new TypeToken<GradientBackground>() {
-                }.getType());
-        return new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
-                new int[]{background.getBottomGradient().toHex(), background.getTopGradient().toHex()});
     }
 
     protected String getLocaleText(String key) {

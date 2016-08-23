@@ -2,7 +2,7 @@ package com.ef.newlead;
 
 import android.graphics.Color;
 
-import com.ef.newlead.data.model.GradientBackground;
+import com.ef.newlead.data.model.GradientColor;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -39,9 +39,9 @@ public class AssetParsingTest extends TestCase {
                 "    }\n" +
                 "  }";
         Gson gson = new Gson();
-        Type type = new TypeToken<GradientBackground>() {
+        Type type = new TypeToken<GradientColor>() {
         }.getType();
-        GradientBackground background = gson.fromJson(raw, type);
+        GradientColor background = gson.fromJson(raw, type);
 
         assertNotNull(background);
 

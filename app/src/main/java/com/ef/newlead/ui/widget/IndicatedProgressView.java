@@ -59,6 +59,10 @@ public class IndicatedProgressView extends View {
         return mState;
     }
 
+    public void setmState(int mState) {
+        this.mState = mState;
+    }
+
     public void setEndAnimationListener(AfterAnimationListener listener) {
         this.listener = listener;
     }

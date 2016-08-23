@@ -99,11 +99,10 @@ public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresen
 
         cityListView.setOnItemClickListener(this);
 
-        submit.setText(getLocaleText("purpose_select_next"));
+        submit.setText(getContinueText());
         title.setText(getLocaleText("city_select_top_label"));
         input.setHint(getLocaleText("city_select_placeholder"));
         location.setText(getLocaleText("city_select_locate"));
-        submit.setText(getLocaleText("city_select_submit"));
 
         // activate ripple effect on SDK 21+; otherwise apply alpha animation
 

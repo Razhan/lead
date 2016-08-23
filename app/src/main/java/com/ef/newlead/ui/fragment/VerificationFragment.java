@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
+import com.ef.newlead.domain.usecase.VerificationUseCase;
+import com.ef.newlead.presenter.VerificationPresenter;
 import com.ef.newlead.ui.widget.IndicatedProgressView;
 import com.ef.newlead.ui.widget.VerificationView;
 import com.ef.newlead.util.ViewUtils;
@@ -25,7 +27,8 @@ import com.ef.newlead.util.ViewUtils;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class VerificationFragment extends BaseCollectInfoFragment {
+public class VerificationFragment extends BaseCollectInfoFragment<VerificationPresenter>
+                implements com.ef.newlead.ui.view.VerificationView{
 
     private final static long DEFAULT_COUNT_DOWN_TIME = 60 * 1000 + 100;
     private final static String NUMBER_KEY = "phone_number";
@@ -74,7 +77,7 @@ public class VerificationFragment extends BaseCollectInfoFragment {
     @Override
     public void initView() {
         number.setText(phone_number);
-
+        submit.setText(getContinueText());
         verificationWrapper.setBackground(getGradientDrawable("age_select_gradient_color"));
         startCountDown();
 
@@ -108,6 +111,27 @@ public class VerificationFragment extends BaseCollectInfoFragment {
             input.requestFocus();
             ViewUtils.showKeyboard(getActivity());
         });
+    }
+
+    @Override
+    protected VerificationPresenter createPresent() {
+        return new VerificationPresenter(getContext(), this, new VerificationUseCase());
+    }
+
+    @Override
+    public void afterCodeVerified(boolean isSucceed) {
+        submit.setEnabled(true);
+
+        if (!isSucceed) {
+            input.changeTextColor(Color.RED);
+            hint.setText("Oh no! it seems the code is wrong");
+        } else {
+            startNextFragment();
+        }
+    }
+
+    @Override
+    public void afterNumberSubmit(boolean isSucceed) {
     }
 
     private void startCountDown() {
@@ -144,7 +168,7 @@ public class VerificationFragment extends BaseCollectInfoFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.verification_submit:
-                new Handler().post(() -> afterSubmit(true));
+                presenter.VerifyCode(phone_number, input.getInput());
                 submit.setClickable(false);
                 break;
             case R.id.verification_retry:
@@ -161,17 +185,6 @@ public class VerificationFragment extends BaseCollectInfoFragment {
 
     public void afterResent() {
         progressView.startAnim();
-    }
-
-    public void afterSubmit(boolean isSuccess) {
-        submit.setEnabled(true);
-
-        if (!isSuccess) {
-            input.changeTextColor(Color.RED);
-            hint.setText("Oh no! it seems the code is wrong");
-        } else {
-            startNextFragment();
-        }
     }
 
     private void backToPreviousFragment() {

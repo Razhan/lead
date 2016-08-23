@@ -15,6 +15,9 @@ import android.widget.TextView;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
+import com.ef.newlead.domain.usecase.VerificationUseCase;
+import com.ef.newlead.presenter.VerificationPresenter;
+import com.ef.newlead.ui.view.VerificationView;
 import com.ef.newlead.ui.widget.DeletableEditText;
 import com.ef.newlead.ui.widget.IndicatedProgressView;
 import com.ef.newlead.util.ViewUtils;
@@ -22,7 +25,8 @@ import com.ef.newlead.util.ViewUtils;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class NumberFragment extends BaseCollectInfoFragment {
+public class NumberFragment extends BaseCollectInfoFragment<VerificationPresenter>
+                implements VerificationView {
 
     private final static String NUMBER_KEY = "phone_number";
 
@@ -121,23 +125,43 @@ public class NumberFragment extends BaseCollectInfoFragment {
         });
     }
 
+    @Override
+    protected VerificationPresenter createPresent() {
+        return new VerificationPresenter(getContext(), this, new VerificationUseCase());
+    }
+
+    @Override
+    public void afterCodeVerified(boolean isSucceed) {
+
+    }
+
     @OnClick(R.id.number_bottom_bar)
     public void onClick() {
         if (!clickable || inProgress) {
             return;
         }
 
+//        presenter.verifyCode(input.getText().toString());
+
+        new Handler().postDelayed(() -> afterNumberSubmit(true), 1000);
+
         ViewUtils.hideKeyboard(getActivity());
         next.setVisibility(View.GONE);
         inProgress = true;
         progressView.startAnim();
         hint.setText("Your code is on its way..");
-
-        new Handler().postDelayed(() -> afterSubmitNumber(), 1000);
     }
 
-    private void afterSubmitNumber() {
-        progressView.startAnim();
+    @Override
+    public  void afterNumberSubmit(boolean isSucceed) {
+        if (isSucceed) {
+            progressView.startAnim();
+        } else {
+            progressView.setmState(IndicatedProgressView.STATE_ANIM_NONE);
+            progressView.invalidate();
+            next.setVisibility(View.VISIBLE);
+            inProgress = false;
+        }
     }
 
     @Override

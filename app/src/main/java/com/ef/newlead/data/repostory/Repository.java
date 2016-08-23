@@ -1,5 +1,6 @@
 package com.ef.newlead.data.repostory;
 
+import com.ef.newlead.data.model.BaseResponse;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
 import com.ef.newlead.data.model.DataBean.UserBean;
 import com.ef.newlead.data.model.Response;
@@ -14,5 +15,7 @@ public interface Repository {
     Observable<Response<ResourceBean>> resourceInfo();
 
     Observable<Response<UserBean>> getUserInfo(String device, String campaign, String source, String appStore);
+
+    Observable<BaseResponse> verifyCode(String number, String code);
 
 }

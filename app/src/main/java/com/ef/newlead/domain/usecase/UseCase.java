@@ -69,7 +69,7 @@ public abstract class UseCase {
             reset();
         }
 
-        public Builder<T> useCaseMethod(String name) {
+        public Builder<T> useCaseName(String name) {
             methodName = name;
             return this;
         }

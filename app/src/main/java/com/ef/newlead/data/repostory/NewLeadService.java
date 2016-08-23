@@ -1,5 +1,6 @@
 package com.ef.newlead.data.repostory;
 
+import com.ef.newlead.data.model.BaseResponse;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
 import com.ef.newlead.data.model.DataBean.UserBean;
 import com.ef.newlead.data.model.Response;
@@ -9,6 +10,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Url;
 import rx.Observable;
 
@@ -22,11 +24,15 @@ public interface NewLeadService {
 
     @FormUrlEncoded
     @POST("/api/leadgen/user/getstarted")
-    Observable<Response<UserBean>> getUserInfo(
-            @Field("device") String device,
-            @Field("campaign") String campaign,
-            @Field("source") String source,
-            @Field("appstore") String appStore
+    Observable<Response<UserBean>> getUserInfo(@Field("device") String device,
+                                               @Field("campaign") String campaign,
+                                               @Field("source") String source,
+                                               @Field("appstore") String appStore
     );
+
+    @FormUrlEncoded
+    @POST("/api/leadgen/sms/{number}")
+    Observable<BaseResponse> verifyCode(@Path("number") String number,
+                                        @Field("code") String code);
 
 }

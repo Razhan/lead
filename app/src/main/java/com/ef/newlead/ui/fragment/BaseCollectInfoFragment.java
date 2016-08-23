@@ -16,6 +16,10 @@ public abstract class BaseCollectInfoFragment<P extends Presenter> extends BaseM
 
     protected boolean inProgress = false;
 
+    private CollectInfoActivity getCollectInfoActivity() {
+        return (CollectInfoActivity) getActivity();
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -32,13 +36,18 @@ public abstract class BaseCollectInfoFragment<P extends Presenter> extends BaseM
         ft.replace(R.id.collect_info_fragment, getNextFragment()).commit();
     }
 
-    protected final void BackToPreviousFragment() {
-        fragmentManager.beginTransaction().remove(this).commit();
+    protected Fragment getNextFragment() {
+        return getCollectInfoActivity().getNextFragment();
     }
 
-    protected Fragment getNextFragment() {
-        return ((CollectInfoActivity) getActivity())
-                .getNextFragment();
+    protected String getContinueText() {
+        if (getCollectInfoActivity().isLastFragment()) {
+            return "提交";
+        } else {
+            return "继续";
+        }
     }
+
+
 
 }

@@ -1,5 +1,6 @@
 package com.ef.newlead.data.repostory;
 
+import com.ef.newlead.data.model.BaseResponse;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
 import com.ef.newlead.data.model.DataBean.UserBean;
 import com.ef.newlead.data.model.Response;
@@ -22,6 +23,11 @@ public class LocalDataSource implements Repository {
     @Override
     public Observable<Response<UserBean>> getUserInfo(String device, String campaign,
                                                       String source, String appStore) {
+        return Observable.empty();
+    }
+
+    @Override
+    public Observable<BaseResponse> verifyCode(String number, String code) {
         return Observable.empty();
     }
 }

@@ -59,7 +59,7 @@ public class PurposeFragment extends BaseCollectInfoFragment implements Discrete
         }.getType());
 
         title.setText(getLocaleText("purpose_select_title"));
-        next.setText(getLocaleText("purpose_select_next"));
+        next.setText(getContinueText());
         hint.setText(getLocaleText("purpose_tip_label"));
 
         slider.setOnSlideListener(this);

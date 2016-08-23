@@ -27,6 +27,8 @@ public class CollectInfoActivity extends BaseActivity implements ActivityCompat.
 
     private int fragmentIndex = 0;
     private Fragment fragment;
+
+    private String[] fragments;
     private static Map<String, Class<?>> fragmentMapper;
 
     static {
@@ -55,6 +57,12 @@ public class CollectInfoActivity extends BaseActivity implements ActivityCompat.
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
 
+        String fragmentStr = SharedPreUtils.getString(Constant.USER_RULE, "");
+
+        if (!fragmentStr.isEmpty()) {
+            fragments = fragmentStr.split(" \\| ");
+        }
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.collect_info_fragment, getNextFragment())
@@ -63,18 +71,17 @@ public class CollectInfoActivity extends BaseActivity implements ActivityCompat.
     }
 
     public Fragment getNextFragment() {
-        String fragmentStr = SharedPreUtils.getString(Constant.USER_RULE, "");
-
-        if (fragmentStr.isEmpty()) {
-            return null;
+        if (fragmentIndex >= fragments.length) {
+            finish();
         }
 
-        String[] fragments = fragmentStr.split(" \\| ");
         try {
             fragment = (Fragment)fragmentMapper.get(fragments[fragmentIndex++]).newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+//        fragment = NumberFragment.newInstance();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             fragment.setEnterTransition(new Slide(Gravity.RIGHT).setDuration(Constant.DEFAULT_ANIM_FULL_TIME));
@@ -83,6 +90,14 @@ public class CollectInfoActivity extends BaseActivity implements ActivityCompat.
         }
 
         return fragment;
+    }
+
+    public boolean isLastFragment() {
+        if (fragmentIndex == fragmentMapper.size()) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override

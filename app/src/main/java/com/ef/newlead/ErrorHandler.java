@@ -2,6 +2,7 @@ package com.ef.newlead;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -42,6 +43,7 @@ public class ErrorHandler {
     }
 
     public static void showError(Throwable exception) {
+        Log.d("exception", getErrorMessage(exception));
         Toast.makeText(mContext, getErrorMessage(exception), Toast.LENGTH_SHORT).show();
     }
 }

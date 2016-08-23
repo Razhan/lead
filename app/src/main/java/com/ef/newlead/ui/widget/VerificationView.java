@@ -127,6 +127,15 @@ public class VerificationView extends LinearLayout implements TextWatcher, View.
         }
     }
 
+    public String getInput() {
+        StringBuilder res = new StringBuilder();
+
+        for (AppCompatEditText view : viewList) {
+            res.append(view.getText().toString());
+        }
+
+        return res.toString();
+    }
 
     public interface FillFullListener {
         void onFillFull(boolean isFull);

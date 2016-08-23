@@ -38,9 +38,8 @@ public class DiscreteSlider extends View {
     private int thumbRadius;
     private int rangeCount;
     private boolean isDragging;
-    private Bitmap thumbBitmap;
     private Paint mPaint;
-
+    private Drawable fab;
     private OnSlideListener listener;
 
     public DiscreteSlider(Context context) {
@@ -68,8 +67,9 @@ public class DiscreteSlider extends View {
         mPaint.setStyle(Paint.Style.FILL);
         barHeight = ViewUtils.dpToPx(getContext(), DEFAULT_BAR_HEIGHT);
         thumbRadius = ViewUtils.dpToPx(getContext(), DEFAULT_THUMB_RADIUS);
-        thumbBitmap = getBitmap(R.drawable.ic_fab);
         dotsPos = new ArrayList<>();
+
+        fab = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_fab, null);
     }
 
     @Override
@@ -133,8 +133,10 @@ public class DiscreteSlider extends View {
         mProgress = Math.max(mProgress, getPaddingStart() - DEFAULT_EXTRA_SPACE);
         mProgress = Math.min(mProgress, getWidth() - getPaddingEnd() + DEFAULT_EXTRA_SPACE);
 
-        RectF rectF = new RectF(mProgress - thumbRadius, cy - thumbRadius, mProgress + thumbRadius, cy + thumbRadius);
-        canvas.drawBitmap(thumbBitmap, null, rectF, mPaint);
+        fab.setBounds((int)(mProgress - thumbRadius), (int)(cy - thumbRadius),
+                            (int)(mProgress + thumbRadius), (int)(cy + thumbRadius));
+
+        fab.draw(canvas);
     }
 
     private void drawDots(Canvas canvas) {
@@ -200,22 +202,6 @@ public class DiscreteSlider extends View {
             }
         }
         return dotsPos.size() - 1;
-    }
-
-    private Bitmap getBitmap(int id) {
-        Drawable drawable = ResourcesCompat.getDrawable(getResources(), id, null);
-
-        if (drawable == null) {
-            return null;
-        }
-
-        Canvas canvas = new Canvas();
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        canvas.setBitmap(bitmap);
-        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-
-        drawable.draw(canvas);
-        return bitmap;
     }
 
     public void setOnSlideListener(OnSlideListener listener) {

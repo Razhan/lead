@@ -1,7 +1,6 @@
 package com.ef.newlead.presenter;
 
 import android.content.Context;
-import android.os.Handler;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
@@ -13,7 +12,6 @@ import com.ef.newlead.util.FileUtils;
 import com.ef.newlead.util.SharedPreUtils;
 
 import java.io.IOException;
-import java.security.PrivateKey;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import okhttp3.ResponseBody;
@@ -27,7 +25,7 @@ public class SplashPresenter extends Presenter<SplashView> {
         super(context, view, useCase);
     }
 
-    public void onInit() {
+    public void init() {
         if (!SharedPreUtils.contain(Constant.USER_ID)) {
             getUserInfo();
         } else {
@@ -45,7 +43,7 @@ public class SplashPresenter extends Presenter<SplashView> {
 
     private void getResourceInfo() {
         useCase.new Builder<Response<ResourceBean>>()
-                .useCaseMethod("ResourceInfo")
+                .useCaseName("ResourceInfo")
                 .onSuccess(response -> {
                     if (!SharedPreUtils.getString(Constant.RESOURCE_HASH, "")
                             .equals(response.getData().getHash())) {

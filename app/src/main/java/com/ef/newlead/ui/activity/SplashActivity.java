@@ -48,10 +48,7 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
     @Override
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        indicator.post(() -> {
-            indicator.startAnim();
-            presenter.init();
-        });
+        indicator.post(() -> indicator.startAnim());
     }
 
     @NonNull

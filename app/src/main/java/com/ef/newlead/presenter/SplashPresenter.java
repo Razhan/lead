@@ -1,6 +1,7 @@
 package com.ef.newlead.presenter;
 
 import android.content.Context;
+import android.os.Handler;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
@@ -27,14 +28,17 @@ public class SplashPresenter extends Presenter<SplashView> {
         super(context, view, useCase);
     }
 
-    public void init() {
-        if (!SharedPreUtils.contain(Constant.USER_ID)) {
-            getUserInfo();
-        } else {
-            stepCount.incrementAndGet();
-        }
+    @Override
+    public void onCreate() {
+        new Handler().postDelayed(() -> {
+            if (!SharedPreUtils.contain(Constant.USER_ID)) {
+                getUserInfo();
+            } else {
+                stepCount.incrementAndGet();
+            }
 
-        getResourceInfo();
+            getResourceInfo();
+        }, 300);
     }
 
     private void InitCompleted() {

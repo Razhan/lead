@@ -16,6 +16,7 @@ import com.ef.newlead.R;
 import com.ef.newlead.data.model.Purpose;
 import com.ef.newlead.ui.widget.BubbleTextVew;
 import com.ef.newlead.ui.widget.DiscreteSlider;
+import com.ef.newlead.util.SharedPreUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -71,6 +72,8 @@ public class PurposeFragment extends BaseCollectInfoFragment implements Discrete
             animateHint(false, 1, 0);
         }
         hideDescription(index);
+
+        SharedPreUtils.putString(Constant.USER_PURPOSE, String.valueOf(index));
     }
 
     @Override

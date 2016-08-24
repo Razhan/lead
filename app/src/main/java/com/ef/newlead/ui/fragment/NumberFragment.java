@@ -22,6 +22,7 @@ import com.ef.newlead.presenter.VerificationPresenter;
 import com.ef.newlead.ui.view.VerificationView;
 import com.ef.newlead.ui.widget.DeletableEditText;
 import com.ef.newlead.ui.widget.IndicatedProgressView;
+import com.ef.newlead.util.SharedPreUtils;
 import com.ef.newlead.util.ViewUtils;
 
 import butterknife.BindView;
@@ -128,6 +129,8 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
         progressView.setEndAnimationListener(() -> {
             inProgress = false;
             hint.setText(getLocaleText("phone_select_subtitle_3"));
+            SharedPreUtils.putString(Constant.USER_PHONE, input.getText().toString());
+
             startNextFragment();
         });
     }

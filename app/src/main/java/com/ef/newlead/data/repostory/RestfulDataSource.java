@@ -6,6 +6,7 @@ import com.ef.newlead.data.model.DataBean.ResourceBean;
 import com.ef.newlead.data.model.DataBean.UserBean;
 import com.ef.newlead.data.model.Response;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -56,13 +57,17 @@ public class RestfulDataSource implements Repository {
     }
 
     @Override
-    public Observable<Response<UserBean>> getUserInfo(String device, String campaign,
-                                                      String source, String appStore) {
-        return restfulService.getUserInfo(device, campaign, source, appStore);
+    public Observable<Response<UserBean>> getUserInfo(Map<String, String> startInfo) {
+        return restfulService.getUserInfo(startInfo);
     }
 
     @Override
     public Observable<BaseResponse> verifyCode(String number, String code) {
         return restfulService.verifyCode(number, code);
+    }
+
+    @Override
+    public Observable<BaseResponse> submitUserInfo(String token, Map<String, String> userInfo) {
+        return restfulService.submitUserInfo(token, userInfo);
     }
 }

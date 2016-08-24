@@ -5,6 +5,8 @@ import com.ef.newlead.data.model.DataBean.UserBean;
 import com.ef.newlead.data.model.Response;
 import com.ef.newlead.util.FileUtils;
 
+import java.util.Map;
+
 import okhttp3.ResponseBody;
 import rx.Observable;
 
@@ -34,8 +36,8 @@ public class InitializationUseCase extends UseCase {
     }
 
     @UseCaseMethod
-    public Observable<Response<UserBean>> getUserInfo(String device, String campaign, String source, String appStore) {
-        return repository.getUserInfo(device, campaign, source, appStore);
+    public Observable<Response<UserBean>> getUserInfo(Map<String, String> startInfo) {
+        return repository.getUserInfo(startInfo);
     }
 
 }

@@ -12,6 +12,8 @@ import com.ef.newlead.util.FileUtils;
 import com.ef.newlead.util.SharedPreUtils;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import okhttp3.ResponseBody;
@@ -56,8 +58,14 @@ public class SplashPresenter extends Presenter<SplashView> {
     }
 
     private void getUserInfo() {
+        Map<String, String> startInfo = new HashMap<>();
+        startInfo.put("device", "android");
+        startInfo.put("campaign", "");
+        startInfo.put("source", "");
+        startInfo.put("appstore", "");
+
         useCase.new Builder<Response<UserBean>>()
-                .useCaseArgs("android", "", "", "")
+                .useCaseArgs(startInfo)
                 .onSuccess(user -> {
                     SharedPreUtils.putString(Constant.USER_ID, user.getData().getId());
                     SharedPreUtils.putString(Constant.USER_TOKEN, user.getData().getToken());

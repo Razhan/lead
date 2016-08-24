@@ -5,6 +5,8 @@ import com.ef.newlead.data.model.DataBean.ResourceBean;
 import com.ef.newlead.data.model.DataBean.UserBean;
 import com.ef.newlead.data.model.Response;
 
+import java.util.Map;
+
 import okhttp3.ResponseBody;
 import rx.Observable;
 
@@ -14,8 +16,10 @@ public interface Repository {
 
     Observable<Response<ResourceBean>> resourceInfo();
 
-    Observable<Response<UserBean>> getUserInfo(String device, String campaign, String source, String appStore);
+    Observable<Response<UserBean>> getUserInfo(Map<String, String> startInfo);
 
     Observable<BaseResponse> verifyCode(String number, String code);
+
+    Observable<BaseResponse> submitUserInfo(String token, Map<String, String> userInfo);
 
 }

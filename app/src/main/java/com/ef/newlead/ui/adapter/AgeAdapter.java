@@ -35,7 +35,9 @@ public class AgeAdapter extends FlowAdapter<Age> {
 
     @Override
     public void setBorderPosition(int pos) {
-        for (int i = 0; i < pos; i++) {
+        border = pos;
+
+        for (int i = 0; i < border; i++) {
             ((LinkedList) getItems()).addFirst(new Age(true));
             ((LinkedList) getItems()).addLast(new Age(true));
         }

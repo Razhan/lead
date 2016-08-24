@@ -49,8 +49,14 @@ public abstract class BaseCollectInfoFragment<P extends Presenter> extends BaseM
     }
 
     protected final void startNextFragment() {
+        Fragment nextFragment = getNextFragment();
+
+        if (nextFragment == null) {
+            return;
+        }
+
         FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.collect_info_fragment, getNextFragment()).commit();
+        ft.replace(R.id.collect_info_fragment, nextFragment).commit();
     }
 
     protected Fragment getNextFragment() {

@@ -190,7 +190,6 @@ public class DiscreteSlider extends View {
         if (listener != null) {
             listener.onSelected(count);
         }
-        Log.d("count", String.valueOf(count));
 
         invalidate();
     }

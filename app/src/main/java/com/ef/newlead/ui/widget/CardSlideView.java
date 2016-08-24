@@ -189,7 +189,7 @@ public class CardSlideView extends ViewGroup implements View.OnClickListener {
             public void onAnimationEnd(Animator animation) {
                 removeView(v);
 
-                if (!direction) {
+                if (!direction || viewList.size() == 0) {
                     listener.onFinish();
                 }
             }

@@ -5,6 +5,8 @@ import com.ef.newlead.data.model.DataBean.ResourceBean;
 import com.ef.newlead.data.model.DataBean.UserBean;
 import com.ef.newlead.data.model.Response;
 
+import java.util.Map;
+
 import okhttp3.ResponseBody;
 import rx.Observable;
 
@@ -21,13 +23,17 @@ public class LocalDataSource implements Repository {
     }
 
     @Override
-    public Observable<Response<UserBean>> getUserInfo(String device, String campaign,
-                                                      String source, String appStore) {
+    public Observable<Response<UserBean>> getUserInfo(Map<String, String> startInfo) {
         return Observable.empty();
     }
 
     @Override
     public Observable<BaseResponse> verifyCode(String number, String code) {
+        return Observable.empty();
+    }
+
+    @Override
+    public Observable<BaseResponse> submitUserInfo(String token, Map<String, String> userInfo) {
         return Observable.empty();
     }
 }

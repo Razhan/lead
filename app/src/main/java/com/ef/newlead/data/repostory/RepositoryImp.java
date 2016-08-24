@@ -5,6 +5,8 @@ import com.ef.newlead.data.model.DataBean.ResourceBean;
 import com.ef.newlead.data.model.DataBean.UserBean;
 import com.ef.newlead.data.model.Response;
 
+import java.util.Map;
+
 import okhttp3.ResponseBody;
 import rx.Observable;
 
@@ -36,13 +38,17 @@ public class RepositoryImp implements Repository {
     }
 
     @Override
-    public Observable<Response<UserBean>> getUserInfo(String device, String campaign,
-                                                      String source, String appStore) {
-        return sourceFactory.getRestfulSource().getUserInfo(device, campaign, source, appStore);
+    public Observable<Response<UserBean>> getUserInfo(Map<String, String> startInfo) {
+        return sourceFactory.getRestfulSource().getUserInfo(startInfo);
     }
 
     @Override
     public Observable<BaseResponse> verifyCode(String number, String code) {
         return sourceFactory.getRestfulSource().verifyCode(number, code);
+    }
+
+    @Override
+    public Observable<BaseResponse> submitUserInfo(String token, Map<String, String> userInfo) {
+        return sourceFactory.getRestfulSource().submitUserInfo(token, userInfo);
     }
 }

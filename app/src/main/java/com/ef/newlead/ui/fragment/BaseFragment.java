@@ -67,13 +67,6 @@ public abstract class BaseFragment extends Fragment {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
-    protected void clearFragmentBackStack() {
-        getActivity().getSupportFragmentManager().popBackStack(null,
-                FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-
-    }
-
     protected String getLocaleText(String key) {
         return SystemText.getSystemText(getContext(), key);
     }

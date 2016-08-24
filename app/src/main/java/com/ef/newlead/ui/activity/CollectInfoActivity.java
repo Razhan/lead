@@ -7,16 +7,20 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.ArrayMap;
 import android.transition.Slide;
+import android.util.Log;
 import android.view.Gravity;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.GradientColor;
+import com.ef.newlead.domain.usecase.CollectInfoUseCase;
+import com.ef.newlead.presenter.CollectInfoPresenter;
 import com.ef.newlead.ui.fragment.AgeFragment;
 import com.ef.newlead.ui.fragment.CityLocationFragment;
 import com.ef.newlead.ui.fragment.LevelFragment;
 import com.ef.newlead.ui.fragment.NumberFragment;
 import com.ef.newlead.ui.fragment.PurposeFragment;
+import com.ef.newlead.ui.view.CollectInfoView;
 import com.ef.newlead.util.SharedPreUtils;
 import com.ef.newlead.util.SystemText;
 import com.google.gson.Gson;
@@ -25,7 +29,8 @@ import com.google.gson.reflect.TypeToken;
 import java.util.List;
 import java.util.Map;
 
-public class CollectInfoActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
+public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
+        implements ActivityCompat.OnRequestPermissionsResultCallback, CollectInfoView {
 
     private static final String CURRENT_FRAGMENT = "currentFragment";
 
@@ -71,8 +76,7 @@ public class CollectInfoActivity extends BaseActivity implements ActivityCompat.
 
         fragmentKeys = fragmentStr.split(" \\| ");
 
-        fragmentIndex = SharedPreUtils.getInt(CURRENT_FRAGMENT, 0);
-
+        fragmentIndex = Math.min(SharedPreUtils.getInt(CURRENT_FRAGMENT, 0), fragmentKeys.length - 1);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -81,9 +85,21 @@ public class CollectInfoActivity extends BaseActivity implements ActivityCompat.
         }
     }
 
+    @NonNull
+    @Override
+    protected CollectInfoPresenter createPresenter() {
+        return new CollectInfoPresenter(this, this, new CollectInfoUseCase());
+    }
+
+    @Override
+    public void afterSubmitInfo() {
+        showMessage("afterSubmitInfo");
+    }
+
     public Fragment getNextFragment() {
         if (fragmentIndex >= fragmentKeys.length) {
-            finish();
+            presenter.submitInfo();
+            return null;
         }
 
         SharedPreUtils.putInt(CURRENT_FRAGMENT, fragmentIndex);

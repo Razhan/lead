@@ -9,9 +9,11 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
+import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.Level;
 import com.ef.newlead.ui.widget.CardSlideView;
+import com.ef.newlead.util.SharedPreUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -59,7 +61,7 @@ public class LevelFragment extends BaseCollectInfoFragment implements CardSlideV
 
     @Override
     public void onSlide(int count) {
-        Log.d("onSlide", String.valueOf(count));
+        SharedPreUtils.putString(Constant.USER_LEVEL, String.valueOf(count));
     }
 
     @Override

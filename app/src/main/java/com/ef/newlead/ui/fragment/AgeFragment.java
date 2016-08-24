@@ -11,6 +11,7 @@ import com.ef.newlead.R;
 import com.ef.newlead.data.model.Age;
 import com.ef.newlead.ui.adapter.AgeAdapter;
 import com.ef.newlead.ui.widget.flowview.FlowView;
+import com.ef.newlead.util.SharedPreUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -63,7 +64,7 @@ public class AgeFragment extends BaseCollectInfoFragment implements FlowView.Cov
 
     @Override
     public void onItemSelected(int position) {
-        Log.i(TAG, "onItemSelectedSelected" + position);
+        SharedPreUtils.putString(Constant.USER_AGE, String.valueOf(position - mAdapter.getBorder()));
     }
 
     @OnClick(R.id.age_next_button)

@@ -23,12 +23,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.City;
 import com.ef.newlead.presenter.CityInfoPresenter;
 import com.ef.newlead.ui.adapter.CityAdapter;
 import com.ef.newlead.ui.view.CityLocationView;
 import com.ef.newlead.util.MiscUtils;
+import com.ef.newlead.util.SharedPreUtils;
 import com.ef.newlead.util.ViewUtils;
 
 import java.util.List;
@@ -181,6 +183,7 @@ public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresen
 
     @OnClick(R.id.button)
     void onSubmit() {
+        SharedPreUtils.putString(Constant.USER_CITY, input.getText().toString());
         startNextFragment();
     }
 

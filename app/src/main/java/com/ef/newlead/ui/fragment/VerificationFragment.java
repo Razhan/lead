@@ -31,7 +31,7 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
                 implements com.ef.newlead.ui.view.VerificationView{
 
     private final static long DEFAULT_COUNT_DOWN_TIME = 60 * 1000 + 100;
-    private final static String NUMBER_KEY = "phone_number";
+    private final static String NUMBER_KEY = "phoneNumber";
 
     @BindView(R.id.verification_number)
     TextView number;
@@ -50,6 +50,7 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
 
     private String phone_number;
     private CountDownTimer timer;
+    private String timerText;
 
     public static Fragment newInstance(String number) {
         VerificationFragment fragment = new VerificationFragment();
@@ -76,7 +77,9 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
     public void initView() {
         super.initView();
 
+        timerText = getLocaleText("phone_select_action_retry");
         number.setText(phone_number);
+        countDownText.setText(timerText);
         submit.setText(getContinueText());
         startCountDown();
 
@@ -123,7 +126,7 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
 
         if (!isSucceed) {
             input.changeTextColor(Color.RED);
-            hint.setText("Oh no! it seems the code is wrong");
+            hint.setText(getLocaleText("phone_select_subtitle_4"));
         } else {
             startNextFragment();
         }
@@ -141,7 +144,7 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
         timer = new CountDownTimer(DEFAULT_COUNT_DOWN_TIME, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                String str = "重新获取" + "(" + (millisUntilFinished / 1000) + ")";
+                String str = timerText + "(" + (millisUntilFinished / 1000) + ")";
                 countDownText.setText(str);
 
                 if (countDownText.getVisibility() != View.VISIBLE) {
@@ -151,7 +154,7 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
 
             @Override
             public void onFinish() {
-                countDownText.setText("重新获取");
+                countDownText.setText(timerText);
                 timer = null;
             }
         }.start();

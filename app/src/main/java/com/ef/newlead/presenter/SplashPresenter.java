@@ -2,6 +2,7 @@ package com.ef.newlead.presenter;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
@@ -9,6 +10,7 @@ import com.ef.newlead.data.model.DataBean.UserBean;
 import com.ef.newlead.data.model.Response;
 import com.ef.newlead.domain.usecase.UseCase;
 import com.ef.newlead.ui.view.SplashView;
+import com.ef.newlead.ui.widget.DownloadProgressInterceptor;
 import com.ef.newlead.util.FileUtils;
 import com.ef.newlead.util.SharedPreUtils;
 
@@ -53,7 +55,7 @@ public class SplashPresenter extends Presenter<SplashView> {
                 .onSuccess(response -> {
                     if (!SharedPreUtils.getString(Constant.RESOURCE_HASH, "")
                             .equals(response.getData().getHash())) {
-                        downloadResourceFile(context, response.getData().getSrc(), response.getData().getHash());
+                        downloadResourceFile(response.getData().getSrc(), response.getData().getHash());
                     } else {
                         InitCompleted();
                     }
@@ -80,11 +82,16 @@ public class SplashPresenter extends Presenter<SplashView> {
                 .build();
     }
 
-    private void downloadResourceFile(Context context, String url, String hash) {
+    private void downloadResourceFile(String url, String hash) {
+
+//        DownloadProgressInterceptor.setProgressListener((bytesRead, contentLength, done) -> {
+//            Log.d("DownloadProgressInterceptor", String.valueOf(bytesRead * 100 / contentLength));
+//        });
+
         useCase.new Builder<ResponseBody>()
                 .useCaseArgs(url)
                 .onSuccess(responseBody -> {
-                    if (saveFile(context, responseBody)) {
+                    if (saveFile(responseBody)) {
                         SharedPreUtils.putString(Constant.RESOURCE_HASH, hash);
                     }
                     InitCompleted();
@@ -92,7 +99,7 @@ public class SplashPresenter extends Presenter<SplashView> {
                 .build();
     }
 
-    private boolean saveFile(Context context, ResponseBody responseBody) {
+    private boolean saveFile(ResponseBody responseBody) {
         boolean result;
         try {
             result = FileUtils.saveToInternalStorage(context, responseBody.bytes(),

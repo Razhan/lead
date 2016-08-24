@@ -1,10 +1,13 @@
 package com.ef.newlead.data.repostory;
 
+import android.util.Log;
+
 import com.ef.newlead.Constant;
 import com.ef.newlead.data.model.BaseResponse;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
 import com.ef.newlead.data.model.DataBean.UserBean;
 import com.ef.newlead.data.model.Response;
+import com.ef.newlead.ui.widget.DownloadProgressInterceptor;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -27,13 +30,7 @@ public class RestfulDataSource implements Repository {
                 .readTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
                 .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
-                .addInterceptor(chain -> {
-                    Request request = chain.request()
-                            .newBuilder()
-                            .addHeader("type", "android")
-                            .build();
-                    return chain.proceed(request);
-                })
+                .addNetworkInterceptor(new DownloadProgressInterceptor())
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()

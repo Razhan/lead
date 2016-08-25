@@ -1,7 +1,5 @@
 package com.ef.newlead.data.repostory;
 
-import android.util.Log;
-
 import com.ef.newlead.Constant;
 import com.ef.newlead.data.model.BaseResponse;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
@@ -13,7 +11,6 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;

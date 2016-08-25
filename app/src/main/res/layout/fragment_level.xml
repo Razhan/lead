@@ -9,9 +9,9 @@
         android:id="@+id/level_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="65dp"
-        android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="65dp"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="24sp" />

@@ -9,9 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.transition.Slide;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,7 +24,6 @@ import com.ef.newlead.util.SharedPreUtils;
 import com.ef.newlead.util.ViewUtils;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class NumberFragment extends BaseCollectInfoFragment<VerificationPresenter>

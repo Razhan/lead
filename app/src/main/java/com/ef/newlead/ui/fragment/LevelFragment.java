@@ -1,11 +1,6 @@
 package com.ef.newlead.ui.fragment;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
@@ -20,7 +15,6 @@ import com.google.gson.reflect.TypeToken;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class LevelFragment extends BaseCollectInfoFragment implements CardSlideView.CardSlideListener {
 

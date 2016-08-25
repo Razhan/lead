@@ -11,7 +11,6 @@ import android.transition.Slide;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,7 +27,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class VerificationFragment extends BaseCollectInfoFragment<VerificationPresenter>
-                implements com.ef.newlead.ui.view.VerificationView{
+        implements com.ef.newlead.ui.view.VerificationView {
 
     private final static long DEFAULT_COUNT_DOWN_TIME = 60 * 1000 + 100;
     private final static String NUMBER_KEY = "phoneNumber";

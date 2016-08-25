@@ -2,15 +2,12 @@ package com.ef.newlead.ui.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -39,7 +36,7 @@ public class DiscreteSlider extends View {
     private int rangeCount;
     private boolean isDragging;
     private Paint mPaint;
-    private Drawable fab;
+    private Drawable thumb;
     private OnSlideListener listener;
 
     public DiscreteSlider(Context context) {
@@ -69,7 +66,7 @@ public class DiscreteSlider extends View {
         thumbRadius = ViewUtils.dpToPx(getContext(), DEFAULT_THUMB_RADIUS);
         dotsPos = new ArrayList<>();
 
-        fab = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_fab, null);
+        thumb = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_fab, null);
     }
 
     @Override
@@ -133,10 +130,10 @@ public class DiscreteSlider extends View {
         mProgress = Math.max(mProgress, getPaddingStart() - DEFAULT_EXTRA_SPACE);
         mProgress = Math.min(mProgress, getWidth() - getPaddingEnd() + DEFAULT_EXTRA_SPACE);
 
-        fab.setBounds((int)(mProgress - thumbRadius), (int)(cy - thumbRadius),
-                            (int)(mProgress + thumbRadius), (int)(cy + thumbRadius));
+        thumb.setBounds((int) (mProgress - thumbRadius), (int) (cy - thumbRadius),
+                (int) (mProgress + thumbRadius), (int) (cy + thumbRadius));
 
-        fab.draw(canvas);
+        thumb.draw(canvas);
     }
 
     private void drawDots(Canvas canvas) {

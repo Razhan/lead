@@ -13,7 +13,7 @@ public class VerificationUseCase extends UseCase {
 
     @UseCaseMethod
     public Observable<BaseResponse> verifyCode(String number, String code) {
-        return repository.verifyCode(number,code);
+        return repository.verifyCode(number, code);
     }
 
 

@@ -79,8 +79,8 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
 
             new Handler().postDelayed(() -> {
                 startActivity(
-                    new Intent(this, CollectInfoActivity.class));
-                    finish();
+                        new Intent(this, CollectInfoActivity.class));
+                finish();
             }, Constant.DEFAULT_ANIM_HALF_TIME);
         }
     }

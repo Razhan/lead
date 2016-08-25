@@ -15,7 +15,7 @@ public class VerificationPresenter extends Presenter<VerificationView> {
 
     public void getVerificationCode(String number) {
         useCase.new Builder<BaseResponse>()
-                .useCaseArgs(number.replaceAll("\\s",""))
+                .useCaseArgs(number.replaceAll("\\s", ""))
                 .onSuccess(response -> getView().afterNumberSubmit(true))
                 .onError(exception -> {
                     ErrorHandler.showError(exception);
@@ -26,7 +26,7 @@ public class VerificationPresenter extends Presenter<VerificationView> {
 
     public void VerifyCode(String number, String code) {
         useCase.new Builder<BaseResponse>()
-                .useCaseArgs(number.replaceAll("\\s",""), code)
+                .useCaseArgs(number.replaceAll("\\s", ""), code)
                 .onSuccess(response -> getView().afterCodeVerified(true))
                 .onError(exception -> getView().afterCodeVerified(false))
                 .build();

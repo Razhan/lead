@@ -7,7 +7,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.ArrayMap;
 import android.transition.Slide;
-import android.util.Log;
 import android.view.Gravity;
 
 import com.ef.newlead.Constant;
@@ -33,13 +32,7 @@ public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
         implements ActivityCompat.OnRequestPermissionsResultCallback, CollectInfoView {
 
     private static final String CURRENT_FRAGMENT = "currentFragment";
-
-    private int fragmentIndex;
-    private Fragment fragment;
-
-    private String[] fragmentKeys;
     private static Map<String, Class<?>> fragmentMapper;
-    private List<GradientColor> colors;
 
     static {
         fragmentMapper = new ArrayMap<>();
@@ -49,6 +42,11 @@ public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
         fragmentMapper.put("city", CityLocationFragment.class);
         fragmentMapper.put("phone", NumberFragment.class);
     }
+
+    private int fragmentIndex;
+    private Fragment fragment;
+    private String[] fragmentKeys;
+    private List<GradientColor> colors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +103,7 @@ public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
         SharedPreUtils.putInt(CURRENT_FRAGMENT, fragmentIndex);
 
         try {
-            fragment = (Fragment)fragmentMapper.get(fragmentKeys[fragmentIndex++]).newInstance();
+            fragment = (Fragment) fragmentMapper.get(fragmentKeys[fragmentIndex++]).newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }

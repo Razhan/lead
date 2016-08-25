@@ -2,7 +2,6 @@ package com.ef.newlead.presenter;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
@@ -10,7 +9,6 @@ import com.ef.newlead.data.model.DataBean.UserBean;
 import com.ef.newlead.data.model.Response;
 import com.ef.newlead.domain.usecase.UseCase;
 import com.ef.newlead.ui.view.SplashView;
-import com.ef.newlead.ui.widget.DownloadProgressInterceptor;
 import com.ef.newlead.util.FileUtils;
 import com.ef.newlead.util.SharedPreUtils;
 

@@ -16,36 +16,44 @@ import okio.Source;
 //http://www.jianshu.com/p/e097adbf3770
 public class DownloadProgressInterceptor implements Interceptor {
 
-    @Override public Response intercept(Chain chain) throws IOException {
+    public static void setProgressListener(DownloadProgressListener progressListener) {
+        DownloadProgressResponseBody.progressListener = progressListener;
+    }
+
+    @Override
+    public Response intercept(Chain chain) throws IOException {
         Response originalResponse = chain.proceed(chain.request());
         return originalResponse.newBuilder()
                 .body(new DownloadProgressResponseBody(originalResponse.body()))
                 .build();
     }
 
-    public static void setProgressListener(DownloadProgressListener progressListener) {
-        DownloadProgressResponseBody.progressListener = progressListener;
+    public interface DownloadProgressListener {
+        void update(long bytesRead, long contentLength, boolean done);
     }
 
     private static class DownloadProgressResponseBody extends ResponseBody {
 
-        private final ResponseBody responseBody;
         private static DownloadProgressListener progressListener;
+        private final ResponseBody responseBody;
         private BufferedSource bufferedSource;
 
         public DownloadProgressResponseBody(ResponseBody responseBody) {
             this.responseBody = responseBody;
         }
 
-        @Override public MediaType contentType() {
+        @Override
+        public MediaType contentType() {
             return responseBody.contentType();
         }
 
-        @Override public long contentLength() {
+        @Override
+        public long contentLength() {
             return responseBody.contentLength();
         }
 
-        @Override public BufferedSource source() {
+        @Override
+        public BufferedSource source() {
             if (bufferedSource == null) {
                 bufferedSource = Okio.buffer(source(responseBody.source()));
             }
@@ -56,7 +64,8 @@ public class DownloadProgressInterceptor implements Interceptor {
             return new ForwardingSource(source) {
                 long totalBytesRead = 0L;
 
-                @Override public long read(Buffer sink, long byteCount) throws IOException {
+                @Override
+                public long read(Buffer sink, long byteCount) throws IOException {
                     long bytesRead = super.read(sink, byteCount);
                     // read() returns the number of bytes read, or -1 if this source is exhausted.
                     totalBytesRead += bytesRead != -1 ? bytesRead : 0;
@@ -68,9 +77,5 @@ public class DownloadProgressInterceptor implements Interceptor {
                 }
             };
         }
-    }
-
-    public interface DownloadProgressListener {
-        void update(long bytesRead, long contentLength, boolean done);
     }
 }

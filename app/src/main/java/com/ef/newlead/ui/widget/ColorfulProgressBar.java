@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
@@ -127,8 +128,7 @@ public class ColorfulProgressBar extends View {
         int circleRadius = ViewUtils.dpToPx(getContext(), DEFAULT_DOT_RADIUS);
 
         for (float ratio : dotsRatio) {
-            float absPos = (getWidth() - getPaddingEnd() - getPaddingStart() - 2 * circleRadius) * ratio
-                    + circleRadius + getPaddingStart();
+            float absPos = length * ratio + getPaddingStart();
             canvas.drawCircle(absPos, cy, circleRadius, mPaint);
         }
     }
@@ -147,14 +147,24 @@ public class ColorfulProgressBar extends View {
     private void drawHalo(Canvas canvas) {
 
         float x = getPaddingStart() + dotsRatio.get(currentDot) * length;
+        float maxRadius = ViewUtils.dpToPx(getContext(), 12);
 
-        float radius = ViewUtils.dpToPx(getContext(), 6) * mAnimationProgress;
+        mPaint.setColor(Color.parseColor(getGradientAlpha(mAnimationProgress, 0.4f)));
+        canvas.drawCircle(x, cy, maxRadius * mAnimationProgress, mPaint);
 
-        mPaint.setColor(Color.parseColor("#b2ffffff"));
-        canvas.drawCircle(x, cy, radius * 2, mPaint);
+        if (mAnimationProgress >= 0.5f) {
+            mPaint.setColor(Color.parseColor(getGradientAlpha(((mAnimationProgress - 0.5f) * 2), 0.7f)));
+            canvas.drawCircle(x, cy, maxRadius * (mAnimationProgress - 0.5f), mPaint);
+        }
+    }
 
-        mPaint.setColor(Color.parseColor("#99000000"));
-        canvas.drawCircle(x, cy, radius, mPaint);
+    private String getGradientAlpha(float progress, float threshold) {
+        if (progress >= 1) {
+            return "#00ffffff";
+        }
+
+        int alpha = (int)((1 - progress) * 255 * threshold);
+        return "#" + String.format("%02X", alpha) + "ffffff";
     }
 
     public void setDotsPosition(float total, float[] stamps) {
@@ -180,7 +190,7 @@ public class ColorfulProgressBar extends View {
         if (dotsRatio != null && currentDot + 1 < dotsRatio.size() &&
                 progress >= dotsRatio.get(currentDot + 1)) {
             currentDot++;
-            startViewAnim(Constant.DEFAULT_ANIM_HALF_TIME);
+            startViewAnim(Constant.DEFAULT_ANIM_FULL_TIME * 2);
         } else {
             invalidate();
         }
@@ -199,8 +209,6 @@ public class ColorfulProgressBar extends View {
 
         valueAnimator.setDuration(time);
         valueAnimator.setInterpolator(new DecelerateInterpolator());
-        valueAnimator.setRepeatCount(ValueAnimator.RESTART);
-        valueAnimator.setRepeatMode(ValueAnimator.REVERSE);
 
         valueAnimator.addUpdateListener(animator -> {
             mAnimationProgress = (float) animator.getAnimatedValue();

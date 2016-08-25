@@ -30,6 +30,8 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public boolean onPreDraw() {
                 float[] array = {1f, 2f, 3f, 5f, 8f, 9f};
+//                float[] array = {1f};
+
                 progressBar.setDotsPosition(10f, array);
                 setProgress();
 

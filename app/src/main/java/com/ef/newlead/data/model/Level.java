@@ -1,9 +1,8 @@
 package com.ef.newlead.data.model;
 
-import com.ef.newlead.ui.widget.recycleview.MultipleTypeItem;
 import com.google.gson.annotations.SerializedName;
 
-public class Level implements MultipleTypeItem {
+public class Level {
 
     private String id;
 
@@ -22,11 +21,6 @@ public class Level implements MultipleTypeItem {
 
     public Level(boolean border) {
         this.isBorder = border;
-    }
-
-    @Override
-    public int getType() {
-        return MultipleTypeItem.ITEM;
     }
 
     public boolean isBorder() {

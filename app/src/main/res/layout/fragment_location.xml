@@ -23,7 +23,7 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="57dp"
-            android:background="@drawable/bg_rounded_corners"
+            android:background="@drawable/bg_rounded_corners_white"
             android:textAllCaps="true"
             android:textSize="@dimen/font_size_small" />
     </com.balysv.materialripple.MaterialRippleLayout>

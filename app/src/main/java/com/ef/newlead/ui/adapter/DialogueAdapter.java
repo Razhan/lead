@@ -1,6 +1,7 @@
 package com.ef.newlead.ui.adapter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.Dialogue;
@@ -22,7 +23,7 @@ public class DialogueAdapter extends MultipleTypeRecyclerViewAdapter<Dialogue> {
 
     @Override
     protected void onBindItemViewHolder(ViewHolder holder, int position, Dialogue item) {
-        if (position / 2 == 0) {
+        if (position % 2 == 0) {
             holder.setVisible(R.id.dialogue_profileB, false);
             holder.setVisible(R.id.dialogue_profileA, true);
         } else {

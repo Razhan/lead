@@ -38,28 +38,38 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
 
         <activity
             android:name=".ui.activity.CollectInfoActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize">
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
 
         <!-- location service -->
         <service android:name="com.amap.api.location.APSService" />
 
-        <activity android:name=".ui.activity.TestActivity">
+        <activity android:name=".ui.activity.TestActivity"></activity>
+
+        <activity
+            android:name=".ui.activity.DialogueActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
         </activity>
 
-        <activity android:name=".ui.activity.DialogueActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".ui.activity.VideoRolePlayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslucentActionBar.ActionBar.Overlay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

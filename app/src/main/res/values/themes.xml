@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--transparent actionbar -->
+    <style name="Theme.TranslucentActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
+        <item name="android:actionBarStyle">@style/Widget.ActionBar</item>
+        <item name="android:windowActionBar">true</item>
+        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+        <item name="android:windowContentOverlay">@null</item>
+
+        <item name="actionBarStyle">@style/Widget.ActionBar</item>
+        <item name="windowActionBar">true</item>
+    </style>
+
+    <style name="Theme.TranslucentActionBar.ActionBar" />
+
+    <style name="Theme.TranslucentActionBar.ActionBar.Overlay">
+        <item name="android:actionBarStyle">@style/Widget.ActionBar.Transparent</item>
+        <item name="android:windowActionBarOverlay">true</item>
+
+        <item name="actionBarStyle">@style/Widget.ActionBar.Transparent</item>
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+
+    <style name="Theme.Module" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="Theme.NoActionBar" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
+    </style>
+</resources>

@@ -2,18 +2,23 @@ package com.ef.newlead.ui.activity;
 
 import android.app.ProgressDialog;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.ef.newlead.R;
+import com.ef.newlead.data.model.GradientColor;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,9 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Nullable
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Nullable
-    @BindView(R.id.toolbar_title)
-    TextView toolbarTitle;
+
     private ProgressDialog progressDialog;
 
     private boolean BackPressedOnce = false;
@@ -43,12 +46,12 @@ public abstract class BaseActivity extends AppCompatActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
+        setContentView(bindLayout());
+        ButterKnife.bind(this);
+
         if (translucentStatusBar) {
             setTranslucentStatusBar();
         }
-
-        setContentView(bindLayout());
-        ButterKnife.bind(this);
 
         if (!screenRotate) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -60,9 +63,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public abstract int bindLayout();
 
     public void setTranslucentStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
+        setTranslucentColor();
     }
 
     public void setFullScreen() {
@@ -97,15 +98,20 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @CallSuper
     public void initView(Bundle savedInstanceState) {
-        if (toolbar == null || toolbarTitle == null) {
+        if (toolbar == null) {
             return;
         }
 
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-            toolbarTitle.setText(getToolBarTitle());
+            getSupportActionBar().setDisplayShowTitleEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(showBackIcon());
+            getSupportActionBar().setTitle(setToolBarText());
+
+            if (getStatusGradientColor() != null) {
+                toolbar.setBackground(getStatusGradientDrawable());
+            }
+
             toolbar.setNavigationOnClickListener(v -> onBackPressed());
         }
 
@@ -116,8 +122,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         return true;
     }
 
-    protected String getToolBarTitle() {
-        return "";
+    protected String setToolBarText() {
+        return null;
     }
 
     public void showProgress(boolean flag, String message) {
@@ -139,4 +145,54 @@ public abstract class BaseActivity extends AppCompatActivity {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
+    public void setTranslucentColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+            if (getStatusGradientColor() == null && getStatusColor() < 0) {
+                return;
+            }
+
+            ViewGroup decorView = (ViewGroup) this.getWindow().getDecorView();
+            View statusView = createStatusView();
+
+            if (getStatusGradientColor() != null) {
+                statusView.setBackground(getStatusGradientDrawable());
+            } else {
+                statusView.setBackgroundColor(getStatusColor());
+            }
+
+            decorView.addView(statusView);
+
+            ViewGroup rootView = (ViewGroup) ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
+            rootView.setFitsSystemWindows(true);
+            rootView.setClipToPadding(true);
+        }
+    }
+
+    private View createStatusView() {
+        int resourceId = this.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        int statusBarHeight = this.getResources().getDimensionPixelSize(resourceId);
+
+        View statusView = new View(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                statusBarHeight);
+        statusView.setLayoutParams(params);
+        return statusView;
+    }
+
+    @NonNull
+    private GradientDrawable getStatusGradientDrawable() {
+        GradientColor color = getStatusGradientColor();
+        return new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{color.getTopGradient().toHex(), color.getBottomGradient().toHex()});
+    }
+
+    protected GradientColor getStatusGradientColor() {
+        return null;
+    }
+
+    protected int getStatusColor() {
+        return -1;
+    }
 }

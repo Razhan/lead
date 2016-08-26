@@ -12,6 +12,12 @@ public class GradientColor {
 
     private int order;
 
+    public GradientColor(GradientBean topGradient, GradientBean bottomGradient, int order) {
+        this.topGradient = topGradient;
+        this.bottomGradient = bottomGradient;
+        this.order = order;
+    }
+
     public GradientBean getTopGradient() {
         return topGradient;
     }
@@ -41,6 +47,13 @@ public class GradientColor {
         private int g;
         private int b;
         private int a;
+
+        public GradientBean(int r, int g, int b, int a) {
+            this.r = r;
+            this.g = g;
+            this.b = b;
+            this.a = a;
+        }
 
         public int getR() {
             return r;

@@ -2,21 +2,18 @@ package com.ef.newlead.ui.widget;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewPropertyAnimator;
-import android.view.animation.Interpolator;
 
 import com.ef.newlead.Constant;
 
 public class BottomBehavior extends CoordinatorLayout.Behavior<View> {
 
-    private static final Interpolator INTERPOLATOR = new FastOutSlowInInterpolator();
-
+    private ObjectAnimator mAnimator;
     private int distance;
 
     public BottomBehavior(Context context, AttributeSet attrs) {
@@ -24,7 +21,9 @@ public class BottomBehavior extends CoordinatorLayout.Behavior<View> {
     }
 
     @Override
-    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child, View directTargetChild, View target, int nestedScrollAxes) {
+    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child,
+                                       View directTargetChild, View target, int nestedScrollAxes) {
+
         return (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
     }
 
@@ -33,7 +32,6 @@ public class BottomBehavior extends CoordinatorLayout.Behavior<View> {
                                   int dx, int dy, int[] consumed) {
 
         if (dy > 0 && distance < 0 || dy < 0 && distance > 0) {
-            child.animate().cancel();
             distance = 0;
         }
 
@@ -47,37 +45,39 @@ public class BottomBehavior extends CoordinatorLayout.Behavior<View> {
     }
 
     private void hide(final View view) {
-        ViewPropertyAnimator animator = view.animate().translationY(view.getHeight())
-                .setInterpolator(INTERPOLATOR).setDuration(Constant.DEFAULT_ANIM_HALF_TIME);
+        if (mAnimator != null && mAnimator.isRunning()) {
+            return;
+        }
 
-        animator.setListener(new AnimatorListenerAdapter() {
+        mAnimator = ObjectAnimator.ofFloat(view, "translationY", 0, view.getHeight());
+        mAnimator.setDuration(Constant.DEFAULT_ANIM_HALF_TIME);
+
+        mAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 view.setVisibility(View.GONE);
             }
+        });
 
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                show(view);
-            }
-        }).start();
+        mAnimator.start();
     }
 
     private void show(final View view) {
-        ViewPropertyAnimator animator = view.animate().translationY(0)
-                .setInterpolator(INTERPOLATOR).setDuration(Constant.DEFAULT_ANIM_HALF_TIME);
+        if (mAnimator != null && mAnimator.isRunning()) {
+            return;
+        }
 
-        animator.setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                hide(view);
-            }
+        mAnimator = ObjectAnimator.ofFloat(view, "translationY", view.getHeight(), 0);
+        mAnimator.setDuration(Constant.DEFAULT_ANIM_HALF_TIME);
 
+        mAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
                 view.setVisibility(View.VISIBLE);
             }
-        }).start();
+        });
+
+        mAnimator.start();
     }
 
 }

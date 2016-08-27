@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
@@ -163,7 +162,7 @@ public class ColorfulProgressBar extends View {
             return "#00ffffff";
         }
 
-        int alpha = (int)((1 - progress) * 255 * threshold);
+        int alpha = (int) ((1 - progress) * 255 * threshold);
         return "#" + String.format("%02X", alpha) + "ffffff";
     }
 

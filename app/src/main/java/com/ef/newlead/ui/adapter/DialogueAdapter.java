@@ -1,7 +1,6 @@
 package com.ef.newlead.ui.adapter;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.Dialogue;
@@ -18,7 +17,7 @@ public class DialogueAdapter extends MultipleTypeRecyclerViewAdapter<Dialogue> {
 
     @Override
     public int getItemLayout() {
-        return R.layout.item_dialogue;
+        return R.layout.item_dialogue_sumary;
     }
 
     @Override

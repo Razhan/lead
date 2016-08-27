@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/dialogue_profileA"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_people_left"
+            app:civ_border_color="#00000000"
+            app:civ_border_width="1dp" />
+
+        <LinearLayout
+            android:layout_width="216dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dialogue_sentence"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hi Jo, How are you today?"
+                android:textColor="@android:color/black"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/dialogue_translation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:scaleY="0"
+                android:text="嗨Jo, 你今天好吗？"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/dialogue_profileB"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_people_right"
+            app:civ_border_color="#00000000"
+            app:civ_border_width="1dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

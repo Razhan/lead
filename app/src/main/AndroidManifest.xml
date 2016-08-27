@@ -51,18 +51,22 @@
         </activity>
 
         <!-- location service -->
-        <service android:name="com.amap.api.location.APSService" />
+        <service
+            android:name="com.amap.api.location.APSService" />
 
-        <activity android:name=".ui.activity.TestActivity">
-        </activity>
-
-        <activity android:name=".ui.activity.DialogueActivity"
+        <activity
+            android:name=".ui.activity.TestActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.activity.DialogueActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
     </application>

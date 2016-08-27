@@ -1,63 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20dp">
+    android:layout_marginTop="20dp"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="16dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="20dp">
+        android:layout_marginStart="16dp"
+        android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/dialogue_profileA"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="45dp"
+            android:layout_weight="1"
             android:src="@drawable/ic_people_left"
-            app:civ_border_width="1dp"
-            app:civ_border_color="#00000000"/>
+            app:civ_border_color="#00000000"
+            app:civ_border_width="1dp" />
 
         <LinearLayout
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/dialogue_sentence"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Hi Jo, How are you today?"
                 android:textColor="#666666"
-                android:textSize="17sp"
-                android:text="Hi Jo, How are you today?"/>
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/dialogue_translation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:text="嗨Jo, 你今天好吗？"
                 android:textColor="#666666"
-                android:textSize="17sp"
-                android:text="嗨Jo, 你今天好吗？"/>
+                android:textSize="15sp" />
 
         </LinearLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/dialogue_profileB"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="45dp"
+            android:layout_weight="1"
             android:src="@drawable/ic_people_right"
-            app:civ_border_width="1dp"
-            app:civ_border_color="#00000000"/>
+            app:civ_border_color="#00000000"
+            app:civ_border_width="1dp" />
 
     </LinearLayout>
 

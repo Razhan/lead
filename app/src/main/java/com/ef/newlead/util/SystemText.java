@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 
-public class SystemText {
+public final class SystemText {
 
     private static final String DEFAULT_LANGUAGE = "en";
 

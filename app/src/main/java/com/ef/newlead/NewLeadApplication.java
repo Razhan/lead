@@ -8,7 +8,7 @@ import com.squareup.leakcanary.LeakCanary;
 
 import timber.log.Timber;
 
-public class NewLeadApplication extends Application {
+public final class NewLeadApplication extends Application {
 
     @Override
     public void onCreate() {

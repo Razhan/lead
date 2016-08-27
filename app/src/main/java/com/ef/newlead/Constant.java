@@ -2,7 +2,7 @@ package com.ef.newlead;
 
 import java.io.File;
 
-public class Constant {
+public final class Constant {
 
     public static final String API_END_POINT = "https://b2cglobaluat.englishtown.com/";
 

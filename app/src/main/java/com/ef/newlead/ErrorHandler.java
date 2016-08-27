@@ -11,7 +11,7 @@ import java.net.UnknownHostException;
 
 import retrofit2.adapter.rxjava.HttpException;
 
-public class ErrorHandler {
+public final class ErrorHandler {
 
     private static Context mContext;
 

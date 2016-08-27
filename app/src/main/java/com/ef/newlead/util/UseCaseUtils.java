@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UseCaseUtils {
+public final class UseCaseUtils {
 
     public static Method findMethod(Object useCase, String methodName, Object... args) {
         List<Method> methods = getAnnotatedUseCaseMethods(useCase);

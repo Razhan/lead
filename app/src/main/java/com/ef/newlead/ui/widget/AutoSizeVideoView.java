@@ -49,15 +49,17 @@ public class AutoSizeVideoView extends EMVideoView {
     protected void initView(Context context, @Nullable AttributeSet attrs) {
         //super.initView(context, attrs);
 
-        inflateVideoView(context, attrs);
+        if (!isInEditMode()) {
+            inflateVideoView(context, attrs);
 
-        previewImageView = (ImageView) findViewById(com.devbrackets.android.exomedia.R.id.exomedia_video_preview_image);
-        videoViewImpl = (VideoViewApi) findViewById(com.devbrackets.android.exomedia.R.id.exomedia_video_view);
+            previewImageView = (ImageView) findViewById(com.devbrackets.android.exomedia.R.id.exomedia_video_preview_image);
+            videoViewImpl = (VideoViewApi) findViewById(com.devbrackets.android.exomedia.R.id.exomedia_video_view);
 
-        muxNotifier = new MuxNotifierAuto();
-        listenerMux = new EMListenerMux(muxNotifier);
+            muxNotifier = new MuxNotifierAuto();
+            listenerMux = new EMListenerMux(muxNotifier);
 
-        videoViewImpl.setListenerMux(listenerMux);
+            videoViewImpl.setListenerMux(listenerMux);
+        }
     }
 
     class MuxNotifierAuto extends MuxNotifier {

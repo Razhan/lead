@@ -19,6 +19,7 @@ import com.ef.newlead.R;
 import com.ef.newlead.ui.widget.AutoSizeVideoView;
 import com.ef.newlead.ui.widget.ColorfulProgressBar;
 import com.ef.newlead.ui.widget.VideoControlLayout;
+import com.ef.newlead.util.ViewUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -108,7 +109,9 @@ public class VideoRolePlayActivity extends AppCompatActivity implements OnPrepar
 
                     int height = progressBar.getHeight();
                     FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) (progressBar.getLayoutParams());
-                    layoutParams.topMargin = h - height / 2;
+
+                    // 2dp increased vertically to show all the dots
+                    layoutParams.topMargin = h - height / 2 - ViewUtils.dpToPx(VideoRolePlayActivity.this, 2);
                     Timber.i(">>> progressBar top margin changed to : " + layoutParams.topMargin);
 
                     progressBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);

@@ -2,9 +2,12 @@ package com.ef.newlead.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
+import java.lang.reflect.Field;
 
 public final class ViewUtils {
 
@@ -43,4 +46,24 @@ public final class ViewUtils {
         imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
     }
 
+    public static boolean hasKitKat(){
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+    }
+
+    public static int getStatusBarHeight(Context context) {
+        Class<?> c;
+        Object obj;
+        Field field;
+        int x, statusBarHeight = 0;
+        try {
+            c = Class.forName("com.android.internal.R$dimen");
+            obj = c.newInstance();
+            field = c.getField("status_bar_height");
+            x = Integer.parseInt(field.get(obj).toString());
+            statusBarHeight = context.getResources().getDimensionPixelSize(x);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return statusBarHeight;
+    }
 }

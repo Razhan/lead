@@ -64,13 +64,15 @@ public class ColorfulProgressBar extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int defaultHeight = ViewUtils.dpToPx(getContext(), (DEFAULT_THUMB_RADIUS + 1) * 2);
+
         int width = measureDimension(widthMeasureSpec, 800);
-        int height = measureDimension(heightMeasureSpec, 200);
+        int height = measureDimension(heightMeasureSpec, defaultHeight /*200*/);
 
         setMeasuredDimension(width, height);
 
         cy = height / 2;
-        length = getWidth() - getPaddingStart() - getPaddingEnd();
+        length = getMeasuredWidth() /*getWidth()*/ - getPaddingStart() - getPaddingEnd();
     }
 
     private int measureDimension(int measureSpec, int defaultSize) {
@@ -182,6 +184,11 @@ public class ColorfulProgressBar extends View {
         return showThumb;
     }
 
+    /***
+     * Sets the progress value
+     *
+     * @param progress range from 0 to 1.
+     */
     public void setProgress(float progress) {
 
         mProgress = getPaddingStart() + length * progress;

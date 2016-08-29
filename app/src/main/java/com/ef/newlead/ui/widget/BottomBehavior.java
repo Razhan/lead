@@ -37,7 +37,7 @@ public class BottomBehavior extends CoordinatorLayout.Behavior<View> {
 
         distance += dy;
 
-        if (distance > child.getHeight() / 4 && child.getVisibility() == View.VISIBLE) {
+        if (distance > 0 && child.getVisibility() == View.VISIBLE) {
             hide(child);
         } else if (distance < 0 && child.getVisibility() == View.GONE) {
             show(child);

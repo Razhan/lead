@@ -9,9 +9,9 @@ import com.ef.newlead.ui.widget.recycleview.ViewHolder;
 
 import java.util.List;
 
-public class DialogueAdapter extends MultipleTypeRecyclerViewAdapter<Dialogue> {
+public class SummaryDialogueAdapter extends MultipleTypeRecyclerViewAdapter<Dialogue> {
 
-    public DialogueAdapter(Context context, List<Dialogue> list) {
+    public SummaryDialogueAdapter(Context context, List<Dialogue> list) {
         super(context, list);
     }
 

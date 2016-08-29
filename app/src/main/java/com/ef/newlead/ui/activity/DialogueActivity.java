@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.Dialogue;
 import com.ef.newlead.data.model.GradientColor;
-import com.ef.newlead.ui.adapter.DialogueAdapter;
+import com.ef.newlead.ui.adapter.SummaryDialogueAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,6 @@ public class DialogueActivity extends BaseActivity {
     @BindView(R.id.dialogue_list)
     RecyclerView list;
 
-    private DialogueAdapter mAdapter;
     private GradientColor gradientColor;
 
     @Override
@@ -65,7 +64,7 @@ public class DialogueActivity extends BaseActivity {
         }
 
         list.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new DialogueAdapter(this, dialogues);
+        SummaryDialogueAdapter mAdapter = new SummaryDialogueAdapter(this, dialogues);
 
         list.setAdapter(mAdapter);
     }

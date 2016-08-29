@@ -133,13 +133,28 @@ public abstract class MultipleTypeRecyclerViewAdapter<T extends MultipleTypeItem
         return items;
     }
 
-    public void delete(int pos) {
+    public void remove(int pos) {
+        if (items == null || pos < 0 || pos > items.size() - 1) {
+            return;
+        }
+
         items.remove(pos);
         notifyItemRemoved(pos);
     }
 
+    public void removeAll() {
+        if (items == null) {
+            return;
+        }
+
+        int count = items.size();
+        items.clear();
+        notifyItemRangeRemoved(0, count);
+    }
+
     public void clear() {
         items.clear();
+        notifyDataSetChanged();
     }
 
     private boolean hasItems() {

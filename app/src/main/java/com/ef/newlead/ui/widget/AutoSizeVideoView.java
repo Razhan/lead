@@ -17,6 +17,8 @@ import com.devbrackets.android.exomedia.ui.widget.EMVideoView;
  * A custom {@link EMVideoView} which is also aware of video size change event.
  */
 public class AutoSizeVideoView extends EMVideoView {
+    private VideoSizeMonitor videoSizeMonitor;
+
     public AutoSizeVideoView(Context context) {
         super(context);
     }
@@ -33,12 +35,6 @@ public class AutoSizeVideoView extends EMVideoView {
     public AutoSizeVideoView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
-
-    public interface VideoSizeMonitor {
-        void onSizeChanged(int displayWidth, int displayHeight, float pixelWidthHeightRatio);
-    }
-
-    private VideoSizeMonitor videoSizeMonitor;
 
     public AutoSizeVideoView setVideoSizeMonitor(VideoSizeMonitor videoSizeMonitor) {
         this.videoSizeMonitor = videoSizeMonitor;
@@ -60,6 +56,17 @@ public class AutoSizeVideoView extends EMVideoView {
         videoViewImpl.setListenerMux(listenerMux);
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        videoSizeMonitor = null;
+
+        super.onDetachedFromWindow();
+    }
+
+    public interface VideoSizeMonitor {
+        void onSizeChanged(int displayWidth, int displayHeight, float pixelWidthHeightRatio);
+    }
+
     class MuxNotifierAuto extends MuxNotifier {
         @Override
         public void onVideoSizeChanged(int width, int height, int unAppliedRotationDegrees, float pixelWidthHeightRatio) {
@@ -69,12 +76,5 @@ public class AutoSizeVideoView extends EMVideoView {
                 videoSizeMonitor.onSizeChanged(width, height, pixelWidthHeightRatio);
             }
         }
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        videoSizeMonitor = null;
-
-        super.onDetachedFromWindow();
     }
 }

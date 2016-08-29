@@ -150,11 +150,11 @@ public class ColorfulProgressBar extends View {
         float x = getPaddingStart() + dotsRatio.get(currentDot) * length;
         float maxRadius = ViewUtils.dpToPx(getContext(), 12);
 
-        mPaint.setColor(Color.parseColor(getGradientAlpha(mAnimationProgress, 0.4f)));
+        mPaint.setColor(Color.parseColor(getGradientAlpha(mAnimationProgress, 0.7f)));
         canvas.drawCircle(x, cy, maxRadius * mAnimationProgress, mPaint);
 
         if (mAnimationProgress >= 0.5f) {
-            mPaint.setColor(Color.parseColor(getGradientAlpha(((mAnimationProgress - 0.5f) * 2), 0.7f)));
+            mPaint.setColor(Color.parseColor(getGradientAlpha(((mAnimationProgress - 0.5f) * 2), 1f)));
             canvas.drawCircle(x, cy, maxRadius * (mAnimationProgress - 0.5f), mPaint);
         }
     }
@@ -196,7 +196,7 @@ public class ColorfulProgressBar extends View {
         if (dotsRatio != null && currentDot + 1 < dotsRatio.size() &&
                 progress >= dotsRatio.get(currentDot + 1)) {
             currentDot++;
-            startViewAnim(Constant.DEFAULT_ANIM_FULL_TIME * 2);
+            startViewAnim(Constant.DEFAULT_ANIM_FULL_TIME * 3);
         } else {
             invalidate();
         }

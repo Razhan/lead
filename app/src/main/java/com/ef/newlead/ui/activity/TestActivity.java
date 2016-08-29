@@ -1,19 +1,17 @@
 package com.ef.newlead.ui.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Switch;
 
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.Dialogue;
-import com.ef.newlead.ui.adapter.SummaryDialogueAdapter;
 import com.ef.newlead.ui.adapter.VideoDialogueAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.ef.newlead.ui.widget.SlideAnimator;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -27,10 +25,12 @@ public class TestActivity extends BaseActivity {
     @BindView(R.id.b3)
     Button b3;
     @BindView(R.id.dialogue_switch)
-    Switch dialogueSwitch;
+    SwitchCompat dialogueSwitch;
     @BindView(R.id.video_dialogue_list)
     RecyclerView list;
+
     private VideoDialogueAdapter mAdapter;
+    private Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,18 +46,23 @@ public class TestActivity extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-       initRecyclerView();
+        mHandler = new Handler();
 
+        initRecyclerView();
 
         dialogueSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
+                mAdapter.showTranslation(true);
             } else {
+                mAdapter.showTranslation(false);
             }
         });
     }
 
     private void initRecyclerView() {
         list.setLayoutManager(new LinearLayoutManager(this));
+        list.setItemAnimator(new SlideAnimator());
+
         mAdapter = new VideoDialogueAdapter(this, null);
 
         list.setAdapter(mAdapter);
@@ -67,16 +72,15 @@ public class TestActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.b1:
-                List<Dialogue> dialogues = new ArrayList<>();
-                dialogues.add(new Dialogue());
-                mAdapter.add(dialogues);
+                mAdapter.add(mAdapter.getItemCount(), new Dialogue());
+                list.smoothScrollToPosition(mAdapter.getItemCount());
                 break;
             case R.id.b2:
+                mAdapter.removeAll();
                 break;
             case R.id.b3:
                 break;
         }
     }
-
 
 }

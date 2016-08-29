@@ -8,18 +8,17 @@
     <RelativeLayout
         android:id="@+id/exomedia_controls_interactive_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <!-- adjust the top margin to update the position of all the control buttons. -->
         <LinearLayout
+            android:id="@+id/control_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_alignParentTop="true"
             android:gravity="center"
-            android:id="@+id/control_parent"
             android:orientation="horizontal">
 
             <ImageButton
@@ -105,14 +104,14 @@
                 style="?android:seekBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="RtlHardcoded"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                tools:ignore="RtlHardcoded" />
 
             <com.ef.newlead.ui.widget.ColorfulProgressBar
                 android:id="@+id/progressBar"
-                android:layout_marginBottom="-9dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-9dp" />
         </LinearLayout>
 
     </RelativeLayout>

@@ -52,7 +52,7 @@
                 android:textColor="#8a000000"
                 android:textSize="14sp" />
 
-            <Switch
+            <android.support.v7.widget.SwitchCompat
                 android:id="@+id/dialogue_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

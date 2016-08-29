@@ -46,7 +46,7 @@ public final class ViewUtils {
         imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
     }
 
-    public static boolean hasKitKat(){
+    public static boolean hasKitKat() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
     }
 

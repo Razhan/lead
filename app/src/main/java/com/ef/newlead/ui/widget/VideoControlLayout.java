@@ -24,14 +24,14 @@ import com.ef.newlead.util.ViewUtils;
  */
 public class VideoControlLayout extends VideoControls {
 
+    RelativeLayout videoTimeStampLayout;
+    ColorfulProgressBar progressBar;
     private boolean userInteracting;
     private SeekBar seekBar;
-    RelativeLayout videoTimeStampLayout;
-
     private long videoDuration;
-
-    ColorfulProgressBar progressBar;
     private LinearLayout controlParent;
+    private VisibilityAnimationListener visibilityAnimationListener;
+    private PlayingProgressChangeListener playingProgressChangeListener;
 
     public VideoControlLayout(Context context) {
         super(context);
@@ -49,24 +49,6 @@ public class VideoControlLayout extends VideoControls {
     public VideoControlLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
-
-    /***
-     * Listener for monitoring the control view visibility change.
-     */
-    public interface VisibilityAnimationListener {
-        void onAnimate(boolean visible);
-    }
-
-    /***
-     * Listener for monitoring the playing progress
-     */
-    public interface PlayingProgressChangeListener {
-        void onUpdate(float progress);
-    }
-
-    private VisibilityAnimationListener visibilityAnimationListener;
-
-    private PlayingProgressChangeListener playingProgressChangeListener;
 
     public VideoControlLayout setPlayingProgressChangeListener(PlayingProgressChangeListener listener) {
         this.playingProgressChangeListener = listener;
@@ -86,18 +68,17 @@ public class VideoControlLayout extends VideoControls {
         super.onDetachedFromWindow();
     }
 
-
     /***
      * Centralizes the play button after video is ready.
      */
-    public void centralizeControlViewLayout(){
+    public void centralizeControlViewLayout() {
 
         this.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                if(VideoControlLayout.this.getHeight() > 0 && controlParent.getHeight() > 0) {
+                if (VideoControlLayout.this.getHeight() > 0 && controlParent.getHeight() > 0) {
                     int statusBarHeight = 0;
-                    if(ViewUtils.hasKitKat()) {
+                    if (ViewUtils.hasKitKat()) {
                         statusBarHeight = ViewUtils.getStatusBarHeight(getContext());
                     }
 
@@ -119,12 +100,12 @@ public class VideoControlLayout extends VideoControls {
         super.retrieveViews();
         seekBar = (SeekBar) findViewById(R.id.exomedia_controls_video_seek);
 
-        progressBar = (ColorfulProgressBar)findViewById(R.id.progressBar);
+        progressBar = (ColorfulProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(GONE);
 
         videoTimeStampLayout = (RelativeLayout) findViewById(R.id.timestamp_parent);
 
-        controlParent = (LinearLayout)findViewById(R.id.control_parent);
+        controlParent = (LinearLayout) findViewById(R.id.control_parent);
     }
 
     @Override
@@ -164,7 +145,7 @@ public class VideoControlLayout extends VideoControls {
     }
 
     private void notifyProgressChange(@IntRange(from = 0) long position) {
-        if(videoDuration > 0) {
+        if (videoDuration > 0) {
             float progress = position * 1.0f / videoDuration;
             if (playingProgressChangeListener != null) {
                 playingProgressChangeListener.onUpdate(progress);
@@ -251,6 +232,20 @@ public class VideoControlLayout extends VideoControls {
         loadingProgress.setVisibility(View.GONE);
 
         updatePlaybackState(videoView != null && videoView.isPlaying());
+    }
+
+    /***
+     * Listener for monitoring the control view visibility change.
+     */
+    public interface VisibilityAnimationListener {
+        void onAnimate(boolean visible);
+    }
+
+    /***
+     * Listener for monitoring the playing progress
+     */
+    public interface PlayingProgressChangeListener {
+        void onUpdate(float progress);
     }
 
     class SeekBarChanged implements SeekBar.OnSeekBarChangeListener {

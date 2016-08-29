@@ -5,6 +5,6 @@
         android:id="@+id/menu_favorite"
         android:icon="@drawable/favorite"
         android:orderInCategory="200"
-        app:showAsAction="always"
-        android:title="favorite"/>
+        android:title="favorite"
+        app:showAsAction="always" />
 </menu>

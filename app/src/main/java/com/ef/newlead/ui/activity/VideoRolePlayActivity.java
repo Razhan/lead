@@ -19,6 +19,7 @@ import com.ef.newlead.R;
 import com.ef.newlead.ui.widget.AutoSizeVideoView;
 import com.ef.newlead.ui.widget.ColorfulProgressBar;
 import com.ef.newlead.ui.widget.VideoControlLayout;
+import com.ef.newlead.util.ViewUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -33,29 +34,20 @@ import timber.log.Timber;
 public class VideoRolePlayActivity extends AppCompatActivity implements OnPreparedListener,
         VideoControlLayout.VisibilityAnimationListener, VideoControlLayout.PlayingProgressChangeListener, AutoSizeVideoView.VideoSizeMonitor {
 
-    private AutoSizeVideoView videoView;
-
     protected boolean pausedInOnStop = false;
-    private boolean isRestarted = false;
-
-    private VideoControlLayout controlLayout;
-
-    private ActionBar actionBar;
-
-    private ListView listView;
-
-    private ColorfulProgressBar progressBar;
-
-    // whether video size has been changed in order to keep its aspect ratio.
-    private boolean videoResized = false;
-
-    private int videoDisplayWidth = 0;
-    private int videoDisplayHeight = 0;
-
-    private boolean addedToFavorite = false;
-
     @BindView(R.id.script_parent)
     LinearLayout scriptLayout;
+    private AutoSizeVideoView videoView;
+    private boolean isRestarted = false;
+    private VideoControlLayout controlLayout;
+    private ActionBar actionBar;
+    private ListView listView;
+    private ColorfulProgressBar progressBar;
+    // whether video size has been changed in order to keep its aspect ratio.
+    private boolean videoResized = false;
+    private int videoDisplayWidth = 0;
+    private int videoDisplayHeight = 0;
+    private boolean addedToFavorite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +100,7 @@ public class VideoRolePlayActivity extends AppCompatActivity implements OnPrepar
 
                     int height = progressBar.getHeight();
                     FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) (progressBar.getLayoutParams());
-                    layoutParams.topMargin = h - height / 2;
+                    layoutParams.topMargin = h - height / 2 - ViewUtils.dpToPx(VideoRolePlayActivity.this, 2);
                     Timber.i(">>> progressBar top margin changed to : " + layoutParams.topMargin);
 
                     progressBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
@@ -147,7 +139,7 @@ public class VideoRolePlayActivity extends AppCompatActivity implements OnPrepar
             case android.R.id.home:
                 finish();
                 break;
-            
+
             case R.id.menu_favorite:
                 String message = "";
 

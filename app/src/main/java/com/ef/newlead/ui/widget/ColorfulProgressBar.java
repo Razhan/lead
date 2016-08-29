@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
@@ -65,13 +64,15 @@ public class ColorfulProgressBar extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int defaultHeight = ViewUtils.dpToPx(getContext(), (DEFAULT_THUMB_RADIUS + 1) * 2);
+
         int width = measureDimension(widthMeasureSpec, 800);
-        int height = measureDimension(heightMeasureSpec, 200);
+        int height = measureDimension(heightMeasureSpec, defaultHeight /*200*/);
 
         setMeasuredDimension(width, height);
 
         cy = height / 2;
-        length = getWidth() - getPaddingStart() - getPaddingEnd();
+        length = getMeasuredWidth() /*getWidth()*/ - getPaddingStart() - getPaddingEnd();
     }
 
     private int measureDimension(int measureSpec, int defaultSize) {
@@ -163,7 +164,7 @@ public class ColorfulProgressBar extends View {
             return "#00ffffff";
         }
 
-        int alpha = (int)((1 - progress) * 255 * threshold);
+        int alpha = (int) ((1 - progress) * 255 * threshold);
         return "#" + String.format("%02X", alpha) + "ffffff";
     }
 
@@ -183,6 +184,11 @@ public class ColorfulProgressBar extends View {
         return showThumb;
     }
 
+    /***
+     * Sets the progress value
+     *
+     * @param progress range from 0 to 1.
+     */
     public void setProgress(float progress) {
 
         mProgress = getPaddingStart() + length * progress;

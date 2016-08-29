@@ -5,21 +5,21 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
 
-    <!---->
     <RelativeLayout
         android:id="@+id/exomedia_controls_interactive_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true">
+        >
 
+        <!-- adjust the top margin to update the position of all the control buttons. -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="?actionBarSize"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:layout_alignParentTop="true"
             android:gravity="center"
+            android:id="@+id/control_parent"
             android:orientation="horizontal">
 
             <ImageButton
@@ -61,7 +61,6 @@
 
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -81,9 +80,8 @@
                     android:id="@+id/exomedia_controls_current_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="2dp"
-                    android:paddingRight="2dp"
                     android:textColor="@android:color/white"
+                    android:textSize="12sp"
                     tools:ignore="RtlHardcoded"
                     tools:text="1:06:29" />
 
@@ -95,9 +93,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_gravity="center_vertical|right"
                     android:gravity="right"
-                    android:paddingLeft="2dp"
-                    android:paddingRight="2dp"
                     android:textColor="@android:color/white"
+                    android:textSize="12sp"
                     tools:ignore="RtlHardcoded"
                     tools:text="1:23:49" />
             </RelativeLayout>
@@ -108,7 +105,14 @@
                 style="?android:seekBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="RtlHardcoded" />
+                tools:ignore="RtlHardcoded"
+                android:visibility="gone"/>
+
+            <com.ef.newlead.ui.widget.ColorfulProgressBar
+                android:id="@+id/progressBar"
+                android:layout_marginBottom="-9dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </RelativeLayout>

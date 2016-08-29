@@ -7,6 +7,7 @@ import android.support.annotation.IntRange;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
@@ -14,6 +15,7 @@ import com.devbrackets.android.exomedia.ui.animation.BottomViewHideShowAnimation
 import com.devbrackets.android.exomedia.ui.widget.VideoControls;
 import com.devbrackets.android.exomedia.util.TimeFormatUtil;
 import com.ef.newlead.R;
+import com.ef.newlead.util.ViewUtils;
 
 /**
  * Created by seanzhou on 8/24/16.
@@ -25,6 +27,11 @@ public class VideoControlLayout extends VideoControls {
     private boolean userInteracting;
     private SeekBar seekBar;
     RelativeLayout videoTimeStampLayout;
+
+    private long videoDuration;
+
+    ColorfulProgressBar progressBar;
+    private LinearLayout controlParent;
 
     public VideoControlLayout(Context context) {
         super(context);
@@ -50,7 +57,21 @@ public class VideoControlLayout extends VideoControls {
         void onAnimate(boolean visible);
     }
 
+    /***
+     * Listener for monitoring the playing progress
+     */
+    public interface PlayingProgressChangeListener {
+        void onUpdate(float progress);
+    }
+
     private VisibilityAnimationListener visibilityAnimationListener;
+
+    private PlayingProgressChangeListener playingProgressChangeListener;
+
+    public VideoControlLayout setPlayingProgressChangeListener(PlayingProgressChangeListener listener) {
+        this.playingProgressChangeListener = listener;
+        return this;
+    }
 
     public VideoControlLayout setVisibilityAnimationListener(VisibilityAnimationListener visibilityAnimationListener) {
         this.visibilityAnimationListener = visibilityAnimationListener;
@@ -60,27 +81,50 @@ public class VideoControlLayout extends VideoControls {
     @Override
     protected void onDetachedFromWindow() {
         visibilityAnimationListener = null;
+        playingProgressChangeListener = null;
 
         super.onDetachedFromWindow();
+    }
+
+
+    /***
+     * Centralizes the play button after video is ready.
+     */
+    public void centralizeControlViewLayout(){
+
+        this.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if(VideoControlLayout.this.getHeight() > 0 && controlParent.getHeight() > 0) {
+                    int statusBarHeight = 0;
+                    if(ViewUtils.hasKitKat()) {
+                        statusBarHeight = ViewUtils.getStatusBarHeight(getContext());
+                    }
+
+                    // centralize the play button
+                    int topSpace = statusBarHeight + (VideoControlLayout.this.getHeight() - controlParent.getHeight()) / 2;
+                    LayoutParams params = (LayoutParams) (controlParent.getLayoutParams());
+                    params.setMargins(params.leftMargin, topSpace, params.rightMargin, params.bottomMargin);
+
+                    controlParent.requestLayout();
+                    controlParent.invalidate();
+                    VideoControlLayout.this.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+            }
+        });
     }
 
     @Override
     protected void retrieveViews() {
         super.retrieveViews();
         seekBar = (SeekBar) findViewById(R.id.exomedia_controls_video_seek);
-        seekBar.getViewTreeObserver().removeOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (seekBar.getHeight() > 0) {
-                    seekBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
-                    seekBar.setPadding(0, seekBar.getHeight() / 2, 0, 0);
-                    seekBar.invalidate();
-                }
-            }
-        });
+        progressBar = (ColorfulProgressBar)findViewById(R.id.progressBar);
+        progressBar.setVisibility(GONE);
 
         videoTimeStampLayout = (RelativeLayout) findViewById(R.id.timestamp_parent);
+
+        controlParent = (LinearLayout)findViewById(R.id.control_parent);
     }
 
     @Override
@@ -93,10 +137,14 @@ public class VideoControlLayout extends VideoControls {
     public void setPosition(@IntRange(from = 0) long position) {
         currentTime.setText(TimeFormatUtil.formatMs(position));
         seekBar.setProgress((int) position);
+
+        notifyProgressChange(position);
     }
 
     @Override
     public void setDuration(@IntRange(from = 0) long duration) {
+        videoDuration = duration;
+
         if (duration != seekBar.getMax()) {
             endTime.setText(TimeFormatUtil.formatMs(duration));
             seekBar.setMax((int) duration);
@@ -109,6 +157,18 @@ public class VideoControlLayout extends VideoControls {
             seekBar.setSecondaryProgress((int) (seekBar.getMax() * ((float) bufferPercent / 100)));
             seekBar.setProgress((int) position);
             currentTime.setText(TimeFormatUtil.formatMs(position));
+
+            notifyProgressChange(position);
+            //progressBar.setProgress(progress);
+        }
+    }
+
+    private void notifyProgressChange(@IntRange(from = 0) long position) {
+        if(videoDuration > 0) {
+            float progress = position * 1.0f / videoDuration;
+            if (playingProgressChangeListener != null) {
+                playingProgressChangeListener.onUpdate(progress);
+            }
         }
     }
 

@@ -12,6 +12,7 @@ import com.ef.newlead.R;
 import com.ef.newlead.data.model.Dialogue;
 import com.ef.newlead.ui.adapter.VideoDialogueAdapter;
 import com.ef.newlead.ui.widget.SlideAnimator;
+import com.ef.newlead.ui.widget.SmoothScrollLayoutManager;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -60,7 +61,7 @@ public class TestActivity extends BaseActivity {
     }
 
     private void initRecyclerView() {
-        list.setLayoutManager(new LinearLayoutManager(this));
+        list.setLayoutManager(new SmoothScrollLayoutManager(this));
         list.setItemAnimator(new SlideAnimator());
 
         mAdapter = new VideoDialogueAdapter(this, null);

@@ -1,6 +1,6 @@
 package com.ef.newlead.domain.usecase;
 
-import com.ef.newlead.data.model.BaseResponse;
+import com.ef.newlead.data.model.DataBean.BaseResponse;
 
 import java.util.Map;
 

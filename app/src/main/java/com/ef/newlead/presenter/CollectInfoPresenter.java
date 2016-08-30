@@ -3,7 +3,7 @@ package com.ef.newlead.presenter;
 import android.content.Context;
 
 import com.ef.newlead.Constant;
-import com.ef.newlead.data.model.BaseResponse;
+import com.ef.newlead.data.model.DataBean.BaseResponse;
 import com.ef.newlead.domain.usecase.UseCase;
 import com.ef.newlead.ui.view.CollectInfoView;
 import com.ef.newlead.util.SharedPreUtils;

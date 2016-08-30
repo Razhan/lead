@@ -54,7 +54,6 @@ public class ColorfulProgressBar extends View {
     private void init(Context context, AttributeSet attrs) {
         gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TR_BL,
                 new int[]{Color.parseColor("#fff66f9f"), Color.parseColor("#fff8c144")});
-        gradientDrawable.setCornerRadius(ViewUtils.dpToPx(getContext(), 2));
 
         barHeight = ViewUtils.dpToPx(getContext(), 4);
 

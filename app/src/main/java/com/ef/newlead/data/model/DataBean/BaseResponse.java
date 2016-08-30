@@ -1,4 +1,4 @@
-package com.ef.newlead.data.model;
+package com.ef.newlead.data.model.DataBean;
 
 public class BaseResponse {
 

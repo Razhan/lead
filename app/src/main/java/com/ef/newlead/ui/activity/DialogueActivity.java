@@ -23,7 +23,7 @@ public class DialogueActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        translucentStatusBar = true;
+        colorfulStatusBar = true;
         gradientColor = new GradientColor(new GradientColor.GradientBean(248, 193, 68, 255),
                 new GradientColor.GradientBean(246, 111, 159, 255), 0);
 

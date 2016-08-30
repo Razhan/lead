@@ -2,6 +2,7 @@ package com.ef.newlead.ui.activity;
 
 import android.app.ProgressDialog;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,11 +15,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.GradientColor;
+import com.ef.newlead.util.SystemText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,10 +29,13 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected final String TAG = this.getClass().getSimpleName();
+
     protected boolean translucentStatusBar = false;
+    protected boolean colorfulStatusBar = false;
     protected boolean fullScreen = false;
     protected boolean screenRotate = false;
     protected boolean doubleClickExit = false;
+
     @Nullable
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -49,7 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(bindLayout());
         ButterKnife.bind(this);
 
-        if (translucentStatusBar) {
+        if (translucentStatusBar || colorfulStatusBar) {
             setTranslucentStatusBar();
         }
 
@@ -149,7 +155,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
-            if (getStatusGradientColor() == null && getStatusColor() < 0) {
+            if (!colorfulStatusBar) {
+                adjustToolbar();
                 return;
             }
 
@@ -178,7 +185,19 @@ public abstract class BaseActivity extends AppCompatActivity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 statusBarHeight);
         statusView.setLayoutParams(params);
+
         return statusView;
+    }
+
+    private void adjustToolbar() {
+        int resourceId = this.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        int statusBarHeight = this.getResources().getDimensionPixelSize(resourceId);
+
+        if (toolbar != null) {
+            ViewGroup.LayoutParams toolbarParams = toolbar.getLayoutParams();
+            ((FrameLayout.LayoutParams)toolbarParams).setMargins(0, statusBarHeight, 0, 0);
+            toolbar.setLayoutParams(toolbarParams);
+        }
     }
 
     @NonNull
@@ -193,6 +212,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected int getStatusColor() {
-        return -1;
+        return Color.TRANSPARENT;
+    }
+
+    protected String getLocaleText(String key) {
+        return SystemText.getSystemText(this, key);
     }
 }

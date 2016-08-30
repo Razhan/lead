@@ -22,6 +22,8 @@
     <!-- change settings -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <application
         android:name=".NewLeadApplication"
         android:allowBackup="true"
@@ -47,7 +49,12 @@
         <activity
             android:name=".ui.activity.CollectInfoActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <!-- location service -->
         <service android:name="com.amap.api.location.APSService" />
@@ -67,11 +74,7 @@
             android:name=".ui.activity.VideoRolePlayActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslucentActionBar.ActionBar.Overlay">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
     </application>

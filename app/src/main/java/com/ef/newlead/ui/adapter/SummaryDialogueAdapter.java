@@ -9,9 +9,9 @@ import com.ef.newlead.ui.widget.recycleview.ViewHolder;
 
 import java.util.List;
 
-public class SummaryDialogueAdapter extends MultipleTypeRecyclerViewAdapter<Dialogue> {
+public class SummaryDialogueAdapter extends MultipleTypeRecyclerViewAdapter<Dialogue.DialogBean> {
 
-    public SummaryDialogueAdapter(Context context, List<Dialogue> list) {
+    public SummaryDialogueAdapter(Context context, List<Dialogue.DialogBean> list) {
         super(context, list);
     }
 
@@ -21,7 +21,7 @@ public class SummaryDialogueAdapter extends MultipleTypeRecyclerViewAdapter<Dial
     }
 
     @Override
-    protected void onBindItemViewHolder(ViewHolder holder, int position, Dialogue item) {
+    protected void onBindItemViewHolder(ViewHolder holder, int position, Dialogue.DialogBean item) {
         if (position % 2 == 0) {
             holder.setVisible(R.id.dialogue_profileB, false);
             holder.setVisible(R.id.dialogue_profileA, true);
@@ -30,5 +30,7 @@ public class SummaryDialogueAdapter extends MultipleTypeRecyclerViewAdapter<Dial
             holder.setVisible(R.id.dialogue_profileA, false);
         }
 
+        holder.setText(R.id.dialogue_sentence, item.getText());
+        holder.setText(R.id.dialogue_translation, item.getTranslationText());
     }
 }

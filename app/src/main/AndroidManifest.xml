@@ -62,7 +62,7 @@
         </activity>
 
         <activity
-            android:name=".ui.activity.DialogueActivity"
+            android:name=".ui.activity.DialogueListActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 

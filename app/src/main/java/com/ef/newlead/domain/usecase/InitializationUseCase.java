@@ -1,8 +1,8 @@
 package com.ef.newlead.domain.usecase;
 
 import com.ef.newlead.data.model.DataBean.ResourceBean;
-import com.ef.newlead.data.model.DataBean.UserBean;
 import com.ef.newlead.data.model.DataBean.Response;
+import com.ef.newlead.data.model.DataBean.UserBean;
 import com.ef.newlead.util.FileUtils;
 
 import java.util.Map;

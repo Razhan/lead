@@ -288,30 +288,38 @@
       }
     ],
     "dialogs": [
-      [{"user": "man1",
-        "startTime": 2.123,
-        "endTime": 4.123,
-        "text": "hello",
-        "text-zh-cn": "nihao"
-      },
-        {"user": "man2",
+      [
+        {
+          "user": "man1",
+          "startTime": 2.123,
+          "endTime": 4.123,
+          "text": "hello",
+          "text-zh-cn": "nihao"
+        },
+        {
+          "user": "man2",
           "startTime": 6.123,
           "endTime": 8.123,
           "text": "hello :)",
           "text-zh-cn": "nihao :)"
-        }],
-      [{"user": "man1",
-        "startTime": 10.123,
-        "endTime": 12.123,
-        "text": "bye",
-        "text-zh-cn": "再见"
-      },
-        {"user": "man2",
+        }
+      ],
+      [
+        {
+          "user": "man1",
+          "startTime": 10.123,
+          "endTime": 12.123,
+          "text": "bye",
+          "text-zh-cn": "再见"
+        },
+        {
+          "user": "man2",
           "startTime": 14.123,
           "endTime": 16.123,
           "text": "... -_-",
           "text-zh-cn": "... -_-"
-        }]
+        }
+      ]
     ]
   }
 }

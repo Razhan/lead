@@ -195,7 +195,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         if (toolbar != null) {
             ViewGroup.LayoutParams toolbarParams = toolbar.getLayoutParams();
-            ((FrameLayout.LayoutParams)toolbarParams).setMargins(0, statusBarHeight, 0, 0);
+            ((FrameLayout.LayoutParams) toolbarParams).setMargins(0, statusBarHeight, 0, 0);
             toolbar.setLayoutParams(toolbarParams);
         }
     }

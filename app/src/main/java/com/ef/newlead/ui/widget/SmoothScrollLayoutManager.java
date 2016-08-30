@@ -21,21 +21,21 @@ public class SmoothScrollLayoutManager extends LinearLayoutManager {
                                        RecyclerView.State state, final int position) {
         LinearSmoothScroller smoothScroller = new LinearSmoothScroller(mContext) {
 
-                    //This controls the direction in which smoothScroll looks
-                    //for your view
-                    @Override
-                    public PointF computeScrollVectorForPosition(int targetPosition) {
-                        return SmoothScrollLayoutManager.this
-                                .computeScrollVectorForPosition(targetPosition);
-                    }
+            //This controls the direction in which smoothScroll looks
+            //for your view
+            @Override
+            public PointF computeScrollVectorForPosition(int targetPosition) {
+                return SmoothScrollLayoutManager.this
+                        .computeScrollVectorForPosition(targetPosition);
+            }
 
-                    //This returns the milliseconds it takes to
-                    //scroll one pixel.
-                    @Override
-                    protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
-                        return MILLISECONDS_PER_INCH / displayMetrics.densityDpi;
-                    }
-                };
+            //This returns the milliseconds it takes to
+            //scroll one pixel.
+            @Override
+            protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
+                return MILLISECONDS_PER_INCH / displayMetrics.densityDpi;
+            }
+        };
 
         smoothScroller.setTargetPosition(position);
         startSmoothScroll(smoothScroller);

@@ -1,10 +1,13 @@
 package com.ef.newlead.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Dialogue extends ItemData {
+public class Dialogue {
 
     private String title;
 
@@ -13,9 +16,9 @@ public class Dialogue extends ItemData {
 
     private VideoBean video;
 
-    private List<UsersBean> users;
+    private List<UserBean> users;
 
-    private List<List<DialogsBean>> dialogs;
+    private List<List<DialogBean>> dialogs;
 
     public String getTitle() {
         return title;
@@ -29,11 +32,11 @@ public class Dialogue extends ItemData {
         return video;
     }
 
-    public List<UsersBean> getUsers() {
+    public List<UserBean> getUsers() {
         return users;
     }
 
-    public List<List<DialogsBean>> getDialogs() {
+    public List<List<DialogBean>> getDialogs() {
         return dialogs;
     }
 
@@ -55,7 +58,7 @@ public class Dialogue extends ItemData {
         }
     }
 
-    public static class UsersBean {
+    public static class UserBean {
         private String id;
         private String avatar;
 
@@ -68,7 +71,8 @@ public class Dialogue extends ItemData {
         }
     }
 
-    public static class DialogsBean {
+    public static class DialogBean extends ItemData implements Parcelable {
+
         private String user;
         private double startTime;
         private double endTime;
@@ -95,6 +99,41 @@ public class Dialogue extends ItemData {
 
         public String getTranslationText() {
             return translationText;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(user);
+            dest.writeDouble(startTime);
+            dest.writeDouble(endTime);
+            dest.writeString(text);
+            dest.writeString(translationText);
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        public static final Parcelable.Creator<DialogBean> CREATOR =
+                new Parcelable.Creator<DialogBean>() {
+            public DialogBean createFromParcel(Parcel in)
+            {
+                return new DialogBean(in);
+            }
+
+            public DialogBean[] newArray(int size)
+            {
+                return new DialogBean[size];
+            }
+        };
+
+        private DialogBean(Parcel in) {
+            user = in.readString();
+            startTime = in.readDouble();
+            endTime = in.readDouble();
+            text = in.readString();
+            translationText = in.readString();
         }
     }
 }

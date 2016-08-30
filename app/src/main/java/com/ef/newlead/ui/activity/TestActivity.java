@@ -2,14 +2,12 @@ package com.ef.newlead.ui.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.Button;
 
 import com.ef.newlead.R;
-import com.ef.newlead.data.model.Dialogue;
 import com.ef.newlead.ui.adapter.VideoDialogueAdapter;
 import com.ef.newlead.ui.widget.SlideAnimator;
 import com.ef.newlead.ui.widget.SmoothScrollLayoutManager;
@@ -73,7 +71,7 @@ public class TestActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.b1:
-                mAdapter.add(mAdapter.getItemCount(), new Dialogue());
+                mAdapter.add(mAdapter.getItemCount(), null);
                 list.smoothScrollToPosition(mAdapter.getItemCount());
                 break;
             case R.id.b2:

@@ -10,11 +10,11 @@ import com.ef.newlead.ui.widget.recycleview.ViewHolder;
 
 import java.util.List;
 
-public class VideoDialogueAdapter extends MultipleTypeRecyclerViewAdapter<Dialogue> {
+public class VideoDialogueAdapter extends MultipleTypeRecyclerViewAdapter<Dialogue.DialogBean> {
 
     private boolean showTranslation = false;
 
-    public VideoDialogueAdapter(Context context, List<Dialogue> list) {
+    public VideoDialogueAdapter(Context context, List<Dialogue.DialogBean> list) {
         super(context, list);
     }
 
@@ -24,7 +24,7 @@ public class VideoDialogueAdapter extends MultipleTypeRecyclerViewAdapter<Dialog
     }
 
     @Override
-    protected void onBindItemViewHolder(ViewHolder holder, int position, Dialogue item) {
+    protected void onBindItemViewHolder(ViewHolder holder, int position, Dialogue.DialogBean item) {
         holder.itemView.setTag(position);
 
         if (position % 2 == 0) {
@@ -40,6 +40,9 @@ public class VideoDialogueAdapter extends MultipleTypeRecyclerViewAdapter<Dialog
         } else {
             holder.setVisible(R.id.dialogue_translation, View.GONE);
         }
+
+        holder.setText(R.id.dialogue_sentence, item.getText());
+        holder.setText(R.id.dialogue_translation, item.getTranslationText());
     }
 
     public void showTranslation(boolean showTranslation) {

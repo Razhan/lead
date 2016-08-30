@@ -167,11 +167,12 @@ public class ColorfulProgressBar extends View {
         return "#" + String.format("%02X", alpha) + "ffffff";
     }
 
-    public void setDotsPosition(float total, float[] stamps) {
+    public void setDotsPosition(float total, List<Double> stamps) {
         dotsRatio = new ArrayList<>();
-        for (float stamp : stamps) {
-            dotsRatio.add(stamp / total);
+        for (Double stamp : stamps) {
+            dotsRatio.add((float) (stamp / total));
         }
+        invalidate();
     }
 
     public void setThumb(boolean showThumb) {

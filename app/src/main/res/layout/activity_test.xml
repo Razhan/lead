@@ -1,96 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_tool_bar">
+        android:layout_height="wrap_content">
+
+        <com.ef.newlead.ui.widget.AutoSizeVideoView
+            android:id="@+id/video_role_video"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:paddingEnd="0dp"
+            app:paddingStart="0dp"
+            app:useDefaultControls="false" />
+
+        <View
+            android:id="@+id/video_role_cover"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            android:background="#7F000000"/>
+
+        <com.ef.newlead.ui.widget.ASRProgressView
+            android:id="@+id/video_role_asr_progress"
+            android:layout_width="match_parent"
+            android:layout_alignBottom="@+id/video_role_video"
+            android:layout_height="56dp"/>
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:titleTextColor="@color/white">
+            android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="@color/white"/>
 
-            <ImageView
-                android:id="@+id/dialogue_favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_favorite_full" />
+        <ImageView
+            android:id="@+id/video_role_replay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"
+            android:src="@drawable/ic_replay"/>
 
-        </android.support.v7.widget.Toolbar>
+    </RelativeLayout>
 
-    </android.support.design.widget.AppBarLayout>
+    <com.ef.newlead.ui.widget.ColorfulProgressBar
+        android:id="@+id/video_role_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_marginTop="-14dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_marginTop="100dp"
+        android:background="@android:color/holo_red_light"
+        android:gravity="center_horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@android:color/holo_red_light"
-            android:gravity="center">
+        <Button
+            android:id="@+id/b1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <Button
-                android:id="@+id/b1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/b2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <Button
-                android:id="@+id/b2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/b3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/video_dialogue_list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            app:cardElevation="20dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="16dp"
-                    android:gravity="center"
-                    android:text="同时显示中英文对话"
-                    android:textColor="#8a000000"
-                    android:textSize="14sp" />
-
-                <android.support.v7.widget.SwitchCompat
-                    android:id="@+id/dialogue_switch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="16dp" />
-
-            </RelativeLayout>
-
-        </android.support.v7.widget.CardView>
+        <Button
+            android:id="@+id/b3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
-
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

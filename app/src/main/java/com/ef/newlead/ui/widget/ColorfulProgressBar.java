@@ -7,12 +7,15 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 import com.ef.newlead.Constant;
+import com.ef.newlead.R;
 import com.ef.newlead.util.ViewUtils;
 
 import java.util.ArrayList;
@@ -29,6 +32,7 @@ public class ColorfulProgressBar extends View {
     private int barHeight;
     private GradientDrawable gradientDrawable;
     private Paint mPaint;
+    private Drawable thumb;
 
     private boolean showThumb = false;
     private float mProgress = 0;
@@ -55,6 +59,8 @@ public class ColorfulProgressBar extends View {
         gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TR_BL,
                 new int[]{Color.parseColor("#fff66f9f"), Color.parseColor("#fff8c144")});
 
+        thumb = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_circle_shadow, null);
+
         barHeight = ViewUtils.dpToPx(getContext(), 4);
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -71,7 +77,7 @@ public class ColorfulProgressBar extends View {
         setMeasuredDimension(width, height);
 
         cy = height / 2;
-        length = getMeasuredWidth() /*getWidth()*/ - getPaddingStart() - getPaddingEnd();
+        length = getMeasuredWidth() - getPaddingStart() - getPaddingEnd();
     }
 
     private int measureDimension(int measureSpec, int defaultSize) {
@@ -135,13 +141,18 @@ public class ColorfulProgressBar extends View {
 
     private void drawThumb(Canvas canvas) {
         mPaint.setColor(Color.WHITE);
-        int circleRadius = ViewUtils.dpToPx(getContext(), DEFAULT_THUMB_RADIUS);
+        int thumbRadius = ViewUtils.dpToPx(getContext(), DEFAULT_THUMB_RADIUS);
 
-        int x = getPaddingStart() + circleRadius;
+        int x = getPaddingStart() + thumbRadius;
         x = Math.max((int) mProgress, x);
-        x = Math.min(x, getWidth() - getPaddingEnd() - circleRadius);
+        x = Math.min(x, getWidth() - getPaddingEnd() - thumbRadius);
 
-        canvas.drawCircle(x, cy, circleRadius, mPaint);
+//        canvas.drawCircle(x, cy, thumbRadius, mPaint);
+
+        thumb.setBounds(x - thumbRadius, (int) (cy - thumbRadius),
+                x + thumbRadius, (int) (cy + thumbRadius));
+
+        thumb.draw(canvas);
     }
 
     private void drawHalo(Canvas canvas) {

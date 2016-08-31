@@ -123,7 +123,7 @@ public class CityAdapter extends BaseAdapter {
         TextView currentView;
 
         if (view == null) {
-            currentView = (TextView) layoutInflater.inflate(R.layout.list_item_city, null);
+            currentView = (TextView) layoutInflater.inflate(R.layout.item_city, null);
         } else {
             currentView = (TextView) view;
         }

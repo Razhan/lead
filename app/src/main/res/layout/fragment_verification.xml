@@ -28,7 +28,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="30dp"
         android:layout_marginStart="30dp"
-        android:divider="@drawable/divider"
+        android:divider="@drawable/view_divider"
         android:focusable="true"
         android:orientation="horizontal"
         android:showDividers="middle">

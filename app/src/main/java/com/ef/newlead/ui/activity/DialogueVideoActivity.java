@@ -44,7 +44,7 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
     @BindView(R.id.video_dialogue_video)
     AutoSizeVideoView video;
     @BindView(R.id.video_dialogue_progressbar)
-    ColorfulProgressBar progressbar;
+    ColorfulProgressBar progress;
     @BindView(R.id.video_dialogue_list)
     RecyclerView list;
     @BindView(R.id.video_dialogue_hint)
@@ -72,11 +72,6 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
     @Override
     public int bindLayout() {
         return R.layout.activity_dialogue_video;
-    }
-
-    @Override
-    protected boolean showBackIcon() {
-        return true;
     }
 
     @Override
@@ -144,7 +139,10 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
 
         // https://github.com/brianwernick/ExoMedia/issues/1
         video.setScaleType(ScaleType.NONE); // works for width match_parent
-        video.setOnCompletionListener(() -> isRestarted = video.restart());
+        video.setOnCompletionListener(() -> {
+            isRestarted = video.restart();
+            new Handler().postDelayed(this::toDialogueList, 500);
+        });
 
         // for testing only
         Uri uri = Uri.parse("file:///android_asset/test.mp4");
@@ -169,7 +167,7 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
         }
 
         duration = (float) video.getDuration() / 1000;
-        progressbar.setDotsPosition(duration, timestamps);
+        progress.setDotsPosition(duration, timestamps);
 
         video.start();
     }
@@ -215,7 +213,7 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
                     .alpha(1)
                     .setInterpolator(new DecelerateInterpolator())
                     .start();
-            progressbar.setThumb(true);
+            progress.setThumb(true);
         } else {
             toolbar.bringToFront();
             toolbar.animate()
@@ -223,13 +221,13 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
                     .alpha(0)
                     .setInterpolator(new AccelerateInterpolator())
                     .start();
-            progressbar.setThumb(false);
+            progress.setThumb(false);
         }
     }
 
     @Override
     public void onUpdate(float progress) {
-        progressbar.setProgress(progress);
+        this.progress.setProgress(progress);
 
         if (dialogueIndex >= dialogue.getDialogs().size()) {
             return;
@@ -270,11 +268,15 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
                 favored = !favored;
                 break;
             case R.id.video_dialogue_hint:
-                Intent i = new Intent(this, DialogueListActivity.class);
-                i.putParcelableArrayListExtra("AllDialogueBeans", getAllDialogueBeans());
-                startActivity(i);
+                toDialogueList();
                 break;
         }
+    }
+
+    private void toDialogueList() {
+        Intent i = new Intent(this, DialogueListActivity.class);
+        i.putParcelableArrayListExtra("AllDialogueBeans", getAllDialogueBeans());
+        startActivity(i);
     }
 
     private ArrayList<Dialogue.DialogBean> getAllDialogueBeans() {

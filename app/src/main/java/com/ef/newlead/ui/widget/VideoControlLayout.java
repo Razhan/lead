@@ -155,7 +155,7 @@ public class VideoControlLayout extends VideoControls {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.video_custom_control;
+        return R.layout.widget_video_custom_control;
     }
 
     @Override

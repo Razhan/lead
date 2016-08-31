@@ -66,7 +66,7 @@ public class DiscreteSlider extends View {
         thumbRadius = ViewUtils.dpToPx(getContext(), DEFAULT_THUMB_RADIUS);
         dotsPos = new ArrayList<>();
 
-        thumb = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_fab, null);
+        thumb = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_thumb, null);
     }
 
     @Override

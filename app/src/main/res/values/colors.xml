@@ -2,10 +2,10 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#666666</color> <!--#FF4081-->
+    <color name="colorAccent">#666666</color>
 
     <color name="white">#FFFFFF</color>
-    <color name="tranBlack">#50FFFFFF</color>
+    <color name="tranBlack">#7fFFFFFF</color>
     <color name="close_ripple_color">#FF8755A1</color>
     <color name="location_hint_color">#55FFFFFF</color>
 </resources>

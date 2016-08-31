@@ -32,7 +32,7 @@ public class DialogueListActivity extends BaseActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_dialogue;
+        return R.layout.activity_dialogue_list;
     }
 
     @Override
@@ -51,11 +51,6 @@ public class DialogueListActivity extends BaseActivity {
     @Override
     protected GradientColor getStatusGradientColor() {
         return gradientColor;
-    }
-
-    @Override
-    protected boolean showBackIcon() {
-        return true;
     }
 
     @Override

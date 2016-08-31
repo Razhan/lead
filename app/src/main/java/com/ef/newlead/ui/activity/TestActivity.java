@@ -54,7 +54,6 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
     private Dialogue dialogue;
     private List<Double> timestamps;
     private float duration;
-    private int dialogueIndex = 0;
     private int stepIndex = 0;
 
     @Override
@@ -229,9 +228,27 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
 
     @OnClick(R.id.video_role_replay)
     public void onReplayClick(View view) {
+        video.seekTo(previousPosition());
 
+        videoProgress.setVisibility(View.VISIBLE);
+        cover.setVisibility(View.INVISIBLE);
+        replay.setVisibility(View.INVISIBLE);
+        video.getVideoControls().setVisibility(View.VISIBLE);
+
+        asrProgress.hide();
+        video.start();
     }
 
+    private int previousPosition() {
+        int timestamp = 0;
+
+        if (stepIndex - 2 >= 0) {
+            timestamp = (int)(timestamps.get(stepIndex - 2) * 1000);
+        }
+
+        stepIndex--;
+        return timestamp;
+    }
 
     @OnClick({R.id.b1, R.id.b2, R.id.b3})
     public void onClick(View view) {

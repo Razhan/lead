@@ -81,18 +81,18 @@ public class ASRProgressView extends RelativeLayout {
 
     public void show() {
         setBackgroundColor(DEFAULT_BACKGROUND);
-        mTextView.setText(null);
+        mTextView.setText("Read the sentences below.");
         inAndOutAnimation(getHeight(), 0);
     }
 
     public void hide() {
-        stopCountDown();
+        mValueAnimator = null;
+        mProgress = -1;
+
         animate().translationY(getHeight()).setDuration(Constant.DEFAULT_ANIM_FULL_TIME).start();
     }
 
     public void startCountDown(long time) {
-        mTextView.setText("Read the sentences below.");
-
         mProgress = 0;
 
         mValueAnimator = ValueAnimator.ofFloat(0, 1);

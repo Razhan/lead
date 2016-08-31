@@ -141,7 +141,6 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
         // for testing only
         Uri uri = Uri.parse("file:///android_asset/test.mp4");
         video.setVideoURI(uri);
-
     }
 
     @Override
@@ -199,6 +198,7 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
                     .setInterpolator(new DecelerateInterpolator())
                     .start();
             videoProgress.setThumb(true);
+            showTitle(true);
         } else {
             toolbar.bringToFront();
             toolbar.animate()
@@ -207,6 +207,7 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
                     .setInterpolator(new AccelerateInterpolator())
                     .start();
             videoProgress.setThumb(false);
+            showTitle(false);
         }
     }
 

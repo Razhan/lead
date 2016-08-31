@@ -1,6 +1,9 @@
 package com.ef.newlead.ui.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import com.ef.newlead.R;
@@ -11,6 +14,8 @@ import com.ef.newlead.ui.widget.recycleview.ViewHolder;
 import java.util.List;
 
 public class VideoDialogueAdapter extends MultipleTypeRecyclerViewAdapter<Dialogue.DialogBean> {
+
+    private final static int DEFAULT_GRAY = Color.parseColor("#bbbbbb");
 
     private boolean showTranslation = false;
 
@@ -43,6 +48,11 @@ public class VideoDialogueAdapter extends MultipleTypeRecyclerViewAdapter<Dialog
 
         holder.setText(R.id.dialogue_sentence, item.getText());
         holder.setText(R.id.dialogue_translation, item.getTranslationText());
+
+        new Handler().postDelayed(() -> {
+                holder.setTextColor(R.id.dialogue_sentence, DEFAULT_GRAY);
+                holder.setTextColor(R.id.dialogue_translation, DEFAULT_GRAY);
+            }, (int)(item.getEndTime() - item.getStartTime()) * 1000);
     }
 
     public void showTranslation(boolean showTranslation) {

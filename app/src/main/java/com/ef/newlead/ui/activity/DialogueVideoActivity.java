@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
@@ -214,6 +215,7 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
                     .setInterpolator(new DecelerateInterpolator())
                     .start();
             progress.setThumb(true);
+            showTitle(true);
         } else {
             toolbar.bringToFront();
             toolbar.animate()
@@ -222,6 +224,7 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
                     .setInterpolator(new AccelerateInterpolator())
                     .start();
             progress.setThumb(false);
+            showTitle(false);
         }
     }
 
@@ -293,5 +296,14 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
         }
 
         return allBeans;
+    }
+
+    @Override
+    public void onBackPressed() {
+        showDialog("Are you sure you want to quit?", "QUIT", "CANCEL",
+                (dialog, which) -> {
+                    dialog.dismiss();
+                    finish();
+        });
     }
 }

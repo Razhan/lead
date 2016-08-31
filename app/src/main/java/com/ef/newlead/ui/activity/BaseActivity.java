@@ -1,6 +1,7 @@
 package com.ef.newlead.ui.activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -10,6 +11,7 @@ import android.os.Handler;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -132,6 +134,30 @@ public abstract class BaseActivity extends AppCompatActivity {
         return null;
     }
 
+    protected void showTitle(boolean show) {
+        try {
+            View status = ((View) findViewById(android.R.id.title).getParent());
+
+            if (show) {
+                status.setVisibility(View.VISIBLE);
+
+            } else {
+                status.setVisibility(View.INVISIBLE);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (show) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+        }
+    }
+
     public void showProgress(boolean flag, String message) {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage(message);
@@ -150,6 +176,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void showMessage(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
+
+    protected void showDialog(String message, String positive, String negative,
+                              DialogInterface.OnClickListener positiveListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(message);
+        builder.setPositiveButton(positive, positiveListener);
+        builder.setNegativeButton(negative, (dialog, which) -> dialog.dismiss());
+
+        builder.create().show();
+    }
+
 
     public void setTranslucentColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

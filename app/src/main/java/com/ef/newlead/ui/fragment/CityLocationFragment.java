@@ -182,6 +182,10 @@ public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresen
 
     @OnClick(R.id.button)
     void onSubmit() {
+        if (input.getText().toString().isEmpty()) {
+            return;
+        }
+
         SharedPreUtils.putString(Constant.USER_CITY, input.getText().toString());
         startNextFragment();
     }

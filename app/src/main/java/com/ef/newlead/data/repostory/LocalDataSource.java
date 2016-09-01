@@ -28,6 +28,11 @@ public class LocalDataSource implements Repository {
     }
 
     @Override
+    public Observable<BaseResponse> getVerificationCode(String number) {
+        return Observable.empty();
+    }
+
+    @Override
     public Observable<BaseResponse> verifyCode(String number, String code) {
         return Observable.empty();
     }

@@ -18,6 +18,8 @@ public interface Repository {
 
     Observable<Response<UserBean>> getUserInfo(Map<String, String> startInfo);
 
+    Observable<BaseResponse> getVerificationCode(String number);
+
     Observable<BaseResponse> verifyCode(String number, String code);
 
     Observable<BaseResponse> submitUserInfo(String token, Map<String, String> userInfo);

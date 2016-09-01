@@ -24,14 +24,14 @@ public class VideoPresenter extends Presenter<VideoView> {
 
     public void getVideoPack(String id) {
         Observable.zip(
-                    Observable.range(1, 100),
+                    Observable.range(1, 101),
                     Observable.interval(20, TimeUnit.MILLISECONDS),
                     (obs, timer) -> obs
                 )
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(item -> {
-                    if (item < 100) {
+                    if (item <= 100) {
                         getView().updateLoadProgress(item);
                     } else {
                         getView().afterLoaded();

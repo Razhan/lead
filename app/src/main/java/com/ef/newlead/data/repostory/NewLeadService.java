@@ -31,8 +31,12 @@ public interface NewLeadService {
     Observable<Response<UserBean>> getUserInfo(@FieldMap Map<String, String> startInfo);
 
     @FormUrlEncoded
-    @POST("/api/leadgen/sms/{number}")
-    Observable<BaseResponse> verifyCode(@Path("number") String number,
+    @POST("/api/leadgen/sms/send")
+    Observable<BaseResponse> getVerificationCode(@Field("phone") String number);
+
+    @FormUrlEncoded
+    @POST("/api/leadgen/sms//verify")
+    Observable<BaseResponse> verifyCode(@Field("phone") String number,
                                         @Field("code") String code);
 
     @FormUrlEncoded

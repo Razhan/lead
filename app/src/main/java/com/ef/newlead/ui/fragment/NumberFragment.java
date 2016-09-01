@@ -148,9 +148,7 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
             return;
         }
 
-//        presenter.verifyCode(input.getText().toString());
-
-        new Handler().postDelayed(() -> afterNumberSubmit(true), 1000);
+        presenter.getVerificationCode(input.getText().toString());
 
         ViewUtils.hideKeyboard(getActivity());
         next.setVisibility(View.GONE);
@@ -165,7 +163,6 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
             progressView.startAnim();
         } else {
             progressView.setmState(IndicatedProgressView.STATE_ANIM_NONE);
-            progressView.invalidate();
             next.setVisibility(View.VISIBLE);
             inProgress = false;
         }

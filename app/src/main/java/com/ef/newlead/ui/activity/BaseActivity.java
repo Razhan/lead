@@ -166,12 +166,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void showDialog(String message, String positive, String negative,
-                              DialogInterface.OnClickListener positiveListener) {
+                              DialogInterface.OnClickListener positiveListener,
+                              DialogInterface.OnClickListener negativeListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setMessage(message);
         builder.setPositiveButton(positive, positiveListener);
-        builder.setNegativeButton(negative, (dialog, which) -> dialog.dismiss());
+        builder.setNegativeButton(negative, negativeListener);
 
         builder.create().show();
     }
@@ -196,9 +197,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
             decorView.addView(statusView);
 
-            ViewGroup rootView = (ViewGroup) ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
-            rootView.setFitsSystemWindows(true);
-            rootView.setClipToPadding(true);
+
         }
     }
 

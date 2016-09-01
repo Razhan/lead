@@ -43,6 +43,11 @@ public class RepositoryImp implements Repository {
     }
 
     @Override
+    public Observable<BaseResponse> getVerificationCode(String number) {
+        return sourceFactory.getRestfulSource().getVerificationCode(number);
+    }
+
+    @Override
     public Observable<BaseResponse> verifyCode(String number, String code) {
         return sourceFactory.getRestfulSource().verifyCode(number, code);
     }

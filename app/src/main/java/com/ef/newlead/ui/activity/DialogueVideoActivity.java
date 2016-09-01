@@ -175,14 +175,16 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
         // https://github.com/brianwernick/ExoMedia/issues/1
         video.setScaleType(ScaleType.NONE); // works for width match_parent
         video.setOnCompletionListener(() -> {
-            isRestarted = video.restart();
+            progress.reset();
+            dialogueIndex = 0;
+            stepIndex = 0;
+
             new Handler().postDelayed(this::toDialogueList, 500);
         });
 
         // for testing only
         Uri uri = Uri.parse("file:///android_asset/test.mp4");
         video.setVideoURI(uri);
-
     }
 
     private void initRecyclerView() {
@@ -357,7 +359,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
 
     private void toDialogueList() {
         Intent i = new Intent(this, DialogueListActivity.class);
-        i.putParcelableArrayListExtra("AllDialogueBeans", getAllDialogueBeans());
+        i.putParcelableArrayListExtra(DialogueListActivity.DIALOGUE_KEY, getAllDialogueBeans());
         startActivity(i);
     }
 
@@ -379,10 +381,16 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
 
     @Override
     public void onBackPressed() {
+        video.pause();
+
         showDialog("Are you sure you want to quit?", "QUIT", "CANCEL",
                 (dialog, which) -> {
                     dialog.dismiss();
                     finish();
+                },
+                (dialog, which) -> {
+                    dialog.cancel();
+                    video.start();
                 });
     }
 }

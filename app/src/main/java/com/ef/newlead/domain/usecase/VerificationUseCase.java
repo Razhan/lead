@@ -8,7 +8,7 @@ public class VerificationUseCase extends UseCase {
 
     @UseCaseMethod
     public Observable<BaseResponse> getVerificationCode(String number) {
-        return Observable.empty();
+        return repository.getVerificationCode(number);
     }
 
     @UseCaseMethod

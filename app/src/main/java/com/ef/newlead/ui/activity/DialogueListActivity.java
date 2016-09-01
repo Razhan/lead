@@ -15,6 +15,8 @@ import butterknife.BindView;
 
 public class DialogueListActivity extends BaseActivity {
 
+    public final static String DIALOGUE_KEY = "AllDialogueBeans";
+
     @BindView(R.id.dialogue_list)
     RecyclerView list;
 
@@ -45,7 +47,7 @@ public class DialogueListActivity extends BaseActivity {
     }
 
     private void initData() {
-        allDialogBeans = getIntent().getParcelableArrayListExtra("AllDialogueBeans");
+        allDialogBeans = getIntent().getParcelableArrayListExtra(DIALOGUE_KEY);
     }
 
     @Override

@@ -56,6 +56,11 @@ public class RestfulDataSource implements Repository {
     }
 
     @Override
+    public Observable<BaseResponse> getVerificationCode(String number) {
+        return restfulService.getVerificationCode(number);
+    }
+
+    @Override
     public Observable<BaseResponse> verifyCode(String number, String code) {
         return restfulService.verifyCode(number, code);
     }

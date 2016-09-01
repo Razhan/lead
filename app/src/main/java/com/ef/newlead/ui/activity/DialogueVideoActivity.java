@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.devbrackets.android.exomedia.core.video.scale.ScaleType;
@@ -39,8 +40,7 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
         VideoControlLayout.VisibilityAnimationListener, VideoControlLayout.PlayingProgressChangeListener {
 
     protected boolean pausedInOnStop = false;
-    @BindView(R.id.video_dialogue_favorite)
-    ImageView favorite;
+
     @BindView(R.id.video_dialogue_video)
     AutoSizeVideoView video;
     @BindView(R.id.video_dialogue_progressbar)
@@ -258,17 +258,30 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
         }
     }
 
-    @OnClick({R.id.video_dialogue_favorite, R.id.video_dialogue_hint})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.video_dialogue_favorite:
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.video_dialog_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_favorite:
                 if (favored) {
-                    ((ImageView) view).setImageResource(R.drawable.ic_favorite_empty);
+                    item.setIcon(R.drawable.ic_favorite_empty);
                 } else {
-                    ((ImageView) view).setImageResource(R.drawable.ic_favorite_full);
+                    item.setIcon(R.drawable.ic_favorite_full);
                 }
                 favored = !favored;
                 break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick({R.id.video_dialogue_hint})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.video_dialogue_hint:
                 toDialogueList();
                 break;

@@ -1,15 +1,17 @@
 package com.ef.newlead.ui.activity;
 
+import android.Manifest;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.devbrackets.android.exomedia.core.video.scale.ScaleType;
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
@@ -47,6 +49,16 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
     ImageView replay;
     @BindView(R.id.video_role_cover)
     View cover;
+    @BindView(R.id.video_role_asr_wrapper)
+    LinearLayout asrWrapper;
+    @BindView(R.id.video_role_deny_title)
+    TextView denyTitle;
+    @BindView(R.id.video_role_deny_info)
+    TextView denyInfo;
+    @BindView(R.id.video_role_retry)
+    Button retry;
+    @BindView(R.id.video_role_deny_wrapper)
+    LinearLayout denyWrapper;
 
     private boolean isRestarted = false;
     protected boolean pausedInOnStop = false;
@@ -90,12 +102,13 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
         asrProgress.setListener(new ASRProgressView.ProgressListener() {
             @Override
             public void onProgressEnd() {
-                //asr part
-                new Handler().postDelayed(() -> asrProgress.setResult(true, "Prefect!!"), 100);
+                //stop asrProgress后回掉，在这处理asr， 在asr最后的处理结果中，调用asrProgress.setResult
+                asrProgress.setResult(true, "Prefect!!");
             }
 
             @Override
             public void onResultEnd() {
+                //asrProgress最后动画结束后回掉，一般不用管这个回掉
                 videoProgress.setVisibility(View.VISIBLE);
                 cover.setVisibility(View.INVISIBLE);
                 video.getVideoControls().setVisibility(View.VISIBLE);
@@ -153,7 +166,7 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
         duration = (float) video.getDuration() / 1000;
         videoProgress.setDotsPosition(duration, timestamps);
 
-        video.start();
+        askForPermission();
     }
 
     @Override
@@ -198,7 +211,7 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
                     .setInterpolator(new DecelerateInterpolator())
                     .start();
             videoProgress.setThumb(true);
-            showTitle(true);
+            showStatusBar(true);
         } else {
             toolbar.bringToFront();
             toolbar.animate()
@@ -207,7 +220,7 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
                     .setInterpolator(new AccelerateInterpolator())
                     .start();
             videoProgress.setThumb(false);
-            showTitle(false);
+            showStatusBar(false);
         }
     }
 
@@ -240,11 +253,35 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
         video.start();
     }
 
+    @OnClick(R.id.video_role_retry)
+    public void onRetryClick(View view) {
+        askForPermission();
+    }
+
+    private void askForPermission() {
+        askForPermissions(new PermissionListener() {
+            @Override
+            public void permissionGranted() {
+                video.getVideoControls().setVisibility(View.VISIBLE);
+                denyWrapper.setVisibility(View.GONE);
+                asrWrapper.setVisibility(View.VISIBLE);
+
+                video.start();
+            }
+
+            @Override
+            public void permissionDenied() {
+                video.getVideoControls().setVisibility(View.INVISIBLE);
+                denyWrapper.setVisibility(View.VISIBLE);
+            }
+        }, Manifest.permission.RECORD_AUDIO);
+    }
+
     private int previousPosition() {
         int timestamp = 0;
 
         if (stepIndex - 2 >= 0) {
-            timestamp = (int)(timestamps.get(stepIndex - 2) * 1000);
+            timestamp = (int) (timestamps.get(stepIndex - 2) * 1000);
         }
 
         stepIndex--;

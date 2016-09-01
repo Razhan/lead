@@ -1,5 +1,6 @@
 package com.ef.newlead.ui.activity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.GradientColor;
 import com.ef.newlead.util.SystemText;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -134,21 +136,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         return null;
     }
 
-    protected void showTitle(boolean show) {
-        try {
-            View status = ((View) findViewById(android.R.id.title).getParent());
-
-            if (show) {
-                status.setVisibility(View.VISIBLE);
-
-            } else {
-                status.setVisibility(View.INVISIBLE);
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    protected void showStatusBar(boolean show) {
         if (show) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -187,7 +175,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         builder.create().show();
     }
-
 
     public void setTranslucentColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -255,5 +242,24 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected String getLocaleText(String key) {
         return SystemText.getSystemText(this, key);
+    }
+
+    protected void askForPermissions(PermissionListener listener, String... permissions) {
+        RxPermissions.getInstance(this)
+                .request(permissions)
+                .subscribe(granted -> {
+                    if (granted) {
+                        listener.permissionGranted();
+                    } else {
+                        listener.permissionDenied();
+                    }
+                });
+    }
+
+    public interface PermissionListener {
+
+        void permissionGranted();
+
+        void permissionDenied();
     }
 }

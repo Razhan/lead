@@ -68,6 +68,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
 
     compile 'jp.wasabeef:recyclerview-animators:2.2.3'
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
 
     compile 'com.devbrackets.android:exomedia:3.0.2'
     // Playlist support

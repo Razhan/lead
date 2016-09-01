@@ -108,7 +108,7 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
 
             @Override
             public void onResultEnd() {
-                //asrProgress最后动画结束后回掉，一般不用管这个回掉
+                //asrProgress最后动画结束后回掉
                 videoProgress.setVisibility(View.VISIBLE);
                 cover.setVisibility(View.INVISIBLE);
                 video.getVideoControls().setVisibility(View.VISIBLE);
@@ -165,8 +165,6 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
 
         duration = (float) video.getDuration() / 1000;
         videoProgress.setDotsPosition(duration, timestamps);
-
-        askForPermission();
     }
 
     @Override
@@ -190,6 +188,8 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
             video.start();
             pausedInOnStop = false;
         }
+
+        askForPermission();
     }
 
     @Override

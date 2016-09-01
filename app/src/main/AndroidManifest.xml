@@ -23,6 +23,8 @@
     <!-- change settings -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <application
         android:name=".NewLeadApplication"
         android:allowBackup="true"

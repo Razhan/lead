@@ -224,4 +224,45 @@ public final class FileUtils {
         }
     }
 
+    public static void unpackZip(InputStream is, String path) throws IOException {
+
+        ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is));
+
+        try {
+            ZipEntry ze;
+            byte[] buffer = new byte[1024];
+
+            while ((ze = zis.getNextEntry()) != null) {
+
+                File outputFile = new File(path + "/" + ze.getName());
+
+                if (ze.isDirectory()) {
+
+                    outputFile.mkdirs();
+
+                } else {
+
+                    outputFile.getParentFile().mkdirs();
+
+                    FileOutputStream fout = new FileOutputStream(outputFile);
+
+                    try {
+                        int count;
+                        while ((count = zis.read(buffer)) != -1) {
+                            fout.write(buffer, 0, count);
+                        }
+
+                    } finally {
+                        fout.close();
+                    }
+                }
+
+                zis.closeEntry();
+            }
+
+        } finally {
+            zis.close();
+        }
+    }
+
 }

@@ -154,8 +154,6 @@ public class ColorfulProgressBar extends View {
         x = Math.max((int) mProgress, x);
         x = Math.min(x, getWidth() - getPaddingEnd() - thumbRadius);
 
-//        canvas.drawCircle(x, cy, thumbRadius, mPaint);
-
         thumb.setBounds(x - thumbRadius, (int) (cy - thumbRadius + barHeight / 2),
                 x + thumbRadius, (int) (cy + thumbRadius + barHeight / 2));
 

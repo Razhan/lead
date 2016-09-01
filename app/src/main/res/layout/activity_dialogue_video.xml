@@ -4,78 +4,117 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/transparent"
-        app:titleTextColor="@color/white" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        android:orientation="vertical">
-
-        <com.ef.newlead.ui.widget.AutoSizeVideoView
-            android:id="@+id/video_dialogue_video"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="top"
-            app:paddingEnd="0dp"
-            app:paddingStart="0dp"
-            app:useDefaultControls="false" />
-
-        <com.ef.newlead.ui.widget.ColorfulProgressBar
-            android:id="@+id/video_dialogue_progressbar"
-            android:layout_width="match_parent"
-            android:layout_height="24dp"
-            android:layout_marginTop="-14dp" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            app:titleTextColor="@color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="@android:color/transparent"
             android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/video_dialogue_list"
+            <LinearLayout
+                android:id="@+id/video_dialogue_video_wrapper"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="invisible">
 
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                app:cardElevation="20dp">
-
-                <RelativeLayout
+                <com.ef.newlead.ui.widget.AutoSizeVideoView
+                    android:id="@+id/video_dialogue_video"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="0dp"
+                    android:layout_gravity="top"
+                    app:paddingEnd="0dp"
+                    app:paddingStart="0dp"
+                    app:useDefaultControls="false" />
 
-                    <TextView
-                        android:id="@+id/video_dialogue_hint"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="16dp"
-                        android:gravity="center"
-                        android:text="同时显示中英文对话"
-                        android:textColor="#8a000000"
-                        android:textSize="14sp" />
+                <com.ef.newlead.ui.widget.ColorfulProgressBar
+                    android:id="@+id/video_dialogue_progressbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="-14dp" />
 
-                    <android.support.v7.widget.SwitchCompat
-                        android:id="@+id/video_dialogue_switch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="16dp" />
+            </LinearLayout>
 
-                </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
 
-            </android.support.v7.widget.CardView>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/video_dialogue_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    app:cardElevation="20dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/video_dialogue_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="16dp"
+                            android:gravity="center"
+                            android:text="同时显示中英文对话"
+                            android:textColor="#8a000000"
+                            android:textSize="14sp" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            android:id="@+id/video_dialogue_switch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="16dp" />
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/video_dialogue_load_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="202dp">
+
+        <com.ef.newlead.ui.widget.IndicatedProgressView
+            android:id="@+id/video_dialogue_progress"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:progressColor="@color/white"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:id="@+id/video_dialogue_load_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="24dp"
+            android:layout_below="@+id/video_dialogue_progress"
+            android:textColor="@color/white"
+            android:textSize="13sp"/>
+
+        </RelativeLayout>
 
 </FrameLayout>

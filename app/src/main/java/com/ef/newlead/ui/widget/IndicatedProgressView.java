@@ -134,7 +134,7 @@ public class IndicatedProgressView extends View {
         mPaint.setColor(progressColor);
 
         canvas.save();
-        mAngle += 13;
+        mAngle += 10;
         canvas.rotate(mAngle, cx, cy);
         canvas.drawArc(mRectF, 0, 270, false, mPaint);
         canvas.restore();

@@ -1,26 +1,36 @@
 package com.ef.newlead.ui.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.devbrackets.android.exomedia.core.video.scale.ScaleType;
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
+import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.Dialogue;
+import com.ef.newlead.data.model.GradientColor;
+import com.ef.newlead.presenter.VideoPresenter;
 import com.ef.newlead.ui.adapter.VideoDialogueAdapter;
+import com.ef.newlead.ui.view.VideoView;
 import com.ef.newlead.ui.widget.AutoSizeVideoView;
 import com.ef.newlead.ui.widget.ColorfulProgressBar;
+import com.ef.newlead.ui.widget.IndicatedProgressView;
 import com.ef.newlead.ui.widget.SlideAnimator;
 import com.ef.newlead.ui.widget.SmoothScrollLayoutManager;
 import com.ef.newlead.ui.widget.VideoControlLayout;
@@ -36,8 +46,10 @@ import butterknife.OnClick;
 /***
  * An Activity provides video interaction.
  */
-public class DialogueVideoActivity extends BaseActivity implements OnPreparedListener,
-        VideoControlLayout.VisibilityAnimationListener, VideoControlLayout.PlayingProgressChangeListener {
+public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> implements OnPreparedListener,
+        VideoControlLayout.VisibilityAnimationListener,
+        VideoControlLayout.PlayingProgressChangeListener,
+        VideoView {
 
     protected boolean pausedInOnStop = false;
 
@@ -51,6 +63,14 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
     TextView hint;
     @BindView(R.id.video_dialogue_switch)
     SwitchCompat switcher;
+    @BindView(R.id.video_dialogue_progress)
+    IndicatedProgressView loadProgress;
+    @BindView(R.id.video_dialogue_load_text)
+    TextView loadText;
+    @BindView(R.id.video_dialogue_load_wrapper)
+    RelativeLayout loadWrapper;
+    @BindView(R.id.video_dialogue_video_wrapper)
+    LinearLayout videoWrapper;
 
     private boolean isRestarted = false;
     private boolean favored = false;
@@ -79,6 +99,12 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
         return "At the cafe";
     }
 
+    @NonNull
+    @Override
+    protected VideoPresenter createPresenter() {
+        return new VideoPresenter(this, this, null);
+    }
+
     @Override
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
@@ -86,16 +112,15 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
             toolbar.bringToFront();
         }
 
-        initData();
-        initVideoComponent();
+        loadProgress.post(() -> loadProgress.startAnim());
+
+        setLoadWrapperBackground();
         initRecyclerView();
 
-        video.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
+        video.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            if (dialogue != null) {
                 video.getLayoutParams().height = (int) (video.getWidth() / dialogue.getVideo().getRatio());
                 video.requestLayout();
-                video.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
 
@@ -106,6 +131,16 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
                 mAdapter.showTranslation(false);
             }
         });
+    }
+
+    private void setLoadWrapperBackground() {
+        GradientColor color = new GradientColor(new GradientColor.GradientBean(248, 193, 68, 255),
+                new GradientColor.GradientBean(246, 111, 159, 255), 0);
+
+        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{color.getTopGradient().toHex(), color.getBottomGradient().toHex()});
+
+        loadWrapper.setBackground(drawable);
     }
 
     private void initData() {
@@ -279,6 +314,38 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void afterScoreSubmitted() {
+    }
+
+    @Override
+    public void updateLoadProgress(int progress) {
+        loadText.setText("正在载入 " + String.valueOf(progress) + "%");
+    }
+
+    @Override
+    public void afterLoaded() {
+        loadProgress.setmState(IndicatedProgressView.STATE_ANIM_NONE);
+
+        initData();
+        initVideoComponent();
+
+        loadWrapper.animate()
+                .alpha(0)
+                .translationY(-loadWrapper.getHeight())
+                .setDuration(Constant.DEFAULT_ANIM_FULL_TIME * 2)
+                .setInterpolator(new AccelerateInterpolator())
+                .setListener(new AnimatorListenerAdapter() {
+
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        progress.setVisibility(View.VISIBLE);
+                        videoWrapper.setVisibility(View.VISIBLE);
+                    }
+                })
+                .start();
+    }
+
     @OnClick({R.id.video_dialogue_hint})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -316,6 +383,6 @@ public class DialogueVideoActivity extends BaseActivity implements OnPreparedLis
                 (dialog, which) -> {
                     dialog.dismiss();
                     finish();
-        });
+                });
     }
 }

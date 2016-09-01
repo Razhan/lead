@@ -1,9 +1,11 @@
 package com.ef.newlead.ui.activity;
 
 import android.Manifest;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.v4.content.ContextCompat;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
@@ -12,19 +14,24 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.devbrackets.android.exomedia.core.video.scale.ScaleType;
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.ef.newlead.R;
+import com.ef.newlead.asr.DroidASRComponent;
 import com.ef.newlead.data.model.Dialogue;
 import com.ef.newlead.ui.widget.ASRProgressView;
 import com.ef.newlead.ui.widget.AutoSizeVideoView;
 import com.ef.newlead.ui.widget.ColorfulProgressBar;
+import com.ef.newlead.ui.widget.MicrophoneVolumeView;
 import com.ef.newlead.ui.widget.VideoControlLayout;
+import com.google.common.base.Joiner;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,12 +40,6 @@ import butterknife.OnClick;
 public class TestActivity extends BaseActivity implements OnPreparedListener,
         VideoControlLayout.VisibilityAnimationListener, VideoControlLayout.PlayingProgressChangeListener {
 
-    @BindView(R.id.b1)
-    Button b1;
-    @BindView(R.id.b2)
-    Button b2;
-    @BindView(R.id.b3)
-    Button b3;
     @BindView(R.id.video_role_asr_progress)
     ASRProgressView asrProgress;
     @BindView(R.id.video_role_video)
@@ -60,6 +61,17 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
     @BindView(R.id.video_role_deny_wrapper)
     LinearLayout denyWrapper;
 
+    @BindView(R.id.recorder_button)
+    Button recordBtn;
+
+    @BindView(R.id.script)
+    TextView script;
+
+    @BindView(R.id.microphone_volume)
+    MicrophoneVolumeView microphoneView;
+
+    private DroidASRComponent asrComponent;
+
     private boolean isRestarted = false;
     protected boolean pausedInOnStop = false;
 
@@ -67,10 +79,14 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
     private List<Double> timestamps;
     private float duration;
     private int stepIndex = 0;
+    private boolean recordCountingDown = false;
+    private VideoControlLayout controlLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         translucentStatusBar = true;
+        asrComponent = new DroidASRComponent();
+
         super.onCreate(savedInstanceState);
     }
 
@@ -85,6 +101,7 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
 
         initData();
         initVideoComponent();
+        initAsrComponent();
 
         video.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -103,12 +120,14 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
             @Override
             public void onProgressEnd() {
                 //stop asrProgress后回掉，在这处理asr， 在asr最后的处理结果中，调用asrProgress.setResult
-                asrProgress.setResult(true, "Prefect!!");
+                recordCountingDown = false;
             }
 
             @Override
             public void onResultEnd() {
                 //asrProgress最后动画结束后回掉
+                recordBtn.setEnabled(false);
+
                 videoProgress.setVisibility(View.VISIBLE);
                 cover.setVisibility(View.INVISIBLE);
                 video.getVideoControls().setVisibility(View.VISIBLE);
@@ -138,7 +157,7 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
     }
 
     protected void initVideoComponent() {
-        VideoControlLayout controlLayout = new VideoControlLayout(this);
+        controlLayout = new VideoControlLayout(this);
         controlLayout.setVisibilityAnimationListener(this);
         controlLayout.setPlayingProgressChangeListener(this);
         controlLayout.centralizeControlViewLayout();
@@ -149,11 +168,96 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
 
         // https://github.com/brianwernick/ExoMedia/issues/1
         video.setScaleType(ScaleType.NONE); // works for width match_parent
-        video.setOnCompletionListener(() -> isRestarted = video.restart());
+        video.setOnCompletionListener(
+                () -> {
+                    isRestarted = video.restart();
+
+                    videoProgress.reset();
+                    stepIndex = 0;
+                }
+        );
 
         // for testing only
         Uri uri = Uri.parse("file:///android_asset/test.mp4");
         video.setVideoURI(uri);
+    }
+
+    public void initAsrComponent() {
+
+        recordBtn.setOnTouchListener((View v, MotionEvent event) ->
+                {
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                        recordBtn.setPressed(true);
+                        recordBtn.setBackgroundResource(R.drawable.mic_tapping);
+                        onRecordStart();
+                        return true;
+                    } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                        recordBtn.setPressed(false);
+                        recordBtn.setBackgroundResource(R.drawable.mic);
+                        onRecordComplete();
+                        return true;
+                    } else {
+                        recordBtn.setPressed(false);
+                        onRecordCancel();
+                        return false;
+                    }
+                }
+        );
+
+        // testing sentence for "I'm fine. And you?" with options: {"Yes, she's great!", "Nice to meet you, too."}
+        asrComponent.setAsrWords(Joiner.on(" ").join(Arrays.asList("BVPRC", "UGNFA", "PIZNB", "JUHKF")));
+        asrComponent.setOptions(Arrays.asList(
+                Joiner.on(" ").join(Arrays.asList("BVPRC", "UGNFA", "PIZNB", "JUHKF")),
+                Joiner.on(" ").join(Arrays.asList("BYJWB", "ICGQA", "UDMEP")),
+                Joiner.on(" ").join(Arrays.asList("ZWGKN", "ZBPGW", "HXTZZ", "LRXBB", "YBCLD"))
+        ));
+        asrComponent.setDictionary("BVPRC  AY M\nJUHKF  Y UW\nPIZNB  AE N D\nPIZNB  AH N D\nUGNFA  F AY N\n"
+                + "BYJWB  Y EH S\nICGQA  SH IY S\nICGQA  SH IY Z\nUDMEP  G R EY T\n" +
+                "HXTZZ  M IY T\nLRXBB  Y UW\nYBCLD  T UW\nZBPGW  T AH\nZBPGW  T IH\nZBPGW  T UH\nZBPGW  T UW\nZWGKN  N AY S\n");
+
+        asrComponent.setResultListener(new DroidASRComponent.AsrResultListener() {
+            @Override
+            public void onSucceed() {
+                onHandleAsrResult(true);
+            }
+
+            @Override
+            public void onFailure() {
+                onHandleAsrResult(false);
+            }
+
+            @Override
+            public void onSampleLevelChanged(short level) {
+                microphoneView.setProportion(level);
+            }
+        });
+    }
+
+    private void onHandleAsrResult(boolean successful) {
+        runOnUiThread(() -> {
+            if (successful) {
+                asrProgress.setResult(true, "Prefect!!");
+            } else {
+                asrProgress.setResult(false, "Please try again.");
+            }
+        });
+    }
+
+    private void onRecordCancel() {
+        //asrComponent.stopRecording();
+    }
+
+    private void onRecordComplete() {
+        asrProgress.stopCountDown();
+
+        microphoneView.setVisibility(View.INVISIBLE);
+        microphoneView.setProportion(0);
+        asrComponent.stopRecording();
+    }
+
+    private void onRecordStart() {
+        microphoneView.setVisibility(View.VISIBLE);
+        asrComponent.startRecording();
     }
 
     @Override
@@ -185,17 +289,51 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
         super.onStart();
 
         if (pausedInOnStop) {
-            video.start();
+            //video.start();
             pausedInOnStop = false;
         }
 
-        askForPermission();
+        if (controlLayout != null && controlLayout.isManualPaused()) {
+            resumeVideoPosition();
+            return;
+        }
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+
+            denyWrapper.setVisibility(View.GONE);
+            asrWrapper.setVisibility(View.VISIBLE);
+
+            if (recordCountingDown) {
+                // continue with last counting down
+                recordCountingDown = false;
+                asrProgress.stopCountDown();
+                asrProgress.startCountDown(10);
+
+                resumeVideoPosition();
+            } else {
+
+                resumeVideoPosition();
+                startPlayingVideo();
+            }
+        } else {
+            askForPermission();
+        }
+    }
+
+    private void resumeVideoPosition() {
+        // reset the position to avoid a un-refreshed video screen
+        if (video.getCurrentPosition() > 0) {
+            video.seekTo(video.getCurrentPosition() + 1);
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         video.release();
+
+        asrComponent.setResultListener(null);
     }
 
     @Override
@@ -237,6 +375,11 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
             replay.setVisibility(View.VISIBLE);
             video.getVideoControls().setVisibility(View.INVISIBLE);
             asrProgress.show();
+
+            Toast.makeText(TestActivity.this, "It's your turn now", Toast.LENGTH_SHORT).show();
+            recordBtn.setEnabled(true);
+            recordCountingDown = true;
+            asrProgress.startCountDown(10);
         }
     }
 
@@ -262,11 +405,7 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
         askForPermissions(new PermissionListener() {
             @Override
             public void permissionGranted() {
-                video.getVideoControls().setVisibility(View.VISIBLE);
-                denyWrapper.setVisibility(View.GONE);
-                asrWrapper.setVisibility(View.VISIBLE);
-
-                video.start();
+                startPlayingVideo();
             }
 
             @Override
@@ -275,6 +414,14 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
                 denyWrapper.setVisibility(View.VISIBLE);
             }
         }, Manifest.permission.RECORD_AUDIO);
+    }
+
+    private void startPlayingVideo() {
+        video.getVideoControls().setVisibility(View.VISIBLE);
+        denyWrapper.setVisibility(View.GONE);
+        asrWrapper.setVisibility(View.VISIBLE);
+
+        video.start();
     }
 
     private int previousPosition() {
@@ -287,19 +434,4 @@ public class TestActivity extends BaseActivity implements OnPreparedListener,
         stepIndex--;
         return timestamp;
     }
-
-    @OnClick({R.id.b1, R.id.b2, R.id.b3})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.b1:
-                asrProgress.startCountDown(10);
-                break;
-            case R.id.b2:
-                asrProgress.stopCountDown();
-                break;
-            case R.id.b3:
-                break;
-        }
-    }
-
 }

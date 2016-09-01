@@ -54,31 +54,19 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
         <LinearLayout
             android:id="@+id/video_role_asr_wrapper"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="100dp"
-            android:background="@android:color/holo_red_light"
+            android:layout_marginTop="60dp"
             android:gravity="center_horizontal"
+            android:orientation="vertical"
             android:visibility="gone">
 
-            <Button
-                android:id="@+id/b1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/b2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/b3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <include layout="@layout/audio_recognition_layout"/>
 
         </LinearLayout>
 

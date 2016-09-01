@@ -8,4 +8,6 @@
     <color name="tranBlack">#50FFFFFF</color>
     <color name="close_ripple_color">#FF8755A1</color>
     <color name="location_hint_color">#55FFFFFF</color>
+
+    <color name="sp_grey">#cccccc</color>
 </resources>

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.ef.newlead.R;
 import com.ef.newlead.asr.DroidASRComponent;
 import com.ef.newlead.ui.view.VideoRolePlayView;
+import com.ef.newlead.ui.widget.MicrophoneVolumeView;
 import com.google.common.base.Joiner;
 
 import java.util.Arrays;
@@ -24,6 +25,9 @@ public class VideoRolePlayFragment extends BaseFragment implements VideoRolePlay
 
     @BindView(R.id.script)
     TextView script;
+
+    @BindView(R.id.microphone_volume)
+    MicrophoneVolumeView microphoneView;
 
     private final DroidASRComponent asrComponent;
 
@@ -42,10 +46,12 @@ public class VideoRolePlayFragment extends BaseFragment implements VideoRolePlay
                 {
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
                         recordBtn.setPressed(true);
+                        recordBtn.setBackgroundResource(R.drawable.mic_tapping);
                         onRecordStart();
                         return true;
                     } else if (event.getAction() == MotionEvent.ACTION_UP) {
                         recordBtn.setPressed(false);
+                        recordBtn.setBackgroundResource(R.drawable.mic);
                         onRecordComplete();
                         return true;
                     } else {
@@ -77,8 +83,15 @@ public class VideoRolePlayFragment extends BaseFragment implements VideoRolePlay
             public void onFailure() {
                 changeTextColor(Color.RED);
             }
+
+            @Override
+            public void onSampleLevelChanged(short level) {
+                //handler.post(runable);
+                microphoneView.setProportion(level);
+            }
         });
     }
+
 
     private void changeTextColor(int color) {
         getActivity().runOnUiThread(() -> script.setTextColor(color));
@@ -90,10 +103,13 @@ public class VideoRolePlayFragment extends BaseFragment implements VideoRolePlay
     }
 
     private void onRecordComplete() {
+        microphoneView.setVisibility(View.INVISIBLE);
+        microphoneView.setProportion(0);
         asrComponent.stopRecording();
     }
 
     private void onRecordStart() {
+        microphoneView.setVisibility(View.VISIBLE);
         asrComponent.startRecording();
     }
 
@@ -115,5 +131,11 @@ public class VideoRolePlayFragment extends BaseFragment implements VideoRolePlay
     @Override
     public void onFinishPlayingSampleAudio() {
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        asrComponent.setResultListener(null);
     }
 }

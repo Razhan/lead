@@ -99,6 +99,7 @@ public class ColorfulProgressBar extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        drawBackground(canvas);
         drawProgressBar(canvas);
         drawColorfulProgressBar(canvas);
         drawDots(canvas);
@@ -110,6 +111,12 @@ public class ColorfulProgressBar extends View {
         if (mAnimationProgress >= 0) {
             drawHalo(canvas);
         }
+    }
+
+    private void drawBackground(Canvas canvas) {
+        mPaint.setColor(Color.WHITE);
+        canvas.drawRect(getPaddingStart(), cy + barHeight / 2, getWidth() - getPaddingEnd(),
+                getHeight(), mPaint);
     }
 
     private void drawColorfulProgressBar(Canvas canvas) {
@@ -149,8 +156,8 @@ public class ColorfulProgressBar extends View {
 
 //        canvas.drawCircle(x, cy, thumbRadius, mPaint);
 
-        thumb.setBounds(x - thumbRadius, (int) (cy - thumbRadius),
-                x + thumbRadius, (int) (cy + thumbRadius));
+        thumb.setBounds(x - thumbRadius, (int) (cy - thumbRadius + barHeight / 2),
+                x + thumbRadius, (int) (cy + thumbRadius + barHeight / 2));
 
         thumb.draw(canvas);
     }

@@ -21,7 +21,7 @@ public class HomeActivity extends BaseActivity {
     }
 
 
-    @OnClick(R.id.home_image)
+    @OnClick(R.id.home_top_view)
     public void onClick() {
         startActivity(new Intent(this, DialogueVideoActivity.class));
     }

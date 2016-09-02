@@ -1,8 +1,11 @@
 package com.ef.newlead.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.Dialogue;
@@ -12,6 +15,7 @@ import com.ef.newlead.ui.adapter.SummaryDialogueAdapter;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class DialogueListActivity extends BaseActivity {
 
@@ -19,7 +23,10 @@ public class DialogueListActivity extends BaseActivity {
 
     @BindView(R.id.dialogue_list)
     RecyclerView list;
+    @BindView(R.id.dialogue_favorite)
+    ImageView favorite;
 
+    private boolean favored = false;
     private GradientColor gradientColor;
     private List<Dialogue.DialogBean> allDialogBeans;
 
@@ -69,5 +76,22 @@ public class DialogueListActivity extends BaseActivity {
         list.setAdapter(mAdapter);
     }
 
-
+    @OnClick({R.id.dialogue_favorite, R.id.dialogue_start, R.id.dialogue_continue})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.dialogue_favorite:
+                if (favored) {
+                    favorite.setImageResource(R.drawable.ic_favorite_empty);
+                } else {
+                    favorite.setImageResource(R.drawable.ic_favorite_full);
+                }
+                break;
+            case R.id.dialogue_start:
+                startActivity(new Intent(this, RolePlayActivity.class));
+                break;
+            case R.id.dialogue_continue:
+                onBackPressed();
+                break;
+        }
+    }
 }

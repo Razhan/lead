@@ -233,6 +233,12 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        video.pause();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         video.release();

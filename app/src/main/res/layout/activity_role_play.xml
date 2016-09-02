@@ -46,11 +46,24 @@
 
     </RelativeLayout>
 
-    <com.ef.newlead.ui.widget.ColorfulProgressBar
-        android:id="@+id/video_role_progressbar"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="24dp"
-        android:layout_marginTop="-14dp" />
+        android:layout_marginTop="-14dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"/>
+
+        <com.ef.newlead.ui.widget.ColorfulProgressBar
+            android:id="@+id/video_role_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
+
 
     <FrameLayout
         android:layout_width="match_parent"

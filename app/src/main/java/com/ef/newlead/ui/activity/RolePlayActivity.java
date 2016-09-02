@@ -119,13 +119,11 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
         asrProgress.setListener(new ASRProgressView.ProgressListener() {
             @Override
             public void onProgressEnd() {
-                //stop asrProgress后回掉，在这处理asr， 在asr最后的处理结果中，调用asrProgress.setResult
                 recordCountingDown = false;
             }
 
             @Override
             public void onResultEnd() {
-                //asrProgress最后动画结束后回掉
                 recordBtn.setEnabled(false);
 
                 videoProgress.setVisibility(View.VISIBLE);
@@ -392,6 +390,7 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
         replay.setVisibility(View.INVISIBLE);
         video.getVideoControls().setVisibility(View.VISIBLE);
 
+        asrProgress.stopCountDown();
         asrProgress.hide();
         video.start();
     }

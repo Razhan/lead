@@ -1,5 +1,6 @@
 package com.ef.newlead.ui.activity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -76,6 +77,7 @@ public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
         fragmentKeys = fragmentStr.split(" \\| ");
 
         fragmentIndex = Math.min(SharedPreUtils.getInt(CURRENT_FRAGMENT, 0), fragmentKeys.length - 1);
+        fragmentIndex = 0;
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -92,7 +94,8 @@ public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
 
     @Override
     public void afterSubmitInfo() {
-        showMessage("afterSubmitInfo");
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
     }
 
     public Fragment getNextFragment() {

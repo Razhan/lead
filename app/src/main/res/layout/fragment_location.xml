@@ -61,6 +61,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="32dp"
                     android:layout_marginRight="32dp"
+                    android:inputType="textNoSuggestions"
+                    android:textCursorDrawable="@drawable/view_cursor"
                     android:background="@null"
                     android:paddingBottom="@dimen/editor_vertical_padding"
                     android:paddingTop="@dimen/editor_vertical_padding"

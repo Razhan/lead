@@ -2,7 +2,6 @@ package com.ef.newlead.ui.fragment;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -162,7 +161,7 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
         if (isSucceed) {
             progressView.startAnim();
         } else {
-            progressView.setmState(IndicatedProgressView.STATE_ANIM_NONE);
+            progressView.setState(IndicatedProgressView.STATE_ANIM_NONE);
             next.setVisibility(View.VISIBLE);
             inProgress = false;
         }

@@ -29,7 +29,6 @@ public class IndicatedProgressView extends View {
     private static final float factor = 1.5f;
     private int mAngle = 10;
     private int mState = STATE_ANIM_NONE;
-    private ValueAnimator mValueAnimator;
     private float mProgress;
     private int radius;
     private float cx, cy, markStart;
@@ -40,6 +39,7 @@ public class IndicatedProgressView extends View {
     private RectF mRectF;
     private Paint mPaint;
 
+    private ValueAnimator mValueAnimator;
     private AfterAnimationListener listener;
 
     public IndicatedProgressView(Context context) {
@@ -59,8 +59,9 @@ public class IndicatedProgressView extends View {
         return mState;
     }
 
-    public void setmState(int mState) {
+    public void setState(int mState) {
         this.mState = mState;
+        invalidate();
     }
 
     public void setEndAnimationListener(AfterAnimationListener listener) {
@@ -118,6 +119,9 @@ public class IndicatedProgressView extends View {
     protected void onDraw(Canvas canvas) {
         switch (mState) {
             case STATE_ANIM_NONE:
+                if (mValueAnimator != null) {
+                    mValueAnimator.cancel();
+                }
                 break;
             case STATE_ANIM_START:
                 drawLoopView(canvas);

@@ -33,6 +33,12 @@ public class VideoControlLayout extends VideoControls {
     private VisibilityAnimationListener visibilityAnimationListener;
     private PlayingProgressChangeListener playingProgressChangeListener;
 
+    private boolean manualPaused = false;
+
+    public boolean isManualPaused() {
+        return manualPaused;
+    }
+
     public VideoControlLayout(Context context) {
         super(context);
     }
@@ -277,6 +283,25 @@ public class VideoControlLayout extends VideoControls {
             if (seekListener == null || !seekListener.onSeekEnded(seekToTime)) {
                 internalListener.onSeekEnded(seekToTime);
             }
+        }
+    }
+
+    @Override
+    protected void setup(Context context) {
+        super.setup(context);
+
+        // intercept with our own listener for basic functionality of video player.
+        internalListener = new VideoControlListener();
+    }
+
+    class VideoControlListener extends InternalListener {
+
+        @Override
+        public boolean onPlayPauseClicked() {
+            if (videoView != null) {
+                manualPaused = videoView.isPlaying();
+            }
+            return super.onPlayPauseClicked();
         }
     }
 }

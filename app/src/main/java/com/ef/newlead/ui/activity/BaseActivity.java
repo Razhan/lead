@@ -197,7 +197,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
             decorView.addView(statusView);
 
-
+            ViewGroup rootView = (ViewGroup) ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
+            rootView.setFitsSystemWindows(true);
+            rootView.setClipToPadding(true);
         }
     }
 

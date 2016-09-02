@@ -2,6 +2,12 @@
 
 buildscript {
     repositories {
+        if (project.hasProperty('mobileRepoUrl')) {
+            maven {
+                url "${mobileRepoUrl}"
+            }
+        }
+
         jcenter()
     }
     dependencies {

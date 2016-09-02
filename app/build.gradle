@@ -22,6 +22,15 @@ android {
         compileSdkVersion rootProject.ext.compileSdkVersion
         buildToolsVersion rootProject.ext.buildToolsVersion
 
+        /*
+            Fix the issue of "OutOfMemoryError: GC overhead limit exceeded" when doing dex.
+            Reference: https://groups.google.com/forum/#!topic/adt-dev/r4p-sBLl7DQ
+        */
+        dexOptions {
+            incremental true
+            javaMaxHeapSize "4g"
+        }
+
         defaultConfig {
             applicationId "com.ef.newlead"
             minSdkVersion rootProject.ext.minSdkVersion

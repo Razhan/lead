@@ -412,7 +412,7 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
                 video.getVideoControls().setVisibility(View.INVISIBLE);
                 denyWrapper.setVisibility(View.VISIBLE);
             }
-        }, Manifest.permission.RECORD_AUDIO);
+        }, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
     private void startPlayingVideo() {

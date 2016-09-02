@@ -1,6 +1,7 @@
 package com.ef.newlead;
 
 import android.app.Application;
+import android.os.StrictMode;
 
 import com.ef.newlead.util.FileUtils;
 import com.ef.newlead.util.SharedPreUtils;
@@ -23,6 +24,10 @@ public final class NewLeadApplication extends Application {
 
     @Override
     public void onCreate() {
+        if (BuildConfig.DEBUG) {
+            enableStrictMode();
+        }
+
         super.onCreate();
 
         SystemText.init(this);
@@ -38,6 +43,23 @@ public final class NewLeadApplication extends Application {
         installAcousticModelData();
 
         app = this;
+    }
+
+    private void enableStrictMode() {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads()
+                .detectDiskWrites()
+                .detectNetwork()
+                .penaltyLog()
+                .build());
+
+        StrictMode.setVmPolicy(new
+                android.os.StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects()
+                .detectLeakedClosableObjects()
+                .penaltyLog()
+                //.penaltyDeath()
+                .build());
     }
 
     public static NewLeadApplication getApp() {

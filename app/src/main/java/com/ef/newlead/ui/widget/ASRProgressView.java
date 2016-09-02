@@ -108,7 +108,7 @@ public class ASRProgressView extends RelativeLayout {
             @Override
             public void onAnimationEnd(Animator animation) {
                 if (listener != null) {
-                    listener.onProgressEnd();
+                    listener.onProgressEnd(mProgress);
                 }
             }
         });
@@ -164,7 +164,7 @@ public class ASRProgressView extends RelativeLayout {
     }
 
     public interface ProgressListener {
-        void onProgressEnd();
+        void onProgressEnd(float progress);
 
         void onResultEnd();
     }

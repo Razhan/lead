@@ -82,6 +82,10 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
     private boolean recordCountingDown = false;
     private VideoControlLayout controlLayout;
 
+    private boolean timeOut = false;
+    private boolean asrStarted = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         translucentStatusBar = true;
@@ -118,8 +122,16 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
 
         asrProgress.setListener(new ASRProgressView.ProgressListener() {
             @Override
-            public void onProgressEnd() {
+            public void onProgressEnd(float progress) {
                 recordCountingDown = false;
+
+                if (progress >= 1f){
+                    timeOut = true;
+
+                    if (!asrStarted) {
+                        asrProgress.setResult(false, "Time Out!!");
+                    }
+                }
             }
 
             @Override
@@ -233,11 +245,15 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
 
     private void onHandleAsrResult(boolean successful) {
         runOnUiThread(() -> {
-            if (successful) {
+            if (timeOut) {
+                asrProgress.setResult(false, "Time Out!!");
+            } else if (successful) {
                 asrProgress.setResult(true, "Prefect!!");
             } else {
                 asrProgress.setResult(false, "Please try again.");
             }
+
+            timeOut = false;
         });
     }
 
@@ -256,6 +272,8 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
     private void onRecordStart() {
         microphoneView.setVisibility(View.VISIBLE);
         asrComponent.startRecording();
+
+        asrStarted = true;
     }
 
     @Override

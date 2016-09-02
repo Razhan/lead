@@ -123,12 +123,15 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
     public void afterCodeVerified(boolean isSucceed) {
         submit.setEnabled(true);
 
-        if (!isSucceed) {
-            input.changeTextColor(Color.RED);
-            hint.setText(getLocaleText("phone_select_subtitle_4"));
-        } else {
-            startNextFragment();
-        }
+//        if (!isSucceed) {
+//            input.changeTextColor(Color.RED);
+//            hint.setText(getLocaleText("phone_select_subtitle_4"));
+//        } else {
+//            startNextFragment();
+//        }
+
+        //for demo
+        startNextFragment();
     }
 
     @Override

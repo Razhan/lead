@@ -1,7 +1,9 @@
 package com.ef.newlead.ui.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,6 +13,7 @@ import com.ef.newlead.R;
 import com.ef.newlead.data.model.Dialogue;
 import com.ef.newlead.data.model.GradientColor;
 import com.ef.newlead.ui.adapter.SummaryDialogueAdapter;
+import com.ef.newlead.util.ViewUtils;
 
 import java.util.List;
 
@@ -25,6 +28,8 @@ public class DialogueListActivity extends BaseActivity {
     RecyclerView list;
     @BindView(R.id.dialogue_favorite)
     ImageView favorite;
+    @BindView(R.id.dialogue_bottom_bar)
+    CardView bottomBar;
 
     private boolean favored = false;
     private GradientColor gradientColor;
@@ -48,8 +53,11 @@ public class DialogueListActivity extends BaseActivity {
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
 
-        initData();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            bottomBar.setCardElevation(ViewUtils.dpToPx(this, 20));
+        }
 
+        initData();
         initRecyclerView();
     }
 

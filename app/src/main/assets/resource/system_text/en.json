@@ -271,7 +271,7 @@
   ],
   "dialogue_example": {
     "title": "The Airport",
-    "title-zh": "飞机场",
+    "title-zh-cn": "飞机场",
     "video": {
       "media": "125981_GE_5.1.2_v3.mp4",
       "thumb": "125981_GE_5.1.2_v3.png",
@@ -291,33 +291,49 @@
       [
         {
           "user": "man1",
-          "startTime": 2.123,
-          "endTime": 4.123,
-          "text": "hello",
-          "text-zh-cn": "nihao"
+          "startTime": 4.123,
+          "endTime": 5.123,
+          "text": "hello, how are you mr.",
+          "text-zh-cn": "先生，你还好么？"
         },
         {
           "user": "man2",
-          "startTime": 6.123,
-          "endTime": 8.123,
-          "text": "hello :)",
-          "text-zh-cn": "nihao :)"
+          "startTime": 5.323,
+          "endTime": 6.123,
+          "text": "i am good thank you.",
+          "text-zh-cn": "我很好，谢谢。"
         }
       ],
       [
         {
           "user": "man1",
-          "startTime": 10.123,
-          "endTime": 12.123,
-          "text": "bye",
+          "startTime": 6.523,
+          "endTime": 10.123,
+          "text": "ok, bye",
           "text-zh-cn": "再见"
         },
         {
           "user": "man2",
-          "startTime": 14.123,
+          "startTime": 10.523,
+          "endTime": 13.123,
+          "text": "have a good night, i will see you and your family tommorw",
+          "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+        }
+      ],
+      [
+        {
+          "user": "man1",
+          "startTime": 13.523,
           "endTime": 16.123,
-          "text": "... -_-",
-          "text-zh-cn": "... -_-"
+          "text": "ok, bye",
+          "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+        },
+        {
+          "user": "man2",
+          "startTime": 16.523,
+          "endTime": 18.123,
+          "text": "have a good night, i will see you and your family tommorw",
+          "text-zh-cn": "晚安"
         }
       ]
     ]

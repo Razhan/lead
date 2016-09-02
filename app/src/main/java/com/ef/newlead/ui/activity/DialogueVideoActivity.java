@@ -5,9 +5,11 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.Menu;
@@ -35,6 +37,7 @@ import com.ef.newlead.ui.widget.IndicatedProgressView;
 import com.ef.newlead.ui.widget.SlideAnimator;
 import com.ef.newlead.ui.widget.SmoothScrollLayoutManager;
 import com.ef.newlead.ui.widget.VideoControlLayout;
+import com.ef.newlead.util.ViewUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -72,6 +75,9 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
     RelativeLayout loadWrapper;
     @BindView(R.id.video_dialogue_video_wrapper)
     LinearLayout videoWrapper;
+    @BindView(R.id.video_dialogue_bottom_bar)
+    CardView bottomBar;
+
 
     private boolean isRestarted = false;
     private boolean favored = false;
@@ -138,6 +144,10 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
                 mAdapter.showTranslation(false);
             }
         });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            bottomBar.setCardElevation(ViewUtils.dpToPx(this, 20));
+        }
     }
 
     private void setLoadWrapperBackground() {
@@ -352,7 +362,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
 
     @Override
     public void afterLoaded() {
-        loadProgress.setmState(IndicatedProgressView.STATE_ANIM_NONE);
+        loadProgress.startAnim();
 
         initData();
         initVideoComponent();

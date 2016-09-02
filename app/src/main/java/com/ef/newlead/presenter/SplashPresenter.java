@@ -38,7 +38,7 @@ public class SplashPresenter extends Presenter<SplashView> {
             }
 
             getResourceInfo();
-        }, 300);
+        }, 500);
     }
 
     private void InitCompleted() {

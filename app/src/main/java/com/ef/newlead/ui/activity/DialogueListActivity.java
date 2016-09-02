@@ -93,6 +93,7 @@ public class DialogueListActivity extends BaseActivity {
                 } else {
                     favorite.setImageResource(R.drawable.ic_favorite_full);
                 }
+                favored = !favored;
                 break;
             case R.id.dialogue_start:
                 startActivity(new Intent(this, RolePlayActivity.class));

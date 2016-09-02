@@ -165,6 +165,7 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
     @Override
     public void onStop() {
         super.onStop();
+        timer.cancel();
         timer = null;
     }
 

@@ -287,6 +287,13 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
         videoProgress.setDotsPosition(duration, timestamps);
     }
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        asrProgress.stopCountDown();
+    }
+
     @Override
     protected void onStop() {
         super.onStop();

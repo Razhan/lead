@@ -13,6 +13,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
@@ -117,10 +118,16 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
         setLoadWrapperBackground();
         initRecyclerView();
 
-        video.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            if (dialogue != null) {
-                video.getLayoutParams().height = (int) (video.getWidth() / dialogue.getVideo().getRatio());
-                video.requestLayout();
+        video.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (dialogue != null) {
+                    // resize the video, respecting the given aspect ratio
+                    video.getLayoutParams().height = (int) (video.getWidth() / dialogue.getVideo().getRatio());
+                    video.requestLayout();
+
+                    video.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
             }
         });
 
@@ -179,7 +186,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
             dialogueIndex = 0;
             stepIndex = 0;
 
-            new Handler().postDelayed(this::toDialogueList, 500);
+            video.postDelayed(this::toDialogueList, 500);
         });
 
         // for testing only
@@ -212,6 +219,8 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
     @Override
     protected void onStop() {
         super.onStop();
+
+        resumeVideoPosition();
         stopVideo();
     }
 
@@ -227,8 +236,17 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
         super.onStart();
 
         if (pausedInOnStop) {
+            resumeVideoPosition();
+
             video.start();
             pausedInOnStop = false;
+        }
+    }
+
+    private void resumeVideoPosition() {
+        // reset the position to avoid a un-refreshed video screen
+        if (video.getCurrentPosition() > 0) {
+            video.seekTo(video.getCurrentPosition() + 1);
         }
     }
 

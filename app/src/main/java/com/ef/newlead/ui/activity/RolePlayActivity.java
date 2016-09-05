@@ -60,13 +60,10 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
     Button retry;
     @BindView(R.id.video_role_deny_wrapper)
     LinearLayout denyWrapper;
-
     @BindView(R.id.recorder_button)
     Button recordBtn;
-
     @BindView(R.id.script)
     TextView script;
-
     @BindView(R.id.microphone_volume)
     MicrophoneVolumeView microphoneView;
 
@@ -84,7 +81,6 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
 
     private boolean timeOut = false;
     private boolean asrStarted = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -267,6 +263,7 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
         microphoneView.setVisibility(View.INVISIBLE);
         microphoneView.setProportion(0);
         asrComponent.stopRecording();
+        asrStarted = false;
     }
 
     private void onRecordStart() {
@@ -286,7 +283,6 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
         duration = (float) video.getDuration() / 1000;
         videoProgress.setDotsPosition(duration, timestamps);
     }
-
 
     @Override
     protected void onPause() {

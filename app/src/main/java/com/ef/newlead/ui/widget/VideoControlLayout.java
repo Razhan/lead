@@ -7,6 +7,8 @@ import android.support.annotation.IntRange;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -34,6 +36,8 @@ public class VideoControlLayout extends VideoControls {
     private PlayingProgressChangeListener playingProgressChangeListener;
 
     private boolean manualPaused = false;
+
+    private boolean pauseClickedBefore = false;
 
     public boolean isManualPaused() {
         return manualPaused;
@@ -64,6 +68,11 @@ public class VideoControlLayout extends VideoControls {
     public VideoControlLayout setVisibilityAnimationListener(VisibilityAnimationListener visibilityAnimationListener) {
         this.visibilityAnimationListener = visibilityAnimationListener;
         return this;
+    }
+
+    public void reset() {
+        pauseClickedBefore = false;
+        manualPaused = false;
     }
 
     @Override
@@ -294,10 +303,53 @@ public class VideoControlLayout extends VideoControls {
         internalListener = new VideoControlListener();
     }
 
+    @Override
+    public void updatePlayPauseImage(boolean isPlaying) {
+        updatePlayButtonImage(isPlaying, pauseClickedBefore);
+    }
+
+    private void updatePlayButtonImage(boolean isPlaying, boolean animationEnabled) {
+        if (animationEnabled) {
+            playPauseButton.animate().cancel();
+
+            if (isPlaying) {
+                playPauseButton.animate()
+                        .rotationBy(360)
+                        .setInterpolator(new AccelerateInterpolator())
+                        .withStartAction(() -> playPauseButton.setEnabled(false))
+                        .withEndAction(() -> {
+                            playPauseButton.setImageResource(R.drawable.exomedia_ic_pause_white);
+                            playPauseButton.setEnabled(true);
+                        })
+                        .setDuration(400).start();
+
+            } else {
+                playPauseButton.animate()
+                        .rotationBy(-360)
+                        .setInterpolator(new DecelerateInterpolator())
+                        .withStartAction(() -> playPauseButton.setEnabled(false))
+                        .withEndAction(() -> {
+                            playPauseButton.setImageResource(R.drawable.exomedia_ic_play_arrow_white);
+                            playPauseButton.setEnabled(true);
+                        })
+                        .setDuration(400).start();
+            }
+        } else {
+            if (isPlaying)
+                playPauseButton.setImageResource(R.drawable.exomedia_ic_pause_white);
+            else
+                playPauseButton.setImageResource(R.drawable.exomedia_ic_play_arrow_white);
+        }
+    }
+
     class VideoControlListener extends InternalListener {
 
         @Override
         public boolean onPlayPauseClicked() {
+            if (!pauseClickedBefore) {
+                pauseClickedBefore = true;
+            }
+
             if (videoView != null) {
                 manualPaused = videoView.isPlaying();
             }

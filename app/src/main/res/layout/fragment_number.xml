@@ -77,7 +77,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="14sp" />
 
-            <com.ef.newlead.ui.widget.IndicatedProgressView
+            <com.ef.newlead.ui.widget.CheckProgressView
                 android:id="@+id/number_progress_view"
                 android:layout_width="30dp"
                 android:layout_height="30dp"

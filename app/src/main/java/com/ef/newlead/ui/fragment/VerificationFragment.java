@@ -1,6 +1,5 @@
 package com.ef.newlead.ui.fragment;
 
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -19,7 +18,7 @@ import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.domain.usecase.VerificationUseCase;
 import com.ef.newlead.presenter.VerificationPresenter;
-import com.ef.newlead.ui.widget.IndicatedProgressView;
+import com.ef.newlead.ui.widget.CheckProgressView;
 import com.ef.newlead.ui.widget.VerificationView;
 import com.ef.newlead.util.ViewUtils;
 
@@ -45,7 +44,7 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
     @BindView(R.id.verification_retry)
     RelativeLayout retry;
     @BindView(R.id.verification_progress_view)
-    IndicatedProgressView progressView;
+    CheckProgressView progressView;
 
     private String phone_number;
     private CountDownTimer timer;

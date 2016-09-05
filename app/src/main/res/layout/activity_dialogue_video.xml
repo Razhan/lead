@@ -98,7 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="202dp">
 
-        <com.ef.newlead.ui.widget.IndicatedProgressView
+        <com.ef.newlead.ui.widget.CheckProgressView
             android:id="@+id/video_dialogue_progress"
             android:layout_width="35dp"
             android:layout_height="35dp"

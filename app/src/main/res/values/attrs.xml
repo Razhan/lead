@@ -19,7 +19,7 @@
         <attr name="ringWidth" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="IndicatedProgressView">
+    <declare-styleable name="CheckProgressView">
         <attr name="progressRingWidth" format="dimension" />
         <attr name="progressColor" format="color" />
     </declare-styleable>

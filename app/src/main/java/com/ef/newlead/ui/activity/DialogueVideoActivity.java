@@ -33,7 +33,7 @@ import com.ef.newlead.ui.adapter.VideoDialogueAdapter;
 import com.ef.newlead.ui.view.VideoView;
 import com.ef.newlead.ui.widget.AutoSizeVideoView;
 import com.ef.newlead.ui.widget.ColorfulProgressBar;
-import com.ef.newlead.ui.widget.IndicatedProgressView;
+import com.ef.newlead.ui.widget.CheckProgressView;
 import com.ef.newlead.ui.widget.SlideAnimator;
 import com.ef.newlead.ui.widget.SmoothScrollLayoutManager;
 import com.ef.newlead.ui.widget.VideoControlLayout;
@@ -68,7 +68,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
     @BindView(R.id.video_dialogue_switch)
     SwitchCompat switcher;
     @BindView(R.id.video_dialogue_progress)
-    IndicatedProgressView loadProgress;
+    CheckProgressView loadProgress;
     @BindView(R.id.video_dialogue_load_text)
     TextView loadText;
     @BindView(R.id.video_dialogue_load_wrapper)

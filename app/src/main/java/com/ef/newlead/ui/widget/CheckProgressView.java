@@ -17,7 +17,7 @@ import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.util.ViewUtils;
 
-public class IndicatedProgressView extends View {
+public class CheckProgressView extends View {
 
     public static final int STATE_ANIM_NONE = 0;
     public static final int STATE_ANIM_START = 1;
@@ -42,15 +42,15 @@ public class IndicatedProgressView extends View {
     private ValueAnimator mValueAnimator;
     private AfterAnimationListener listener;
 
-    public IndicatedProgressView(Context context) {
+    public CheckProgressView(Context context) {
         this(context, null);
     }
 
-    public IndicatedProgressView(Context context, AttributeSet attrs) {
+    public CheckProgressView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public IndicatedProgressView(Context context, AttributeSet attrs, int defStyle) {
+    public CheckProgressView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs);
     }
@@ -69,11 +69,11 @@ public class IndicatedProgressView extends View {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        TypedArray mTypedArray = context.obtainStyledAttributes(attrs, R.styleable.IndicatedProgressView);
-        ringWidth = mTypedArray.getDimension(R.styleable.IndicatedProgressView_progressRingWidth,
+        TypedArray mTypedArray = context.obtainStyledAttributes(attrs, R.styleable.CheckProgressView);
+        ringWidth = mTypedArray.getDimension(R.styleable.CheckProgressView_progressRingWidth,
                 ViewUtils.dpToPx(getContext(), 2));
 
-        progressColor = mTypedArray.getColor(R.styleable.IndicatedProgressView_progressColor, Color.BLACK);
+        progressColor = mTypedArray.getColor(R.styleable.CheckProgressView_progressColor, Color.BLACK);
 
         mTypedArray.recycle();
 
@@ -188,14 +188,14 @@ public class IndicatedProgressView extends View {
         valueAnimator.setInterpolator(new DecelerateInterpolator());
         valueAnimator.addUpdateListener(animator -> {
             mProgress = (float) animator.getAnimatedValue();
-            IndicatedProgressView.this.invalidate();
+            CheckProgressView.this.invalidate();
         });
 
         valueAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                if (IndicatedProgressView.this.mState == STATE_ANIM_STOP && listener != null) {
-                    IndicatedProgressView.this.startAnim();
+                if (CheckProgressView.this.mState == STATE_ANIM_STOP && listener != null) {
+                    CheckProgressView.this.startAnim();
                     post(() -> listener.afterAnimation());
                 }
             }

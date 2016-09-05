@@ -35,7 +35,7 @@ public interface NewLeadService {
     Observable<BaseResponse> getVerificationCode(@Field("phone") String number);
 
     @FormUrlEncoded
-    @POST("/api/leadgen/sms//verify")
+    @POST("/api/leadgen/sms/verify")
     Observable<BaseResponse> verifyCode(@Field("phone") String number,
                                         @Field("code") String code);
 

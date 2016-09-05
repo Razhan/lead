@@ -18,7 +18,7 @@ import com.ef.newlead.domain.usecase.VerificationUseCase;
 import com.ef.newlead.presenter.VerificationPresenter;
 import com.ef.newlead.ui.view.VerificationView;
 import com.ef.newlead.ui.widget.DeletableEditText;
-import com.ef.newlead.ui.widget.IndicatedProgressView;
+import com.ef.newlead.ui.widget.CheckProgressView;
 import com.ef.newlead.util.SharedPreUtils;
 import com.ef.newlead.util.ViewUtils;
 
@@ -31,7 +31,7 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
     private final static String NUMBER_KEY = "phone_number";
 
     @BindView(R.id.number_progress_view)
-    IndicatedProgressView progressView;
+    CheckProgressView progressView;
     @BindView(R.id.number_input)
     DeletableEditText input;
     @BindView(R.id.number_hint)
@@ -113,7 +113,7 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
                 } else {
                     submit.setAlpha(0.3f);
 
-                    if (progressView.getState() == IndicatedProgressView.STATE_ANIM_STOP) {
+                    if (progressView.getState() == CheckProgressView.STATE_ANIM_STOP) {
                         progressView.startAnim();
                         next.setVisibility(View.VISIBLE);
                         clickable = false;
@@ -161,7 +161,7 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
         if (isSucceed) {
             progressView.startAnim();
         } else {
-            progressView.setState(IndicatedProgressView.STATE_ANIM_NONE);
+            progressView.setState(CheckProgressView.STATE_ANIM_NONE);
             next.setVisibility(View.VISIBLE);
             inProgress = false;
         }

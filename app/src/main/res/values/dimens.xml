@@ -9,5 +9,6 @@
     <dimen name="editor_vertical_padding">12dp</dimen>
 
     <dimen name="height_tool_bar">56dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 </resources>

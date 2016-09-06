@@ -55,8 +55,6 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
         VideoControlLayout.PlayingProgressChangeListener,
         VideoView {
 
-    protected boolean pausedInOnStop = false;
-
     @BindView(R.id.video_dialogue_video)
     AutoSizeVideoView video;
     @BindView(R.id.video_dialogue_progressbar)
@@ -78,7 +76,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
     @BindView(R.id.video_dialogue_bottom_bar)
     CardView bottomBar;
 
-
+    protected boolean pausedInOnStop = false;
     private boolean isRestarted = false;
     private boolean favored = false;
 
@@ -146,7 +144,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
         });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            bottomBar.setCardElevation(ViewUtils.dpToPx(this, 20));
+            bottomBar.setCardElevation(ViewUtils.dpToPx(this, 5));
         }
     }
 
@@ -179,7 +177,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
         }
     }
 
-    protected void initVideoComponent() {
+    private void initVideoComponent() {
         VideoControlLayout controlLayout = new VideoControlLayout(this);
         controlLayout.setVisibilityAnimationListener(this);
         controlLayout.setPlayingProgressChangeListener(this);
@@ -275,6 +273,9 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
 
     @Override
     public void onAnimate(boolean visible) {
+        progress.setThumb(visible);
+        showStatusBar(visible);
+
         if (toolbar == null)
             return;
 
@@ -285,8 +286,6 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
                     .alpha(1)
                     .setInterpolator(new DecelerateInterpolator())
                     .start();
-            progress.setThumb(true);
-            showStatusBar(true);
         } else {
             toolbar.bringToFront();
             toolbar.animate()
@@ -294,8 +293,6 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
                     .alpha(0)
                     .setInterpolator(new AccelerateInterpolator())
                     .start();
-            progress.setThumb(false);
-            showStatusBar(false);
         }
     }
 

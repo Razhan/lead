@@ -54,7 +54,7 @@ public class DialogueListActivity extends BaseActivity {
         super.initView(savedInstanceState);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            bottomBar.setCardElevation(ViewUtils.dpToPx(this, 20));
+            bottomBar.setCardElevation(ViewUtils.dpToPx(this, 5));
         }
 
         initData();

@@ -30,6 +30,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 public class ScoreFragment extends BaseFragment implements OnPreparedListener,
         VideoControlLayout.VisibilityAnimationListener,
@@ -110,7 +111,7 @@ public class ScoreFragment extends BaseFragment implements OnPreparedListener,
         VideoControlLayout controlLayout = new VideoControlLayout(getContext());
         controlLayout.setVisibilityAnimationListener(this);
         controlLayout.setPlayingProgressChangeListener(this);
-        controlLayout.centralizeControlViewLayout();
+        controlLayout.centralizeControls(false);
 
         video.setControls(controlLayout);
         video.setMeasureBasedOnAspectRatioEnabled(false);
@@ -238,4 +239,15 @@ public class ScoreFragment extends BaseFragment implements OnPreparedListener,
         startActivity(Intent.createChooser(shareIntent, getString(R.string.app_name)));
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        //FIXME: the video related UI should be extracted out as a basic component.
+        Timber.d(">>> onStart() invoked");
+        if (video != null) {
+            resumeVideoPosition();
+        }
+
+    }
 }

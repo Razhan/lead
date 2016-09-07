@@ -181,7 +181,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
         VideoControlLayout controlLayout = new VideoControlLayout(this);
         controlLayout.setVisibilityAnimationListener(this);
         controlLayout.setPlayingProgressChangeListener(this);
-        controlLayout.centralizeControlViewLayout();
+        controlLayout.centralizeControls(true);
 
         video.setControls(controlLayout);
         video.setMeasureBasedOnAspectRatioEnabled(false);

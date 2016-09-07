@@ -196,6 +196,9 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
             dialogueIndex = 0;
             stepIndex = 0;
 
+            controlLayout.reset();
+            video.restart();
+
             video.postDelayed(this::toDialogueList, 500);
         });
 

@@ -20,7 +20,6 @@ import com.ef.newlead.ui.fragment.CityLocationFragment;
 import com.ef.newlead.ui.fragment.LevelFragment;
 import com.ef.newlead.ui.fragment.NumberFragment;
 import com.ef.newlead.ui.fragment.PurposeFragment;
-import com.ef.newlead.ui.fragment.VideoRolePlayFragment;
 import com.ef.newlead.ui.view.CollectInfoView;
 import com.ef.newlead.util.SharedPreUtils;
 import com.ef.newlead.util.SystemText;

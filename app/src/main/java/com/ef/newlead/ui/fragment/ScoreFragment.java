@@ -198,11 +198,6 @@ public class ScoreFragment extends BaseFragment implements OnPreparedListener,
         video.release();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
     private void stopVideo() {
         if (video.isPlaying()) {
             pausedInOnStop = true;
@@ -219,9 +214,6 @@ public class ScoreFragment extends BaseFragment implements OnPreparedListener,
 
     @OnClick({R.id.score_close, R.id.score_share_icon, R.id.score_next_button})
     public void onClick(View view) {
-        resumeVideoPosition();
-        stopVideo();
-
         switch (view.getId()) {
             case R.id.score_close:
                 getActivity().onBackPressed();

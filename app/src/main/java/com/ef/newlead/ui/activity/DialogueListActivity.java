@@ -76,8 +76,6 @@ public class DialogueListActivity extends BaseActivity {
     }
 
     private void initRecyclerView() {
-        allDialogBeans.addAll(allDialogBeans);
-
         list.setLayoutManager(new LinearLayoutManager(this));
         SummaryDialogueAdapter mAdapter = new SummaryDialogueAdapter(this, allDialogBeans);
 

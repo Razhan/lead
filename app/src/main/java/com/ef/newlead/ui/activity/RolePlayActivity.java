@@ -26,10 +26,12 @@ import com.ef.newlead.ui.widget.AutoSizeVideoView;
 import com.ef.newlead.ui.widget.ColorfulProgressBar;
 import com.ef.newlead.ui.widget.MicrophoneVolumeView;
 import com.ef.newlead.ui.widget.VideoControlLayout;
+import com.ef.newlead.util.FileUtils;
 import com.google.common.base.Joiner;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -144,10 +146,15 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
     }
 
     private void initData() {
-        String dialogueStr = getLocaleText("dialogue_example");
-        dialogue = new Gson().fromJson(dialogueStr,
-                new TypeToken<Dialogue>() {
-                }.getType());
+//        String dialogueStr = getLocaleText("dialogue_example");
+//        dialogue = new Gson().fromJson(dialogueStr,
+//                new TypeToken<Dialogue>() {
+//                }.getType());
+
+        Type type = new TypeToken<Dialogue>() {
+        }.getType();
+
+        dialogue = FileUtils.readObjectFromAssertFile(this, "airport_dialogue.json", type);
 
         timestamps = new ArrayList<>();
 

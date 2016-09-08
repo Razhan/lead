@@ -54,7 +54,6 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
         super.initView(savedInstanceState);
 
         setText();
-
         indicator.post(() -> indicator.startAnim());
     }
 
@@ -66,6 +65,8 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
 
         center.setText(getLocaleText("splash_find_center"));
         signUp.setText(getLocaleText("splash_create_account"));
+
+        indicator.setTitle(getLocaleText("splash_start"));
     }
 
     @NonNull
@@ -104,8 +105,8 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
 
     @Override
     public void afterInit() {
-        indicator.startAnim();
         setText();
+        indicator.startAnim();
         startBottomBarAnim(true, Constant.DEFAULT_ANIM_FULL_TIME);
     }
 }

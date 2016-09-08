@@ -10,6 +10,7 @@ import android.transition.Slide;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,13 +21,14 @@ import com.ef.newlead.domain.usecase.VerificationUseCase;
 import com.ef.newlead.presenter.VerificationPresenter;
 import com.ef.newlead.ui.widget.CheckProgressView;
 import com.ef.newlead.ui.widget.VerificationView;
+import com.ef.newlead.util.KeyBoardVisibilityMonitor;
 import com.ef.newlead.util.ViewUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class VerificationFragment extends BaseCollectInfoFragment<VerificationPresenter>
-        implements com.ef.newlead.ui.view.VerificationView {
+        implements com.ef.newlead.ui.view.VerificationView, KeyBoardVisibilityMonitor.KeyBoardStateListener {
 
     private final static long DEFAULT_COUNT_DOWN_TIME = 60 * 1000 + 100;
     private final static String NUMBER_KEY = "phoneNumber";
@@ -46,10 +48,14 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
     @BindView(R.id.verification_progress_view)
     CheckProgressView progressView;
 
+    @BindView(R.id.verification_parent)
+    ViewGroup verificationParent;
+
     private String phone_number;
     private CountDownTimer timer;
     private String timerText;
 
+    private boolean hiddenFirstTime = true;
     public static Fragment newInstance(String number) {
         VerificationFragment fragment = new VerificationFragment();
 
@@ -64,6 +70,29 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         phone_number = getArguments().getString(NUMBER_KEY, "");
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        KeyBoardVisibilityMonitor.assistActivity(getActivity(), this);
+    }
+
+    @Override
+    public void onKeyboardHidden() {
+        if(hiddenFirstTime){
+            hiddenFirstTime = false;
+            verificationParent.setVisibility(View.VISIBLE);
+        }else {
+            // Get rid of layout flash.
+            verificationParent.postDelayed(() -> verificationParent.setVisibility(View.VISIBLE), 300);
+        }
+    }
+
+    @Override
+    public void onKeyboardVisible() {
+        verificationParent.setVisibility(View.GONE);
     }
 
     @Override

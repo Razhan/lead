@@ -63,8 +63,6 @@ public class PurposeFragment extends BaseCollectInfoFragment implements Discrete
 
         slider.setOnSlideListener(this);
         new Handler().postDelayed(() -> animateHint(true, 0, 1), 100);
-
-        next.setClickable(false);
     }
 
     @Override
@@ -79,7 +77,7 @@ public class PurposeFragment extends BaseCollectInfoFragment implements Discrete
 
     @Override
     public void onMove(int index) {
-        next.setClickable(true);
+        next.setVisibility(View.VISIBLE);
     }
 
     private void animateHint(boolean show, float start, float end) {

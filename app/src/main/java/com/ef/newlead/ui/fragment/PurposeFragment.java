@@ -70,6 +70,11 @@ public class PurposeFragment extends BaseCollectInfoFragment implements Discrete
         if (hint.getVisibility() != View.GONE) {
             animateHint(false, 1, 0);
         }
+
+        if (next.getVisibility() != View.VISIBLE) {
+            next.setVisibility(View.VISIBLE);
+        }
+
         hideDescription(index);
 
         SharedPreUtils.putString(Constant.USER_PURPOSE, String.valueOf(index));
@@ -77,7 +82,6 @@ public class PurposeFragment extends BaseCollectInfoFragment implements Discrete
 
     @Override
     public void onMove(int index) {
-        next.setVisibility(View.VISIBLE);
     }
 
     private void animateHint(boolean show, float start, float end) {

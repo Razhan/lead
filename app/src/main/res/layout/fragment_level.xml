@@ -16,25 +16,33 @@
         android:textColor="@color/white"
         android:textSize="24sp" />
 
-    <com.ef.newlead.ui.widget.CardSlideView
-        android:id="@+id/level_card_slide"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:paddingTop="56dp">
+        android:layout_height="match_parent"
+        android:layout_marginTop="-56dp">
 
-        <include layout="@layout/item_level" />
+        <com.ef.newlead.ui.widget.CardSlideView
+            android:id="@+id/level_card_slide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:clipToPadding="false"
+            android:paddingTop="56dp">
 
-        <include layout="@layout/item_level" />
+            <include layout="@layout/item_level" />
 
-        <include layout="@layout/item_level" />
+            <include layout="@layout/item_level" />
 
-        <include layout="@layout/item_level" />
+            <include layout="@layout/item_level" />
 
-        <include layout="@layout/item_level" />
+            <include layout="@layout/item_level" />
 
-        <include layout="@layout/item_level" />
+            <include layout="@layout/item_level" />
 
-    </com.ef.newlead.ui.widget.CardSlideView>
+            <include layout="@layout/item_level" />
+
+        </com.ef.newlead.ui.widget.CardSlideView>
+
+    </RelativeLayout>
 
 </LinearLayout>

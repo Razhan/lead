@@ -19,7 +19,7 @@
         app:mrl_rippleOverlay="true"
         app:mrl_rippleRoundedCorners="@dimen/round_corner_radius">
 
-        <Button
+        <com.ef.newlead.ui.widget.SafeButton
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="57dp"

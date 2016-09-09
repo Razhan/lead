@@ -81,6 +81,10 @@ public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresen
         super.initView();
         input.addTextChangedListener(this);
         cancel.setVisibility(View.GONE);
+
+        submit.setOnClickListener((View v) ->
+                onSubmit()
+        );
     }
 
     @Override
@@ -180,8 +184,7 @@ public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresen
         input.setText("");
     }
 
-    @OnClick(R.id.button)
-    void onSubmit() {
+    private void onSubmit() {
         if (input.getText().toString().isEmpty()) {
             return;
         }

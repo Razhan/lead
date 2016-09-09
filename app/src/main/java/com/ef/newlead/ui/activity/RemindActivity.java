@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.ef.newlead.R;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class RemindActivity extends BaseActivity {
 
@@ -24,7 +23,7 @@ public class RemindActivity extends BaseActivity {
     TextView info;
     @BindView(R.id.remind_b1)
     Button b1;
-    @BindView(R.id.remind_b2)
+    @BindView(R.id.find_center_more)
     Button b2;
     @BindView(R.id.remind_b3)
     Button b3;

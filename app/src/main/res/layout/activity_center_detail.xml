@@ -31,7 +31,9 @@
                     android:id="@+id/center_detail_pic"
                     android:layout_width="match_parent"
                     android:layout_height="166dp"
-                    android:src="@android:color/darker_gray"/>
+                    android:scaleType="centerCrop"
+                    android:transitionName="shared_pic"
+                    android:src="@drawable/pic_test"/>
 
                 <LinearLayout
                     android:id="@+id/center_detail_place"

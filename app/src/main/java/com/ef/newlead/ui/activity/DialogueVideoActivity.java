@@ -37,10 +37,12 @@ import com.ef.newlead.ui.widget.CheckProgressView;
 import com.ef.newlead.ui.widget.SlideAnimator;
 import com.ef.newlead.ui.widget.SmoothScrollLayoutManager;
 import com.ef.newlead.ui.widget.VideoControlLayout;
+import com.ef.newlead.util.FileUtils;
 import com.ef.newlead.util.ViewUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,10 +161,15 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
     }
 
     private void initData() {
-        String dialogueStr = getLocaleText("dialogue_example");
-        dialogue = new Gson().fromJson(dialogueStr,
-                new TypeToken<Dialogue>() {
-                }.getType());
+//        String dialogueStr = getLocaleText("dialogue_example");
+//        dialogue = new Gson().fromJson(dialogueStr,
+//                new TypeToken<Dialogue>() {
+//                }.getType());
+
+        Type type = new TypeToken<Dialogue>() {
+        }.getType();
+
+        dialogue = FileUtils.readObjectFromAssertFile(this, "airport_dialogue.json", type);
 
         timestamps = new ArrayList<>();
 
@@ -193,6 +200,9 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
             progress.reset();
             dialogueIndex = 0;
             stepIndex = 0;
+
+            controlLayout.reset();
+            video.restart();
 
             video.postDelayed(this::toDialogueList, 500);
         });

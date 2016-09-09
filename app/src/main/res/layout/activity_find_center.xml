@@ -22,13 +22,14 @@
         android:background="#4e88cd">
 
         <com.ef.newlead.ui.widget.DeletableEditText
-            android:id="@+id/number_input"
+            android:id="@+id/find_center_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:gravity="start"
             android:lines="1"
             android:paddingEnd="24dp"
+            android:singleLine="true"
             android:textColor="@color/white"
             android:textColorHint="@color/tranBlack"
             android:textCursorDrawable="@drawable/view_cursor"
@@ -54,13 +55,13 @@
                 android:src="@drawable/ic_location"/>
 
             <TextView
+                android:id="@+id/find_center_locate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="25dp"
                 android:textColor="@color/white"
-                android:textSize="14sp"
-                android:text="定位城市"/>
+                android:textSize="14sp"/>
 
         </LinearLayout>
 
@@ -96,16 +97,63 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/find_center_res_empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:visibility="invisible">
 
+            <TextView
+                android:id="@+id/find_center_res_empty_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:text="Alright!"/>
 
+            <TextView
+                android:id="@+id/find_center_res_empty_info"
+                android:layout_below="@id/find_center_res_empty_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:textSize="16sp"
+                android:text="It appears there are no EF centers near you. But you can still amp up your English game with English Live.
 
-        </LinearLayout>
+Learn online with expert teachers, 24/7."/>
 
+            <Button
+                android:id="@+id/find_center_more"
+                android:layout_width="match_parent"
+                android:layout_height="57dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:textColor="@color/white"
+                android:text="LEARN MORE"
+                android:textSize="14sp"
+                android:background="@drawable/bg_rounded_corners_black"/>
 
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/find_center_res_centers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/find_center_res_cities"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible" />
 
     </FrameLayout>
 

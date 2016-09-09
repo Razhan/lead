@@ -33,6 +33,10 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
     TextView intro;
     @BindView(R.id.splash_indicator)
     TransmutableView indicator;
+    @BindView(R.id.splash_sign_up)
+    TextView signUp;
+    @BindView(R.id.splash_ef_center)
+    TextView center;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +52,21 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
     @Override
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+
+        setText();
         indicator.post(() -> indicator.startAnim());
+    }
+
+    private void setText() {
+        header.setText(getLocaleText("splash_header"));
+        title.setText(getLocaleText("splash_title"));
+
+        intro.setText(getLocaleText("splash_detail"));
+
+        center.setText(getLocaleText("splash_find_center"));
+        signUp.setText(getLocaleText("splash_create_account"));
+
+        indicator.setTitle(getLocaleText("splash_start"));
     }
 
     @NonNull
@@ -87,6 +105,7 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
 
     @Override
     public void afterInit() {
+        setText();
         indicator.startAnim();
         startBottomBarAnim(true, Constant.DEFAULT_ANIM_FULL_TIME);
     }

@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.transition.Slide;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import com.ef.newlead.presenter.VerificationPresenter;
 import com.ef.newlead.ui.view.VerificationView;
 import com.ef.newlead.ui.widget.DeletableEditText;
 import com.ef.newlead.ui.widget.CheckProgressView;
+import com.ef.newlead.util.KeyBoardVisibilityMonitor;
 import com.ef.newlead.util.SharedPreUtils;
 import com.ef.newlead.util.ViewUtils;
 
@@ -26,7 +28,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class NumberFragment extends BaseCollectInfoFragment<VerificationPresenter>
-        implements VerificationView {
+        implements VerificationView, KeyBoardVisibilityMonitor.KeyBoardStateListener {
 
     private final static String NUMBER_KEY = "phone_number";
 
@@ -45,6 +47,7 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
 
     private boolean clickable = false;
     private String phone_number;
+    private KeyBoardVisibilityMonitor.KeyBoardStateListener keyboardChangeListener;
 
     public static Fragment newInstance() {
         return new NumberFragment();
@@ -67,6 +70,23 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
         if (getArguments() != null) {
             phone_number = getArguments().getString(NUMBER_KEY, "");
         }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        KeyBoardVisibilityMonitor.assistActivity(getActivity(), this);
+    }
+
+    @Override
+    public void onKeyboardHidden() {
+        submit.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onKeyboardVisible() {
+        submit.setVisibility(View.GONE);
     }
 
     @Override

@@ -4,12 +4,13 @@ import android.content.Context;
 
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.Dialogue;
+import com.ef.newlead.ui.widget.recycleview.BasicRecyclerViewAdapter;
 import com.ef.newlead.ui.widget.recycleview.MultipleTypeRecyclerViewAdapter;
 import com.ef.newlead.ui.widget.recycleview.ViewHolder;
 
 import java.util.List;
 
-public class SummaryDialogueAdapter extends MultipleTypeRecyclerViewAdapter<Dialogue.DialogBean> {
+public class SummaryDialogueAdapter extends BasicRecyclerViewAdapter<Dialogue.DialogBean> {
 
     public SummaryDialogueAdapter(Context context, List<Dialogue.DialogBean> list) {
         super(context, list);

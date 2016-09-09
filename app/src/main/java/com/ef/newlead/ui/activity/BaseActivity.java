@@ -1,9 +1,14 @@
 package com.ef.newlead.ui.activity;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
@@ -15,6 +20,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -26,6 +32,8 @@ import com.ef.newlead.R;
 import com.ef.newlead.data.model.GradientColor;
 import com.ef.newlead.util.SystemText;
 import com.tbruyelle.rxpermissions.RxPermissions;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -255,6 +263,24 @@ public abstract class BaseActivity extends AppCompatActivity {
                         listener.permissionDenied();
                     }
                 });
+    }
+
+    protected boolean isIntentAvailable(Intent intent) {
+        final PackageManager packageManager = this.getPackageManager();
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent,
+                        PackageManager.MATCH_DEFAULT_ONLY);
+        return list.size() > 0;
+    }
+
+    @NonNull
+    protected Dialog getDialog(View bottomView) {
+        Dialog mBottomSheetDialog = new Dialog (this, R.style.DialogSheet);
+        mBottomSheetDialog.setContentView (bottomView);
+        mBottomSheetDialog.setCancelable (true);
+        mBottomSheetDialog.getWindow().setLayout (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        mBottomSheetDialog.getWindow().setGravity (Gravity.BOTTOM);
+
+        return mBottomSheetDialog;
     }
 
     public interface PermissionListener {

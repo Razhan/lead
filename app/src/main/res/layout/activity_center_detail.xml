@@ -20,16 +20,127 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="vertical">
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="56dp"
+                android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/center_detail_pic"
                     android:layout_width="match_parent"
-                    android:layout_height="966dp"
+                    android:layout_height="166dp"
                     android:src="@android:color/darker_gray"/>
+
+                <LinearLayout
+                    android:id="@+id/center_detail_place"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="19dp"
+                    android:paddingBottom="19dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:src="@drawable/ic_place"/>
+
+                    <TextView
+                        android:id="@+id/center_detail_place_text"
+                        android:layout_width="221dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:textSize="15sp"
+                        android:textColor="@android:color/black"
+                        android:text="上海市浦东新区浦东南路999号新梅联合广场3楼301-305室"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/center_detail_tel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="19dp"
+                    android:paddingBottom="19dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:src="@drawable/ic_telephone"/>
+
+                    <TextView
+                        android:id="@+id/center_detail_tel_text"
+                        android:layout_width="221dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:textSize="15sp"
+                        android:textColor="@android:color/black"
+                        android:text="4006567890, 8006567890"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/center_detail_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="19dp"
+                    android:paddingBottom="19dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:src="@drawable/ic_clock"/>
+
+                    <TextView
+                        android:id="@+id/center_detail_time_text"
+                        android:layout_width="221dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:textSize="15sp"
+                        android:textColor="@android:color/black"
+                        android:text="每日10:00 - 22:00"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/center_detail_bus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="19dp"
+                    android:paddingBottom="19dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:src="@drawable/ic_bus"/>
+
+                    <TextView
+                        android:id="@+id/center_detail_bus_text"
+                        android:layout_width="221dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:textSize="15sp"
+                        android:textColor="@android:color/black"
+                        android:text="3号线石牌桥站A出口，1号线体育中心站A出口"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"/>
 
             </LinearLayout>
 
@@ -53,41 +164,53 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/dialogue_start"
+                android:id="@+id/center_detail_book"
                 android:layout_width="match_parent"
                 android:layout_height="57dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginStart="30dp"
-                android:background="@drawable/bg_rounded_corners_black"
+                android:background="@drawable/bg_rounded_corners_white"
                 android:foreground="?attr/selectableItemBackground"
-                android:text="开始挑战"
+                android:text="BOOK A SESSION"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
-            <Button
-                android:id="@+id/dialogue_continue"
+            <RelativeLayout
+                android:id="@+id/center_detail_mark_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="57dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/bg_rounded_corners_stroke_black"
-                android:foreground="?attr/selectableItemBackground"
-                android:text="开始练习"
-                android:textAllCaps="true"
-                android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:background="@drawable/bg_rounded_corners_black"
+                android:foreground="?attr/selectableItemBackground">
+
+                <TextView
+                    android:id="@+id/center_detail_mark_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:text="MARK MY CENTER"/>
+
+                <ImageView
+                    android:id="@+id/center_detail_mark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="18dp"
+                    android:src="@drawable/ic_mark"
+                    android:visibility="invisible"/>
+
+            </RelativeLayout>
 
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
-
-
-
-
-
-
-
 
 </android.support.design.widget.CoordinatorLayout>

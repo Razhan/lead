@@ -11,6 +11,7 @@ import com.ef.newlead.domain.usecase.UseCase;
 import com.ef.newlead.ui.view.SplashView;
 import com.ef.newlead.util.FileUtils;
 import com.ef.newlead.util.SharedPreUtils;
+import com.ef.newlead.util.SystemText;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -90,7 +91,14 @@ public class SplashPresenter extends Presenter<SplashView> {
                 .useCaseArgs(url)
                 .onSuccess(responseBody -> {
                     if (saveFile(responseBody)) {
-                        SharedPreUtils.putString(Constant.RESOURCE_HASH, hash);
+                        try {
+                            FileUtils.unzip(FileUtils.getInternalFolderPath(context, null),
+                                    Constant.RESOURCE_ZIP_FILE_NAME);
+                            SharedPreUtils.putString(Constant.RESOURCE_HASH, hash);
+                            SystemText.init(context);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                     InitCompleted();
                 })

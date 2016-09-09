@@ -263,7 +263,6 @@ public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresen
             onLocationError(presenter.getLocationErrorMsg());
         }
         submit.setVisibility(destCity != null ? View.VISIBLE : View.GONE);
-
     }
 
     private void clearCityList() {

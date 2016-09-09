@@ -8,20 +8,6 @@
   "level_select_title": "Help us get you the right lessons",
   "level_select_subtitle": "Select your level",
   "level_button_continue": "DONE，让我们开始吧",
-  "level_select_gradient_color": {
-    "top_gradient": {
-      "r": 51,
-      "g": 187,
-      "b": 235,
-      "a": 255
-    },
-    "bottom_gradient": {
-      "r": 47,
-      "g": 209,
-      "b": 214,
-      "a": 255
-    }
-  },
   "level_select": [
     {
       "id": "0",
@@ -93,34 +79,6 @@
   ],
   "age_select_title": "May I Know Your Age?",
   "age_select_next": "NEXT",
-  "age_select_gradient_color": {
-    "top_gradient": {
-      "r": 121,
-      "g": 220,
-      "b": 144,
-      "a": 255
-    },
-    "bottom_gradient": {
-      "r": 91,
-      "g": 217,
-      "b": 191,
-      "a": 255
-    }
-  },
-  "purpose_select_gradient_color": {
-    "top_gradient": {
-      "r": 247,
-      "g": 108,
-      "b": 28,
-      "a": 255
-    },
-    "bottom_gradient": {
-      "r": 255,
-      "g": 177,
-      "b": 45,
-      "a": 255
-    }
-  },
   "purpose_select_title": "你想学商务英语还是旅游英语？",
   "purpose_select_next": "继续",
   "purpose_tip_label": "拖曳并选择",
@@ -146,20 +104,6 @@
       "text": "我太爱<b>旅游</b>了,\n我想去世界各地走走。"
     }
   ],
-  "city_select_gradient_color": {
-    "top_gradient": {
-      "r": 139,
-      "g": 109,
-      "b": 178,
-      "a": 255
-    },
-    "bottom_gradient": {
-      "r": 200,
-      "g": 109,
-      "b": 215,
-      "a": 255
-    }
-  },
   "city_select_top_label": "你来自于..?",
   "city_select_placeholder": "城市名、拼音",
   "city_select_locate": "定位城市",
@@ -169,93 +113,81 @@
   "city_not_found": "未找到结果",
   "info_collection_next": "继续",
   "info_collection_submit": "提交",
-  "info_color_gradients": [
-    {
-      "top_gradient": {
-        "r": 78,
-        "g": 218,
-        "b": 111,
-        "a": 255
+  "info_color_gradients" : [ { "bottom_gradient" : { "a" : 255,
+            "b" : 214,
+            "g" : 209,
+            "r" : 47
+          },
+        "order" : 0,
+        "top_gradient" : { "a" : 255,
+            "b" : 235,
+            "g" : 187,
+            "r" : 51
+          }
       },
-      "bottom_gradient": {
-        "r": 54,
-        "g": 218,
-        "b": 184,
-        "a": 255
+      { "bottom_gradient" : { "a" : 255,
+            "b" : 214,
+            "g" : 209,
+            "r" : 47
+          },
+        "order" : 1,
+        "top_gradient" : { "a" : 255,
+            "b" : 235,
+            "g" : 187,
+            "r" : 51
+          }
       },
-      "order": 0
-    },
-    {
-      "top_gradient": {
-        "r": 248,
-        "g": 193,
-        "b": 68,
-        "a": 255
+      { "bottom_gradient" : { "a" : 255,
+            "b" : 214,
+            "g" : 209,
+            "r" : 47
+          },
+        "order" : 2,
+        "top_gradient" : { "a" : 255,
+            "b" : 235,
+            "g" : 187,
+            "r" : 51
+          }
       },
-      "bottom_gradient": {
-        "r": 246,
-        "g": 111,
-        "b": 159,
-        "a": 255
+      { "bottom_gradient" : { "a" : 255,
+            "b" : 214,
+            "g" : 209,
+            "r" : 47
+          },
+        "order" : 3,
+        "top_gradient" : { "a" : 255,
+            "b" : 235,
+            "g" : 187,
+            "r" : 51
+          }
       },
-      "order": 1
-    },
-    {
-      "top_gradient": {
-        "r": 51,
-        "g": 187,
-        "b": 235,
-        "a": 255
-      },
-      "bottom_gradient": {
-        "r": 47,
-        "g": 209,
-        "b": 214,
-        "a": 255
-      },
-      "order": 2
-    },
-    {
-      "top_gradient": {
-        "r": 255,
-        "g": 97,
-        "b": 0,
-        "a": 255
-      },
-      "bottom_gradient": {
-        "r": 235,
-        "g": 106,
-        "b": 152,
-        "a": 255
-      },
-      "order": 3
-    },
-    {
-      "top_gradient": {
-        "r": 139,
-        "g": 109,
-        "b": 178,
-        "a": 255
-      },
-      "bottom_gradient": {
-        "r": 200,
-        "g": 109,
-        "b": 215,
-        "a": 255
-      },
-      "order": 4
-    }
-  ],
+      { "bottom_gradient" : { "a" : 255,
+            "b" : 214,
+            "g" : 209,
+            "r" : 47
+          },
+        "order" : 4,
+        "top_gradient" : { "a" : 255,
+            "b" : 235,
+            "g" : 187,
+            "r" : 51
+          }
+      }
+    ],
   "phone_select_title": "可以留下你的手机号吗?",
   "phone_select_subtitle_1": "码会以验证您的手机号码发送到您的",
   "phone_select_subtitle_2": "你的代码是在它的方式",
   "phone_select_subtitle_3": "代码已经发送给您。",
   "phone_select_subtitle_4": "不好了！似乎编码是错误的",
   "phone_select_phone_placeholder": "输入手机号",
+  "phone_select_action_getcode": "获取验证码",
   "phone_select_action_submit": "提交",
   "phone_select_action_retry": "重新获取",
   "phone_select_next": "NEXT",
-  "phone_select_gradient_color": {
+  "name_select_firstName_placeholder": "first Name",
+  "name_select_lastName_placeholder": "last Name",
+  "name_select_next": "NEXT",
+  "name_select_gradient_color": {
     "top_gradient": {
       "r": 248,
       "g": 193,

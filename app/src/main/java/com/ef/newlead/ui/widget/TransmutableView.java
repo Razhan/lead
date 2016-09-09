@@ -168,14 +168,8 @@ public class TransmutableView extends View {
         } else {
             float baseline = (mRectF.bottom + mRectF.top - fontMetrics.bottom - fontMetrics.top) / 2;
 
-            if (mProgress > 0.80f && mProgress <= 0.85f) {
-                canvas.drawText("点", cx, baseline, mFontPaint);
-            } else if (mProgress > 0.85f && mProgress <= 0.90f) {
-                canvas.drawText("点击", cx, baseline, mFontPaint);
-            } else if (mProgress > 0.90f && mProgress <= 0.95f) {
-                canvas.drawText("点击开", cx, baseline, mFontPaint);
-            } else if (mProgress > 0.95f && mProgress <= 1.0f) {
-                canvas.drawText("点击开始", cx, baseline, mFontPaint);
+            if (mProgress > 0.80f) {
+                canvas.drawText(mTitleText, cx, baseline, mFontPaint);
             }
 
             canvas.drawArc(mRectF, 90, -180, false, mPaint);
@@ -257,5 +251,9 @@ public class TransmutableView extends View {
 
     public int getState() {
         return mState;
+    }
+
+    public void setTitle(String mTitleText) {
+        this.mTitleText = mTitleText;
     }
 }

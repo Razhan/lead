@@ -12,19 +12,6 @@ import rx.Observable;
 
 public class InitializationUseCase extends UseCase {
 
-    public Observable<Boolean> unzip(String targetDirectory, String zipFile) {
-        return Observable.create(subscriber -> {
-                    try {
-                        FileUtils.unzip(targetDirectory, zipFile);
-                        subscriber.onNext(true);
-                        subscriber.onCompleted();
-                    } catch (Exception e) {
-                        subscriber.onError(e);
-                    }
-                }
-        );
-    }
-
     @UseCaseMethod(name = "Download")
     public Observable<ResponseBody> getResourceFile(String url) {
         return repository.downloadFile(url);

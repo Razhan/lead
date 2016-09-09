@@ -1,0 +1,157 @@
+{
+    "id": "airport_dialogue",
+    "title": "The Airport",
+    "title-zh-cn": "飞机场",
+    "video": {
+        "media": "airport_dialogue.mp4",
+        "thumb": "airport_dialogue.png",
+        "ratio": 1.6580310880829
+    },
+    "users": [
+              {
+              "id": "man1",
+              "avatar": ""
+              },
+              {
+              "id": "man2",
+              "avatar": ""
+              }
+              ],
+    "dialogs": [
+                [
+                 {"user": "man1",
+                 "startTime": 3.207,
+                 "endTime": 7.500,
+                 "text": "Good afternoon. Where are you flying today?",
+                 "text-zh-cn": "先生，你还好么？"
+                 },
+                 {"user": "man2",
+                 "startTime": 5.965,
+                 "endTime": 7.500,
+                 "text": "I am flying to Stockholm",
+                 "text-zh-cn": "我很好，谢谢。"
+                 }],
+                [
+                 {"user": "man1",
+                 "startTime": 7.747,
+                 "endTime": 19.000,
+                 "text": "May I see your passport, please?",
+                 "text-zh-cn": "再见"
+                 },
+                 {"user": "man2",
+                 "startTime": 9.381,
+                 "endTime": 19.000,
+                 "text": "Yes… Here you are",
+                 "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+                 },
+                 {"user": "man2",
+                 "startTime": 15.759,
+                 "endTime": 19.000,
+                 "text": "Do you need to see my boarding pass?",
+                 "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+                 }],
+                [
+                 {"user": "man1",
+                 "startTime": 19.440,
+                 "endTime": 35.000,
+                 "text": "Ah, no I don't",
+                 "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+                 },
+                 {"user": "man1",
+                 "startTime": 26.333,
+                 "endTime": 35.000,
+                 "text": "Unfortunately your flight has been delayed. It's now scheduled to depart at 6pm",
+                 "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+                 },
+                 {"user": "man2",
+                 "startTime": 32.754,
+                 "endTime": 35.000,
+                 "text": "Oh well, that's not too bad",
+                 "text-zh-cn": "晚安"
+                 }],
+                [
+                 {"user": "man1",
+                 "startTime": 35.449,
+                 "endTime": 37.000,
+                 "text": "I'm sorry for any inconvenience",
+                 "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+                 },
+                 {"user": "man2",
+                 "startTime": 37.497,
+                 "endTime": 38.500,
+                 "text": "That's okay",
+                 "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+                 }],
+                [
+                 {"user": "man1",
+                 "startTime": 38.999,
+                 "endTime": 47.300,
+                 "text": "Are you checking any bags today?",
+                 "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+                 },
+                 {"user": "man2",
+                 "startTime": 41.994,
+                 "endTime": 47.300,
+                 "text": "Yes, I have one bag to check, and one bag to carry on",
+                 "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+                 }],
+                [
+                 {"user": "man1",
+                 "startTime": 47.821,
+                 "endTime": 53.700,
+                 "text": "Have you left your bags unattended at any time?",
+                 "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+                 },
+                 {"user": "man2",
+                 "startTime": 50.987,
+                 "endTime": 53.700,
+                 "text": "No, I've always had my bags with me",
+                 "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+                 }],
+                [
+                 {"user": "man1",
+                 "startTime": 47.821,
+                 "endTime": 72.500,
+                 "text": "Okay, that's good",
+                 "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+                 },
+                 {"user": "man1",
+                 "startTime": 60.516,
+                 "endTime": 72.500,
+                 "text": "Right now you have a middle seat, would you prefer a window seat or an isle seat?",
+                 "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+                 },
+                 {"user": "man2",
+                 "startTime": 66.009,
+                 "endTime": 72.500,
+                 "text": "Ehm, an isle seat please",
+                 "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+                 }],
+                [
+                 {"user": "man1",
+                 "startTime": 72.990,
+                 "endTime": 78.000,
+                 "text": "Okay, here's your new boarding pass and your baggage claim",
+                 "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+                 },
+                 {"user": "man2",
+                 "startTime": 77.453,
+                 "endTime": 78.000,
+                 "text": "Thanks",
+                 "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+                 }],
+                [
+                 {"user": "man1",
+                 "startTime": 68.542,
+                 "endTime": 90.000,
+                 "text": "Go through security, and your flight to Stockholm will depart from gate B25. The flight boards at 5.30",
+                 "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+                 },
+                 {"user": "man2",
+                 "startTime": 86.333,
+                 "endTime": 90.000,
+                 "text": "Gate B25, okay, thank you",
+                 "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+                 }]
+                ]
+}

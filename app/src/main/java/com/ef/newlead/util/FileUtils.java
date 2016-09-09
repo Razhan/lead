@@ -119,6 +119,8 @@ public final class FileUtils {
                     fout.close();
                 }
             }
+
+            zip.delete();
         } finally {
             zis.close();
         }

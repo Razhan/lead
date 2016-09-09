@@ -141,9 +141,12 @@ public class FindCenterActivity extends BaseActivity {
         centerAdapter = new CenterAdapter(this, centerList);
         centerAdapter.setClickListener((view, pos, item) ->{
             Intent i = new Intent(this, CenterDetailActivity.class);
-            View sharedView = view.findViewById(R.id.center_pic);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(CenterDetailActivity.SELECTED_CENTER, item);
+            i.putExtras(bundle);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                View sharedView = view.findViewById(R.id.center_pic);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, sharedView, "shared_pic");
                 startActivity(i, options.toBundle());
             } else {

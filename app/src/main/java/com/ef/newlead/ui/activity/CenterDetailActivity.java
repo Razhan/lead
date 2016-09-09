@@ -18,15 +18,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ef.newlead.R;
+import com.ef.newlead.data.model.Center;
 import com.ef.newlead.ui.adapter.TelNumberAdapter;
+import com.google.gson.FieldAttributes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class CenterDetailActivity extends BaseActivity {
+
+    public final static String SELECTED_CENTER = "selectedCenter";
 
     @BindView(R.id.center_detail_pic)
     ImageView pic;
@@ -54,6 +59,7 @@ public class CenterDetailActivity extends BaseActivity {
     RelativeLayout markWrapper;
 
     private Dialog bottomDialog;
+    private Center mCenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,26 +79,35 @@ public class CenterDetailActivity extends BaseActivity {
 
     @Override
     protected String setToolBarText() {
-        return "徐家汇中心";
+        return mCenter.getSchoolName();
     }
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        initData();
         super.initView(savedInstanceState);
 
         book.getBackground().setColorFilter(Color.parseColor("#0078ff"), PorterDuff.Mode.MULTIPLY);
-        initBottomDialog();
+        placeText.setText(mCenter.getAddress());
+        telText.setText(mCenter.getPhones());
+        timeText.setText(mCenter.getOpenTime());
+        busText.setText(mCenter.getTraffic());
+
+        if (mCenter.getPhones().split(", ").length > 1) {
+            initBottomDialog();
+        }
+    }
+
+    private void initData() {
+        mCenter = (Center)getIntent().getExtras().getSerializable(SELECTED_CENTER);
     }
 
     private void initBottomDialog() {
         View bottomView = getLayoutInflater().inflate(R.layout.view_bottom_center, null);
         RecyclerView list = (RecyclerView) bottomView.findViewById(R.id.center_tel_list);
 
-        List<String> tels = new ArrayList<>();
-        tels.add("1111111");
-        tels.add("2222222");
-
-        TelNumberAdapter mAdapter = new TelNumberAdapter(this, tels);
+        String[] tels = mCenter.getPhones().split(", ");
+        TelNumberAdapter mAdapter = new TelNumberAdapter(this, Arrays.asList(tels));
 
         mAdapter.setClickListener((view, pos, item) -> {
             Uri uri = Uri.parse("tel:" + item);
@@ -110,10 +125,12 @@ public class CenterDetailActivity extends BaseActivity {
 
     @OnClick({R.id.center_detail_place, R.id.center_detail_tel, R.id.center_detail_time, R.id.center_detail_book, R.id.center_detail_mark_wrapper})
     public void onClick(View view) {
+        Uri uri;
+        Intent i;
         switch (view.getId()) {
             case R.id.center_detail_place:
-                Uri uri = Uri.parse("geo:22.9621107600,113.9826665700");
-                Intent i = new Intent(Intent.ACTION_VIEW,uri);
+                uri = Uri.parse("geo:22.9621107600,113.9826665700");
+                i = new Intent(Intent.ACTION_VIEW,uri);
                 if (isIntentAvailable(i)) {
                     startActivity(i);
                 } else {
@@ -123,6 +140,10 @@ public class CenterDetailActivity extends BaseActivity {
             case R.id.center_detail_tel:
                 if (bottomDialog != null) {
                     bottomDialog.show();
+                } else {
+                    uri = Uri.parse("tel:" + mCenter.getPhones());
+                    i = new Intent(Intent.ACTION_DIAL, uri);
+                    startActivity(i);
                 }
                 break;
             case R.id.center_detail_book:

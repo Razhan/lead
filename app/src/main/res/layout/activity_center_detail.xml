@@ -57,8 +57,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:textSize="15sp"
-                        android:textColor="@android:color/black"
-                        android:text="上海市浦东新区浦东南路999号新梅联合广场3楼301-305室"/>
+                        android:textColor="@android:color/black"/>
 
                 </LinearLayout>
 
@@ -83,8 +82,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:textSize="15sp"
-                        android:textColor="@android:color/black"
-                        android:text="4006567890, 8006567890"/>
+                        android:textColor="@android:color/black"/>
 
                 </LinearLayout>
 
@@ -109,8 +107,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:textSize="15sp"
-                        android:textColor="@android:color/black"
-                        android:text="每日10:00 - 22:00"/>
+                        android:textColor="@android:color/black"/>
 
                 </LinearLayout>
 
@@ -135,8 +132,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:textSize="15sp"
-                        android:textColor="@android:color/black"
-                        android:text="3号线石牌桥站A出口，1号线体育中心站A出口"/>
+                        android:textColor="@android:color/black"/>
 
                 </LinearLayout>
 

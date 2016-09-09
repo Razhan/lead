@@ -2,7 +2,9 @@ package com.ef.newlead.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Center implements Comparable<Center> {
+import java.io.Serializable;
+
+public class Center implements Comparable<Center>, Serializable {
 
     private int id;
 
@@ -14,18 +16,18 @@ public class Center implements Comparable<Center> {
 
     private int order;
 
-    @SerializedName("school_name_zh_cn")
+    @SerializedName("school_name-zh-cn")
     private String schoolName;
 
-    @SerializedName("address_zh_cn")
+    @SerializedName("address-zh-cn")
     private String address;
 
     private String phones;
 
-    @SerializedName("open_time_zh_cn")
+    @SerializedName("open_time-zh-cn")
     private String openTime;
 
-    @SerializedName("traffic_zh_cn")
+    @SerializedName("traffic-zh-cn")
     private String traffic;
 
     private String coordinates;

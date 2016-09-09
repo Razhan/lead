@@ -26,23 +26,19 @@ import com.devbrackets.android.exomedia.core.video.scale.ScaleType;
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
-import com.ef.newlead.data.model.Dialogue;
+import com.ef.newlead.data.model.ActivityTemplate;
 import com.ef.newlead.data.model.GradientColor;
 import com.ef.newlead.presenter.VideoPresenter;
 import com.ef.newlead.ui.adapter.VideoDialogueAdapter;
 import com.ef.newlead.ui.view.VideoView;
 import com.ef.newlead.ui.widget.AutoSizeVideoView;
-import com.ef.newlead.ui.widget.ColorfulProgressBar;
 import com.ef.newlead.ui.widget.CheckProgressView;
+import com.ef.newlead.ui.widget.ColorfulProgressBar;
 import com.ef.newlead.ui.widget.SlideAnimator;
 import com.ef.newlead.ui.widget.SmoothScrollLayoutManager;
 import com.ef.newlead.ui.widget.VideoControlLayout;
-import com.ef.newlead.util.FileUtils;
 import com.ef.newlead.util.ViewUtils;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,7 +82,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
 
     private VideoDialogueAdapter mAdapter;
 
-    private Dialogue dialogue;
+    //private ActivityTemplate activityTemplate;
     private List<Double> timestamps;
     private float duration;
     private int dialogueIndex = 0;
@@ -129,9 +125,9 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
         video.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                if (dialogue != null) {
+                if (presenter != null) {
                     // resize the video, respecting the given aspect ratio
-                    video.getLayoutParams().height = (int) (video.getWidth() / dialogue.getVideo().getRatio());
+                    video.getLayoutParams().height = (int) (video.getWidth() / presenter.getVideoRatio());
                     video.requestLayout();
 
                     video.getViewTreeObserver().removeOnGlobalLayoutListener(this);
@@ -163,27 +159,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
     }
 
     private void initData() {
-//        String dialogueStr = getLocaleText("dialogue_example");
-//        dialogue = new Gson().fromJson(dialogueStr,
-//                new TypeToken<Dialogue>() {
-//                }.getType());
-
-        Type type = new TypeToken<Dialogue>() {
-        }.getType();
-
-        dialogue = FileUtils.readObjectFromAssertFile(this, "airport_dialogue.json", type);
-
-        timestamps = new ArrayList<>();
-
-        for (List<Dialogue.DialogBean> beans : dialogue.getDialogs()) {
-            if (beans == null) {
-                break;
-            }
-
-            for (Dialogue.DialogBean bean : beans) {
-                timestamps.add(bean.getStartTime());
-            }
-        }
+        timestamps = presenter.getTimeStamps();
     }
 
     protected void initVideoComponent() {
@@ -209,9 +185,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
             video.postDelayed(this::toDialogueList, 500);
         });
 
-        // for testing only
-        Uri uri = Uri.parse("file:///android_asset/test.mp4");
-        video.setVideoURI(uri);
+        video.setVideoURI(presenter.getVideo());
     }
 
     private void initRecyclerView() {
@@ -313,12 +287,12 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
     public void onUpdate(float progress) {
         this.progress.setProgress(progress);
 
-        if (dialogueIndex >= dialogue.getDialogs().size()) {
+        if (dialogueIndex >= presenter.getDialogSize()) {
             return;
         }
 
-        List<Dialogue.DialogBean> beans = dialogue.getDialogs().get(dialogueIndex);
-        Dialogue.DialogBean bean = beans.get(stepIndex);
+        List<ActivityTemplate.DialogBean> beans = presenter.getDialogsByIndex(dialogueIndex);
+        ActivityTemplate.DialogBean bean = beans.get(stepIndex);
 
         if (duration * progress >= (float) bean.getStartTime()) {
             mAdapter.add(mAdapter.getItemCount(), bean);
@@ -327,7 +301,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
             stepIndex++;
 
             if (stepIndex == beans.size()) {
-                Dialogue.DialogBean lastBean = beans.get(beans.size() - 1);
+                ActivityTemplate.DialogBean lastBean = beans.get(beans.size() - 1);
 
                 new Handler().postDelayed(() -> mAdapter.removeAll(),
                         (long) (lastBean.getEndTime() - lastBean.getStartTime()) * 1000);
@@ -404,24 +378,8 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
 
     private void toDialogueList() {
         Intent i = new Intent(this, DialogueListActivity.class);
-        i.putParcelableArrayListExtra(DialogueListActivity.DIALOGUE_KEY, getAllDialogueBeans());
+        i.putParcelableArrayListExtra(DialogueListActivity.DIALOGUE_KEY, new ArrayList<>(presenter.getAllDialogueBeans()));
         startActivity(i);
-    }
-
-    private ArrayList<Dialogue.DialogBean> getAllDialogueBeans() {
-        ArrayList<Dialogue.DialogBean> allBeans = new ArrayList<>();
-
-        for (List<Dialogue.DialogBean> beans : dialogue.getDialogs()) {
-            if (beans == null) {
-                break;
-            }
-
-            for (Dialogue.DialogBean bean : beans) {
-                allBeans.add(bean);
-            }
-        }
-
-        return allBeans;
     }
 
     @Override

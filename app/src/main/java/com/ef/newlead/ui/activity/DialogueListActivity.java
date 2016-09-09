@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.ef.newlead.R;
-import com.ef.newlead.data.model.Dialogue;
+import com.ef.newlead.data.model.ActivityTemplate;
 import com.ef.newlead.data.model.GradientColor;
 import com.ef.newlead.ui.adapter.SummaryDialogueAdapter;
 import com.ef.newlead.util.ViewUtils;
@@ -33,7 +33,7 @@ public class DialogueListActivity extends BaseActivity {
 
     private boolean favored = false;
     private GradientColor gradientColor;
-    private List<Dialogue.DialogBean> allDialogBeans;
+    private List<ActivityTemplate.DialogBean> allDialogBeans;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

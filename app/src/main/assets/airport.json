@@ -1,0 +1,608 @@
+{
+  "id": "airport_lesson",
+  "title": "The Airport",
+  "title-zh-cn": "飞机场",
+  "activities": [
+    {
+      "id": "airport_dialogue",
+      "type": "DIALOG",
+      "title": "The Airport",
+      "title-zh-cn": "飞机场",
+      "video": {
+        "media": "airport_dialogue.mp4",
+        "thumb": "airport_dialogue.png",
+        "ratio": 1.6580310880829
+      },
+      "users": [
+        {
+          "id": "man1",
+          "avatar": "avatar-left.jpg"
+        },
+        {
+          "id": "man2",
+          "avatar": "avatar-right.jpg"
+        }
+      ],
+      "dialogs": [
+        [
+          {
+            "user": "man1",
+            "startTime": 3.207,
+            "endTime": 5.500,
+            "text": "Good afternoon. Where are you flying today?",
+            "text-zh-cn": "先生，你还好么？"
+          },
+          {
+            "user": "man2",
+            "startTime": 5.965,
+            "endTime": 7.500,
+            "text": "I am flying to Stockholm",
+            "text-zh-cn": "我很好，谢谢。"
+          }
+        ],
+        [
+          {
+            "user": "man1",
+            "startTime": 7.747,
+            "endTime": 8.800,
+            "text": "May I see your passport, please?",
+            "text-zh-cn": "再见"
+          },
+          {
+            "user": "man2",
+            "startTime": 9.381,
+            "endTime": 19.000,
+            "text": "Yes… Here you are. Do you need to see my boarding pass?",
+            "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+          }
+        ],
+        [
+          {
+            "user": "man1",
+            "startTime": 19.440,
+            "endTime": 32.200,
+            "text": "Ah, no I don't. Unfortunately your flight has been delayed. It's now scheduled to depart at 6pm",
+            "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+          },
+          {
+            "user": "man2",
+            "startTime": 32.754,
+            "endTime": 35.000,
+            "text": "Oh well, that's not too bad",
+            "text-zh-cn": "晚安"
+          }
+        ],
+        [
+          {
+            "user": "man1",
+            "startTime": 35.449,
+            "endTime": 37.000,
+            "text": "I'm sorry for any inconvenience",
+            "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+          },
+          {
+            "user": "man2",
+            "startTime": 37.497,
+            "endTime": 38.500,
+            "text": "That's okay",
+            "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+          }
+        ],
+        [
+          {
+            "user": "man1",
+            "startTime": 38.999,
+            "endTime": 41.500,
+            "text": "Are you checking any bags today?",
+            "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+          },
+          {
+            "user": "man2",
+            "startTime": 41.994,
+            "endTime": 47.300,
+            "text": "Yes, I have one bag to check, and one bag to carry on",
+            "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+          }
+        ],
+        [
+          {
+            "user": "man1",
+            "startTime": 47.821,
+            "endTime": 50.500,
+            "text": "Have you left your bags unattended at any time?",
+            "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+          },
+          {
+            "user": "man2",
+            "startTime": 50.987,
+            "endTime": 53.700,
+            "text": "No, I've always had my bags with me",
+            "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+          }
+        ],
+        [
+          {
+            "user": "man1",
+            "startTime": 54.124,
+            "endTime": 60.000,
+            "text": "Okay, that's good",
+            "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+          },
+          {
+            "user": "man1",
+            "startTime": 60.516,
+            "endTime": 65.500,
+            "text": "Right now you have a middle seat, would you prefer a window seat or an isle seat?",
+            "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+          },
+          {
+            "user": "man2",
+            "startTime": 66.009,
+            "endTime": 72.500,
+            "text": "Ehm, an isle seat please",
+            "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+          }
+        ],
+        [
+          {
+            "user": "man1",
+            "startTime": 72.990,
+            "endTime": 77.000,
+            "text": "Okay, here's your new boarding pass and your baggage claim",
+            "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+          },
+          {
+            "user": "man2",
+            "startTime": 77.453,
+            "endTime": 78.000,
+            "text": "Thanks",
+            "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+          }
+        ],
+        [
+          {
+            "user": "man1",
+            "startTime": 78.542,
+            "endTime": 85.800,
+            "text": "Go through security, and your flight to Stockholm will depart from gate B25. The flight boards at 5.30",
+            "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+          },
+          {
+            "user": "man2",
+            "startTime": 86.333,
+            "endTime": 90.000,
+            "text": "Gate B25, okay, thank you",
+            "text-zh-cn": "晚安，我会在明天见你和你的家人。晚安，我会在明天见你和你的家人"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "airport_roleplay",
+      "type": "ROLEPLAY",
+      "title": "The Airport",
+      "title-zh-cn": "飞机场",
+      "video": {
+        "media": "airport_roleplay.mp4",
+        "thumb": "airport_roleplay.png",
+        "ratio": 1.6580310880829
+      },
+      "roleplay": [
+        [
+          {
+            "id": "sentence1",
+            "startTime": 5.965,
+            "duration": 30,
+            "sentence": "I am flying to Stockholm",
+            "asr": {
+              "dictionary": [
+                "DKEFR  AY",
+                "LKATZ  T AH",
+                "LKATZ  T IH",
+                "LKATZ  T UH",
+                "LKATZ  T UW",
+                "NGYTK  S T AA K HH OW L M",
+                "TQLOC  F L AY IH NG",
+                "VZPNP  AE M",
+                "VZPNP  EY EH M"
+              ],
+              "keys": "DKEFR VZPNP TQLOC LKATZ NGYTK",
+              "phonems": [
+                [
+                  "AY"
+                ],
+                [
+                  "AE M",
+                  "EY EH M"
+                ],
+                [
+                  "F L AY IH NG"
+                ],
+                [
+                  "T AH",
+                  "T IH",
+                  "T UH",
+                  "T UW"
+                ],
+                [
+                  "S T AA K HH OW L M"
+                ]
+              ]
+            }
+          }
+        ],
+        [
+          {
+            "id": "sentence2",
+            "startTime": 9.381,
+            "duration": 30,
+            "sentence": "Yes… Here you are",
+            "asr": {
+              "dictionary": [
+                "ODRMJ  HH IH R",
+                "PNAHI  Y EH S",
+                "UBOTH  Y UW",
+                "YADCO  AA R",
+                "YADCO  ER"
+              ],
+              "keys": "PNAHI ODRMJ UBOTH YADCO",
+              "phonems": [
+                [
+                  "Y EH S"
+                ],
+                [
+                  "HH IH R"
+                ],
+                [
+                  "Y UW"
+                ],
+                [
+                  "AA R",
+                  "ER"
+                ]
+              ]
+            }
+          }
+        ],
+        [
+          {
+            "id": "sentence3",
+            "startTime": 15.759,
+            "duration": 30,
+            "sentence": "Do you need to see my boarding pass?",
+            "asr": {
+              "dictionary": [
+                "AQTPC  D UW",
+                "DKQIS  Y UW",
+                "GPXSD  P AE S",
+                "IKMQR  S IY",
+                "VBFKE  B AO R D IH NG",
+                "VNGGE  M AY",
+                "XPRIG  N IY D",
+                "YBCCK  T AH",
+                "YBCCK  T IH",
+                "YBCCK  T UH",
+                "YBCCK  T UW"
+              ],
+              "keys": "AQTPC DKQIS XPRIG YBCCK IKMQR VNGGE VBFKE GPXSD",
+              "phonems": [
+                [
+                  "D UW"
+                ],
+                [
+                  "Y UW"
+                ],
+                [
+                  "N IY D"
+                ],
+                [
+                  "T AH",
+                  "T IH",
+                  "T UH",
+                  "T UW"
+                ],
+                [
+                  "S IY"
+                ],
+                [
+                  "M AY"
+                ],
+                [
+                  "B AO R D IH NG"
+                ],
+                [
+                  "P AE S"
+                ]
+              ]
+            }
+          }
+        ],
+        [
+          {
+            "id": "sentence4",
+            "startTime": 32.754,
+            "duration": 30,
+            "sentence": "Oh well, that's not too bad",
+            "asr": {
+              "dictionary": [
+                "ABKXR  B AE D",
+                "AXUJQ  T UW",
+                "GUYIW  N AA T",
+                "JNPBY  OW",
+                "ONRPU  DH AE T S",
+                "UXYZJ  W EH L"
+              ],
+              "keys": "JNPBY UXYZJ ONRPU GUYIW AXUJQ ABKXR",
+              "phonems": [
+                [
+                  "OW"
+                ],
+                [
+                  "W EH L"
+                ],
+                [
+                  "DH AE T S"
+                ],
+                [
+                  "N AA T"
+                ],
+                [
+                  "T UW"
+                ],
+                [
+                  "B AE D"
+                ]
+              ]
+            }
+          }
+        ],
+        [
+          {
+            "id": "sentence5",
+            "startTime": 37.497,
+            "duration": 30,
+            "sentence": "That's okay",
+            "asr": {
+              "dictionary": [
+                "CVVUW  OW K EY",
+                "SAPPN  DH AE T S"
+              ],
+              "keys": "SAPPN CVVUW",
+              "phonems": [
+                [
+                  "DH AE T S"
+                ],
+                [
+                  "OW K EY"
+                ]
+              ]
+            }
+          }
+        ],
+        [
+          {
+            "id": "sentence6",
+            "startTime": 41.994,
+            "duration": 30,
+            "sentence": "Yes, I have one bag to check, and one bag to carry on",
+            "asr": {
+              "dictionary": [
+                "AENIG  AE N D",
+                "AENIG  AH N D",
+                "AQNRN  K AE R IY",
+                "AQNRN  K EH R IY",
+                "AYUUY  T AH",
+                "AYUUY  T IH",
+                "AYUUY  T UH",
+                "AYUUY  T UW",
+                "BDKEV  CH EH K",
+                "EKZYH  HH AE V",
+                "GSDST  B AE G",
+                "NNKKJ  T AH",
+                "NNKKJ  T IH",
+                "NNKKJ  T UH",
+                "NNKKJ  T UW",
+                "NNZHG  AY",
+                "PTDMT  Y EH S",
+                "RYVOH  W AH N",
+                "WUSJD  B AE G",
+                "YLSPZ  W AH N",
+                "ZGLUG  AA N",
+                "ZGLUG  AO N"
+              ],
+              "keys": "PTDMT NNZHG EKZYH YLSPZ GSDST NNKKJ BDKEV AENIG RYVOH WUSJD AYUUY AQNRN ZGLUG",
+              "phonems": [
+                [
+                  "Y EH S"
+                ],
+                [
+                  "AY"
+                ],
+                [
+                  "HH AE V"
+                ],
+                [
+                  "W AH N"
+                ],
+                [
+                  "B AE G"
+                ],
+                [
+                  "T AH",
+                  "T IH",
+                  "T UH",
+                  "T UW"
+                ],
+                [
+                  "CH EH K"
+                ],
+                [
+                  "AE N D",
+                  "AH N D"
+                ],
+                [
+                  "W AH N"
+                ],
+                [
+                  "B AE G"
+                ],
+                [
+                  "T AH",
+                  "T IH",
+                  "T UH",
+                  "T UW"
+                ],
+                [
+                  "K AE R IY",
+                  "K EH R IY"
+                ],
+                [
+                  "AA N",
+                  "AO N"
+                ]
+              ]
+            }
+          }
+        ],
+        [
+          {
+            "id": "sentence7",
+            "startTime": 50.987,
+            "duration": 30,
+            "sentence": "No, I've always had my bags with me",
+            "asr": {
+              "dictionary": [
+                "DDHSB  B AE G Z",
+                "DFZGT  AO L W EY Z",
+                "DFZGT  AO L W IY Z",
+                "EQZUC  N OW",
+                "LNBXO  AY V",
+                "NRDKZ  HH AE D",
+                "QTKXE  M AY",
+                "VTLDA  M IY",
+                "YPLGX  W IH DH",
+                "YPLGX  W IH TH"
+              ],
+              "keys": "EQZUC LNBXO DFZGT NRDKZ QTKXE DDHSB YPLGX VTLDA",
+              "phonems": [
+                [
+                  "N OW"
+                ],
+                [
+                  "AY V"
+                ],
+                [
+                  "AO L W EY Z",
+                  "AO L W IY Z"
+                ],
+                [
+                  "HH AE D"
+                ],
+                [
+                  "M AY"
+                ],
+                [
+                  "B AE G Z"
+                ],
+                [
+                  "W IH DH",
+                  "W IH TH"
+                ],
+                [
+                  "M IY"
+                ]
+              ]
+            }
+          }
+        ],
+        [
+          {
+            "id": "sentence8",
+            "startTime": 66.009,
+            "duration": 30,
+            "sentence": "An isle seat please",
+            "asr": {
+              "dictionary": [
+                "DFGWR  AY L",
+                "ESAPD  P L IY Z",
+                "KFTIV  AE N",
+                "KFTIV  AH N",
+                "VFESY  S IY T"
+              ],
+              "keys": "KFTIV DFGWR VFESY ESAPD",
+              "phonems": [
+                [
+                  "AE N",
+                  "AH N"
+                ],
+                [
+                  "AY L"
+                ],
+                [
+                  "S IY T"
+                ],
+                [
+                  "P L IY Z"
+                ]
+              ]
+            }
+          }
+        ],
+        [
+          {
+            "id": "sentence9",
+            "startTime": 77.453,
+            "duration": 30,
+            "sentence": "Thanks",
+            "asr": {
+              "dictionary": [
+                "IIAOX  TH AE NG K S"
+              ],
+              "keys": "IIAOX",
+              "phonems": [
+                [
+                  "TH AE NG K S"
+                ]
+              ]
+            }
+          }
+        ],
+        [
+          {
+            "id": "sentence10",
+            "startTime": 86.333,
+            "duration": 30,
+            "sentence": "Gate B25, okay, thank you",
+            "asr": {
+              "dictionary": [
+                "HOMUK  Y UW",
+                "RRIPQ  G EY T",
+                "VNEJG  B IY T UW   F AY V",
+                "VTCXJ  TH AE NG K",
+                "XLPHB  OW K EY"
+              ],
+              "keys": "RRIPQ VNEJG XLPHB VTCXJ HOMUK",
+              "phonems": [
+                [
+                  "G EY T"
+                ],
+                [
+                  "B IY T UW   F AY V"
+                ],
+                [
+                  "OW K EY"
+                ],
+                [
+                  "TH AE NG K"
+                ],
+                [
+                  "Y UW"
+                ]
+              ]
+            }
+          }
+        ]
+      ]
+    }
+  ]
+}

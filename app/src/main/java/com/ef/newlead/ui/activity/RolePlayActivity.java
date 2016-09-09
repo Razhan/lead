@@ -2,7 +2,6 @@ package com.ef.newlead.ui.activity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
@@ -20,20 +19,13 @@ import com.devbrackets.android.exomedia.core.video.scale.ScaleType;
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.ef.newlead.R;
 import com.ef.newlead.asr.DroidASRComponent;
-import com.ef.newlead.data.model.Dialogue;
+import com.ef.newlead.presenter.VideoRolePlayPresenter;
 import com.ef.newlead.ui.widget.ASRProgressView;
 import com.ef.newlead.ui.widget.AutoSizeVideoView;
 import com.ef.newlead.ui.widget.ColorfulProgressBar;
 import com.ef.newlead.ui.widget.MicrophoneVolumeView;
 import com.ef.newlead.ui.widget.VideoControlLayout;
-import com.ef.newlead.util.FileUtils;
-import com.google.common.base.Joiner;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -69,12 +61,9 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
     @BindView(R.id.microphone_volume)
     MicrophoneVolumeView microphoneView;
 
-    private DroidASRComponent asrComponent;
-
     private boolean isRestarted = false;
     protected boolean pausedInOnStop = false;
 
-    private Dialogue dialogue;
     private List<Double> timestamps;
     private float duration;
     private int stepIndex = 0;
@@ -84,10 +73,13 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
     private boolean timeOut = false;
     private boolean asrStarted = false;
 
+    private VideoRolePlayPresenter rolePlayPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         translucentStatusBar = true;
-        asrComponent = new DroidASRComponent();
+
+        rolePlayPresenter = new VideoRolePlayPresenter(this);
 
         super.onCreate(savedInstanceState);
     }
@@ -108,10 +100,11 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
         video.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                video.getLayoutParams().height = (int) (video.getWidth() / dialogue.getVideo().getRatio());
+                double videoRatio = rolePlayPresenter.getVideoRatio();
+                video.getLayoutParams().height = (int) (video.getWidth() / videoRatio);
                 video.requestLayout();
 
-                cover.getLayoutParams().height = (int) (video.getWidth() / dialogue.getVideo().getRatio());
+                cover.getLayoutParams().height = (int) (video.getWidth() / videoRatio);
                 cover.requestLayout();
 
                 video.getViewTreeObserver().removeOnGlobalLayoutListener(this);
@@ -123,7 +116,7 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
             public void onProgressEnd(float progress) {
                 recordCountingDown = false;
 
-                if (progress >= 1f){
+                if (progress >= 1f) {
                     timeOut = true;
 
                     if (!asrStarted) {
@@ -146,27 +139,7 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
     }
 
     private void initData() {
-//        String dialogueStr = getLocaleText("dialogue_example");
-//        dialogue = new Gson().fromJson(dialogueStr,
-//                new TypeToken<Dialogue>() {
-//                }.getType());
-
-        Type type = new TypeToken<Dialogue>() {
-        }.getType();
-
-        dialogue = FileUtils.readObjectFromAssertFile(this, "airport_dialogue.json", type);
-
-        timestamps = new ArrayList<>();
-
-        for (List<Dialogue.DialogBean> beans : dialogue.getDialogs()) {
-            if (beans == null) {
-                break;
-            }
-
-            for (Dialogue.DialogBean bean : beans) {
-                timestamps.add(bean.getStartTime());
-            }
-        }
+        timestamps = rolePlayPresenter.getTimeStamps();
     }
 
     protected void initVideoComponent() {
@@ -187,12 +160,12 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
 
                     videoProgress.reset();
                     stepIndex = 0;
+
+                    script.setText(" ");
                 }
         );
 
-        // for testing only
-        Uri uri = Uri.parse("file:///android_asset/test.mp4");
-        video.setVideoURI(uri);
+        video.setVideoURI(rolePlayPresenter.getVideo());
     }
 
     public void initAsrComponent() {
@@ -217,18 +190,9 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
                 }
         );
 
-        // testing sentence for "I'm fine. And you?" with options: {"Yes, she's great!", "Nice to meet you, too."}
-        asrComponent.setAsrWords(Joiner.on(" ").join(Arrays.asList("BVPRC", "UGNFA", "PIZNB", "JUHKF")));
-        asrComponent.setOptions(Arrays.asList(
-                Joiner.on(" ").join(Arrays.asList("BVPRC", "UGNFA", "PIZNB", "JUHKF")),
-                Joiner.on(" ").join(Arrays.asList("BYJWB", "ICGQA", "UDMEP")),
-                Joiner.on(" ").join(Arrays.asList("ZWGKN", "ZBPGW", "HXTZZ", "LRXBB", "YBCLD"))
-        ));
-        asrComponent.setDictionary("BVPRC  AY M\nJUHKF  Y UW\nPIZNB  AE N D\nPIZNB  AH N D\nUGNFA  F AY N\n"
-                + "BYJWB  Y EH S\nICGQA  SH IY S\nICGQA  SH IY Z\nUDMEP  G R EY T\n" +
-                "HXTZZ  M IY T\nLRXBB  Y UW\nYBCLD  T UW\nZBPGW  T AH\nZBPGW  T IH\nZBPGW  T UH\nZBPGW  T UW\nZWGKN  N AY S\n");
+        rolePlayPresenter.updateAsrData(stepIndex);
 
-        asrComponent.setResultListener(new DroidASRComponent.AsrResultListener() {
+        rolePlayPresenter.setAsrListener(new DroidASRComponent.AsrResultListener() {
             @Override
             public void onSucceed() {
                 onHandleAsrResult(true);
@@ -244,7 +208,11 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
                 microphoneView.setProportion(level);
             }
         });
+
+        script.setText(" ");
     }
+
+
 
     private void onHandleAsrResult(boolean successful) {
         runOnUiThread(() -> {
@@ -269,14 +237,15 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
 
         microphoneView.setVisibility(View.INVISIBLE);
         microphoneView.setProportion(0);
-        asrComponent.stopRecording();
+
+        rolePlayPresenter.stopRecording();
         asrStarted = false;
     }
 
     private void onRecordStart() {
         microphoneView.setVisibility(View.VISIBLE);
-        asrComponent.startRecording();
 
+        rolePlayPresenter.startRecording();
         asrStarted = true;
     }
 
@@ -359,7 +328,7 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
         super.onDestroy();
         video.release();
 
-        asrComponent.setResultListener(null);
+        rolePlayPresenter.setAsrListener(null);
     }
 
     @Override
@@ -393,7 +362,6 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
         this.videoProgress.setProgress(progress);
 
         if (stepIndex < timestamps.size() && duration * progress >= timestamps.get(stepIndex)) {
-            stepIndex++;
 
             video.pause();
             videoProgress.setVisibility(View.INVISIBLE);
@@ -401,6 +369,11 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
             replay.setVisibility(View.VISIBLE);
             video.getVideoControls().setVisibility(View.INVISIBLE);
             asrProgress.show();
+
+            rolePlayPresenter.updateAsrData(stepIndex);
+            script.setText(rolePlayPresenter.getSentenceByIndex(stepIndex));
+
+            stepIndex++;
 
             Toast.makeText(RolePlayActivity.this, "It's your turn now", Toast.LENGTH_SHORT).show();
             recordBtn.setEnabled(true);

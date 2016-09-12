@@ -89,7 +89,7 @@ public class DialogueListActivity extends BaseActivity {
                 if (favored) {
                     favorite.setImageResource(R.drawable.ic_favorite_empty);
                 } else {
-                    favorite.setImageResource(R.drawable.ic_favorite_full);
+                    favorite.setImageResource(R.drawable.ic_favorite_fill);
                 }
                 favored = !favored;
                 break;

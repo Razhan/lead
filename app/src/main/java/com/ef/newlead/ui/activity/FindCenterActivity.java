@@ -166,6 +166,7 @@ public class FindCenterActivity extends BaseActivity {
 
         cityAdapter = new NewCityAdapter(this, cityList);
         cityAdapter.setClickListener((view, pos, item) -> {
+            input.setText(item.getFullName());
             ViewUtils.hideKeyboard(this);
 
             List<Center> list = centerAdapter.getCenterInCity(item.getCode());

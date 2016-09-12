@@ -39,7 +39,6 @@ import com.ef.newlead.ui.widget.SmoothScrollLayoutManager;
 import com.ef.newlead.ui.widget.VideoControlLayout;
 import com.ef.newlead.util.FileUtils;
 import com.ef.newlead.util.ViewUtils;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -350,7 +349,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
                 if (favored) {
                     item.setIcon(R.drawable.ic_favorite_empty);
                 } else {
-                    item.setIcon(R.drawable.ic_favorite_full);
+                    item.setIcon(R.drawable.ic_favorite_fill);
                 }
                 favored = !favored;
                 break;

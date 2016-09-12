@@ -4,27 +4,22 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.Center;
 import com.ef.newlead.ui.adapter.TelNumberAdapter;
-import com.google.gson.FieldAttributes;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -51,15 +46,12 @@ public class CenterDetailActivity extends BaseActivity {
     TextView busText;
     @BindView(R.id.center_detail_book)
     Button book;
-    @BindView(R.id.center_detail_mark_text)
-    TextView markText;
-    @BindView(R.id.center_detail_mark)
-    ImageView mark;
-    @BindView(R.id.center_detail_mark_wrapper)
-    RelativeLayout markWrapper;
+    @BindView(R.id.center_detail_star)
+    ImageView star;
 
     private Dialog bottomDialog;
     private Center mCenter;
+    private boolean starred = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +91,7 @@ public class CenterDetailActivity extends BaseActivity {
     }
 
     private void initData() {
-        mCenter = (Center)getIntent().getExtras().getSerializable(SELECTED_CENTER);
+        mCenter = (Center) getIntent().getExtras().getSerializable(SELECTED_CENTER);
     }
 
     private void initBottomDialog() {
@@ -123,14 +115,14 @@ public class CenterDetailActivity extends BaseActivity {
         bottomDialog = getDialog(bottomView);
     }
 
-    @OnClick({R.id.center_detail_place, R.id.center_detail_tel, R.id.center_detail_time, R.id.center_detail_book, R.id.center_detail_mark_wrapper})
+    @OnClick({R.id.center_detail_place, R.id.center_detail_tel, R.id.center_detail_time, R.id.center_detail_book})
     public void onClick(View view) {
         Uri uri;
         Intent i;
         switch (view.getId()) {
             case R.id.center_detail_place:
                 uri = Uri.parse("geo:22.9621107600,113.9826665700");
-                i = new Intent(Intent.ACTION_VIEW,uri);
+                i = new Intent(Intent.ACTION_VIEW, uri);
                 if (isIntentAvailable(i)) {
                     startActivity(i);
                 } else {
@@ -148,22 +140,17 @@ public class CenterDetailActivity extends BaseActivity {
                 break;
             case R.id.center_detail_book:
                 break;
-            case R.id.center_detail_mark_wrapper:
-                if (mark.getVisibility() != View.VISIBLE) {
-                    mark.setVisibility(View.VISIBLE);
-                    markText.setText("MY CENTER");
-                    markText.setTextColor(Color.BLACK);
-
-                    Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.bg_rounded_corners_stroke_black, null);
-                    markWrapper.setBackground(drawable);
-                } else {
-                    mark.setVisibility(View.INVISIBLE);
-                    markText.setText("MAKE MY CENTER");
-                    markText.setTextColor(Color.WHITE);
-                    Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.bg_rounded_corners_black, null);
-                    markWrapper.setBackground(drawable);
-                }
-                break;
         }
+    }
+
+    @OnClick(R.id.center_detail_star)
+    public void onClick() {
+        if (starred) {
+            star.setImageResource(R.drawable.ic_star_empty);
+        } else {
+            star.setImageResource(R.drawable.ic_star_fill);
+        }
+
+        starred = !starred;
     }
 }

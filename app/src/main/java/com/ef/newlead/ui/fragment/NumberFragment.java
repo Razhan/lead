@@ -28,7 +28,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class NumberFragment extends BaseCollectInfoFragment<VerificationPresenter>
-        implements VerificationView, KeyBoardVisibilityMonitor.KeyBoardStateListener {
+        implements VerificationView {
 
     private final static String NUMBER_KEY = "phone_number";
 
@@ -47,7 +47,6 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
 
     private boolean clickable = false;
     private String phone_number;
-    private KeyBoardVisibilityMonitor.KeyBoardStateListener keyboardChangeListener;
 
     public static Fragment newInstance() {
         return new NumberFragment();
@@ -75,18 +74,6 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        KeyBoardVisibilityMonitor.assistActivity(getActivity(), this);
-    }
-
-    @Override
-    public void onKeyboardHidden() {
-        submit.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onKeyboardVisible() {
-        submit.setVisibility(View.GONE);
     }
 
     @Override

@@ -48,7 +48,7 @@
         <activity
             android:name=".ui.activity.CollectInfoActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
 
         <!-- location service -->
         <service android:name="com.amap.api.location.APSService" />

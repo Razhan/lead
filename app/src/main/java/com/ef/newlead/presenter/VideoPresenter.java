@@ -61,7 +61,7 @@ public class VideoPresenter extends Presenter<VideoView> {
         ActivityTemplate template = null;
 
         for (ActivityTemplate at : templates) {
-            if (isTarget(at)) { // FIXME: temp logic to locate the template
+            if (isTarget(at)) {
                 template = at;
                 break;
             }

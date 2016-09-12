@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
-import com.ef.newlead.data.model.Dialogue;
+import com.ef.newlead.data.model.ActivityTemplate;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class DialogueView extends LinearLayout {
 
     private int currentChild;
     private LayoutParams layoutParams;
-    private List<Dialogue> data;
+    private List<ActivityTemplate> data;
 
     public DialogueView(Context context) {
         this(context, null);
@@ -51,7 +51,7 @@ public class DialogueView extends LinearLayout {
         }
     }
 
-    public void setData(List<Dialogue> data) {
+    public void setData(List<ActivityTemplate> data) {
         if (data == null) {
             return;
         }

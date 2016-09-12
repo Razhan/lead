@@ -29,7 +29,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class VerificationFragment extends BaseCollectInfoFragment<VerificationPresenter>
-        implements com.ef.newlead.ui.view.VerificationView, KeyBoardVisibilityMonitor.KeyBoardStateListener {
+        implements com.ef.newlead.ui.view.VerificationView {
 
     private final static long DEFAULT_COUNT_DOWN_TIME = 60 * 1000 + 100;
     private final static String NUMBER_KEY = "phoneNumber";
@@ -76,24 +76,6 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        KeyBoardVisibilityMonitor.assistActivity(getActivity(), this);
-    }
-
-    @Override
-    public void onKeyboardHidden() {
-        if(hiddenFirstTime){
-            hiddenFirstTime = false;
-            verificationParent.setVisibility(View.VISIBLE);
-        }else {
-            // Get rid of layout flash.
-            verificationParent.postDelayed(() -> verificationParent.setVisibility(View.VISIBLE), 300);
-        }
-    }
-
-    @Override
-    public void onKeyboardVisible() {
-        verificationParent.setVisibility(View.GONE);
     }
 
     @Override

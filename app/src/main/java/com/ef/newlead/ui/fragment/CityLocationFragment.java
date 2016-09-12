@@ -158,6 +158,8 @@ public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresen
 
             clearCityList();
             submit.setVisibility(View.VISIBLE);
+
+            ViewUtils.hideKeyboard(getActivity());
         }
     }
 

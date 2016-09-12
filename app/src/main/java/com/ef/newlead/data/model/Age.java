@@ -2,7 +2,7 @@ package com.ef.newlead.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Age extends ItemData {
+public class Age {
 
     public boolean isBorder = false;
 

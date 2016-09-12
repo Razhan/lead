@@ -71,7 +71,7 @@ public class Dialogue {
         }
     }
 
-    public static class DialogBean extends ItemData implements Parcelable {
+    public static class DialogBean implements Parcelable {
 
         private String user;
         private double startTime;

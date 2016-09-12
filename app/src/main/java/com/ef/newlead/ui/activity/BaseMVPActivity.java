@@ -11,12 +11,11 @@ public abstract class BaseMVPActivity<P extends Presenter> extends BaseActivity 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        // pre-configure the presenter firstly.
         presenter = createPresenter();
+        presenter.onCreate();
 
-        if (presenter != null) {
-            presenter.onCreate();
-        }
+        super.onCreate(savedInstanceState);
     }
 
     @NonNull

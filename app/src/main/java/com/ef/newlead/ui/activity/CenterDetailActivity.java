@@ -155,4 +155,13 @@ public class CenterDetailActivity extends BaseActivity {
 
         starred = !starred;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(bottomDialog != null){
+            bottomDialog.dismiss();
+        }
+    }
 }

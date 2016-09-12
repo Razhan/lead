@@ -1,10 +1,16 @@
 package com.ef.newlead.ui.activity;
 
+import android.Manifest;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -15,48 +21,56 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.Center;
 import com.ef.newlead.data.model.City;
+import com.ef.newlead.presenter.CityInfoPresenter;
 import com.ef.newlead.ui.adapter.CenterAdapter;
 import com.ef.newlead.ui.adapter.NewCityAdapter;
-import com.ef.newlead.ui.adapter.SummaryDialogueAdapter;
+import com.ef.newlead.ui.fragment.CityLocationFragment;
+import com.ef.newlead.ui.view.CityLocationView;
 import com.ef.newlead.ui.widget.DeletableEditText;
-import com.ef.newlead.util.FileUtils;
-import com.ef.newlead.util.MiscUtils;
 import com.ef.newlead.util.ViewUtils;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class FindCenterActivity extends BaseActivity {
+public class FindCenterActivity extends BaseMVPActivity<CityInfoPresenter>
+        implements CityLocationView {
 
     @BindView(R.id.find_center_input)
     DeletableEditText input;
-    @BindView(R.id.find_center_locate)
-    TextView locate;
+
+    @BindView(R.id.city_location)
+    TextView location;
+
     @BindView(R.id.find_center_res_start)
     LinearLayout start;
+
     @BindView(R.id.find_center_more)
     Button more;
+
     @BindView(R.id.find_center_res_empty)
     RelativeLayout empty;
+
     @BindView(R.id.find_center_res_centers)
     RecyclerView centers;
+
     @BindView(R.id.find_center_res_cities)
     RecyclerView cities;
+
     @BindView(R.id.find_center_res)
     FrameLayout result;
 
     private List<View> resLayout;
     private CenterAdapter centerAdapter;
     private NewCityAdapter cityAdapter;
+    private List<City> cityList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +81,12 @@ public class FindCenterActivity extends BaseActivity {
     @Override
     public int bindLayout() {
         return R.layout.activity_find_center;
+    }
+
+    @NonNull
+    @Override
+    protected CityInfoPresenter createPresenter() {
+        return new CityInfoPresenter(this, this);
     }
 
     @Override
@@ -83,8 +103,8 @@ public class FindCenterActivity extends BaseActivity {
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
 
-        input.setHint("城市名、拼音");
-        locate.setText("定位城市");
+        input.setHint(getLocaleText("city_select_placeholder"));
+        location.setText(getLocaleText("city_select_locate"));
 
         initCityView();
         initCenterView();
@@ -133,13 +153,10 @@ public class FindCenterActivity extends BaseActivity {
     }
 
     private void initCenterView() {
-        Type type = new TypeToken<List<Center>>() {
-        }.getType();
-
-        List<Center> centerList = FileUtils.readObjectFromAssertFile(this, "centers.json", type);
+        List<Center> centerList = presenter.fetchAllCenters();
 
         centerAdapter = new CenterAdapter(this, centerList);
-        centerAdapter.setClickListener((view, pos, item) ->{
+        centerAdapter.setClickListener((view, pos, item) -> {
             Intent i = new Intent(this, CenterDetailActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable(CenterDetailActivity.SELECTED_CENTER, item);
@@ -159,32 +176,34 @@ public class FindCenterActivity extends BaseActivity {
     }
 
     private void initCityView() {
-        Type type = new TypeToken<List<City>>() {
-        }.getType();
-
-        List<City> cityList = FileUtils.readObjectFromAssertFile(this, "cities.json", type);
+        cityList = presenter.fetchAllCities();
 
         cityAdapter = new NewCityAdapter(this, cityList);
         cityAdapter.setClickListener((view, pos, item) -> {
             input.setText(item.getFullName());
-            ViewUtils.hideKeyboard(this);
 
-            List<Center> list = centerAdapter.getCenterInCity(item.getCode());
-
-            if (list == null || list.size() < 1) {
-                showResultView(empty);
-            } else {
-                centerAdapter.set(list);
-                showResultView(centers);
-            }
+            inflateCentersByCity(item);
         });
 
-        cities.setLayoutManager(new LinearLayoutManager(this));
-        cities.setAdapter(cityAdapter);
-        cities.setOnTouchListener((v, event) -> {
+        this.cities.setLayoutManager(new LinearLayoutManager(this));
+        this.cities.setAdapter(cityAdapter);
+        this.cities.setOnTouchListener((v, event) -> {
             ViewUtils.hideKeyboard(this);
             return false;
         });
+    }
+
+    private void inflateCentersByCity(City item) {
+        ViewUtils.hideKeyboard(this);
+
+        List<Center> list = centerAdapter.getCenterInCity(item.getCode());
+
+        if (list == null || list.size() < 1) {
+            showResultView(empty);
+        } else {
+            centerAdapter.set(list);
+            showResultView(centers);
+        }
     }
 
     private void showResultView(View view) {
@@ -212,4 +231,81 @@ public class FindCenterActivity extends BaseActivity {
 
     }
 
+    @OnClick(R.id.city_location)
+    void onLocate() {
+        tryToLocate();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CityLocationFragment.WRITE_COARSE_LOCATION_REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                locateNow();
+            } else {
+                Toast.makeText(this, "Permission for using location has been rejected.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void tryToLocate() {
+        FragmentActivity activity = this;
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    CityLocationFragment.WRITE_COARSE_LOCATION_REQUEST_CODE);
+        } else {
+            locateNow();
+        }
+    }
+
+    private void locateNow() {
+        presenter.locate();
+    }
+
+    @Override
+    public void onStartLocation(String msg) {
+        location.setEnabled(false);
+        location.setText(msg);
+    }
+
+    @Override
+    public void onStopLocation() {
+        location.setEnabled(true);
+    }
+
+    @Override
+    public void onLocationError(String msg) {
+        location.setText(getLocaleText("city_select_locate"));
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLocationComplete(String location) {
+        this.location.setEnabled(true);
+        this.location.setText(getLocaleText("city_select_locate"));
+
+        input.setText(location);
+
+        String cityName = location;
+        String postfix = getString(R.string.city);
+        if (location.endsWith(postfix)) {
+            int pos = location.lastIndexOf(postfix);
+            cityName = location.substring(0, pos);
+        }
+
+        City destCity = null;
+        for (City city : cityList) {
+            if (city.getName().startsWith(cityName)) {
+                destCity = city;
+                break;
+            }
+        }
+
+        if (destCity != null) { // matched
+            input.setText(destCity.getFullName());
+            inflateCentersByCity(destCity);
+        } else {
+            showResultView(empty);
+        }
+    }
 }

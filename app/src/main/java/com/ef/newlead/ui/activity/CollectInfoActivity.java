@@ -76,11 +76,10 @@ public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
         fragmentKeys = fragmentStr.split(" \\| ");
 
         fragmentIndex = Math.min(SharedPreUtils.getInt(CURRENT_FRAGMENT, 0), fragmentKeys.length - 1);
-        fragmentIndex = 0;
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.collect_info_fragment,  getNextFragment())
+                    .replace(R.id.collect_info_fragment, getNextFragment())
                     .commit();
         }
     }
@@ -93,6 +92,8 @@ public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
 
     @Override
     public void afterSubmitInfo() {
+        SharedPreUtils.putBoolean(Constant.USER_SAVED, true);
+
         startActivity(new Intent(this, HomeActivity.class));
         finish();
     }

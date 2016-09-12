@@ -49,9 +49,9 @@ public class VideoDialogueAdapter extends BasicRecyclerViewAdapter<ActivityTempl
         holder.setText(R.id.dialogue_translation, item.getTranslationText());
 
         new Handler().postDelayed(() -> {
-                holder.setTextColor(R.id.dialogue_sentence, DEFAULT_GRAY);
-                holder.setTextColor(R.id.dialogue_translation, DEFAULT_GRAY);
-            }, (int)(item.getEndTime() - item.getStartTime()) * 1000);
+            holder.setTextColor(R.id.dialogue_sentence, DEFAULT_GRAY);
+            holder.setTextColor(R.id.dialogue_translation, DEFAULT_GRAY);
+        }, (int) (item.getEndTime() - item.getStartTime()) * 1000);
     }
 
     public void showTranslation(boolean showTranslation) {

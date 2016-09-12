@@ -3,10 +3,7 @@ package com.ef.newlead.ui.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,7 +12,6 @@ import com.ef.newlead.R;
 import com.ef.newlead.ui.activity.RemindActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class NextLessonFragment extends BaseFragment {

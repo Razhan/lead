@@ -120,11 +120,11 @@
         android:textSize="14sp" />
 
     <LinearLayout
+        android:id="@+id/verification_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="30dp"
-        android:id="@+id/verification_parent"
         android:fitsSystemWindows="true"
         android:orientation="vertical">
 

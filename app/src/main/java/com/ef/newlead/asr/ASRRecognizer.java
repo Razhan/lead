@@ -26,7 +26,6 @@ import java.io.File;
 import static com.ef.android.asr.Util.conjoin;
 
 /**
- *
  * This class use the ASR wrapper to recognise audio input and save an audio file
  * of the recording.
  * Created by Michael on 2016-5-17.
@@ -41,23 +40,12 @@ public abstract class ASRRecognizer implements TaskListener<ASRRecognizer.Result
     private String grammar = "";
     private String dictionary = "";
 
-    public class Result extends Util.ResultPair<File, PocketSphinxResult> {
-
-        public String bestHypothesis() {
-            return getSecond().getBestHypothesis();
-        }
-
-        public File audioFile() {
-            return getFirst();
-        }
-    }
-
     public ASRRecognizer() {
         // Make sure the acoustic model data was created
         File hmmDir = new File(NewLeadApplication.getApp().getFilesDir().getAbsolutePath() + File.separator + NewLeadApplication.HMM_PACKAGE);
         if (!(hmmDir.exists() && hmmDir.isDirectory())) {
             onError("Failed to create acoustic model directory " + hmmDir);
-        }else {
+        } else {
             // Configure the ASR engine with the acoustic model and sample rate
             asrDecoder = PocketSphinxDecoder.setup().hmmPath(hmmDir).sampleRate(SAMPLE_RATE).getEngine();
         }
@@ -69,12 +57,12 @@ public abstract class ASRRecognizer implements TaskListener<ASRRecognizer.Result
 
     /**
      * Override this to read the max level of the last read
+     *
      * @param level
      */
     public void onSampleLevel(short level) {
         // do nothing by default
     }
-
 
     public void setGrammar(String grammar) {
         this.grammar = grammar;
@@ -136,7 +124,7 @@ public abstract class ASRRecognizer implements TaskListener<ASRRecognizer.Result
             taskProcessor.start(this);
 
         } catch (Exception e) {
-            Log.e(TAG, "Error starting processor :\n"+ e.getMessage());
+            Log.e(TAG, "Error starting processor :\n" + e.getMessage());
             onError(e.getMessage());
         }
     }
@@ -157,7 +145,7 @@ public abstract class ASRRecognizer implements TaskListener<ASRRecognizer.Result
         mediaFormat.setInteger(MediaFormat.KEY_BIT_RATE, MP4_BITRATE);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            Log.w(TAG, "MP4 output is not supported on Android {}; using raw AAC :"+ Build.VERSION.SDK_INT);
+            Log.w(TAG, "MP4 output is not supported on Android {}; using raw AAC :" + Build.VERSION.SDK_INT);
             File outputFile = new File(Environment.getExternalStorageDirectory(), "asr_demo.aac");
 
             return new RawToFileDecoder(new RawAacAdapter(outputFile, mediaFormat), mediaFormat);
@@ -166,6 +154,17 @@ public abstract class ASRRecognizer implements TaskListener<ASRRecognizer.Result
             File outputFile = new File(Environment.getExternalStorageDirectory(), "asr_demo.m4a");
 
             return new RawToFileDecoder(new MediaMuxerAdapter(outputFile), mediaFormat);
+        }
+    }
+
+    public class Result extends Util.ResultPair<File, PocketSphinxResult> {
+
+        public String bestHypothesis() {
+            return getSecond().getBestHypothesis();
+        }
+
+        public File audioFile() {
+            return getFirst();
         }
     }
 

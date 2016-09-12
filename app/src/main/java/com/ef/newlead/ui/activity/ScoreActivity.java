@@ -3,7 +3,6 @@ package com.ef.newlead.ui.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -12,16 +11,14 @@ import com.ef.newlead.R;
 import com.ef.newlead.ui.adapter.ScoreFragmentAdapter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ScoreActivity extends BaseActivity {
-
-    private int currentPage;
 
     @BindView(R.id.score_viewpager)
     ViewPager viewpager;
     @BindView(R.id.score_indicator_wrapper)
     RelativeLayout Indicators;
+    private int currentPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +43,8 @@ public class ScoreActivity extends BaseActivity {
                 currentPage = position;
                 int otherPos = position == 0 ? 1 : 0;
 
-                ((ImageView)Indicators.getChildAt(position)).setColorFilter(Color.BLACK);
-                ((ImageView)Indicators.getChildAt(otherPos)).setColorFilter(Color.parseColor("#66000000"));
+                ((ImageView) Indicators.getChildAt(position)).setColorFilter(Color.BLACK);
+                ((ImageView) Indicators.getChildAt(otherPos)).setColorFilter(Color.parseColor("#66000000"));
             }
         });
     }
@@ -55,12 +52,12 @@ public class ScoreActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        ((ScoreFragmentAdapter)viewpager.getAdapter()).getFragment(currentPage).onPause();
+        ((ScoreFragmentAdapter) viewpager.getAdapter()).getFragment(currentPage).onPause();
     }
 
     @Override
     protected void onDestroy() {
-        ((ScoreFragmentAdapter)viewpager.getAdapter()).getFragment(currentPage).onDestroy();
+        ((ScoreFragmentAdapter) viewpager.getAdapter()).getFragment(currentPage).onDestroy();
         super.onDestroy();
     }
 

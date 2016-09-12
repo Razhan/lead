@@ -102,19 +102,19 @@
             android:id="@+id/video_dialogue_progress"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            app:progressColor="@color/white"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            app:progressColor="@color/white" />
 
         <TextView
             android:id="@+id/video_dialogue_load_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="24dp"
             android:layout_below="@+id/video_dialogue_progress"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="13sp"/>
+            android:textSize="13sp" />
 
-        </RelativeLayout>
+    </RelativeLayout>
 
 </merge>

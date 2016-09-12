@@ -167,7 +167,7 @@ public class CenterDetailActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        if(bottomDialog != null){
+        if (bottomDialog != null) {
             bottomDialog.dismiss();
         }
     }

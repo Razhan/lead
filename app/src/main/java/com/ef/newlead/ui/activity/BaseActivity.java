@@ -1,9 +1,7 @@
 package com.ef.newlead.ui.activity;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -24,7 +22,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -268,17 +265,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected boolean isIntentAvailable(Intent intent) {
         final PackageManager packageManager = this.getPackageManager();
         List<ResolveInfo> list = packageManager.queryIntentActivities(intent,
-                        PackageManager.MATCH_DEFAULT_ONLY);
+                PackageManager.MATCH_DEFAULT_ONLY);
         return list.size() > 0;
     }
 
     @NonNull
     protected Dialog getDialog(View bottomView) {
-        Dialog mBottomSheetDialog = new Dialog (this, R.style.DialogSheet);
-        mBottomSheetDialog.setContentView (bottomView);
-        mBottomSheetDialog.setCancelable (true);
-        mBottomSheetDialog.getWindow().setLayout (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        mBottomSheetDialog.getWindow().setGravity (Gravity.BOTTOM);
+        Dialog mBottomSheetDialog = new Dialog(this, R.style.DialogSheet);
+        mBottomSheetDialog.setContentView(bottomView);
+        mBottomSheetDialog.setCancelable(true);
+        mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
 
         return mBottomSheetDialog;
     }

@@ -11,9 +11,8 @@ import com.ef.newlead.ui.fragment.ScoreFragment;
 
 public class ScoreFragmentAdapter extends FragmentPagerAdapter {
 
-    SparseArray<Fragment> fragments = new SparseArray<>();
-
     private static int ITEM_COUNT = 2;
+    SparseArray<Fragment> fragments = new SparseArray<>();
 
     public ScoreFragmentAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);

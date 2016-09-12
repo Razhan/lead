@@ -22,6 +22,10 @@ public final class NewLeadApplication extends Application {
 
     private static NewLeadApplication app;
 
+    public static NewLeadApplication getApp() {
+        return app;
+    }
+
     @Override
     public void onCreate() {
         if (BuildConfig.DEBUG) {
@@ -60,10 +64,6 @@ public final class NewLeadApplication extends Application {
                 .penaltyLog()
                 //.penaltyDeath()
                 .build());
-    }
-
-    public static NewLeadApplication getApp() {
-        return app;
     }
 
     /**

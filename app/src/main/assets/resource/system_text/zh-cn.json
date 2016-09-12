@@ -113,67 +113,83 @@
   "city_not_found": "未找到结果",
   "info_collection_next": "继续",
   "info_collection_submit": "提交",
-  "info_color_gradients" : [ { "bottom_gradient" : { "a" : 255,
-            "b" : 214,
-            "g" : 209,
-            "r" : 47
-          },
-        "order" : 0,
-        "top_gradient" : { "a" : 255,
-            "b" : 235,
-            "g" : 187,
-            "r" : 51
-          }
+  "info_color_gradients": [
+    {
+      "bottom_gradient": {
+        "a": 255,
+        "b": 214,
+        "g": 209,
+        "r": 47
       },
-      { "bottom_gradient" : { "a" : 255,
-            "b" : 214,
-            "g" : 209,
-            "r" : 47
-          },
-        "order" : 1,
-        "top_gradient" : { "a" : 255,
-            "b" : 235,
-            "g" : 187,
-            "r" : 51
-          }
-      },
-      { "bottom_gradient" : { "a" : 255,
-            "b" : 214,
-            "g" : 209,
-            "r" : 47
-          },
-        "order" : 2,
-        "top_gradient" : { "a" : 255,
-            "b" : 235,
-            "g" : 187,
-            "r" : 51
-          }
-      },
-      { "bottom_gradient" : { "a" : 255,
-            "b" : 214,
-            "g" : 209,
-            "r" : 47
-          },
-        "order" : 3,
-        "top_gradient" : { "a" : 255,
-            "b" : 235,
-            "g" : 187,
-            "r" : 51
-          }
-      },
-      { "bottom_gradient" : { "a" : 255,
-            "b" : 214,
-            "g" : 209,
-            "r" : 47
-          },
-        "order" : 4,
-        "top_gradient" : { "a" : 255,
-            "b" : 235,
-            "g" : 187,
-            "r" : 51
-          }
+      "order": 0,
+      "top_gradient": {
+        "a": 255,
+        "b": 235,
+        "g": 187,
+        "r": 51
       }
-    ],
+    },
+    {
+      "bottom_gradient": {
+        "a": 255,
+        "b": 214,
+        "g": 209,
+        "r": 47
+      },
+      "order": 1,
+      "top_gradient": {
+        "a": 255,
+        "b": 235,
+        "g": 187,
+        "r": 51
+      }
+    },
+    {
+      "bottom_gradient": {
+        "a": 255,
+        "b": 214,
+        "g": 209,
+        "r": 47
+      },
+      "order": 2,
+      "top_gradient": {
+        "a": 255,
+        "b": 235,
+        "g": 187,
+        "r": 51
+      }
+    },
+    {
+      "bottom_gradient": {
+        "a": 255,
+        "b": 214,
+        "g": 209,
+        "r": 47
+      },
+      "order": 3,
+      "top_gradient": {
+        "a": 255,
+        "b": 235,
+        "g": 187,
+        "r": 51
+      }
+    },
+    {
+      "bottom_gradient": {
+        "a": 255,
+        "b": 214,
+        "g": 209,
+        "r": 47
+      },
+      "order": 4,
+      "top_gradient": {
+        "a": 255,
+        "b": 235,
+        "g": 187,
+        "r": 51
+      }
+    }
+  ],
   "phone_select_title": "可以留下你的手机号吗?",
   "phone_select_subtitle_1": "码会以验证您的手机号码发送到您的",
   "phone_select_subtitle_2": "你的代码是在它的方式",

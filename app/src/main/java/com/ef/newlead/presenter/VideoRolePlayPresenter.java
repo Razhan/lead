@@ -21,6 +21,27 @@ import timber.log.Timber;
  */
 public class VideoRolePlayPresenter extends VideoPresenter {
 
+    private static final VideoView EMPTY_VIEW = new VideoView() {
+        @Override
+        public void updateLoadProgress(int progress) {
+
+        }
+
+        @Override
+        public void afterLoaded() {
+
+        }
+
+        @Override
+        public void afterScoreSubmitted() {
+
+        }
+
+        @Override
+        public void showMessage(String msg) {
+
+        }
+    };
     private final DroidASRComponent asrComponent;
     private List<ActivityTemplate.RolePlayElement> elements = new LinkedList<>();
 
@@ -35,7 +56,7 @@ public class VideoRolePlayPresenter extends VideoPresenter {
         initAsrElements();
     }
 
-    public void setAsrListener(DroidASRComponent.AsrResultListener listener){
+    public void setAsrListener(DroidASRComponent.AsrResultListener listener) {
         asrComponent.setResultListener(listener);
     }
 
@@ -49,11 +70,11 @@ public class VideoRolePlayPresenter extends VideoPresenter {
         asrComponent.setDictionary(dict);
     }
 
-    public void stopRecording(){
+    public void stopRecording() {
         asrComponent.stopRecording();
     }
 
-    public void startRecording(){
+    public void startRecording() {
         asrComponent.startRecording();
     }
 
@@ -61,7 +82,7 @@ public class VideoRolePlayPresenter extends VideoPresenter {
         List<List<ActivityTemplate.RolePlayElement>> elementGroups = mActivityTemplate.getRolePlayItems();
         Assertions.checkNotNull(elementGroups);
 
-        for(List<ActivityTemplate.RolePlayElement> group : elementGroups) {
+        for (List<ActivityTemplate.RolePlayElement> group : elementGroups) {
             for (ActivityTemplate.RolePlayElement element : group) {
 
                 elements.add(element);
@@ -90,13 +111,14 @@ public class VideoRolePlayPresenter extends VideoPresenter {
         return null;
     }
 
-    public String getSentenceByIndex(int index){
+    public String getSentenceByIndex(int index) {
         return elements.get(index).getSentence();
     }
 
-    public ActivityTemplate.Asr getAsr(int index){
+    public ActivityTemplate.Asr getAsr(int index) {
         return elements.get(index).getAsr();
     }
+
     @Override
     public List<Double> getTimeStamps() {
         List<Double> timestamps = new ArrayList<>();
@@ -104,8 +126,8 @@ public class VideoRolePlayPresenter extends VideoPresenter {
         // add time stamps, respecting the configuration
         List<List<ActivityTemplate.RolePlayElement>> elementGroups = mActivityTemplate.getRolePlayItems();
 
-        for(List<ActivityTemplate.RolePlayElement> group : elementGroups){
-            for(ActivityTemplate.RolePlayElement element : group){
+        for (List<ActivityTemplate.RolePlayElement> group : elementGroups) {
+            for (ActivityTemplate.RolePlayElement element : group) {
 
                 timestamps.add(element.getStartTime());
             }
@@ -113,26 +135,4 @@ public class VideoRolePlayPresenter extends VideoPresenter {
 
         return timestamps;
     }
-
-    private static final VideoView EMPTY_VIEW = new VideoView() {
-        @Override
-        public void updateLoadProgress(int progress) {
-
-        }
-
-        @Override
-        public void afterLoaded() {
-
-        }
-
-        @Override
-        public void afterScoreSubmitted() {
-
-        }
-
-        @Override
-        public void showMessage(String msg) {
-
-        }
-    };
 }

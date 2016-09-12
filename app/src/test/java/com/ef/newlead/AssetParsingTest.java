@@ -54,7 +54,7 @@ public class AssetParsingTest extends TestCase {
         int value = Color.argb(a, r, g, b);
         assertEquals(value, background.getTopGradient().toHex());
 
-        assertEquals(255, a);
+        assertEquals(1, a);
         assertEquals(139, r);
         assertEquals(109, g);
         assertEquals(178, b);

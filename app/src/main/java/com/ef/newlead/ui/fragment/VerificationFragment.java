@@ -22,7 +22,6 @@ import com.ef.newlead.domain.usecase.VerificationUseCase;
 import com.ef.newlead.presenter.VerificationPresenter;
 import com.ef.newlead.ui.widget.CheckProgressView;
 import com.ef.newlead.ui.widget.VerificationView;
-import com.ef.newlead.util.KeyBoardVisibilityMonitor;
 import com.ef.newlead.util.ViewUtils;
 
 import butterknife.BindView;
@@ -48,7 +47,6 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
     RelativeLayout retry;
     @BindView(R.id.verification_progress_view)
     CheckProgressView progressView;
-
     @BindView(R.id.verification_parent)
     ViewGroup verificationParent;
 
@@ -144,6 +142,7 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
 
     @Override
     public void afterNumberSubmit(boolean isSucceed) {
+        progressView.startAnim();
     }
 
     private void startCountDown() {
@@ -173,8 +172,10 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
     @Override
     public void onStop() {
         super.onStop();
-        timer.cancel();
-        timer = null;
+        if (timer != null){
+            timer.cancel();
+            timer = null;
+        }
     }
 
     @OnClick({R.id.verification_submit, R.id.verification_retry})
@@ -190,14 +191,10 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
 
                     inProgress = true;
                     progressView.startAnim();
-                    new Handler().postDelayed(() -> afterResent(), 1000);
+                    presenter.getVerificationCode(phone_number);
                 }
                 break;
         }
-    }
-
-    public void afterResent() {
-        progressView.startAnim();
     }
 
     private void backToPreviousFragment() {

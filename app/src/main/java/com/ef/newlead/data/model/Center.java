@@ -1,5 +1,9 @@
 package com.ef.newlead.data.model;
 
+import android.text.TextUtils;
+
+import com.ef.newlead.domain.location.GeoPosition;
+import com.google.android.exoplayer.util.Assertions;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -70,6 +74,16 @@ public class Center implements Comparable<Center>, Serializable {
 
     public String getCoordinates() {
         return coordinates;
+    }
+
+    public GeoPosition getGeoPosition() {
+        String errorMsg = "Invalid geo location center value found";
+        String sep = ",";
+        Assertions.checkArgument(!TextUtils.isEmpty(coordinates) && coordinates.contains(sep), errorMsg);
+
+        String[] pos = coordinates.split(sep);
+        Assertions.checkArgument(pos != null && pos.length == 2, errorMsg);
+        return new GeoPosition(Double.parseDouble(pos[0]), Double.parseDouble(pos[1]));
     }
 
     @Override

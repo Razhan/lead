@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,12 +16,14 @@ import android.widget.TextView;
 
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.Center;
+import com.ef.newlead.domain.location.GeoPosition;
 import com.ef.newlead.ui.adapter.TelNumberAdapter;
 
 import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 public class CenterDetailActivity extends BaseActivity {
 
@@ -52,6 +53,7 @@ public class CenterDetailActivity extends BaseActivity {
     private Dialog bottomDialog;
     private Center mCenter;
     private boolean starred = false;
+    private GeoPosition geoPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,8 @@ public class CenterDetailActivity extends BaseActivity {
         telText.setText(mCenter.getPhones());
         timeText.setText(mCenter.getOpenTime());
         busText.setText(mCenter.getTraffic());
+
+        geoPosition = mCenter.getGeoPosition();
 
         if (mCenter.getPhones().split(", ").length > 1) {
             initBottomDialog();
@@ -121,7 +125,10 @@ public class CenterDetailActivity extends BaseActivity {
         Intent i;
         switch (view.getId()) {
             case R.id.center_detail_place:
-                uri = Uri.parse("geo:22.9621107600,113.9826665700");
+                String formatGeoPosition = String.format("geo:%s,%s", geoPosition.getLatitude(), geoPosition.getLongitude());
+                Timber.d(">>> Center location %s", formatGeoPosition);
+
+                uri = Uri.parse(formatGeoPosition);
                 i = new Intent(Intent.ACTION_VIEW, uri);
                 if (isIntentAvailable(i)) {
                     startActivity(i);

@@ -54,7 +54,6 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
     private CountDownTimer timer;
     private String timerText;
 
-    private boolean hiddenFirstTime = true;
     public static Fragment newInstance(String number) {
         VerificationFragment fragment = new VerificationFragment();
 

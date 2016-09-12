@@ -3,23 +3,22 @@ package com.ef.newlead.ui.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 
 import com.ef.newlead.R;
-import com.ef.newlead.data.model.Dialogue;
+import com.ef.newlead.data.model.ActivityTemplate;
 import com.ef.newlead.ui.widget.recycleview.MultipleTypeRecyclerViewAdapter;
 import com.ef.newlead.ui.widget.recycleview.ViewHolder;
 
 import java.util.List;
 
-public class VideoDialogueAdapter extends MultipleTypeRecyclerViewAdapter<Dialogue.DialogBean> {
+public class VideoDialogueAdapter extends MultipleTypeRecyclerViewAdapter<ActivityTemplate.DialogBean> {
 
     private final static int DEFAULT_GRAY = Color.parseColor("#bbbbbb");
 
     private boolean showTranslation = false;
 
-    public VideoDialogueAdapter(Context context, List<Dialogue.DialogBean> list) {
+    public VideoDialogueAdapter(Context context, List<ActivityTemplate.DialogBean> list) {
         super(context, list);
     }
 
@@ -29,7 +28,7 @@ public class VideoDialogueAdapter extends MultipleTypeRecyclerViewAdapter<Dialog
     }
 
     @Override
-    protected void onBindItemViewHolder(ViewHolder holder, int position, Dialogue.DialogBean item) {
+    protected void onBindItemViewHolder(ViewHolder holder, int position, ActivityTemplate.DialogBean item) {
         holder.itemView.setTag(position);
 
         if (position % 2 == 0) {

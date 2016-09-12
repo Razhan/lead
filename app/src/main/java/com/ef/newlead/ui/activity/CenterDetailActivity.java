@@ -147,8 +147,10 @@ public class CenterDetailActivity extends BaseActivity {
     public void onClick() {
         if (starred) {
             star.setImageResource(R.drawable.ic_star_empty);
+            showMessage("Unbookedmarked");
         } else {
             star.setImageResource(R.drawable.ic_star_fill);
+            showMessage("Bookmarked");
         }
 
         starred = !starred;

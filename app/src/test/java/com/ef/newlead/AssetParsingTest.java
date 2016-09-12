@@ -29,13 +29,13 @@ public class AssetParsingTest extends TestCase {
                 "      \"r\": 139,\n" +
                 "      \"g\": 109,\n" +
                 "      \"b\": 178,\n" +
-                "      \"a\": 255\n" +
+                "      \"a\": 1\n" +
                 "    },\n" +
                 "    \"bottom_gradient\": {\n" +
                 "      \"r\": 200,\n" +
                 "      \"g\": 109,\n" +
                 "      \"b\": 215,\n" +
-                "      \"a\": 255\n" +
+                "      \"a\": 1\n" +
                 "    }\n" +
                 "  }";
         Gson gson = new Gson();
@@ -54,7 +54,7 @@ public class AssetParsingTest extends TestCase {
         int value = Color.argb(a, r, g, b);
         assertEquals(value, background.getTopGradient().toHex());
 
-        assertEquals(1, a);
+        assertEquals(255, a);
         assertEquals(139, r);
         assertEquals(109, g);
         assertEquals(178, b);

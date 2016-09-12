@@ -7,12 +7,12 @@ import android.view.View;
 
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.ActivityTemplate;
-import com.ef.newlead.ui.widget.recycleview.MultipleTypeRecyclerViewAdapter;
+import com.ef.newlead.ui.widget.recycleview.BasicRecyclerViewAdapter;
 import com.ef.newlead.ui.widget.recycleview.ViewHolder;
 
 import java.util.List;
 
-public class VideoDialogueAdapter extends MultipleTypeRecyclerViewAdapter<ActivityTemplate.DialogBean> {
+public class VideoDialogueAdapter extends BasicRecyclerViewAdapter<ActivityTemplate.DialogBean> {
 
     private final static int DEFAULT_GRAY = Color.parseColor("#bbbbbb");
 

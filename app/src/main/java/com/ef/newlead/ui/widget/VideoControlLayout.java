@@ -85,15 +85,17 @@ public class VideoControlLayout extends VideoControls {
 
     /***
      * Centralizes the play button after video is ready.
+     *
+     * @param statusBarShown whether to display the status bar.
      */
-    public void centralizeControlViewLayout() {
+    public void centralizeControls(boolean statusBarShown) {
 
         this.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 if (VideoControlLayout.this.getHeight() > 0 && controlParent.getHeight() > 0) {
                     int statusBarHeight = 0;
-                    if (ViewUtils.hasKitKat()) {
+                    if (ViewUtils.hasKitKat() && statusBarShown) {
                         statusBarHeight = ViewUtils.getStatusBarHeight(getContext());
                     }
 

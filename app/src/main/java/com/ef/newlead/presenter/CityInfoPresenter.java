@@ -3,6 +3,7 @@ package com.ef.newlead.presenter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.ef.newlead.data.model.Center;
 import com.ef.newlead.data.model.City;
 import com.ef.newlead.domain.location.AMapService;
 import com.ef.newlead.domain.location.LocationAppService;
@@ -38,6 +39,22 @@ public class CityInfoPresenter extends Presenter<CityLocationView> implements Lo
 
         List<City> cities = FileUtils.readObjectFromAssertFile(context, "cities.json", type);
         return cities;
+    }
+
+    /***
+     * Gets all the centers in China.
+     * <p>
+     * Note: Given the number of english center is no more than 100, currently it's doable to load
+     * them all at once.
+     *
+     * @return list of {@link Center}
+     */
+    public List<Center> fetchAllCenters() {
+        Type type = new TypeToken<List<Center>>() {
+        }.getType();
+
+        List<Center> centerList = FileUtils.readObjectFromAssertFile(context, "centers.json", type);
+        return centerList;
     }
 
     public void locate() {
@@ -83,7 +100,7 @@ public class CityInfoPresenter extends Presenter<CityLocationView> implements Lo
 
     @NonNull
     public String getLocationErrorMsg() {
-        return SystemText.getSystemText(context, "city_location_error");
+        return SystemText.getSystemText(context, "city_select_error");
     }
 
     @Override

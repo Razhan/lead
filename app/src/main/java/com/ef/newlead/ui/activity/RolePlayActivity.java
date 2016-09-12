@@ -146,7 +146,7 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
         controlLayout = new VideoControlLayout(this);
         controlLayout.setVisibilityAnimationListener(this);
         controlLayout.setPlayingProgressChangeListener(this);
-        controlLayout.centralizeControlViewLayout();
+        controlLayout.centralizeControls(true);
 
         video.setControls(controlLayout);
         video.setMeasureBasedOnAspectRatioEnabled(false);

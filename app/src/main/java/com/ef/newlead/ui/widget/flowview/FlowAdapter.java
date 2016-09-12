@@ -2,12 +2,13 @@ package com.ef.newlead.ui.widget.flowview;
 
 import android.content.Context;
 
+import com.ef.newlead.ui.widget.recycleview.BasicRecyclerViewAdapter;
 import com.ef.newlead.ui.widget.recycleview.MultipleTypeItem;
 import com.ef.newlead.ui.widget.recycleview.MultipleTypeRecyclerViewAdapter;
 
 import java.util.List;
 
-public abstract class FlowAdapter<T extends MultipleTypeItem> extends MultipleTypeRecyclerViewAdapter<T> {
+public abstract class FlowAdapter<T> extends BasicRecyclerViewAdapter<T> {
 
     protected int border;
 

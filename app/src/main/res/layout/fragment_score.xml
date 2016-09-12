@@ -1,0 +1,99 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.ef.newlead.ui.widget.AutoSizeVideoView
+        android:id="@+id/score_video"
+        android:layout_width="match_parent"
+        android:layout_height="202dp"
+        app:paddingEnd="0dp"
+        app:paddingStart="0dp"
+        app:useDefaultControls="false" />
+
+    <ImageView
+        android:id="@+id/score_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_close_score"/>
+
+    <com.ef.newlead.ui.widget.ColorfulProgressBar
+        android:id="@+id/score_progressbar"
+        android:layout_width="match_parent"
+        android:layout_below="@id/score_video"
+        android:layout_marginTop="-14dp"
+        android:layout_height="24dp"
+        android:visibility="invisible"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/score_share"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/score_video">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
+
+            <TextView
+                android:id="@+id/score_share_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:textColor="#8a000000"
+                android:text="分享我的视频"/>
+
+            <ImageView
+                android:id="@+id/score_share_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_share"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/score_title"
+        android:layout_below="@id/score_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        android:text="Excellent!"/>
+
+    <TextView
+        android:id="@+id/score_info"
+        android:layout_below="@id/score_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:text="You learned 7 new phrases, use them in the real world by adding them to your phrasebook."/>
+
+    <Button
+        android:id="@+id/score_next_button"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="67dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:background="@drawable/bg_rounded_corners_white"
+        android:text="ADD TO PHRASEBOOK"/>
+
+</RelativeLayout>

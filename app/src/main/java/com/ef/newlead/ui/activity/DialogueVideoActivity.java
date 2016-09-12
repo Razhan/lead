@@ -38,6 +38,7 @@ import com.ef.newlead.ui.widget.SlideAnimator;
 import com.ef.newlead.ui.widget.SmoothScrollLayoutManager;
 import com.ef.newlead.ui.widget.VideoControlLayout;
 import com.ef.newlead.util.ViewUtils;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +53,6 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
         VideoControlLayout.VisibilityAnimationListener,
         VideoControlLayout.PlayingProgressChangeListener,
         VideoView {
-
-    protected boolean pausedInOnStop = false;
 
     @BindView(R.id.video_dialogue_video)
     AutoSizeVideoView video;
@@ -76,7 +75,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
     @BindView(R.id.video_dialogue_bottom_bar)
     CardView bottomBar;
 
-
+    protected boolean pausedInOnStop = false;
     private boolean isRestarted = false;
     private boolean favored = false;
 
@@ -144,7 +143,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
         });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            bottomBar.setCardElevation(ViewUtils.dpToPx(this, 20));
+            bottomBar.setCardElevation(ViewUtils.dpToPx(this, 5));
         }
     }
 
@@ -162,11 +161,11 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
         timestamps = presenter.getTimeStamps();
     }
 
-    protected void initVideoComponent() {
+    private void initVideoComponent() {
         VideoControlLayout controlLayout = new VideoControlLayout(this);
         controlLayout.setVisibilityAnimationListener(this);
         controlLayout.setPlayingProgressChangeListener(this);
-        controlLayout.centralizeControlViewLayout();
+        controlLayout.centralizeControls(true);
 
         video.setControls(controlLayout);
         video.setMeasureBasedOnAspectRatioEnabled(false);
@@ -259,6 +258,9 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
 
     @Override
     public void onAnimate(boolean visible) {
+        progress.setThumb(visible);
+        showStatusBar(visible);
+
         if (toolbar == null)
             return;
 
@@ -269,8 +271,6 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
                     .alpha(1)
                     .setInterpolator(new DecelerateInterpolator())
                     .start();
-            progress.setThumb(true);
-            showStatusBar(true);
         } else {
             toolbar.bringToFront();
             toolbar.animate()
@@ -278,8 +278,6 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
                     .alpha(0)
                     .setInterpolator(new AccelerateInterpolator())
                     .start();
-            progress.setThumb(false);
-            showStatusBar(false);
         }
     }
 
@@ -327,7 +325,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
                 if (favored) {
                     item.setIcon(R.drawable.ic_favorite_empty);
                 } else {
-                    item.setIcon(R.drawable.ic_favorite_full);
+                    item.setIcon(R.drawable.ic_favorite_fill);
                 }
                 favored = !favored;
                 break;

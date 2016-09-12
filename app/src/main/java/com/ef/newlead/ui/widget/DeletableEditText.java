@@ -14,6 +14,7 @@ import com.ef.newlead.R;
 public class DeletableEditText extends AppCompatEditText implements TextWatcher {
 
     private Drawable mClearDrawable;
+    private ClearListener listener;
 
     public DeletableEditText(Context context) {
         this(context, null);
@@ -45,6 +46,10 @@ public class DeletableEditText extends AppCompatEditText implements TextWatcher 
             if (getCompoundDrawables()[2] != null) {
                 if (event.getX() > (getWidth() - getTotalPaddingRight())) {
                     this.setText(null);
+
+                    if (listener != null) {
+                        listener.afterClear();
+                    }
                 }
             }
         }
@@ -70,6 +75,14 @@ public class DeletableEditText extends AppCompatEditText implements TextWatcher 
     @Override
     public void afterTextChanged(Editable s) {
 
+    }
+
+    public void setListener(ClearListener listener) {
+        this.listener = listener;
+    }
+
+    public interface ClearListener {
+        void afterClear();
     }
 
 }

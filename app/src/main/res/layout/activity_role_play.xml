@@ -64,7 +64,6 @@
 
     </RelativeLayout>
 
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -79,7 +78,7 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <include layout="@layout/audio_recognition_layout"/>
+            <include layout="@layout/view_audio_recognition"/>
 
         </LinearLayout>
 

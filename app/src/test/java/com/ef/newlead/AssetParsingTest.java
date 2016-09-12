@@ -29,13 +29,13 @@ public class AssetParsingTest extends TestCase {
                 "      \"r\": 139,\n" +
                 "      \"g\": 109,\n" +
                 "      \"b\": 178,\n" +
-                "      \"a\": 255\n" +
+                "      \"a\": 1\n" +
                 "    },\n" +
                 "    \"bottom_gradient\": {\n" +
                 "      \"r\": 200,\n" +
                 "      \"g\": 109,\n" +
                 "      \"b\": 215,\n" +
-                "      \"a\": 255\n" +
+                "      \"a\": 1\n" +
                 "    }\n" +
                 "  }";
         Gson gson = new Gson();

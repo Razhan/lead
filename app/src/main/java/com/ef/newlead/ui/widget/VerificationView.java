@@ -70,12 +70,10 @@ public class VerificationView extends LinearLayout implements TextWatcher, View.
     public void afterTextChanged(Editable s) {
         isDelete = false;
 
+        changeTextColor(Color.BLACK);
+
         if (!isDelete && s.length() >= maxTextLength && currentIndex < viewList.size() - 1) {
             viewList.get(++currentIndex).requestFocus();
-        }
-
-        if (viewList.get(0).getText().toString().equals("")) {
-            changeTextColor(Color.BLACK);
         }
 
         if (listener != null) {

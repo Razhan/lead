@@ -191,8 +191,17 @@ public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresen
             return;
         }
 
-        SharedPreUtils.putString(Constant.USER_CITY, input.getText().toString());
+        saveCityCode();
         startNextFragment();
+    }
+
+    private void saveCityCode() {
+        for (City city : cities) {
+            if (city.getFullName().equals(input.getText().toString())) {
+                SharedPreUtils.putString(Constant.USER_CITY, city.getCode());
+                break;
+            }
+        }
     }
 
     @Override

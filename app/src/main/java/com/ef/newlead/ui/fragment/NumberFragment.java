@@ -168,6 +168,7 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
         if (isSucceed) {
             progressView.startAnim();
         } else {
+            hint.setText(getLocaleText("phone_select_subtitle_1"));
             progressView.setState(CheckProgressView.STATE_ANIM_NONE);
             next.setVisibility(View.VISIBLE);
             inProgress = false;

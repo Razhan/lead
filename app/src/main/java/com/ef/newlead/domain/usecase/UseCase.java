@@ -1,6 +1,7 @@
 package com.ef.newlead.domain.usecase;
 
 import com.ef.newlead.ErrorHandler;
+import com.ef.newlead.data.model.DataBean.BaseResponse;
 import com.ef.newlead.data.repostory.Repository;
 import com.ef.newlead.data.repostory.RepositoryImp;
 import com.ef.newlead.util.UseCaseUtils;
@@ -49,10 +50,19 @@ public abstract class UseCase {
     }
 
     @SuppressWarnings("unchecked")
-    public void execute() {
-        Subscription subscription = this.buildUseCaseObservable()
+    public <T> void execute() {
+        Subscription subscription = ((Observable<T>)this.buildUseCaseObservable())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(res -> {
+                    if (res.getClass().isAssignableFrom(BaseResponse.class)) {
+                        if (((BaseResponse) res).getStatus() != 0) {
+                            return Observable.error(new Throwable(((BaseResponse) res).getMessage()));
+                        }
+                    }
+
+                    return Observable.just(res);
+                })
                 .subscribe(onSuccessCallback, onErrorCallback, onCompleteCallback);
 
         compositeSubscription.add(subscription);
@@ -99,7 +109,7 @@ public abstract class UseCase {
         }
 
         public void build() {
-            UseCase.this.execute();
+            UseCase.this.<T>execute();
         }
     }
 

@@ -46,7 +46,7 @@ public class AssetParsingTest extends TestCase {
         assertNotNull(background);
 
 
-        int a = background.getTopGradient().getA();
+        int a = background.getTopGradient().getAlpha();
         int r = background.getTopGradient().getR();
         int g = background.getTopGradient().getG();
         int b = background.getTopGradient().getB();

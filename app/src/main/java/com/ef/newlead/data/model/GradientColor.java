@@ -79,8 +79,8 @@ public class GradientColor {
             this.b = b;
         }
 
-        public int getA() {
-            return a;
+        public int getAlpha() {
+            return a * 255;
         }
 
         public void setA(int a) {

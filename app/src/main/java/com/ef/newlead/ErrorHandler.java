@@ -37,9 +37,9 @@ public final class ErrorHandler {
                         return "An unknown error has occurred";
                     }
             }
+        } else {
+            return exception.getMessage();
         }
-
-        return "An unknown error has occurred";
     }
 
     public static void showError(Throwable exception) {

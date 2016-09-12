@@ -1,5 +1,6 @@
 package com.ef.newlead.ui.fragment;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -151,15 +152,12 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
     public void afterCodeVerified(boolean isSucceed) {
         submit.setEnabled(true);
 
-//        if (!isSucceed) {
-//            input.changeTextColor(Color.RED);
-//            hint.setText(getLocaleText("phone_select_subtitle_4"));
-//        } else {
-//            startNextFragment();
-//        }
-
-        //for demo
-        startNextFragment();
+        if (!isSucceed) {
+            input.changeTextColor(Color.RED);
+            hint.setText(getLocaleText("phone_select_subtitle_4"));
+        } else {
+            startNextFragment();
+        }
     }
 
     @Override

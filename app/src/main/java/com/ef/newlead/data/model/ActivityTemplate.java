@@ -9,6 +9,8 @@ import java.util.List;
 
 public class ActivityTemplate {
 
+    private TemplateType typeNum;
+
     private String title;
 
     @SerializedName("title-zh-cn")
@@ -49,6 +51,31 @@ public class ActivityTemplate {
 
     public boolean hasRolePlay() {
         return rolePlayItems != null && rolePlayItems.size() > 0;
+    }
+
+    public TemplateType getTypeNum() {
+        return typeNum;
+    }
+
+    public enum TemplateType {
+        @SerializedName("1")
+        Dialog(1),
+
+        @SerializedName("2")
+        RolePlay(2),
+
+        @SerializedName("3")
+        Story(3);
+
+        private final int type;
+
+        TemplateType(int type) {
+            this.type = type;
+        }
+
+        public int getType() {
+            return type;
+        }
     }
 
     public static class VideoBean {

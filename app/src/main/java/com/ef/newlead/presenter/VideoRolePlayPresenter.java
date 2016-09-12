@@ -14,6 +14,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import timber.log.Timber;
+
 /**
  * Created by seanzhou on 9/9/16.
  */
@@ -69,7 +71,8 @@ public class VideoRolePlayPresenter extends VideoPresenter {
 
     @Override
     protected boolean isTarget(ActivityTemplate at) {
-        return at.hasRolePlay();
+        Timber.d(">>> target template: " + at.getTypeNum());
+        return ActivityTemplate.TemplateType.RolePlay.equals(at.getTypeNum());
     }
 
     @Override

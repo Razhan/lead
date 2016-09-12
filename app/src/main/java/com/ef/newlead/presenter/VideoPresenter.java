@@ -73,7 +73,7 @@ public class VideoPresenter extends Presenter<VideoView> {
     }
 
     protected boolean isTarget(ActivityTemplate at) {
-        return !at.hasRolePlay();
+        return ActivityTemplate.TemplateType.Dialog.equals(at.getTypeNum());
     }
 
     public Uri getVideo() {

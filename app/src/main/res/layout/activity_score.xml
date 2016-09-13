@@ -21,15 +21,15 @@
             android:layout_width="7dp"
             android:layout_height="7dp"
             android:layout_alignParentStart="true"
-            android:tint="@android:color/black"
-            android:src="@drawable/ic_viewpager_indicator"/>
+            android:src="@drawable/ic_viewpager_indicator"
+            android:tint="@android:color/black" />
 
         <ImageView
             android:layout_width="7dp"
             android:layout_height="7dp"
             android:layout_alignParentEnd="true"
-            android:tint="#66000000"
-            android:src="@drawable/ic_viewpager_indicator"/>
+            android:src="@drawable/ic_viewpager_indicator"
+            android:tint="#66000000" />
 
     </RelativeLayout>
 

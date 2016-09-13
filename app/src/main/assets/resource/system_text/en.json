@@ -1,181 +1,221 @@
-{ "" : null,
-  "age_select" : [ { "age_select_age" : "18-",
-        "age_select_id" : "0",
-        "age_select_order" : 0
-      },
-      { "age_select_age" : "19-22",
-        "age_select_id" : "1",
-        "age_select_order" : 1
-      },
-      { "age_select_age" : "23-26",
-        "age_select_id" : "2",
-        "age_select_order" : 2
-      },
-      { "age_select_age" : "27-35",
-        "age_select_id" : "4",
-        "age_select_order" : 3
-      },
-      { "age_select_age" : "36-40",
-        "age_select_id" : "4",
-        "age_select_order" : 4
-      },
-      { "age_select_age" : "41-50",
-        "age_select_id" : "5",
-        "age_select_order" : 5
-      },
-      { "age_select_age" : "51+",
-        "age_select_id" : "6",
-        "age_select_order" : 6
-      }
-    ],
-  "age_select_next" : "NEXT",
-  "age_select_title" : "How old are you?",
-  "city_not_found" : "No results found",
-  "city_select_error" : "Location Error",
-  "city_select_locate" : "Location City",
-  "city_select_locating" : "Positioning ...",
-  "city_select_placeholder" : "City, Pinyin",
-  "city_select_submit" : "Submit",
-  "city_select_top_label" : "What city do you live in?",
-  "info_collection_next" : "next",
-  "info_collection_submit" : "submit",
-  "info_color_gradients" : [ { "bottom_gradient" : { "a" : 255,
-            "b" : 214,
-            "g" : 209,
-            "r" : 47
-          },
-        "order" : 0,
-        "top_gradient" : { "a" : 255,
-            "b" : 235,
-            "g" : 187,
-            "r" : 51
-          }
-      },
-      { "bottom_gradient" : { "a" : 255,
-            "b" : 214,
-            "g" : 209,
-            "r" : 47
-          },
-        "order" : 1,
-        "top_gradient" : { "a" : 255,
-            "b" : 235,
-            "g" : 187,
-            "r" : 51
-          }
-      },
-      { "bottom_gradient" : { "a" : 255,
-            "b" : 214,
-            "g" : 209,
-            "r" : 47
-          },
-        "order" : 2,
-        "top_gradient" : { "a" : 255,
-            "b" : 235,
-            "g" : 187,
-            "r" : 51
-          }
-      },
-      { "bottom_gradient" : { "a" : 255,
-            "b" : 214,
-            "g" : 209,
-            "r" : 47
-          },
-        "order" : 3,
-        "top_gradient" : { "a" : 255,
-            "b" : 235,
-            "g" : 187,
-            "r" : 51
-          }
-      },
-      { "bottom_gradient" : { "a" : 255,
-            "b" : 214,
-            "g" : 209,
-            "r" : 47
-          },
-        "order" : 4,
-        "top_gradient" : { "a" : 255,
-            "b" : 235,
-            "g" : 187,
-            "r" : 51
-          }
-      }
-    ],
-  "level_button_continue" : "DONE, LET'S GET STARTED",
-  "level_select" : [ { "id" : "0",
-        "level_example" : "\"Hello\"",
-        "order" : 0
-      },
-      { "id" : "1",
-        "level_example" : "\"I'm an engineer. I work in a big company. I live in Asia.\"",
-        "order" : 1
-      },
-      { "id" : "2",
-        "level_example" : "\"I worked in the UK for five years. I'm planning to move to China next year.\"",
-        "order" : 2
-      },
-      { "id" : "3",
-        "level_example" : "\"I'd like to make a reservation to fly to Los Angeles on the 5th. I'll be returning on October 15th.\"",
-        "order" : 3
-      },
-      { "id" : "4",
-        "level_example" : "\"Before going back for my MBA, I had been working in an internet company for five years.\"",
-        "order" : 4
-      },
-      { "id" : "5",
-        "level_example" : "\"In my opinion, homelessness is the most critical issue facing society. We have to develop effective policies for reintegrating homeless people into mainstream society.\"",
-        "order" : 5
-      }
-    ],
-  "level_select_subtitle" : "What is your English level?",
-  "level_select_title" : "Select the sentences that you can understand to determine your English level",
-  "name_select_firstName_placeholder" : "first Name",
-  "name_select_gradient_color" : { "bottom_gradient" : { "a" : 255,
-          "b" : 159,
-          "g" : 111,
-          "r" : 246
-        },
-      "top_gradient" : { "a" : 255,
-          "b" : 68,
-          "g" : 193,
-          "r" : 248
-        }
+{
+  "": null,
+  "age_select": [
+    {
+      "age_select_age": "18-",
+      "age_select_id": "0",
+      "age_select_order": 0
     },
-  "name_select_lastName_placeholder" : "last Name",
-  "name_select_next" : "NEXT",
-  "phone_select_action_getcode" : "Get verification code",
-  "phone_select_action_retry" : "Retry",
-  "phone_select_action_submit" : "Submit",
-  "phone_select_next" : "NEXT",
-  "phone_select_phone_placeholder" : "Your number",
-  "phone_select_subtitle_1" : "A code will be sent to you in order to verify your phone number",
-  "phone_select_subtitle_2" : "Your code is on its way...",
-  "phone_select_subtitle_3" : "Code already sent to you.",
-  "phone_select_subtitle_4" : "Oh no! it seems the code is wrong",
-  "phone_select_title" : "What is your phone number?",
-  "purpose_select_next" : "NEXT",
-  "purpose_select_title" : "Are you more interested in Business or Travel topics?",
-  "purpose_selections" : [ { "id" : "0",
-        "order" : 0,
-        "text" : "English is the key to advance my career."
+    {
+      "age_select_age": "19-22",
+      "age_select_id": "1",
+      "age_select_order": 1
+    },
+    {
+      "age_select_age": "23-26",
+      "age_select_id": "2",
+      "age_select_order": 2
+    },
+    {
+      "age_select_age": "27-35",
+      "age_select_id": "4",
+      "age_select_order": 3
+    },
+    {
+      "age_select_age": "36-40",
+      "age_select_id": "4",
+      "age_select_order": 4
+    },
+    {
+      "age_select_age": "41-50",
+      "age_select_id": "5",
+      "age_select_order": 5
+    },
+    {
+      "age_select_age": "51+",
+      "age_select_id": "6",
+      "age_select_order": 6
+    }
+  ],
+  "age_select_next": "NEXT",
+  "age_select_title": "How old are you?",
+  "city_not_found": "No results found",
+  "city_select_error": "Location Error",
+  "city_select_locate": "Location City",
+  "city_select_locating": "Positioning ...",
+  "city_select_placeholder": "City, Pinyin",
+  "city_select_submit": "Submit",
+  "city_select_top_label": "What city do you live in?",
+  "info_collection_next": "next",
+  "info_collection_submit": "submit",
+  "info_color_gradients": [
+    {
+      "bottom_gradient": {
+        "a": 255,
+        "b": 214,
+        "g": 209,
+        "r": 47
       },
-      { "id" : "1",
-        "order" : 1,
-        "text" : "I need English for my career, but I also want to travel abroad."
-      },
-      { "id" : "2",
-        "order" : 2,
-        "text" : "English will help me travel abroad, but it is also useful for my career."
-      },
-      { "id" : "3",
-        "order" : 3,
-        "text" : "I want to travel around the world!"
+      "order": 0,
+      "top_gradient": {
+        "a": 255,
+        "b": 235,
+        "g": 187,
+        "r": 51
       }
-    ],
-  "purpose_tip_label" : "Drag to select",
-  "splash_create_account" : "Create Account",
-  "splash_detail" : "An interactive and exciting way to learn,  practice and discover English anytime and anywhere. With rich and interesting lessons and content, learning English has never been more exciting.",
-  "splash_find_center" : "Find an EF Center",
-  "splash_header" : "EF English on the Move",
-  "splash_start" : "Get Started",
-  "splash_title" : "EF English on the Move111"
+    },
+    {
+      "bottom_gradient": {
+        "a": 255,
+        "b": 214,
+        "g": 209,
+        "r": 47
+      },
+      "order": 1,
+      "top_gradient": {
+        "a": 255,
+        "b": 235,
+        "g": 187,
+        "r": 51
+      }
+    },
+    {
+      "bottom_gradient": {
+        "a": 255,
+        "b": 214,
+        "g": 209,
+        "r": 47
+      },
+      "order": 2,
+      "top_gradient": {
+        "a": 255,
+        "b": 235,
+        "g": 187,
+        "r": 51
+      }
+    },
+    {
+      "bottom_gradient": {
+        "a": 255,
+        "b": 214,
+        "g": 209,
+        "r": 47
+      },
+      "order": 3,
+      "top_gradient": {
+        "a": 255,
+        "b": 235,
+        "g": 187,
+        "r": 51
+      }
+    },
+    {
+      "bottom_gradient": {
+        "a": 255,
+        "b": 214,
+        "g": 209,
+        "r": 47
+      },
+      "order": 4,
+      "top_gradient": {
+        "a": 255,
+        "b": 235,
+        "g": 187,
+        "r": 51
+      }
+    }
+  ],
+  "level_button_continue": "DONE, LET'S GET STARTED",
+  "level_select": [
+    {
+      "id": "0",
+      "level_example": "\"Hello\"",
+      "order": 0
+    },
+    {
+      "id": "1",
+      "level_example": "\"I'm an engineer. I work in a big company. I live in Asia.\"",
+      "order": 1
+    },
+    {
+      "id": "2",
+      "level_example": "\"I worked in the UK for five years. I'm planning to move to China next year.\"",
+      "order": 2
+    },
+    {
+      "id": "3",
+      "level_example": "\"I'd like to make a reservation to fly to Los Angeles on the 5th. I'll be returning on October 15th.\"",
+      "order": 3
+    },
+    {
+      "id": "4",
+      "level_example": "\"Before going back for my MBA, I had been working in an internet company for five years.\"",
+      "order": 4
+    },
+    {
+      "id": "5",
+      "level_example": "\"In my opinion, homelessness is the most critical issue facing society. We have to develop effective policies for reintegrating homeless people into mainstream society.\"",
+      "order": 5
+    }
+  ],
+  "level_select_subtitle": "What is your English level?",
+  "level_select_title": "Select the sentences that you can understand to determine your English level",
+  "name_select_firstName_placeholder": "first Name",
+  "name_select_gradient_color": {
+    "bottom_gradient": {
+      "a": 255,
+      "b": 159,
+      "g": 111,
+      "r": 246
+    },
+    "top_gradient": {
+      "a": 255,
+      "b": 68,
+      "g": 193,
+      "r": 248
+    }
+  },
+  "name_select_lastName_placeholder": "last Name",
+  "name_select_next": "NEXT",
+  "phone_select_action_getcode": "Get verification code",
+  "phone_select_action_retry": "Retry",
+  "phone_select_action_submit": "Submit",
+  "phone_select_next": "NEXT",
+  "phone_select_phone_placeholder": "Your number",
+  "phone_select_subtitle_1": "A code will be sent to you in order to verify your phone number",
+  "phone_select_subtitle_2": "Your code is on its way...",
+  "phone_select_subtitle_3": "Code already sent to you.",
+  "phone_select_subtitle_4": "Oh no! it seems the code is wrong",
+  "phone_select_title": "What is your phone number?",
+  "purpose_select_next": "NEXT",
+  "purpose_select_title": "Are you more interested in Business or Travel topics?",
+  "purpose_selections": [
+    {
+      "id": "0",
+      "order": 0,
+      "text": "English is the key to advance my career."
+    },
+    {
+      "id": "1",
+      "order": 1,
+      "text": "I need English for my career, but I also want to travel abroad."
+    },
+    {
+      "id": "2",
+      "order": 2,
+      "text": "English will help me travel abroad, but it is also useful for my career."
+    },
+    {
+      "id": "3",
+      "order": 3,
+      "text": "I want to travel around the world!"
+    }
+  ],
+  "purpose_tip_label": "Drag to select",
+  "splash_create_account": "Create Account",
+  "splash_detail": "An interactive and exciting way to learn,  practice and discover English anytime and anywhere. With rich and interesting lessons and content, learning English has never been more exciting.",
+  "splash_find_center": "Find an EF Center",
+  "splash_header": "EF English on the Move",
+  "splash_start": "Get Started",
+  "splash_title": "EF English on the Move111"
 }

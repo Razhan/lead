@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,7 +37,6 @@ import com.ef.newlead.ui.widget.SlideAnimator;
 import com.ef.newlead.ui.widget.SmoothScrollLayoutManager;
 import com.ef.newlead.ui.widget.VideoControlLayout;
 import com.ef.newlead.util.ViewUtils;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +52,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
         VideoControlLayout.PlayingProgressChangeListener,
         VideoView {
 
+    protected boolean pausedInOnStop = false;
     @BindView(R.id.video_dialogue_video)
     AutoSizeVideoView video;
     @BindView(R.id.video_dialogue_progressbar)
@@ -74,8 +73,6 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
     LinearLayout videoWrapper;
     @BindView(R.id.video_dialogue_bottom_bar)
     CardView bottomBar;
-
-    protected boolean pausedInOnStop = false;
     private boolean isRestarted = false;
     private boolean favored = false;
 

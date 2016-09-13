@@ -1,13 +1,8 @@
 package com.ef.newlead.ui.widget.recycleview;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class MultipleTypeRecyclerViewAdapter<T extends MultipleTypeItem> extends BasicRecyclerViewAdapter<T> {

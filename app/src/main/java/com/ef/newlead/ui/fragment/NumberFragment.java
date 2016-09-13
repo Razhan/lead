@@ -9,7 +9,6 @@ import android.text.TextWatcher;
 import android.transition.Slide;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,9 +17,8 @@ import com.ef.newlead.R;
 import com.ef.newlead.domain.usecase.VerificationUseCase;
 import com.ef.newlead.presenter.VerificationPresenter;
 import com.ef.newlead.ui.view.VerificationView;
-import com.ef.newlead.ui.widget.DeletableEditText;
 import com.ef.newlead.ui.widget.CheckProgressView;
-import com.ef.newlead.util.KeyBoardVisibilityMonitor;
+import com.ef.newlead.ui.widget.DeletableEditText;
 import com.ef.newlead.util.SharedPreUtils;
 import com.ef.newlead.util.ViewUtils;
 

@@ -36,6 +36,8 @@ public class ScoreFragment extends BaseFragment implements OnPreparedListener,
         VideoControlLayout.VisibilityAnimationListener,
         VideoControlLayout.PlayingProgressChangeListener {
 
+    protected boolean pausedInOnStop = false;
+    protected boolean isCreated = false;
     @BindView(R.id.score_close)
     ImageView close;
     @BindView(R.id.score_video)
@@ -54,11 +56,7 @@ public class ScoreFragment extends BaseFragment implements OnPreparedListener,
     Button next;
     @BindView(R.id.score_progressbar)
     ColorfulProgressBar progress;
-
-    protected boolean pausedInOnStop = false;
     private boolean isRestarted = false;
-    protected boolean isCreated = false;
-
     private List<Double> timestamps;
 
     public static ScoreFragment newInstance() {

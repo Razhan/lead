@@ -28,23 +28,6 @@ public class DroidASRComponent extends ASRRecognizer {
      * phones of the right answer
      */
     private String asrWords;
-
-    /***
-     * Audio recognition result listener
-     */
-    public interface AsrResultListener {
-        void onSucceed();
-
-        void onFailure();
-
-        /***
-         * Notify the max level of audio change during audio recording.
-         *
-         * @param level
-         */
-        void onSampleLevelChanged(short level);
-    }
-
     private AsrResultListener resultListener;
 
     public DroidASRComponent setResultListener(AsrResultListener resultListener) {
@@ -116,5 +99,21 @@ public class DroidASRComponent extends ASRRecognizer {
         if (resultListener != null) {
             resultListener.onFailure();
         }
+    }
+
+    /***
+     * Audio recognition result listener
+     */
+    public interface AsrResultListener {
+        void onSucceed();
+
+        void onFailure();
+
+        /***
+         * Notify the max level of audio change during audio recording.
+         *
+         * @param level
+         */
+        void onSampleLevelChanged(short level);
     }
 }

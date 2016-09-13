@@ -67,6 +67,15 @@ public class FindCenterActivity extends BaseMVPActivity<CityInfoPresenter>
     @BindView(R.id.find_center_res)
     FrameLayout result;
 
+    @BindView(R.id.find_center_res_empty_title)
+    TextView emptyTitle;
+
+    @BindView(R.id.find_center_res_empty_info)
+    TextView emptyInfo;
+
+    @BindView(R.id.find_center_res_start_text)
+    TextView startText;
+
     private List<View> resLayout;
     private CenterAdapter centerAdapter;
     private NewCityAdapter cityAdapter;
@@ -96,7 +105,7 @@ public class FindCenterActivity extends BaseMVPActivity<CityInfoPresenter>
 
     @Override
     protected String setToolBarText() {
-        return "Find EF center";
+        return getLocaleText("ef_center_title");
     }
 
     @Override
@@ -105,6 +114,11 @@ public class FindCenterActivity extends BaseMVPActivity<CityInfoPresenter>
 
         input.setHint(getLocaleText("city_select_placeholder"));
         location.setText(getLocaleText("city_select_locate"));
+
+        startText.setText(getLocaleText("ef_center_help_hint"));
+        emptyTitle.setText(getLocaleText("ef_center_no_center_title"));
+        emptyInfo.setText(getLocaleText("ef_center_no_center_detail"));
+        more.setText(getLocaleText("ef_center_learn_more_button"));
 
         initCityView();
         initCenterView();

@@ -44,8 +44,8 @@ public class SafeButton extends Button {
     private class OnClickListenerWrapper implements OnClickListener {
 
         private static final long DEFAULT_MIN_INTERVAL = 1500;
-        private long mLastClickTime = 0;
         private final OnClickListener mListener;
+        private long mLastClickTime = 0;
 
         public OnClickListenerWrapper(OnClickListener listener) {
             mListener = listener;

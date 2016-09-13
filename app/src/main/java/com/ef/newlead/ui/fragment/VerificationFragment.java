@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.transition.Slide;
@@ -171,7 +170,7 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
     @Override
     public void onStop() {
         super.onStop();
-        if (timer != null){
+        if (timer != null) {
             timer.cancel();
             timer = null;
         }

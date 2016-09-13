@@ -17,6 +17,7 @@ import com.ef.newlead.domain.usecase.InitializationUseCase;
 import com.ef.newlead.presenter.SplashPresenter;
 import com.ef.newlead.ui.view.SplashView;
 import com.ef.newlead.ui.widget.TransmutableView;
+import com.ef.newlead.util.SharedPreUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -63,10 +64,10 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
 
         intro.setText(getLocaleText("splash_detail"));
 
-        center.setText(getLocaleText("splash_find_center"));
+        center.setText(getLocaleText("splash_action_find_center"));
         signUp.setText(getLocaleText("splash_create_account"));
 
-        indicator.setTitle(getLocaleText("splash_start"));
+        indicator.setTitle(getLocaleText("splash_action_start"));
     }
 
     @NonNull
@@ -96,8 +97,11 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
             startBottomBarAnim(false, Constant.DEFAULT_ANIM_HALF_TIME);
 
             new Handler().postDelayed(() -> {
-                startActivity(
-                        new Intent(this, CollectInfoActivity.class));
+                if (!SharedPreUtils.getBoolean(Constant.USER_SAVED, false)) {
+                    startActivity(new Intent(this, CollectInfoActivity.class));
+                } else {
+                    startActivity(new Intent(this, HomeActivity.class));
+                }
                 finish();
             }, Constant.DEFAULT_ANIM_HALF_TIME);
         }
@@ -108,5 +112,17 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
         setText();
         indicator.startAnim();
         startBottomBarAnim(true, Constant.DEFAULT_ANIM_FULL_TIME);
+    }
+
+    @OnClick({R.id.splash_sign_up, R.id.splash_ef_center})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.splash_sign_up:
+                break;
+            case R.id.splash_ef_center:
+                startActivity(new Intent(this, FindCenterActivity.class));
+                finish();
+                break;
+        }
     }
 }

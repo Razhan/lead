@@ -10,7 +10,7 @@ import timber.log.Timber;
 
 /**
  * Created by seanzhou on 11/10/15.
- * <p/>
+ * <p>
  * A <a href= "http://stackoverflow.com/questions/7417123/android-how-to-adjust-layout-in-full-screen-mode-when-softkeyboard-is-visible">workaround<a/>
  * for adjusting layout in full screen mode when softkeyboard is visible.
  */
@@ -19,27 +19,12 @@ public class KeyBoardVisibilityMonitor {
     // For more information, see https://code.google.com/p/android/issues/detail?id=5497
     // To use this class, simply invoke assistActivity() on an Activity that already has its content view set.
 
-    public static void assistActivity(Activity activity, KeyBoardStateListener keyBoardStateListener) {
-        new KeyBoardVisibilityMonitor(activity, keyBoardStateListener);
-    }
-
+    private static KeyBoardStateListener keyBoardStateListener;
     private View mChildOfContent;
     private int usableHeightPrevious;
     private FrameLayout.LayoutParams frameLayoutParams;
 
     private int initialTopLayoutViewHeight;
-
-    public interface KeyBoardStateListener {
-        void onKeyboardVisible();
-
-        void onKeyboardHidden();
-    }
-
-    private static KeyBoardStateListener keyBoardStateListener;
-
-    public static void dispose() {
-        keyBoardStateListener = null;
-    }
 
     private KeyBoardVisibilityMonitor(Activity activity, KeyBoardStateListener keyBoardStateListener) {
         KeyBoardVisibilityMonitor.keyBoardStateListener = keyBoardStateListener;
@@ -52,6 +37,14 @@ public class KeyBoardVisibilityMonitor {
             }
         });
         frameLayoutParams = (FrameLayout.LayoutParams) mChildOfContent.getLayoutParams();
+    }
+
+    public static void assistActivity(Activity activity, KeyBoardStateListener keyBoardStateListener) {
+        new KeyBoardVisibilityMonitor(activity, keyBoardStateListener);
+    }
+
+    public static void dispose() {
+        keyBoardStateListener = null;
     }
 
     private void possiblyResizeChildOfContent() {
@@ -91,5 +84,11 @@ public class KeyBoardVisibilityMonitor {
         Rect r = new Rect();
         mChildOfContent.getWindowVisibleDisplayFrame(r);
         return (r.bottom - r.top);
+    }
+
+    public interface KeyBoardStateListener {
+        void onKeyboardVisible();
+
+        void onKeyboardHidden();
     }
 }

@@ -26,7 +26,7 @@
             android:background="@drawable/bg_rounded_corners_white"
             android:textAllCaps="true"
             android:textSize="@dimen/font_size_small"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
     </com.balysv.materialripple.MaterialRippleLayout>
 
     <LinearLayout
@@ -62,14 +62,14 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="32dp"
                     android:layout_marginRight="32dp"
-                    android:inputType="textNoSuggestions"
-                    android:textCursorDrawable="@drawable/view_cursor"
                     android:background="@null"
+                    android:inputType="textNoSuggestions"
                     android:paddingBottom="@dimen/editor_vertical_padding"
                     android:paddingTop="@dimen/editor_vertical_padding"
                     android:singleLine="true"
                     android:textColor="@android:color/white"
                     android:textColorHint="@color/location_hint_color"
+                    android:textCursorDrawable="@drawable/view_cursor"
                     android:textSize="@dimen/font_size_large" />
 
                 <View

@@ -64,10 +64,10 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
 
         intro.setText(getLocaleText("splash_detail"));
 
-        center.setText(getLocaleText("splash_find_center"));
+        center.setText(getLocaleText("splash_action_find_center"));
         signUp.setText(getLocaleText("splash_create_account"));
 
-        indicator.setTitle(getLocaleText("splash_start"));
+        indicator.setTitle(getLocaleText("splash_action_start"));
     }
 
     @NonNull

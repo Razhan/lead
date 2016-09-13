@@ -42,32 +42,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="166dp"
                     android:scaleType="centerCrop"
-                    android:transitionName="shared_pic"
-                    android:src="@drawable/pic_test"/>
+                    android:src="@drawable/pic_test"
+                    android:transitionName="shared_pic" />
 
                 <LinearLayout
                     android:id="@+id/center_detail_place"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="19dp"
-                    android:paddingBottom="19dp"
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="19dp"
+                    android:paddingTop="19dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:src="@drawable/ic_place"/>
+                        android:src="@drawable/ic_place" />
 
                     <TextView
                         android:id="@+id/center_detail_place_text"
                         android:layout_width="221dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:textSize="15sp"
-                        android:textColor="@android:color/black"/>
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
@@ -75,30 +75,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginStart="24dp"
-                    android:background="#f2f2f2"/>
+                    android:background="#f2f2f2" />
 
                 <LinearLayout
                     android:id="@+id/center_detail_tel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="19dp"
-                    android:paddingBottom="19dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="19dp"
+                    android:paddingTop="19dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:src="@drawable/ic_telephone"/>
+                        android:src="@drawable/ic_telephone" />
 
                     <TextView
                         android:id="@+id/center_detail_tel_text"
                         android:layout_width="221dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:textSize="15sp"
-                        android:textColor="@android:color/black"/>
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
@@ -106,30 +106,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginStart="24dp"
-                    android:background="#f2f2f2"/>
+                    android:background="#f2f2f2" />
 
                 <LinearLayout
                     android:id="@+id/center_detail_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="19dp"
-                    android:paddingBottom="19dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="19dp"
+                    android:paddingTop="19dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:src="@drawable/ic_clock"/>
+                        android:src="@drawable/ic_clock" />
 
                     <TextView
                         android:id="@+id/center_detail_time_text"
                         android:layout_width="221dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:textSize="15sp"
-                        android:textColor="@android:color/black"/>
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
@@ -137,36 +137,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginStart="24dp"
-                    android:background="#f2f2f2"/>
+                    android:background="#f2f2f2" />
 
                 <LinearLayout
                     android:id="@+id/center_detail_bus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="19dp"
-                    android:paddingBottom="19dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="19dp"
+                    android:paddingTop="19dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:src="@drawable/ic_bus"/>
+                        android:src="@drawable/ic_bus" />
 
                     <TextView
                         android:id="@+id/center_detail_bus_text"
                         android:layout_width="221dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:textSize="15sp"
-                        android:textColor="@android:color/black"/>
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"/>
+                    android:layout_height="200dp" />
 
             </LinearLayout>
 

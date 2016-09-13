@@ -34,6 +34,7 @@ import butterknife.OnClick;
 public class RolePlayActivity extends BaseActivity implements OnPreparedListener,
         VideoControlLayout.VisibilityAnimationListener, VideoControlLayout.PlayingProgressChangeListener {
 
+    protected boolean pausedInOnStop = false;
     @BindView(R.id.video_role_asr_progress)
     ASRProgressView asrProgress;
     @BindView(R.id.video_role_video)
@@ -60,10 +61,7 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
     TextView script;
     @BindView(R.id.microphone_volume)
     MicrophoneVolumeView microphoneView;
-
     private boolean isRestarted = false;
-    protected boolean pausedInOnStop = false;
-
     private List<Double> timestamps;
     private float duration;
     private int stepIndex = 0;
@@ -211,7 +209,6 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
 
         script.setText(" ");
     }
-
 
 
     private void onHandleAsrResult(boolean successful) {

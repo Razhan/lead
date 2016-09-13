@@ -10,57 +10,57 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:textStyle="bold"
-        android:textSize="24sp"
         android:gravity="center"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/remind_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/remind_title"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
-        android:textSize="16sp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
-        android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true">
+        android:layout_marginStart="30dp"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/remind_b1"
             android:layout_width="match_parent"
             android:layout_height="57dp"
             android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_rounded_corners_white"
             android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:background="@drawable/bg_rounded_corners_white"/>
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/find_center_more"
             android:layout_width="match_parent"
             android:layout_height="57dp"
             android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_rounded_corners_white"
             android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:background="@drawable/bg_rounded_corners_white"/>
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/remind_b3"
             android:layout_width="match_parent"
             android:layout_height="57dp"
+            android:background="@drawable/bg_rounded_corners_stroke_white"
             android:textColor="@color/white"
-            android:textSize="14sp"
-            android:background="@drawable/bg_rounded_corners_stroke_white"/>
+            android:textSize="14sp" />
 
     </LinearLayout>
 

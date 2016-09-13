@@ -39,10 +39,6 @@ public class VideoControlLayout extends VideoControls {
 
     private boolean pauseClickedBefore = false;
 
-    public boolean isManualPaused() {
-        return manualPaused;
-    }
-
     public VideoControlLayout(Context context) {
         super(context);
     }
@@ -58,6 +54,10 @@ public class VideoControlLayout extends VideoControls {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public VideoControlLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    public boolean isManualPaused() {
+        return manualPaused;
     }
 
     public VideoControlLayout setPlayingProgressChangeListener(PlayingProgressChangeListener listener) {
@@ -251,52 +251,6 @@ public class VideoControlLayout extends VideoControls {
         updatePlaybackState(videoView != null && videoView.isPlaying());
     }
 
-    /***
-     * Listener for monitoring the control view visibility change.
-     */
-    public interface VisibilityAnimationListener {
-        void onAnimate(boolean visible);
-    }
-
-    /***
-     * Listener for monitoring the playing progress
-     */
-    public interface PlayingProgressChangeListener {
-        void onUpdate(float progress);
-    }
-
-    class SeekBarChanged implements SeekBar.OnSeekBarChangeListener {
-        private int seekToTime;
-
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            if (!fromUser) {
-                return;
-            }
-
-            seekToTime = progress;
-            if (currentTime != null) {
-                currentTime.setText(TimeFormatUtil.formatMs(seekToTime));
-            }
-        }
-
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-            userInteracting = true;
-            if (seekListener == null || !seekListener.onSeekStarted()) {
-                internalListener.onSeekStarted();
-            }
-        }
-
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-            userInteracting = false;
-            if (seekListener == null || !seekListener.onSeekEnded(seekToTime)) {
-                internalListener.onSeekEnded(seekToTime);
-            }
-        }
-    }
-
     @Override
     protected void setup(Context context) {
         super.setup(context);
@@ -341,6 +295,52 @@ public class VideoControlLayout extends VideoControls {
                 playPauseButton.setImageResource(R.drawable.exomedia_ic_pause_white);
             else
                 playPauseButton.setImageResource(R.drawable.exomedia_ic_play_arrow_white);
+        }
+    }
+
+    /***
+     * Listener for monitoring the control view visibility change.
+     */
+    public interface VisibilityAnimationListener {
+        void onAnimate(boolean visible);
+    }
+
+    /***
+     * Listener for monitoring the playing progress
+     */
+    public interface PlayingProgressChangeListener {
+        void onUpdate(float progress);
+    }
+
+    class SeekBarChanged implements SeekBar.OnSeekBarChangeListener {
+        private int seekToTime;
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            if (!fromUser) {
+                return;
+            }
+
+            seekToTime = progress;
+            if (currentTime != null) {
+                currentTime.setText(TimeFormatUtil.formatMs(seekToTime));
+            }
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+            userInteracting = true;
+            if (seekListener == null || !seekListener.onSeekStarted()) {
+                internalListener.onSeekStarted();
+            }
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            userInteracting = false;
+            if (seekListener == null || !seekListener.onSeekEnded(seekToTime)) {
+                internalListener.onSeekEnded(seekToTime);
+            }
         }
     }
 

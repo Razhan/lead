@@ -22,17 +22,13 @@ import java.lang.ref.WeakReference;
 public class MicrophoneVolumeView extends View {
 
     public static final int ASR_SAMPLE_RATE = 1600;
-
+    public static final int MSG_REDRAW = 0xFF;
+    final Paint paint = new Paint();
     private float minDiameter;
     private float diameter;
     private float maxDiameter;
     private float centreX;
     private float centreY;
-
-    public static final int MSG_REDRAW = 0xFF;
-
-    final Paint paint = new Paint();
-
     private UpdateHandler handler;
 
     public MicrophoneVolumeView(Context context) {
@@ -113,7 +109,7 @@ public class MicrophoneVolumeView extends View {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_REDRAW:
-                    if(viewRef.get() != null) {
+                    if (viewRef.get() != null) {
                         MicrophoneVolumeView volumeView = viewRef.get();
 
                         float proportion = (float) msg.obj;

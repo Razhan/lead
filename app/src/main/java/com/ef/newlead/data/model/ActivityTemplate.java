@@ -111,13 +111,30 @@ public class ActivityTemplate {
 
     public static class DialogBean implements Parcelable {
 
+        public static final Parcelable.Creator<DialogBean> CREATOR =
+                new Parcelable.Creator<DialogBean>() {
+                    public DialogBean createFromParcel(Parcel in) {
+                        return new DialogBean(in);
+                    }
+
+                    public DialogBean[] newArray(int size) {
+                        return new DialogBean[size];
+                    }
+                };
         private String user;
         private double startTime;
         private double endTime;
         private String text;
-
         @SerializedName("text-zh-cn")
         private String translationText;
+
+        private DialogBean(Parcel in) {
+            user = in.readString();
+            startTime = in.readDouble();
+            endTime = in.readDouble();
+            text = in.readString();
+            translationText = in.readString();
+        }
 
         public String getUser() {
             return user;
@@ -151,25 +168,6 @@ public class ActivityTemplate {
         @Override
         public int describeContents() {
             return 0;
-        }
-
-        public static final Parcelable.Creator<DialogBean> CREATOR =
-                new Parcelable.Creator<DialogBean>() {
-                    public DialogBean createFromParcel(Parcel in) {
-                        return new DialogBean(in);
-                    }
-
-                    public DialogBean[] newArray(int size) {
-                        return new DialogBean[size];
-                    }
-                };
-
-        private DialogBean(Parcel in) {
-            user = in.readString();
-            startTime = in.readDouble();
-            endTime = in.readDouble();
-            text = in.readString();
-            translationText = in.readString();
         }
     }
 

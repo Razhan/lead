@@ -51,7 +51,7 @@ public abstract class UseCase {
 
     @SuppressWarnings("unchecked")
     public <T> void execute() {
-        Subscription subscription = ((Observable<T>)this.buildUseCaseObservable())
+        Subscription subscription = ((Observable<T>) this.buildUseCaseObservable())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(res -> {

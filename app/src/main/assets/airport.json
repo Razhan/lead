@@ -6,7 +6,7 @@
     {
       "id": "airport_dialogue",
       "type": "DIALOG",
-      "typeNum":1,
+      "typeNum": 1,
       "title": "The Airport",
       "title-zh-cn": "飞机场",
       "video": {
@@ -181,7 +181,7 @@
     {
       "id": "airport_roleplay",
       "type": "ROLEPLAY",
-      "typeNum":2,
+      "typeNum": 2,
       "title": "The Airport",
       "title-zh-cn": "飞机场",
       "video": {

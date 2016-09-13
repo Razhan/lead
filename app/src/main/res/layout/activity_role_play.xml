@@ -21,28 +21,28 @@
             android:id="@+id/video_role_cover"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:visibility="invisible"
-            android:background="#7F000000"/>
+            android:background="#7F000000"
+            android:visibility="invisible" />
 
         <com.ef.newlead.ui.widget.ASRProgressView
             android:id="@+id/video_role_asr_progress"
             android:layout_width="match_parent"
-            android:layout_alignBottom="@+id/video_role_video"
-            android:layout_height="56dp"/>
+            android:layout_height="56dp"
+            android:layout_alignBottom="@+id/video_role_video" />
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:titleTextColor="@color/white"/>
+            app:titleTextColor="@color/white" />
 
         <ImageView
             android:id="@+id/video_role_replay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:visibility="invisible"
-            android:src="@drawable/ic_replay"/>
+            android:src="@drawable/ic_replay"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 
@@ -55,12 +55,12 @@
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/white"/>
+            android:background="@color/white" />
 
         <com.ef.newlead.ui.widget.ColorfulProgressBar
             android:id="@+id/video_role_progressbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </RelativeLayout>
 
@@ -78,7 +78,7 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <include layout="@layout/view_audio_recognition"/>
+            <include layout="@layout/view_audio_recognition" />
 
         </LinearLayout>
 
@@ -86,8 +86,8 @@
             android:id="@+id/video_role_deny_wrapper"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="60dp"
             android:layout_marginEnd="60dp"
+            android:layout_marginStart="60dp"
             android:orientation="vertical"
             android:visibility="gone">
 
@@ -95,21 +95,21 @@
                 android:id="@+id/video_role_deny_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="60dp"
-                android:textSize="32sp"
+                android:gravity="center"
+                android:text="Oops!"
                 android:textColor="@android:color/black"
-                android:text="Oops!"/>
+                android:textSize="32sp" />
 
             <TextView
                 android:id="@+id/video_role_deny_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="30dp"
-                android:textSize="16sp"
+                android:gravity="center"
+                android:text="You have denied use of the microphone. To use, you need to change it in device settings."
                 android:textColor="#8a000000"
-                android:text="You have denied use of the microphone. To use, you need to change it in device settings."/>
+                android:textSize="16sp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -121,17 +121,16 @@
                     android:layout_height="36dp"
                     android:layout_centerInParent="true"
                     android:background="#666666"
-                    android:paddingRight="17dp"
                     android:paddingLeft="17dp"
-                    android:textColor="@color/white"
-                    android:text="TRY AGAIN"/>
+                    android:paddingRight="17dp"
+                    android:text="TRY AGAIN"
+                    android:textColor="@color/white" />
 
             </RelativeLayout>
 
         </LinearLayout>
 
     </FrameLayout>
-
 
 
 </LinearLayout>

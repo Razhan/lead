@@ -172,12 +172,12 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
                 {
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
                         recordBtn.setPressed(true);
-                        recordBtn.setBackgroundResource(R.drawable.mic_tapping);
+                        recordBtn.setBackgroundResource(R.drawable.ic_mic_tapping);
                         onRecordStart();
                         return true;
                     } else if (event.getAction() == MotionEvent.ACTION_UP) {
                         recordBtn.setPressed(false);
-                        recordBtn.setBackgroundResource(R.drawable.mic);
+                        recordBtn.setBackgroundResource(R.drawable.ic_mic);
                         onRecordComplete();
                         return true;
                     } else {

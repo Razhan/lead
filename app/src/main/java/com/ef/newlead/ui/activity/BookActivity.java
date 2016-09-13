@@ -1,27 +1,27 @@
 package com.ef.newlead.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ef.newlead.R;
 import com.ef.newlead.ui.adapter.BookItemAdapter;
-import com.ef.newlead.util.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
-public class BookingActivity extends BaseActivity {
+public class BookActivity extends BaseActivity {
 
     @BindView(R.id.book_place_text)
     TextView placeText;
@@ -47,9 +47,12 @@ public class BookingActivity extends BaseActivity {
     LinearLayout user;
     @BindView(R.id.book_clock_list)
     RecyclerView clockList;
+    @BindView(R.id.book_button)
+    Button button;
 
-    private String defaultDate = "Select the date";
-    private String defaultClock = "Select the time";
+    private String defaultDateText = "Select the date";
+    private String defaultClockText = "Select the time";
+    private String defaultNameText = "Complete information";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +62,7 @@ public class BookingActivity extends BaseActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_booking;
+        return R.layout.activity_book;
     }
 
     @Override
@@ -76,30 +79,33 @@ public class BookingActivity extends BaseActivity {
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
 
+        button.getBackground().setColorFilter(Color.parseColor("#B3D8FD"), PorterDuff.Mode.MULTIPLY);
+
         placeText.setText("上海市，徐家汇中心");
-        dateText.setText(defaultDate);
-        clockText.setText(defaultClock);
-        userText.setText("Name");
+        dateText.setText(defaultDateText);
+        clockText.setText(defaultClockText);
+        userText.setText(defaultNameText);
         age.setText("Age group");
         phone.setText("Phone number");
+        button.setText("BOOK SESSION");
 
         initDateList();
         initClockList();
 
         date.setOnClickListener(v -> {
             if (clockList.getVisibility() == View.VISIBLE) {
-                triggerListView(clockList, clockText, defaultClock, false);
+                triggerListView(clockList, clockText, defaultClockText, false);
             }
 
-            triggerListView(dateList, dateText, defaultDate, false);
+            triggerListView(dateList, dateText, defaultDateText, false);
         });
 
         clock.setOnClickListener(v -> {
             if (dateList.getVisibility() == View.VISIBLE) {
-                triggerListView(dateList, dateText, defaultDate, false);
+                triggerListView(dateList, dateText, defaultDateText, false);
             }
 
-            triggerListView(clockList, clockText, defaultClock, false);
+            triggerListView(clockList, clockText, defaultClockText, false);
         });
 
         dateList.getViewTreeObserver().addOnGlobalLayoutListener(getGlobalLayoutListener(dateList));
@@ -166,4 +172,17 @@ public class BookingActivity extends BaseActivity {
 
         textView.setText(text);
     }
+
+    @OnClick({R.id.book_user_wrapper, R.id.book_button})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.book_user_wrapper:
+                break;
+            case R.id.book_button:
+                startActivity(new Intent(this, BookResultActivity.class));
+                finish();
+                break;
+        }
+    }
+
 }

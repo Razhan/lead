@@ -28,7 +28,6 @@
                 android:id="@+id/center_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="人民广场中心"
                 android:textColor="@android:color/black"
                 android:textSize="17sp" />
 
@@ -36,9 +35,8 @@
                 android:id="@+id/center_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="67dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginTop="10dp"
-                android:text="上海市福州路666号华鑫海欣大厦3层"
                 android:textColor="#9b9b9b"
                 android:textSize="14sp" />
 

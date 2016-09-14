@@ -63,9 +63,10 @@
 
                     <TextView
                         android:id="@+id/center_detail_place_text"
-                        android:layout_width="221dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
+                        android:layout_marginEnd="16dp"
                         android:textColor="@android:color/black"
                         android:textSize="15sp" />
 
@@ -94,9 +95,10 @@
 
                     <TextView
                         android:id="@+id/center_detail_tel_text"
-                        android:layout_width="221dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
+                        android:layout_marginEnd="16dp"
                         android:textColor="@android:color/black"
                         android:textSize="15sp" />
 
@@ -125,9 +127,10 @@
 
                     <TextView
                         android:id="@+id/center_detail_time_text"
-                        android:layout_width="221dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
+                        android:layout_marginEnd="16dp"
                         android:textColor="@android:color/black"
                         android:textSize="15sp" />
 
@@ -156,9 +159,10 @@
 
                     <TextView
                         android:id="@+id/center_detail_bus_text"
-                        android:layout_width="221dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
+                        android:layout_marginEnd="16dp"
                         android:textColor="@android:color/black"
                         android:textSize="15sp" />
 

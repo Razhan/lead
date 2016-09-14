@@ -97,7 +97,7 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
         super.initView();
 
         timerText = getLocaleText("phone_select_action_retry");
-        number.setText(phone_number);
+        number.setText("+86 " + phone_number);
         countDownText.setText(timerText);
         submit.setText(getContinueText());
         startCountDown();

@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ef.newlead.data.model.GradientColor;
+import com.ef.newlead.ui.activity.PermissionListener;
 import com.ef.newlead.util.SystemText;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import butterknife.ButterKnife;
 
@@ -77,5 +79,17 @@ public abstract class BaseFragment extends Fragment {
         int b = 0xFF & color;
         GradientColor.GradientBean gradient = new GradientColor.GradientBean(r, g, b, a);
         return new GradientColor(gradient, gradient, 1);
+    }
+
+    protected void askForPermissions(PermissionListener listener, String... permissions) {
+        RxPermissions.getInstance(getActivity().getApplicationContext())
+                .request(permissions)
+                .subscribe(granted -> {
+                    if (granted) {
+                        listener.permissionGranted();
+                    } else {
+                        listener.permissionDenied();
+                    }
+                });
     }
 }

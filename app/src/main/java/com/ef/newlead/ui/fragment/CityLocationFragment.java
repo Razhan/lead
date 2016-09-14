@@ -1,13 +1,8 @@
 package com.ef.newlead.ui.fragment;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -26,8 +21,10 @@ import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.City;
 import com.ef.newlead.presenter.CityInfoPresenter;
+import com.ef.newlead.ui.activity.PermissionListener;
 import com.ef.newlead.ui.adapter.CityAdapter;
 import com.ef.newlead.ui.view.CityLocationView;
+import com.ef.newlead.ui.widget.OnClickListenerWrapper;
 import com.ef.newlead.util.MiscUtils;
 import com.ef.newlead.util.SharedPreUtils;
 import com.ef.newlead.util.ViewUtils;
@@ -44,8 +41,6 @@ import butterknife.OnClick;
  */
 public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresenter> implements TextWatcher,
         AdapterView.OnItemClickListener, CityLocationView {
-
-    public static final int WRITE_COARSE_LOCATION_REQUEST_CODE = 0xFF;
 
     @BindView(R.id.cancel_input)
     ImageView cancel;
@@ -122,6 +117,8 @@ public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresen
         input.setHint(getLocaleText("city_select_placeholder"));
         location.setText(getLocaleText("city_select_locate"));
 
+        location.setOnClickListener(new OnClickListenerWrapper((View v) -> tryToLocate()));
+
         // activate ripple effect on SDK 21+; otherwise apply alpha animation
 
         if (!MiscUtils.hasLollipop()) {
@@ -163,18 +160,19 @@ public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresen
         }
     }
 
-    @OnClick(R.id.city_location)
-    void onLocate() {
-        tryToLocate();
-    }
-
     private void tryToLocate() {
-        FragmentActivity activity = this.getActivity();
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, WRITE_COARSE_LOCATION_REQUEST_CODE);
-        } else {
-            locateNow();
-        }
+        askForPermissions(new PermissionListener() {
+            @Override
+            public void permissionGranted() {
+                locateNow();
+            }
+
+            @Override
+            public void permissionDenied() {
+                Toast.makeText(CityLocationFragment.this.getActivity(),
+                        "Permission for using location has been rejected.", Toast.LENGTH_SHORT).show();
+            }
+        }, Manifest.permission.ACCESS_COARSE_LOCATION);
     }
 
     private void locateNow() {
@@ -289,7 +287,7 @@ public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresen
         }, 100);
     }
 
-    @Override
+    /*@Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == WRITE_COARSE_LOCATION_REQUEST_CODE) {
@@ -299,5 +297,5 @@ public class CityLocationFragment extends BaseCollectInfoFragment<CityInfoPresen
                 Toast.makeText(this.getActivity(), "Permission for using location has been rejected.", Toast.LENGTH_SHORT).show();
             }
         }
-    }
+    }*/
 }

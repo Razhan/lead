@@ -3,14 +3,10 @@ package com.ef.newlead.ui.activity;
 import android.Manifest;
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -29,9 +25,9 @@ import com.ef.newlead.data.model.City;
 import com.ef.newlead.presenter.CityInfoPresenter;
 import com.ef.newlead.ui.adapter.CenterAdapter;
 import com.ef.newlead.ui.adapter.NewCityAdapter;
-import com.ef.newlead.ui.fragment.CityLocationFragment;
 import com.ef.newlead.ui.view.CityLocationView;
 import com.ef.newlead.ui.widget.DeletableEditText;
+import com.ef.newlead.ui.widget.OnClickListenerWrapper;
 import com.ef.newlead.util.ViewUtils;
 
 import java.util.ArrayList;
@@ -114,6 +110,7 @@ public class FindCenterActivity extends BaseMVPActivity<CityInfoPresenter>
 
         input.setHint(getLocaleText("city_select_placeholder"));
         location.setText(getLocaleText("city_select_locate"));
+        location.setOnClickListener(new OnClickListenerWrapper((View v) -> tryToLocate()));
 
         startText.setText(getLocaleText("ef_center_help_hint"));
         emptyTitle.setText(getLocaleText("ef_center_no_center_title"));
@@ -245,31 +242,19 @@ public class FindCenterActivity extends BaseMVPActivity<CityInfoPresenter>
 
     }
 
-    @OnClick(R.id.city_location)
-    void onLocate() {
-        tryToLocate();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == CityLocationFragment.WRITE_COARSE_LOCATION_REQUEST_CODE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                locateNow();
-            } else {
-                Toast.makeText(this, "Permission for using location has been rejected.", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
     private void tryToLocate() {
-        FragmentActivity activity = this;
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                    CityLocationFragment.WRITE_COARSE_LOCATION_REQUEST_CODE);
-        } else {
-            locateNow();
-        }
+        askForPermissions(new PermissionListener() {
+            @Override
+            public void permissionGranted() {
+                locateNow();
+            }
+
+            @Override
+            public void permissionDenied() {
+                Toast.makeText(FindCenterActivity.this,
+                        "Permission for using location has been rejected.", Toast.LENGTH_SHORT).show();
+            }
+        }, Manifest.permission.ACCESS_COARSE_LOCATION);
     }
 
     private void locateNow() {

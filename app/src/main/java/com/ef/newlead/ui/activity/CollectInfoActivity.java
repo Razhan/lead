@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.ArrayMap;
 import android.transition.Slide;
 import android.view.Gravity;
@@ -16,24 +18,29 @@ import com.ef.newlead.data.model.GradientColor;
 import com.ef.newlead.domain.usecase.CollectInfoUseCase;
 import com.ef.newlead.presenter.CollectInfoPresenter;
 import com.ef.newlead.ui.fragment.AgeFragment;
+import com.ef.newlead.ui.fragment.BaseCollectInfoFragment;
 import com.ef.newlead.ui.fragment.CityLocationFragment;
 import com.ef.newlead.ui.fragment.LevelFragment;
 import com.ef.newlead.ui.fragment.NumberFragment;
 import com.ef.newlead.ui.fragment.PurposeFragment;
+import com.ef.newlead.ui.fragment.VerificationFragment;
 import com.ef.newlead.ui.view.CollectInfoView;
 import com.ef.newlead.util.SharedPreUtils;
 import com.ef.newlead.util.SystemText;
+import com.google.android.exoplayer.util.Assertions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
-import java.util.Map;
 
 public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
-        implements ActivityCompat.OnRequestPermissionsResultCallback, CollectInfoView {
+        implements ActivityCompat.OnRequestPermissionsResultCallback, CollectInfoView,
+        VerificationFragment.VerificationResultListener,
+        AgeFragment.AgeSelectionListener,
+        NumberFragment.PhoneNumberInputListener, BaseCollectInfoFragment.InfoCollectionListener {
 
     private static final String CURRENT_FRAGMENT = "currentFragment";
-    private static Map<String, Class<?>> fragmentMapper;
+    private static ArrayMap<String, Class<?>> fragmentMapper;
 
     static {
         fragmentMapper = new ArrayMap<>();
@@ -48,6 +55,7 @@ public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
     private Fragment fragment;
     private String[] fragmentKeys;
     private List<GradientColor> colors;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +86,9 @@ public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
         fragmentIndex = Math.min(SharedPreUtils.getInt(CURRENT_FRAGMENT, 0), fragmentKeys.length - 1);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.collect_info_fragment, getNextFragment())
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.collect_info_fragment, getNextFragment(null))
                     .commit();
         }
     }
@@ -98,19 +107,34 @@ public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
         finish();
     }
 
-    public Fragment getNextFragment() {
-        if (fragmentIndex >= fragmentKeys.length) {
-            presenter.submitInfo();
+    public Fragment getNextFragment(Fragment targetFragment) {
+        /*if (fragmentIndex >= fragmentKeys.length) {
             return null;
-        }
+        }*/
 
         SharedPreUtils.putInt(CURRENT_FRAGMENT, fragmentIndex);
 
-        try {
-            fragment = (Fragment) fragmentMapper.get(fragmentKeys[fragmentIndex++]).newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (targetFragment == null) {
+            try {
+                fragment = (Fragment) fragmentMapper.get(fragmentKeys[fragmentIndex++]).newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            fragment = targetFragment;
         }
+
+        if (fragment instanceof VerificationFragment) {
+            ((VerificationFragment) fragment).setVerificationResultListener(this)
+                    .setLastPage(true)
+                    .setInfoCollectionListener(this);
+        } else if (fragment instanceof AgeFragment) {
+            ((AgeFragment) fragment).setAgeSelectionListener(this);
+        } else if (fragment instanceof NumberFragment) {
+            ((NumberFragment) fragment).setPhoneNumberInputListener(this);
+        }
+
+        Assertions.checkNotNull(fragment, "Invalid Fragment found");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             fragment.setEnterTransition(new Slide(Gravity.RIGHT).setDuration(Constant.DEFAULT_ANIM_FULL_TIME));
@@ -119,14 +143,6 @@ public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
         }
 
         return fragment;
-    }
-
-    public boolean isLastFragment() {
-        if (fragmentIndex == fragmentMapper.size()) {
-            return true;
-        }
-
-        return false;
     }
 
     public GradientColor getColor() {
@@ -141,4 +157,49 @@ public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
         }
     }
 
+    protected final void startNextFragment(Fragment fragment) {
+        Fragment nextFragment = getNextFragment(fragment);
+
+        if (nextFragment == null) {
+            return;
+        }
+
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.collect_info_fragment, nextFragment).commit();
+    }
+
+    @Override
+    public void onPhoneNumVerified(String phoneNum) {
+        //presenter.submitInfo();
+    }
+
+    @Override
+    public void onAge(String value) {
+        startNextFragment(null);
+    }
+
+    @Override
+    public void onInputComplete(String phone) {
+        Fragment fragment = getVerificationFragment(false, phone);
+        startNextFragment(fragment);
+    }
+
+    public static Fragment getVerificationFragment(boolean standalone, String phone) {
+        Fragment fragment = VerificationFragment.newInstance(standalone, phone);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Slide slide = new Slide(Gravity.RIGHT);
+            slide.setDuration(Constant.DEFAULT_ANIM_FULL_TIME);
+
+            fragment.setEnterTransition(slide);
+            fragment.setExitTransition(slide);
+        }
+
+        return fragment;
+    }
+
+    @Override
+    public void onComplete() {
+        presenter.submitInfo();
+    }
 }

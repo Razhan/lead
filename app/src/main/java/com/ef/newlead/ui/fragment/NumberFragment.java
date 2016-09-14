@@ -9,11 +9,13 @@ import android.text.TextWatcher;
 import android.transition.Slide;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
+import com.ef.newlead.data.model.GradientColor;
 import com.ef.newlead.domain.usecase.VerificationUseCase;
 import com.ef.newlead.presenter.VerificationPresenter;
 import com.ef.newlead.ui.view.VerificationView;
@@ -32,32 +34,66 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
 
     @BindView(R.id.number_progress_view)
     CheckProgressView progressView;
+
     @BindView(R.id.number_input)
     DeletableEditText input;
+
     @BindView(R.id.number_hint)
     TextView hint;
+
     @BindView(R.id.number_bottom_bar)
     RelativeLayout submit;
+
     @BindView(R.id.number_next)
     TextView next;
+
     @BindView(R.id.number_title)
     TextView title;
+
+    @BindView(R.id.close)
+    ViewGroup closeImage;
 
     private boolean clickable = false;
     private String phone_number;
 
-    public static Fragment newInstance() {
-        return new NumberFragment();
+    public interface PhoneNumberInputListener {
+        void onInputComplete(String phone);
     }
 
-    public static Fragment newInstance(String number) {
+    private PhoneNumberInputListener phoneNumberInputListener;
+
+    public NumberFragment setPhoneNumberInputListener(PhoneNumberInputListener inputListener) {
+        this.phoneNumberInputListener = inputListener;
+        return this;
+    }
+
+    public static NumberFragment newInstance(boolean standalone) {
+        Bundle args = new Bundle();
+        args.putBoolean(STANDALONE, standalone);
+
+        NumberFragment numberFragment = new NumberFragment();
+        numberFragment.setArguments(args);
+        return numberFragment;
+    }
+
+    public static Fragment newInstance(boolean standalone, String number) {
         NumberFragment fragment = new NumberFragment();
 
         Bundle args = new Bundle();
         args.putString(NUMBER_KEY, number);
+        args.putBoolean(STANDALONE, standalone);
         fragment.setArguments(args);
 
         return fragment;
+    }
+
+    @Override
+    protected GradientColor getColor() {
+        if (isStandalone()) {
+            return getDefaultGradientColor();
+        } else {
+            return super.getColor();
+        }
     }
 
     @Override
@@ -130,10 +166,18 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
         progressView.setEndAnimationListener(() -> {
             inProgress = false;
             hint.setText(getLocaleText("phone_select_subtitle_3"));
-            SharedPreUtils.putString(Constant.USER_PHONE, input.getText().toString());
+            String phone = input.getText().toString();
+            SharedPreUtils.putString(Constant.USER_PHONE, phone);
 
-            startNextFragment();
+            continueWithPhoneNum();
         });
+
+        if (isStandalone()) {
+            closeImage.setVisibility(View.VISIBLE);
+            ((RelativeLayout.LayoutParams) title.getLayoutParams()).topMargin = 0;
+        } else {
+            closeImage.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -144,6 +188,15 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
     @Override
     public void afterCodeVerified(boolean isSucceed) {
 
+    }
+
+    protected void continueWithPhoneNum() {
+        getActivity().runOnUiThread(() -> {
+            if (phoneNumberInputListener != null) {
+                String phone = input.getText().toString();
+                phoneNumberInputListener.onInputComplete(phone);
+            }
+        });
     }
 
     @OnClick(R.id.number_bottom_bar)
@@ -175,7 +228,7 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
 
     @Override
     protected Fragment getNextFragment() {
-        Fragment fragment = VerificationFragment.newInstance(input.getText().toString());
+        Fragment fragment = VerificationFragment.newInstance(false, input.getText().toString());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Slide slide = new Slide(Gravity.RIGHT);
@@ -188,4 +241,8 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
         return fragment;
     }
 
+    @OnClick(R.id.close)
+    public void onClose() {
+        getActivity().finish();
+    }
 }

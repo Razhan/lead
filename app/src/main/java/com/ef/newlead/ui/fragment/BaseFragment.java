@@ -2,6 +2,7 @@ package com.ef.newlead.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.ef.newlead.data.model.GradientColor;
 import com.ef.newlead.util.SystemText;
 
 import butterknife.ButterKnife;
@@ -63,5 +65,17 @@ public abstract class BaseFragment extends Fragment {
 
     protected String getLocaleText(String key) {
         return SystemText.getSystemText(getContext(), key);
+    }
+
+    @NonNull
+    protected GradientColor getDefaultGradientColor() {
+        int color = 0x6194D0;
+
+        int a = 1;
+        int r = 0xFF & color >> 16;
+        int g = 0xFF & color >> 8;
+        int b = 0xFF & color;
+        GradientColor.GradientBean gradient = new GradientColor.GradientBean(r, g, b, a);
+        return new GradientColor(gradient, gradient, 1);
     }
 }

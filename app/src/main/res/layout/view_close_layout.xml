@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="24dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:id="@+id/close_parent"
+    android:descendantFocusability="beforeDescendants">
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_close" />
+</FrameLayout>

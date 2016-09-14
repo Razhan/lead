@@ -10,8 +10,11 @@
         android:layout_height="match_parent"
         android:layout_gravity="center">
 
+        <include layout="@layout/view_close_layout" android:id="@+id/close"/>
+
         <TextView
             android:id="@+id/age_title"
+            android:layout_below="@id/close"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

@@ -3,8 +3,6 @@ package com.ef.newlead.ui.widget;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 /**
@@ -41,23 +39,4 @@ public class SafeButton extends Button {
         super.setOnClickListener(new OnClickListenerWrapper(l));
     }
 
-    private class OnClickListenerWrapper implements OnClickListener {
-
-        private static final long DEFAULT_MIN_INTERVAL = 1500;
-        private final OnClickListener mListener;
-        private long mLastClickTime = 0;
-
-        public OnClickListenerWrapper(OnClickListener listener) {
-            mListener = listener;
-        }
-
-        @Override
-        public void onClick(View v) {
-            long currentTime = AnimationUtils.currentAnimationTimeMillis();
-            if (currentTime - mLastClickTime > DEFAULT_MIN_INTERVAL) {
-                mListener.onClick(v);
-                mLastClickTime = currentTime;
-            }
-        }
-    }
 }

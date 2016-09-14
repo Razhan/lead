@@ -280,10 +280,4 @@ public abstract class BaseActivity extends AppCompatActivity {
         return mBottomSheetDialog;
     }
 
-    public interface PermissionListener {
-
-        void permissionGranted();
-
-        void permissionDenied();
-    }
 }

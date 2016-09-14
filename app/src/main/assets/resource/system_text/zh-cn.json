@@ -1,221 +1,268 @@
 {
-  "splash_title": "EF Title",
-  "splash_header": "太好了",
-  "splash_detail": "adsfasdfasdfasdfafsd \n\r adsfasdfadsfadf",
-  "splash_start": "start",
-  "splash_create_account": "Create Account",
-  "splash_find_center": "Find an EF Center",
-  "level_select_title": "Help us get you the right lessons",
-  "level_select_subtitle": "Select your level",
-  "level_button_continue": "DONE，让我们开始吧",
-  "level_select": [
+  "action_cancel":"取消",
+  "action_continue":"继续",
+  "action_go_lesson":"去教训",
+  "action_go_phrasebook":"转到短语",
+  "action_leave":"离开",
+  "action_ok":"好",
+  "action_quit":"放弃",
+  "action_save_progress":"保存进度",
+  "activity_dialog":"Dialog",
+  "activity_dialog_show_both":"同时显示 EN & CN",
+  "activity_overview":"Overview",
+  "activity_roleplay":"Roleplay",
+  "activity_roleplay_excellent":"优秀!",
+  "activity_roleplay_incorrect":"不完全正确。 再试一次。",
+  "activity_roleplay_read_below":"阅读下面的句子",
+  "activity_roleplay_perfect":"完善",
+  "activity_roleplay_silent":"赦免？我没太听你的。",
+  "activity_roleplay_timeout":"时间用尽了......尽量快一点。",
+  "activity_roleplay_share_video":"分享我的视频",
+  "activity_roleplay_you_learned_X_new_phrases":"你学会了%u新词语. 他们已经被添加到您的常用语在现实世界中使用它们。",
+  "activity_practice":"Practice",
+  "activity_storytelling":"Story telling",
+  "alert_add_to_phrasebook":"添加到常用语",
+  "alert_are_you_sure_you_want_to_quit":"你确定你要退出吗？",
+  "alert_are_you_sure_you_want_to_leave":"你确定你要离开？你的进步将会丢失！\n*填写您的信息*保存它。",
+  "alert_do_you_want_to_save_if_you_complete_your_info":"你想先救你的进展如何？ You can if you *complete your info*.",
+  "alert_holdup":"耽误!",
+  "alert_its_awesome_you_need_to_complete_your_info":"这真棒要引用在现实世界中这些更高版本。\nFor that you need to *complete your info*",
+  "alert_wait":"等待!",
+  "error_microphone_message":"您已拒绝使用麦克风。使用时，您需要更改它 in device *Settings - LeadGen*",
+  "error_microphone_title":"哎呀",
+  "error_network_title":"网络错误",
+  "error_network_try_again":"请再试一次",
+  "error_network_verify_your_connection":"请验证您的连接",
+  "general_loading":"加载",
+  "lesson_suggested_lesson":"建议课",
+  "age_select":[
     {
-      "id": "0",
-      "level_example": "\"Hello\"",
-      "order": 0
+      "age_select_age":"18-",
+      "age_select_id":"0",
+      "age_select_order":0
     },
     {
-      "id": "1",
-      "level_example": "\"I'm an engineer. I work in a big company. I live in Asia.\"",
-      "order": 1
+      "age_select_age":"19-22",
+      "age_select_id":"1",
+      "age_select_order":1
     },
     {
-      "id": "2",
-      "level_example": "\"I worked in the UK for five years. I'm planning to move to China next year.\"",
-      "order": 2
+      "age_select_age":"23-26",
+      "age_select_id":"2",
+      "age_select_order":2
     },
     {
-      "id": "3",
-      "level_example": "\"I'd like to make a reservation to fly to Los Angeles on the 5th. I'll be returning on October 15th.\"",
-      "order": 3
+      "age_select_age":"27-35",
+      "age_select_id":"4",
+      "age_select_order":3
     },
     {
-      "id": "4",
-      "level_example": "\"Before going back for my MBA, I had been working in an internet company for five years.\"",
-      "order": 4
+      "age_select_age":"36-40",
+      "age_select_id":"4",
+      "age_select_order":4
     },
     {
-      "id": "5",
-      "level_example": "\"In my opinion, homelessness is the most critical issue facing society. We have to develop effective policies for reintegrating homeless people into mainstream society.\"",
-      "order": 5
+      "age_select_age":"41-50",
+      "age_select_id":"5",
+      "age_select_order":5
+    },
+    {
+      "age_select_age":"51+",
+      "age_select_id":"6",
+      "age_select_order":6
     }
   ],
-  "age_select": [
+  "age_select_title":"我可以知道你的年龄吗？",
+  "age_select_next":"NEXT",
+  "city_not_found":"未找到结果",
+  "city_select_error":"定位错误",
+  "city_select_locate":"定位城市",
+  "city_select_locating":"定位中...",
+  "city_select_placeholder":"城市名、拼音",
+  "city_select_submit":"提交",
+  "city_select_top_label":"你来自于..?",
+  "info_collection_next":"继续",
+  "info_collection_submit":"提交",
+  "info_color_gradients":[
     {
-      "age_select_age": "18-",
-      "age_select_id": "0",
-      "age_select_order": 0
-    },
-    {
-      "age_select_age": "19-22",
-      "age_select_id": "1",
-      "age_select_order": 1
-    },
-    {
-      "age_select_age": "23-26",
-      "age_select_id": "2",
-      "age_select_order": 2
-    },
-    {
-      "age_select_age": "27-35",
-      "age_select_id": "4",
-      "age_select_order": 3
-    },
-    {
-      "age_select_age": "36-40",
-      "age_select_id": "4",
-      "age_select_order": 4
-    },
-    {
-      "age_select_age": "41-50",
-      "age_select_id": "5",
-      "age_select_order": 5
-    },
-    {
-      "age_select_age": "51+",
-      "age_select_id": "6",
-      "age_select_order": 6
-    }
-  ],
-  "age_select_title": "May I Know Your Age?",
-  "age_select_next": "NEXT",
-  "purpose_select_title": "你想学商务英语还是旅游英语？",
-  "purpose_select_next": "继续",
-  "purpose_tip_label": "拖曳并选择",
-  "purpose_selections": [
-    {
-      "order": 0,
-      "id": "0",
-      "text": "我专注在学英语上,\n这和我的<b>工作</b>有直接关系。"
-    },
-    {
-      "order": 1,
-      "id": "1",
-      "text": "为了<b>工作</b>我需要学英语,\n但我也想出国旅游"
-    },
-    {
-      "order": 2,
-      "id": "2",
-      "text": "我喜欢<b>旅游</b>,\n工作原因我也要学点英语。"
-    },
-    {
-      "order": 3,
-      "id": "3",
-      "text": "我太爱<b>旅游</b>了,\n我想去世界各地走走。"
-    }
-  ],
-  "city_select_top_label": "你来自于..?",
-  "city_select_placeholder": "城市名、拼音",
-  "city_select_locate": "定位城市",
-  "city_select_locating": "定位中...",
-  "city_select_error": "定位错误",
-  "city_select_submit": "提交",
-  "city_not_found": "未找到结果",
-  "info_collection_next": "继续",
-  "info_collection_submit": "提交",
-  "info_color_gradients": [
-    {
-      "bottom_gradient": {
-        "a": 255,
-        "b": 214,
-        "g": 209,
-        "r": 47
+      "bottom_gradient":{
+        "a":1.0,
+        "b":214,
+        "g":209,
+        "r":47
       },
-      "order": 0,
-      "top_gradient": {
-        "a": 255,
-        "b": 235,
-        "g": 187,
-        "r": 51
+      "order":0,
+      "top_gradient":{
+        "a":1.0,
+        "b":235,
+        "g":187,
+        "r":51
       }
     },
     {
-      "bottom_gradient": {
-        "a": 255,
-        "b": 214,
-        "g": 209,
-        "r": 47
+      "bottom_gradient":{
+        "a":1.0,
+        "b":214,
+        "g":209,
+        "r":47
       },
-      "order": 1,
-      "top_gradient": {
-        "a": 255,
-        "b": 235,
-        "g": 187,
-        "r": 51
+      "order":1,
+      "top_gradient":{
+        "a":1.0,
+        "b":235,
+        "g":187,
+        "r":51
       }
     },
     {
-      "bottom_gradient": {
-        "a": 255,
-        "b": 214,
-        "g": 209,
-        "r": 47
+      "bottom_gradient":{
+        "a":1.0,
+        "b":214,
+        "g":209,
+        "r":47
       },
-      "order": 2,
-      "top_gradient": {
-        "a": 255,
-        "b": 235,
-        "g": 187,
-        "r": 51
+      "order":2,
+      "top_gradient":{
+        "a":1.0,
+        "b":235,
+        "g":187,
+        "r":51
       }
     },
     {
-      "bottom_gradient": {
-        "a": 255,
-        "b": 214,
-        "g": 209,
-        "r": 47
+      "bottom_gradient":{
+        "a":1.0,
+        "b":214,
+        "g":209,
+        "r":47
       },
-      "order": 3,
-      "top_gradient": {
-        "a": 255,
-        "b": 235,
-        "g": 187,
-        "r": 51
+      "order":3,
+      "top_gradient":{
+        "a":1.0,
+        "b":235,
+        "g":187,
+        "r":51
       }
     },
     {
-      "bottom_gradient": {
-        "a": 255,
-        "b": 214,
-        "g": 209,
-        "r": 47
+      "bottom_gradient":{
+        "a":1.0,
+        "b":214,
+        "g":209,
+        "r":47
       },
-      "order": 4,
-      "top_gradient": {
-        "a": 255,
-        "b": 235,
-        "g": 187,
-        "r": 51
+      "order":4,
+      "top_gradient":{
+        "a":1.0,
+        "b":235,
+        "g":187,
+        "r":51
       }
     }
   ],
-  "phone_select_title": "可以留下你的手机号吗?",
-  "phone_select_subtitle_1": "码会以验证您的手机号码发送到您的",
-  "phone_select_subtitle_2": "你的代码是在它的方式",
-  "phone_select_subtitle_3": "代码已经发送给您。",
-  "phone_select_subtitle_4": "不好了！似乎编码是错误的",
-  "phone_select_phone_placeholder": "输入手机号",
-  "phone_select_action_getcode": "获取验证码",
-  "phone_select_action_submit": "提交",
-  "phone_select_action_retry": "重新获取",
-  "phone_select_next": "NEXT",
-  "name_select_firstName_placeholder": "first Name",
-  "name_select_lastName_placeholder": "last Name",
-  "name_select_next": "NEXT",
-  "name_select_gradient_color": {
-    "top_gradient": {
-      "r": 248,
-      "g": 193,
-      "b": 68,
-      "a": 255
+  "level_button_continue":"DONE，让我们开始吧",
+  "level_select":[
+    {
+      "id":"0",
+      "level_example":"\"Hello\"",
+      "order":0
     },
-    "bottom_gradient": {
-      "r": 246,
-      "g": 111,
-      "b": 159,
-      "a": 255
+    {
+      "id":"1",
+      "level_example":"\"I'm an engineer. I work in a big company. I live in Asia.\"",
+      "order":1
+    },
+    {
+      "id":"2",
+      "level_example":"\"I worked in the UK for five years. I'm planning to move to China next year.\"",
+      "order":2
+    },
+    {
+      "id":"3",
+      "level_example":"\"I'd like to make a reservation to fly to Los Angeles on the 5th. I'll be returning on October 15th.\"",
+      "order":3
+    },
+    {
+      "id":"4",
+      "level_example":"\"Before going back for my MBA, I had been working in an internet company for five years.\"",
+      "order":4
+    },
+    {
+      "id":"5",
+      "level_example":"\"In my opinion, homelessness is the most critical issue facing society. We have to develop effective policies for reintegrating homeless people into mainstream society.\"",
+      "order":5
+    }
+  ],
+  "level_select_subtitle":"选择你的水平",
+  "level_select_title":"帮助我们让你在正确的经验教训",
+  "name_select_firstName_placeholder":"名字",
+  "name_select_gradient_color":{
+    "top_gradient":{
+      "r":248,
+      "g":193,
+      "b":68,
+      "a":1.0
+    },
+    "bottom_gradient":{
+      "r":246,
+      "g":111,
+      "b":159,
+      "a":1.0
     }
   },
-  "": null
+  "name_select_lastName_placeholder":"姓",
+  "name_select_next":"NEXT",
+  "name_select_title":"我可以让你的名字吗？",
+  "phone_select_action_getcode":"获取验证码",
+  "phone_select_action_retry":"重新获取",
+  "phone_select_action_submit":"提交",
+  "phone_select_code_title":"请输入验证码",
+  "phone_select_next":"NEXT",
+  "phone_select_phone_placeholder":"输入手机号",
+  "phone_select_subtitle_1":"码会以验证您的手机号码发送到您的",
+  "phone_select_subtitle_2":"你的代码是在它的方式",
+  "phone_select_subtitle_3":"代码已经发送给您。",
+  "phone_select_subtitle_4":"不好了！似乎编码是错误的",
+  "phone_select_title":"可以留下你的手机号吗?",
+  "purpose_select_next":"继续",
+  "purpose_select_title":"你想学商务英语还是旅游英语？",
+  "purpose_selections":[
+    {
+      "order":0,
+      "id":"0",
+      "text":"我专注在学英语上,\n这和我的<b>工作</b>有直接关系。"
+    },
+    {
+      "order":1,
+      "id":"1",
+      "text":"为了<b>工作</b>我需要学英语,\n但我也想出国旅游"
+    },
+    {
+      "order":2,
+      "id":"2",
+      "text":"我喜欢<b>旅游</b>,\n工作原因我也要学点英语。"
+    },
+    {
+      "order":3,
+      "id":"3",
+      "text":"我太爱<b>旅游</b>了,\n我想去世界各地走走。"
+    }
+  ],
+  "purpose_tip_label":"拖曳并选择",
+  "splash_action_start":"上手",
+  "splash_action_find_center":"查找EF中心",
+  "splash_create_account":"创建帐号",
+  "splash_detail":"交互式的和令人兴奋的方式来学习，实践和随时随地发现英语。凭借丰富而有趣的课程和内容，学习英语从来没有更精彩。",
+  "splash_header":"太好了",
+  "splash_learn_native_english":"在应用现实生活中的主题学习纯正的英语。",
+  "splash_title":"EF English on the Move",
+  "ef_center_help_hint":"选择你的城市，或用gps定位",
+  "ef_center_no_center_title":"不好",
+  "ef_center_no_center_detail":"你的城市没有英孚办公室。但是你还是可以选择线上学习.打电话联系.",
+  "ef_center_learn_more_button":"更多",
+  "ef_center_title":"联系英孚",
+  "ef_center_call":"打电话给英孚",
+  "ef_center_open_map":"打开地图",
+  "ef_center_book_action":"预约时间",
+  "map_provider_apple":"苹果地图"
 }

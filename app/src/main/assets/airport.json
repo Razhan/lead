@@ -36,7 +36,7 @@
           {
             "user": "man2",
             "startTime": 5.965,
-            "endTime": 7.500,
+            "endTime": 7.700,
             "text": "I am flying to Stockholm",
             "text-zh-cn": "我很好，谢谢。"
           }
@@ -44,7 +44,7 @@
         [
           {
             "user": "man1",
-            "startTime": 7.747,
+            "startTime": 7.800,
             "endTime": 8.800,
             "text": "May I see your passport, please?",
             "text-zh-cn": "再见"
@@ -195,27 +195,23 @@
             "id": "sentence1",
             "startTime": 5.965,
             "duration": 30,
-            "sentence": "I am flying to Stockholm",
+            "sentence": "I'm flying to New York",
             "asr": {
               "dictionary": [
-                "DKEFR  AY",
-                "LKATZ  T AH",
-                "LKATZ  T IH",
-                "LKATZ  T UH",
-                "LKATZ  T UW",
-                "NGYTK  S T AA K HH OW L M",
-                "TQLOC  F L AY IH NG",
-                "VZPNP  AE M",
-                "VZPNP  EY EH M"
+                "CILRS  T AH",
+                "CILRS  T IH",
+                "CILRS  T UH",
+                "CILRS  T UW",
+                "ERGYR  F L AY IH NG",
+                "KAJJT  N UW",
+                "KAJJT  N Y UW",
+                "MPCRZ  Y AO R K",
+                "TQLPB  AY M"
               ],
-              "keys": "DKEFR VZPNP TQLOC LKATZ NGYTK",
+              "keys": "TQLPB ERGYR CILRS KAJJT MPCRZ",
               "phonems": [
                 [
-                  "AY"
-                ],
-                [
-                  "AE M",
-                  "EY EH M"
+                  "AY M"
                 ],
                 [
                   "F L AY IH NG"
@@ -227,7 +223,11 @@
                   "T UW"
                 ],
                 [
-                  "S T AA K HH OW L M"
+                  "N UW",
+                  "N Y UW"
+                ],
+                [
+                  "Y AO R K"
                 ]
               ]
             }
@@ -238,16 +238,16 @@
             "id": "sentence2",
             "startTime": 9.381,
             "duration": 30,
-            "sentence": "Yes… Here you are",
+            "sentence": "Yes, here they are",
             "asr": {
               "dictionary": [
-                "ODRMJ  HH IH R",
-                "PNAHI  Y EH S",
-                "UBOTH  Y UW",
-                "YADCO  AA R",
-                "YADCO  ER"
+                "FHKQZ  DH EY",
+                "GDNVN  Y EH S",
+                "UHMJB  AA R",
+                "UHMJB  ER",
+                "YFPZQ  HH IH R"
               ],
-              "keys": "PNAHI ODRMJ UBOTH YADCO",
+              "keys": "GDNVN YFPZQ FHKQZ UHMJB",
               "phonems": [
                 [
                   "Y EH S"
@@ -256,7 +256,7 @@
                   "HH IH R"
                 ],
                 [
-                  "Y UW"
+                  "DH EY"
                 ],
                 [
                   "AA R",
@@ -269,78 +269,25 @@
         [
           {
             "id": "sentence3",
-            "startTime": 15.759,
+            "startTime": 26.042,
             "duration": 30,
-            "sentence": "Do you need to see my boarding pass?",
+            "sentence": "Nine p.m.? That's not too bad",
             "asr": {
               "dictionary": [
-                "AQTPC  D UW",
-                "DKQIS  Y UW",
-                "GPXSD  P AE S",
-                "IKMQR  S IY",
-                "VBFKE  B AO R D IH NG",
-                "VNGGE  M AY",
-                "XPRIG  N IY D",
-                "YBCCK  T AH",
-                "YBCCK  T IH",
-                "YBCCK  T UH",
-                "YBCCK  T UW"
+                "CEPIF  N AA T",
+                "EWBHV  B AE D",
+                "MDYDJ  DH AE T S",
+                "OJQXP  T UW",
+                "PNTMH  P IY EH M",
+                "WCTZJ  N AY N"
               ],
-              "keys": "AQTPC DKQIS XPRIG YBCCK IKMQR VNGGE VBFKE GPXSD",
+              "keys": "WCTZJ PNTMH MDYDJ CEPIF OJQXP EWBHV",
               "phonems": [
                 [
-                  "D UW"
+                  "N AY N"
                 ],
                 [
-                  "Y UW"
-                ],
-                [
-                  "N IY D"
-                ],
-                [
-                  "T AH",
-                  "T IH",
-                  "T UH",
-                  "T UW"
-                ],
-                [
-                  "S IY"
-                ],
-                [
-                  "M AY"
-                ],
-                [
-                  "B AO R D IH NG"
-                ],
-                [
-                  "P AE S"
-                ]
-              ]
-            }
-          }
-        ],
-        [
-          {
-            "id": "sentence4",
-            "startTime": 32.754,
-            "duration": 30,
-            "sentence": "Oh well, that's not too bad",
-            "asr": {
-              "dictionary": [
-                "ABKXR  B AE D",
-                "AXUJQ  T UW",
-                "GUYIW  N AA T",
-                "JNPBY  OW",
-                "ONRPU  DH AE T S",
-                "UXYZJ  W EH L"
-              ],
-              "keys": "JNPBY UXYZJ ONRPU GUYIW AXUJQ ABKXR",
-              "phonems": [
-                [
-                  "OW"
-                ],
-                [
-                  "W EH L"
+                  "P IY EH M"
                 ],
                 [
                   "DH AE T S"
@@ -360,33 +307,10 @@
         ],
         [
           {
-            "id": "sentence5",
-            "startTime": 37.497,
+            "id": "sentence4",
+            "startTime": 29.260,
             "duration": 30,
-            "sentence": "That's okay",
-            "asr": {
-              "dictionary": [
-                "CVVUW  OW K EY",
-                "SAPPN  DH AE T S"
-              ],
-              "keys": "SAPPN CVVUW",
-              "phonems": [
-                [
-                  "DH AE T S"
-                ],
-                [
-                  "OW K EY"
-                ]
-              ]
-            }
-          }
-        ],
-        [
-          {
-            "id": "sentence6",
-            "startTime": 41.994,
-            "duration": 30,
-            "sentence": "Yes, I have one bag to check, and one bag to carry on",
+            "sentence": "I have one bag to check and one bag to carry on",
             "asr": {
               "dictionary": [
                 "AENIG  AE N D",
@@ -405,18 +329,14 @@
                 "NNKKJ  T UH",
                 "NNKKJ  T UW",
                 "NNZHG  AY",
-                "PTDMT  Y EH S",
                 "RYVOH  W AH N",
                 "WUSJD  B AE G",
                 "YLSPZ  W AH N",
                 "ZGLUG  AA N",
                 "ZGLUG  AO N"
               ],
-              "keys": "PTDMT NNZHG EKZYH YLSPZ GSDST NNKKJ BDKEV AENIG RYVOH WUSJD AYUUY AQNRN ZGLUG",
+              "keys": "NNZHG EKZYH YLSPZ GSDST NNKKJ BDKEV AENIG RYVOH WUSJD AYUUY AQNRN ZGLUG",
               "phonems": [
-                [
-                  "Y EH S"
-                ],
                 [
                   "AY"
                 ],
@@ -468,24 +388,24 @@
         ],
         [
           {
-            "id": "sentence7",
-            "startTime": 50.987,
+            "id": "sentence5",
+            "startTime": 33.903,
             "duration": 30,
-            "sentence": "No, I've always had my bags with me",
+            "sentence": "No. I've always had them with me",
             "asr": {
               "dictionary": [
-                "DDHSB  B AE G Z",
-                "DFZGT  AO L W EY Z",
-                "DFZGT  AO L W IY Z",
-                "EQZUC  N OW",
-                "LNBXO  AY V",
-                "NRDKZ  HH AE D",
-                "QTKXE  M AY",
-                "VTLDA  M IY",
-                "YPLGX  W IH DH",
-                "YPLGX  W IH TH"
+                "AFHIU  DH EH M",
+                "AFHIU  TH EH M",
+                "DTZOC  AO L W EY Z",
+                "DTZOC  AO L W IY Z",
+                "GEZSC  AY V",
+                "HHOCH  W IH DH",
+                "HHOCH  W IH TH",
+                "KSBXO  HH AE D",
+                "LBRYQ  N OW",
+                "PWEJB  M IY"
               ],
-              "keys": "EQZUC LNBXO DFZGT NRDKZ QTKXE DDHSB YPLGX VTLDA",
+              "keys": "LBRYQ GEZSC DTZOC KSBXO AFHIU HHOCH PWEJB",
               "phonems": [
                 [
                   "N OW"
@@ -501,10 +421,8 @@
                   "HH AE D"
                 ],
                 [
-                  "M AY"
-                ],
-                [
-                  "B AE G Z"
+                  "DH EH M",
+                  "TH EH M"
                 ],
                 [
                   "W IH DH",
@@ -519,20 +437,27 @@
         ],
         [
           {
-            "id": "sentence8",
-            "startTime": 66.009,
+            "id": "sentence6",
+            "startTime": 38.191,
             "duration": 30,
-            "sentence": "An isle seat please",
+            "sentence": "I'd like an isle seat",
             "asr": {
               "dictionary": [
-                "DFGWR  AY L",
-                "ESAPD  P L IY Z",
-                "KFTIV  AE N",
-                "KFTIV  AH N",
-                "VFESY  S IY T"
+                "FPAWJ  L AY K",
+                "RSDIZ  AY L",
+                "UAUEU  AE N",
+                "UAUEU  AH N",
+                "UKBHM  AY D",
+                "WWYRB  S IY T"
               ],
-              "keys": "KFTIV DFGWR VFESY ESAPD",
+              "keys": "UKBHM FPAWJ UAUEU RSDIZ WWYRB",
               "phonems": [
+                [
+                  "AY D"
+                ],
+                [
+                  "L AY K"
+                ],
                 [
                   "AE N",
                   "AH N"
@@ -542,9 +467,6 @@
                 ],
                 [
                   "S IY T"
-                ],
-                [
-                  "P L IY Z"
                 ]
               ]
             }
@@ -552,44 +474,25 @@
         ],
         [
           {
-            "id": "sentence9",
-            "startTime": 77.453,
+            "id": "sentence7",
+            "startTime": 55.669,
             "duration": 30,
-            "sentence": "Thanks",
+            "sentence": "Gate E24. OK. Thank you",
             "asr": {
               "dictionary": [
-                "IIAOX  TH AE NG K S"
+                "JECJN  Y UW",
+                "LOILD  OW K EY",
+                "SLUPB  IY T UW   F AO R",
+                "UHELD  G EY T",
+                "ZHCNH  TH AE NG K"
               ],
-              "keys": "IIAOX",
-              "phonems": [
-                [
-                  "TH AE NG K S"
-                ]
-              ]
-            }
-          }
-        ],
-        [
-          {
-            "id": "sentence10",
-            "startTime": 86.333,
-            "duration": 30,
-            "sentence": "Gate B25, okay, thank you",
-            "asr": {
-              "dictionary": [
-                "HOMUK  Y UW",
-                "RRIPQ  G EY T",
-                "VNEJG  B IY T UW   F AY V",
-                "VTCXJ  TH AE NG K",
-                "XLPHB  OW K EY"
-              ],
-              "keys": "RRIPQ VNEJG XLPHB VTCXJ HOMUK",
+              "keys": "UHELD SLUPB LOILD ZHCNH JECJN",
               "phonems": [
                 [
                   "G EY T"
                 ],
                 [
-                  "B IY T UW   F AY V"
+                  "IY T UW   F AO R"
                 ],
                 [
                   "OW K EY"

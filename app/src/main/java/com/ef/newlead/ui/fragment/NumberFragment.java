@@ -196,6 +196,8 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
                 String phone = input.getText().toString();
                 phoneNumberInputListener.onInputComplete(phone);
             }
+
+            input.setClearIconVisible(true);
         });
     }
 
@@ -204,6 +206,8 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
         if (!clickable || inProgress) {
             return;
         }
+
+        input.setClearIconVisible(false);
 
         presenter.getVerificationCode(input.getText().toString());
 
@@ -219,6 +223,8 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
         if (isSucceed) {
             progressView.startAnim();
         } else {
+            input.setClearIconVisible(true);
+
             hint.setText(getLocaleText("phone_select_subtitle_1"));
             progressView.setState(CheckProgressView.STATE_ANIM_NONE);
             next.setVisibility(View.VISIBLE);

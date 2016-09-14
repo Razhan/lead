@@ -1,12 +1,16 @@
 package com.ef.newlead.ui.fragment;
 
-import android.support.v4.app.Fragment;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.Age;
+import com.ef.newlead.data.model.GradientColor;
 import com.ef.newlead.ui.adapter.AgeAdapter;
 import com.ef.newlead.ui.widget.flowview.FlowView;
 import com.ef.newlead.util.SharedPreUtils;
@@ -25,15 +29,38 @@ public class AgeFragment extends BaseCollectInfoFragment implements FlowView.Cov
 
     @BindView(R.id.age_cover_flow)
     FlowView ageCoverFlow;
+
     @BindView(R.id.age_title)
     TextView title;
+
     @BindView(R.id.age_next_button)
     Button next;
 
-    private AgeAdapter mAdapter;
+    @BindView(R.id.close)
+    ViewGroup closeImage;
 
-    public static Fragment newInstance() {
-        return new AgeFragment();
+    private AgeAdapter mAdapter;
+    private String ageSelected;
+
+    public interface AgeSelectionListener {
+        void onAge(String value);
+    }
+
+    private AgeSelectionListener ageSelectionListener;
+
+    public AgeFragment setAgeSelectionListener(AgeSelectionListener ageSelectionListener) {
+        this.ageSelectionListener = ageSelectionListener;
+        return this;
+    }
+
+    public static AgeFragment newInstance(boolean standalone) {
+        AgeFragment ageFragment = new AgeFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(STANDALONE, standalone);
+        ageFragment.setArguments(bundle);
+
+        return ageFragment;
     }
 
     @Override
@@ -58,15 +85,40 @@ public class AgeFragment extends BaseCollectInfoFragment implements FlowView.Cov
         ageCoverFlow.setAdapter(mAdapter);
         ageCoverFlow.setCoverFlowListener(this);
         ageCoverFlow.postDelayed(() -> ageCoverFlow.scrollToCenter(DEFAULT_POSITION), 400);
+
+        if (isStandalone()) {
+            closeImage.setVisibility(View.VISIBLE);
+            ((RelativeLayout.LayoutParams) title.getLayoutParams()).topMargin = 0;
+        } else {
+            closeImage.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected GradientColor getColor() {
+        if (isStandalone()) {
+            return getDefaultGradientColor();
+        } else {
+            return super.getColor();
+        }
     }
 
     @Override
     public void onItemSelected(int position) {
         SharedPreUtils.putString(Constant.USER_AGE, String.valueOf(position - mAdapter.getBorder()));
+        ageSelected = mAdapter.getItem(position).getAge();
     }
 
     @OnClick(R.id.age_next_button)
     public void OnClick() {
-        startNextFragment();
+        if (ageSelectionListener != null) {
+            ageSelectionListener.onAge(ageSelected);
+        }
     }
+
+    @OnClick(R.id.close)
+    public void onClose() {
+        getActivity().finish();
+    }
+
 }

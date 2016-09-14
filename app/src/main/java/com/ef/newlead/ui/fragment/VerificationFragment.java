@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
+import com.ef.newlead.data.model.GradientColor;
 import com.ef.newlead.domain.usecase.VerificationUseCase;
 import com.ef.newlead.presenter.VerificationPresenter;
 import com.ef.newlead.ui.widget.CheckProgressView;
@@ -53,10 +54,22 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
     private CountDownTimer timer;
     private String timerText;
 
-    public static Fragment newInstance(String number) {
+    public interface VerificationResultListener{
+        void onPhoneNumVerified(String phoneNum);
+    }
+
+    private VerificationResultListener verificationResultListener;
+
+    public VerificationFragment setVerificationResultListener(VerificationResultListener listener) {
+        this.verificationResultListener = listener;
+        return this;
+    }
+
+    public static Fragment newInstance(boolean standalone, String number) {
         VerificationFragment fragment = new VerificationFragment();
 
         Bundle args = new Bundle();
+        args.putBoolean(STANDALONE, standalone);
         args.putString(NUMBER_KEY, number);
         fragment.setArguments(args);
 
@@ -122,6 +135,15 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
     }
 
     @Override
+    protected GradientColor getColor() {
+        if (isStandalone()) {
+            return getDefaultGradientColor();
+        } else {
+            return super.getColor();
+        }
+    }
+
+    @Override
     protected VerificationPresenter createPresent() {
         return new VerificationPresenter(getContext(), this, new VerificationUseCase());
     }
@@ -134,7 +156,11 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
             input.changeTextColor(Color.RED);
             hint.setText(getLocaleText("phone_select_subtitle_4"));
         } else {
-            startNextFragment();
+            if(verificationResultListener != null){
+                verificationResultListener.onPhoneNumVerified(phone_number);
+            }
+
+            setActionCompletion();
         }
     }
 
@@ -196,7 +222,7 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
     }
 
     private void backToPreviousFragment() {
-        Fragment fragment = NumberFragment.newInstance(phone_number);
+        Fragment fragment = NumberFragment.newInstance(false, phone_number);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Slide slide = new Slide(Gravity.LEFT);

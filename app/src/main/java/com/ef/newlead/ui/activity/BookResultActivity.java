@@ -1,5 +1,6 @@
 package com.ef.newlead.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,6 +11,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class BookResultActivity extends BaseActivity {
+
+    public final static String BOOK_CENTER = "bookCenter";
+    public final static String BOOK_DATE = "bookDate";
+    public final static String BOOK_TIME = "bookTime";
 
     @BindView(R.id.book_result_info)
     TextView info;
@@ -37,10 +42,12 @@ public class BookResultActivity extends BaseActivity {
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
 
+        Intent intent = getIntent();
+
         info.setText("You’re on your way to better English! See you soon Sissita Shen!");
-        address.setText("上海市，徐家汇中心");
-        date.setText("周六 09月10日");
-        time.setText("下午 02:00-03:00");
+        address.setText(intent.getStringExtra(BOOK_CENTER));
+        date.setText(intent.getStringExtra(BOOK_DATE));
+        time.setText(intent.getStringExtra(BOOK_TIME));
         button.setText("GOT IT");
     }
 

@@ -146,6 +146,7 @@ public class CenterDetailActivity extends BaseActivity {
                 }
                 break;
             case R.id.center_detail_book:
+                startActivity(new Intent(this, BookActivity.class));
                 break;
         }
     }
@@ -162,6 +163,8 @@ public class CenterDetailActivity extends BaseActivity {
 
         starred = !starred;
     }
+
+
 
     @Override
     protected void onDestroy() {

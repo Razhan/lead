@@ -80,9 +80,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activity.FindCenterActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.activity.BookActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -91,10 +88,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.BookResultActivity"
+            android:name=".ui.activity.BookActivity"
             android:theme="@style/AppTheme.NoActionBar">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
+        <activity
+            android:name=".ui.activity.BookResultActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.activity.PersonalInfoPickerActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
     </application>
 
 </manifest>

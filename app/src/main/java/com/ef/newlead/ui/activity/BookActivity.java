@@ -3,9 +3,11 @@ package com.ef.newlead.ui.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -22,6 +24,13 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class BookActivity extends BaseActivity {
+
+    public static final int CODE_AGE = 0xFF;
+    public static final int CODE_NAME = CODE_AGE + 1;
+    public static final int CODE_PHONE = CODE_NAME + 1;
+
+    private static final int DEFAULT_STEP = 3;
+    private int currentStep = 0;
 
     @BindView(R.id.book_place_text)
     TextView placeText;
@@ -48,7 +57,7 @@ public class BookActivity extends BaseActivity {
     @BindView(R.id.book_clock_list)
     RecyclerView clockList;
     @BindView(R.id.book_button)
-    Button button;
+    Button book;
 
     private String defaultDateText = "Select the date";
     private String defaultClockText = "Select the time";
@@ -79,7 +88,7 @@ public class BookActivity extends BaseActivity {
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
 
-        button.getBackground().setColorFilter(Color.parseColor("#B3D8FD"), PorterDuff.Mode.MULTIPLY);
+        book.getBackground().setColorFilter(Color.parseColor("#B3D8FD"), PorterDuff.Mode.MULTIPLY);
 
         placeText.setText("上海市，徐家汇中心");
         dateText.setText(defaultDateText);
@@ -87,7 +96,7 @@ public class BookActivity extends BaseActivity {
         userText.setText(defaultNameText);
         age.setText("Age group");
         phone.setText("Phone number");
-        button.setText("BOOK SESSION");
+        book.setText("BOOK SESSION");
 
         initDateList();
         initClockList();
@@ -171,17 +180,87 @@ public class BookActivity extends BaseActivity {
         }
 
         textView.setText(text);
+
+        setButton();
     }
 
-    @OnClick({R.id.book_user_wrapper, R.id.book_button})
+    @OnClick({R.id.book_user_text, R.id.book_user_age, R.id.book_user_phone, R.id.book_button})
     public void onClick(View view) {
+        Intent intent;
+
         switch (view.getId()) {
-            case R.id.book_user_wrapper:
+            case R.id.book_user_text:
+                intent = new Intent(this, PersonalInfoPickerActivity.class);
+                intent.putExtra("type", PersonalInfoPickerActivity.TYPE_NAME);
+
+                startActivityForResult(intent, CODE_NAME);
+                break;
+            case R.id.book_user_age:
+                intent = new Intent(this, PersonalInfoPickerActivity.class);
+                intent.putExtra("type", PersonalInfoPickerActivity.TYPE_AGE);
+
+                startActivityForResult(intent, CODE_AGE);
+                break;
+            case R.id.book_user_phone:
+                intent = new Intent(this, PersonalInfoPickerActivity.class);
+                intent.putExtra("type", PersonalInfoPickerActivity.TYPE_PHONE);
+
+                startActivityForResult(intent, CODE_PHONE);
                 break;
             case R.id.book_button:
-                startActivity(new Intent(this, BookResultActivity.class));
-                finish();
+                if (currentStep >= DEFAULT_STEP
+                        && !dateText.getText().toString().equals(defaultDateText)
+                        && !clockText.getText().toString().equals(defaultClockText)) {
+                    intent = new Intent(this, BookResultActivity.class);
+                    intent.putExtra(BookResultActivity.BOOK_CENTER, placeText.getText());
+                    intent.putExtra(BookResultActivity.BOOK_DATE, dateText.getText());
+                    intent.putExtra(BookResultActivity.BOOK_TIME, clockText.getText());
+
+                    startActivity(intent);
+                    finish();
+                }
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case CODE_AGE:
+                    renderResult(data, age, "age");
+                    break;
+                case CODE_NAME:
+                    renderResult(data, userText, "name");
+                    break;
+                case CODE_PHONE:
+                    renderResult(data, phone, "phone");
+                    break;
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void renderResult(Intent data, TextView view, String key) {
+        view.setText(data.getStringExtra(key));
+        view.setTextColor(Color.BLACK);
+
+        if (view.getTag() == null) {
+            currentStep++;
+            setButton();
+            view.setTag("checked");
+        }
+    }
+
+    private void setButton() {
+        if (currentStep == DEFAULT_STEP
+                && !dateText.getText().toString().equals(defaultDateText)
+                && !clockText.getText().toString().equals(defaultClockText)) {
+            Log.d("setButton", "setButton");
+            book.getBackground().setColorFilter(Color.parseColor("#0078ff"), PorterDuff.Mode.MULTIPLY);
+        } else {
+            book.getBackground().setColorFilter(Color.parseColor("#B3D8FD"), PorterDuff.Mode.MULTIPLY);
         }
     }
 

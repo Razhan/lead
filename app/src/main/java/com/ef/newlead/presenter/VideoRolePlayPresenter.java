@@ -5,7 +5,7 @@ import android.content.Context;
 import com.ef.newlead.asr.DroidASRComponent;
 import com.ef.newlead.data.model.ActivityTemplate;
 import com.ef.newlead.ui.view.VideoView;
-import com.google.android.exoplayer.util.Assertions;
+import com.ef.newlead.util.Assert;
 import com.google.common.base.Joiner;
 
 import java.util.ArrayList;
@@ -80,7 +80,7 @@ public class VideoRolePlayPresenter extends VideoPresenter {
 
     private void initAsrElements() {
         List<List<ActivityTemplate.RolePlayElement>> elementGroups = mActivityTemplate.getRolePlayItems();
-        Assertions.checkNotNull(elementGroups);
+        Assert.checkNotNull(elementGroups);
 
         for (List<ActivityTemplate.RolePlayElement> group : elementGroups) {
             for (ActivityTemplate.RolePlayElement element : group) {

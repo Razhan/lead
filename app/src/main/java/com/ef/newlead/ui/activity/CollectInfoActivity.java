@@ -25,9 +25,9 @@ import com.ef.newlead.ui.fragment.NumberFragment;
 import com.ef.newlead.ui.fragment.PurposeFragment;
 import com.ef.newlead.ui.fragment.VerificationFragment;
 import com.ef.newlead.ui.view.CollectInfoView;
+import com.ef.newlead.util.Assert;
 import com.ef.newlead.util.SharedPreUtils;
 import com.ef.newlead.util.SystemText;
-import com.google.android.exoplayer.util.Assertions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -108,10 +108,6 @@ public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
     }
 
     public Fragment getNextFragment(Fragment targetFragment) {
-        /*if (fragmentIndex >= fragmentKeys.length) {
-            return null;
-        }*/
-
         SharedPreUtils.putInt(CURRENT_FRAGMENT, fragmentIndex);
 
         if (targetFragment == null) {
@@ -124,6 +120,8 @@ public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
             fragment = targetFragment;
         }
 
+        // FIXME: the interfaces for interaction between Fragment and Activity could be replaced via
+        // EventBus.
         if (fragment instanceof VerificationFragment) {
             ((VerificationFragment) fragment).setVerificationResultListener(this)
                     .setLastPage(true)
@@ -134,7 +132,7 @@ public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
             ((NumberFragment) fragment).setPhoneNumberInputListener(this);
         }
 
-        Assertions.checkNotNull(fragment, "Invalid Fragment found");
+        Assert.checkNotNull(fragment, "Invalid Fragment found");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             fragment.setEnterTransition(new Slide(Gravity.RIGHT).setDuration(Constant.DEFAULT_ANIM_FULL_TIME));

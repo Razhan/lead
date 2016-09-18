@@ -77,7 +77,7 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        translucentStatusBar = true;
+        fullScreen = true;
 
         rolePlayPresenter = new VideoRolePlayPresenter(this);
 
@@ -343,7 +343,6 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
                     .setInterpolator(new DecelerateInterpolator())
                     .start();
             videoProgress.setThumb(true);
-            showStatusBar(true);
         } else {
             toolbar.bringToFront();
             toolbar.animate()
@@ -352,7 +351,6 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
                     .setInterpolator(new AccelerateInterpolator())
                     .start();
             videoProgress.setThumb(false);
-            showStatusBar(false);
         }
     }
 

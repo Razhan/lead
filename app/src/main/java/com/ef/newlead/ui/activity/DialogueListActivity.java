@@ -38,8 +38,8 @@ public class DialogueListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         colorfulStatusBar = true;
-        gradientColor = new GradientColor(new GradientColor.GradientBean(248, 193, 68, 255),
-                new GradientColor.GradientBean(246, 111, 159, 255), 0);
+        gradientColor = new GradientColor(new GradientColor.GradientBean(248, 193, 68, 1),
+                new GradientColor.GradientBean(246, 111, 159, 1), 0);
 
         super.onCreate(savedInstanceState);
     }

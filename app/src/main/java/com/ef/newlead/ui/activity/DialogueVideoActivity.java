@@ -89,7 +89,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        translucentStatusBar = true;
+        fullScreen = true;
         super.onCreate(savedInstanceState);
     }
 
@@ -116,9 +116,9 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
             toolbar.bringToFront();
         }
 
+        setLoadWrapperBackground();
         loadProgress.post(() -> loadProgress.startAnim());
 
-        setLoadWrapperBackground();
         initRecyclerView();
 
         video.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -148,8 +148,8 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
     }
 
     private void setLoadWrapperBackground() {
-        GradientColor color = new GradientColor(new GradientColor.GradientBean(248, 193, 68, 255),
-                new GradientColor.GradientBean(246, 111, 159, 255), 0);
+        GradientColor color = new GradientColor(new GradientColor.GradientBean(248, 193, 68, 1),
+                new GradientColor.GradientBean(246, 111, 159, 1), 0);
 
         GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
                 new int[]{color.getTopGradient().toHex(), color.getBottomGradient().toHex()});
@@ -259,7 +259,6 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
     @Override
     public void onAnimate(boolean visible) {
         progress.setThumb(visible);
-        showStatusBar(visible);
 
         if (toolbar == null)
             return;
@@ -352,7 +351,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
         loadWrapper.animate()
                 .alpha(0)
                 .translationY(-loadWrapper.getHeight())
-                .setDuration(Constant.DEFAULT_ANIM_FULL_TIME * 2)
+                .setDuration(Constant.DEFAULT_ANIM_FULL_TIME )
                 .setInterpolator(new AccelerateInterpolator())
                 .setListener(new AnimatorListenerAdapter() {
 

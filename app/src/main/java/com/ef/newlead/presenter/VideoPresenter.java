@@ -7,8 +7,8 @@ import com.ef.newlead.data.model.ActivityTemplate;
 import com.ef.newlead.data.model.Lesson;
 import com.ef.newlead.domain.usecase.UseCase;
 import com.ef.newlead.ui.view.VideoView;
+import com.ef.newlead.util.Assert;
 import com.ef.newlead.util.FileUtils;
-import com.google.android.exoplayer.util.Assertions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +67,7 @@ public class VideoPresenter extends Presenter<VideoView> {
             }
         }
 
-        Assertions.checkNotNull(template);
+        Assert.checkNotNull(template);
 
         mActivityTemplate = template;
     }

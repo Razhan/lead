@@ -15,10 +15,12 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
+import timber.log.Timber;
 
 public class RestfulDataSource implements Repository {
 
@@ -26,10 +28,15 @@ public class RestfulDataSource implements Repository {
     private final NewLeadService restfulService;
 
     public RestfulDataSource() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(
+                (message) -> Timber.tag("OKHttp").d(message)
+        ).setLevel(HttpLoggingInterceptor.Level.BODY);
+
         OkHttpClient client = new OkHttpClient.Builder()
                 .readTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
                 .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
+                .addInterceptor(interceptor)
                 .addNetworkInterceptor(new DownloadProgressInterceptor())
                 .build();
 

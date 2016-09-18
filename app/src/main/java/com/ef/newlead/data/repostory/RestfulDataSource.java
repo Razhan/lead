@@ -2,11 +2,14 @@ package com.ef.newlead.data.repostory;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.data.model.DataBean.BaseResponse;
+import com.ef.newlead.data.model.DataBean.LessonBean;
+import com.ef.newlead.data.model.DataBean.LessonPackBean;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
 import com.ef.newlead.data.model.DataBean.Response;
 import com.ef.newlead.data.model.DataBean.UserBean;
 import com.ef.newlead.ui.widget.DownloadProgressInterceptor;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -68,5 +71,15 @@ public class RestfulDataSource implements Repository {
     @Override
     public Observable<BaseResponse> submitUserInfo(String token, Map<String, String> userInfo) {
         return restfulService.submitUserInfo(token, userInfo);
+    }
+
+    @Override
+    public Observable<Response<List<LessonBean>>> getLessonList() {
+        return restfulService.getLessonList();
+    }
+
+    @Override
+    public Observable<Response<LessonPackBean>> getLessonPack(String id) {
+        return restfulService.getLessonPackage(id);
     }
 }

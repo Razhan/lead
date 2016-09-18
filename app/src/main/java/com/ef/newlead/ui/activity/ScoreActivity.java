@@ -9,16 +9,21 @@ import android.widget.RelativeLayout;
 
 import com.ef.newlead.R;
 import com.ef.newlead.ui.adapter.ScoreFragmentAdapter;
+import com.google.gson.internal.bind.SqlDateTypeAdapter;
 
 import butterknife.BindView;
 
 public class ScoreActivity extends BaseActivity {
 
+    public static final String KEY_SCORE = "score";
+
     @BindView(R.id.score_viewpager)
     ViewPager viewpager;
     @BindView(R.id.score_indicator_wrapper)
     RelativeLayout Indicators;
+
     private int currentPage;
+    private int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,7 @@ public class ScoreActivity extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+        score = getIntent().getIntExtra(KEY_SCORE, 0);
 
         viewpager.setAdapter(new ScoreFragmentAdapter(getSupportFragmentManager()));
 

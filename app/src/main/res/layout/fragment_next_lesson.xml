@@ -6,7 +6,7 @@
         android:id="@+id/next_header"
         android:layout_width="match_parent"
         android:layout_height="202dp"
-        android:background="@android:color/darker_gray">
+        android:background="@drawable/bg_next_lesson">
 
         <TextView
             android:id="@+id/next_type"

@@ -16,5 +16,4 @@ public class VerificationUseCase extends UseCase {
         return repository.verifyCode(number, code);
     }
 
-
 }

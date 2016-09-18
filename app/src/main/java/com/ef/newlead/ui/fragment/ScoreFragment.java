@@ -87,22 +87,22 @@ public class ScoreFragment extends BaseFragment implements OnPreparedListener,
     }
 
     private void initData() {
-        String dialogueStr = getLocaleText("dialogue_example");
-        ActivityTemplate dialogue = new Gson().fromJson(dialogueStr,
-                new TypeToken<ActivityTemplate>() {
-                }.getType());
-
-        timestamps = new ArrayList<>();
-
-        for (List<ActivityTemplate.DialogBean> beans : dialogue.getDialogs()) {
-            if (beans == null) {
-                break;
-            }
-
-            for (ActivityTemplate.DialogBean bean : beans) {
-                timestamps.add(bean.getStartTime());
-            }
-        }
+//        String dialogueStr = getLocaleText("dialogue_example");
+//        ActivityTemplate dialogue = new Gson().fromJson(dialogueStr,
+//                new TypeToken<ActivityTemplate>() {
+//                }.getType());
+//
+//        timestamps = new ArrayList<>();
+//
+//        for (List<ActivityTemplate.DialogBean> beans : dialogue.getDialogs()) {
+//            if (beans == null) {
+//                break;
+//            }
+//
+//            for (ActivityTemplate.DialogBean bean : beans) {
+//                timestamps.add(bean.getStartTime());
+//            }
+//        }
     }
 
     private void initVideoComponent() {
@@ -135,9 +135,9 @@ public class ScoreFragment extends BaseFragment implements OnPreparedListener,
         }
 
         float duration = (float) video.getDuration() / 1000;
-        progress.setDotsPosition(duration, timestamps);
+//        progress.setDotsPosition(duration, timestamps);
 
-        video.seekTo(200);
+        video.seekTo(100);
     }
 
     @Override

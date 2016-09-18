@@ -52,7 +52,8 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
         VideoControlLayout.PlayingProgressChangeListener,
         VideoView {
 
-    protected boolean pausedInOnStop = false;
+    public static final String KEY_LESSONID = "lessonID";
+
     @BindView(R.id.video_dialogue_video)
     AutoSizeVideoView video;
     @BindView(R.id.video_dialogue_progressbar)
@@ -73,6 +74,8 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
     LinearLayout videoWrapper;
     @BindView(R.id.video_dialogue_bottom_bar)
     CardView bottomBar;
+
+    protected boolean pausedInOnStop = false;
     private boolean isRestarted = false;
     private boolean favored = false;
 
@@ -360,15 +363,6 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
                     }
                 })
                 .start();
-    }
-
-    @OnClick({R.id.video_dialogue_hint})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.video_dialogue_hint:
-                toDialogueList();
-                break;
-        }
     }
 
     private void toDialogueList() {

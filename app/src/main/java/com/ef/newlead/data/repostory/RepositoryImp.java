@@ -1,10 +1,13 @@
 package com.ef.newlead.data.repostory;
 
 import com.ef.newlead.data.model.DataBean.BaseResponse;
+import com.ef.newlead.data.model.DataBean.LessonBean;
+import com.ef.newlead.data.model.DataBean.LessonPackBean;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
 import com.ef.newlead.data.model.DataBean.Response;
 import com.ef.newlead.data.model.DataBean.UserBean;
 
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
@@ -55,5 +58,15 @@ public class RepositoryImp implements Repository {
     @Override
     public Observable<BaseResponse> submitUserInfo(String token, Map<String, String> userInfo) {
         return sourceFactory.getRestfulSource().submitUserInfo(token, userInfo);
+    }
+
+    @Override
+    public Observable<Response<List<LessonBean>>> getLessonList() {
+        return sourceFactory.getRestfulSource().getLessonList();
+    }
+
+    @Override
+    public Observable<Response<LessonPackBean>> getLessonPack(String id) {
+        return sourceFactory.getRestfulSource().getLessonPack(id);
     }
 }

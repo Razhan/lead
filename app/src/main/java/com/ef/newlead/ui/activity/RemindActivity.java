@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.ef.newlead.R;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class RemindActivity extends BaseActivity {
 
@@ -77,8 +78,6 @@ public class RemindActivity extends BaseActivity {
             startActivity(i);
             finish();
         });
-
-        b3.setOnClickListener(v -> finish());
     }
 
     private void initAddView() {
@@ -95,8 +94,6 @@ public class RemindActivity extends BaseActivity {
         b2.setOnClickListener(v -> {
 
         });
-
-        b3.setOnClickListener(v -> finish());
     }
 
     private void initHoldView() {
@@ -113,8 +110,10 @@ public class RemindActivity extends BaseActivity {
         b2.setOnClickListener(v -> {
 
         });
-
-        b3.setOnClickListener(v -> finish());
     }
 
+    @OnClick(R.id.remind_b3)
+    public void onClick() {
+        finish();
+    }
 }

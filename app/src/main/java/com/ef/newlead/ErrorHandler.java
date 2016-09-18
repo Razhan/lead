@@ -43,8 +43,10 @@ public final class ErrorHandler {
     }
 
     public static void showError(Throwable exception) {
-        Log.d("exception", getErrorMessage(exception));
-        Toast.makeText(mContext, getErrorMessage(exception), Toast.LENGTH_SHORT).show();
+        String errorMessage = getErrorMessage(exception);
+
+        Log.d("exception", errorMessage);
+        Toast.makeText(mContext, errorMessage, Toast.LENGTH_SHORT).show();
     }
 }
 

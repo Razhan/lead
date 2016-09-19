@@ -19,7 +19,7 @@ public class CollectInfoPresenter extends Presenter<CollectInfoView> {
 
     public void submitInfo() {
         Map<String, String> userInfo = new HashMap<>();
-        userInfo.put("age", SharedPreUtils.getString(Constant.USER_AGE, ""));
+        userInfo.put("age", SharedPreUtils.getString(Constant.USER_AGE_INDEX, ""));
         userInfo.put("purpose", SharedPreUtils.getString(Constant.USER_PURPOSE, ""));
         userInfo.put("level", SharedPreUtils.getString(Constant.USER_LEVEL, ""));
         userInfo.put("city", SharedPreUtils.getString(Constant.USER_CITY, ""));

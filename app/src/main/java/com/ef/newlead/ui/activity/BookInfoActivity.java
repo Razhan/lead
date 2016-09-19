@@ -19,7 +19,7 @@ import com.ef.newlead.ui.view.CollectInfoView;
 
 import butterknife.BindView;
 
-public class PersonalInfoPickerActivity extends BaseMVPActivity<CollectInfoPresenter>
+public class BookInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
         implements ActivityCompat.OnRequestPermissionsResultCallback, CollectInfoView,
         VerificationFragment.VerificationResultListener,
         AgeFragment.AgeSelectionListener,
@@ -82,7 +82,7 @@ public class PersonalInfoPickerActivity extends BaseMVPActivity<CollectInfoPrese
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_personal_info_picker;
+        return R.layout.activity_book_info;
     }
 
     @NonNull

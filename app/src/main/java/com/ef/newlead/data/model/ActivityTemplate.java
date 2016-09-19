@@ -99,6 +99,7 @@ public class ActivityTemplate {
     public static class UserBean {
         private String id;
         private String avatar;
+        private boolean left = false;
 
         public String getId() {
             return id;
@@ -106,6 +107,10 @@ public class ActivityTemplate {
 
         public String getAvatar() {
             return avatar;
+        }
+
+        public boolean isLeft() {
+            return left;
         }
     }
 

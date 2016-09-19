@@ -87,7 +87,7 @@
             android:name=".ui.activity.BookResultActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.activity.PersonalInfoPickerActivity"
+            android:name=".ui.activity.BookInfoActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
     </application>

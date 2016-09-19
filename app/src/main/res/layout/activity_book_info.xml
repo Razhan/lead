@@ -4,6 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/personal_info_parent"
-    tools:context="com.ef.newlead.ui.activity.PersonalInfoPickerActivity">
+    tools:context=".ui.activity.BookInfoActivity">
 
 </RelativeLayout>

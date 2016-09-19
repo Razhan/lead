@@ -3,7 +3,6 @@ package com.ef.newlead.ui.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,8 +13,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.ui.adapter.BookItemAdapter;
+import com.ef.newlead.util.SharedPreUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,8 +95,9 @@ public class BookActivity extends BaseActivity {
         dateText.setText(defaultDateText);
         clockText.setText(defaultClockText);
         userText.setText(defaultNameText);
-        age.setText("Age group");
-        phone.setText("Phone number");
+
+        age.setText(SharedPreUtils.getString(Constant.USER_AGE_VALUE, "Age group"));
+        phone.setText(SharedPreUtils.getString(Constant.USER_PHONE, "Phone number"));
         book.setText("BOOK SESSION");
 
         initDateList();
@@ -110,6 +112,10 @@ public class BookActivity extends BaseActivity {
         });
 
         clock.setOnClickListener(v -> {
+            if (dateText.getText().toString().equals(defaultDateText)) {
+                return;
+            }
+
             if (dateList.getVisibility() == View.VISIBLE) {
                 triggerListView(dateList, dateText, defaultDateText, false);
             }
@@ -190,20 +196,20 @@ public class BookActivity extends BaseActivity {
 
         switch (view.getId()) {
             case R.id.book_user_text:
-                intent = new Intent(this, PersonalInfoPickerActivity.class);
-                intent.putExtra("type", PersonalInfoPickerActivity.TYPE_NAME);
+                intent = new Intent(this, BookInfoActivity.class);
+                intent.putExtra("type", BookInfoActivity.TYPE_NAME);
 
                 startActivityForResult(intent, CODE_NAME);
                 break;
             case R.id.book_user_age:
-                intent = new Intent(this, PersonalInfoPickerActivity.class);
-                intent.putExtra("type", PersonalInfoPickerActivity.TYPE_AGE);
+                intent = new Intent(this, BookInfoActivity.class);
+                intent.putExtra("type", BookInfoActivity.TYPE_AGE);
 
                 startActivityForResult(intent, CODE_AGE);
                 break;
             case R.id.book_user_phone:
-                intent = new Intent(this, PersonalInfoPickerActivity.class);
-                intent.putExtra("type", PersonalInfoPickerActivity.TYPE_PHONE);
+                intent = new Intent(this, BookInfoActivity.class);
+                intent.putExtra("type", BookInfoActivity.TYPE_PHONE);
 
                 startActivityForResult(intent, CODE_PHONE);
                 break;

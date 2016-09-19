@@ -23,7 +23,8 @@ public final class Constant {
     public static final String USER_RULE = "userRule";
 
     public static final String USER_SAVED = "infoSaved";
-    public static final String USER_AGE = "userAge";
+    public static final String USER_AGE_INDEX = "userAge";
+    public static final String USER_AGE_VALUE = "userAgeValue";
     public static final String USER_CITY = "userCity";
     public static final String USER_LEVEL = "userLevel";
     public static final String USER_PURPOSE = "userPurpose";

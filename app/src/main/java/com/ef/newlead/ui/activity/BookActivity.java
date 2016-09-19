@@ -96,6 +96,16 @@ public class BookActivity extends BaseActivity {
         clockText.setText(defaultClockText);
         userText.setText(defaultNameText);
 
+        if (SharedPreUtils.contain(Constant.USER_AGE_VALUE)) {
+            age.setTextColor(Color.BLACK);
+            currentStep++;
+        }
+
+        if (SharedPreUtils.contain(Constant.USER_PHONE)) {
+            phone.setTextColor(Color.BLACK);
+            currentStep++;
+        }
+
         age.setText(SharedPreUtils.getString(Constant.USER_AGE_VALUE, "Age group"));
         phone.setText(SharedPreUtils.getString(Constant.USER_PHONE, "Phone number"));
         book.setText("BOOK SESSION");
@@ -104,20 +114,15 @@ public class BookActivity extends BaseActivity {
         initClockList();
 
         date.setOnClickListener(v -> {
-            if (clockList.getVisibility() == View.VISIBLE) {
-                triggerListView(clockList, clockText, defaultClockText, false);
-            }
-
             triggerListView(dateList, dateText, defaultDateText, false);
+
+            clockText.setText(defaultClockText);
+            clockText.setTextColor(Color.parseColor("#4c000000"));
         });
 
         clock.setOnClickListener(v -> {
             if (dateText.getText().toString().equals(defaultDateText)) {
                 return;
-            }
-
-            if (dateList.getVisibility() == View.VISIBLE) {
-                triggerListView(dateList, dateText, defaultDateText, false);
             }
 
             triggerListView(clockList, clockText, defaultClockText, false);
@@ -181,11 +186,8 @@ public class BookActivity extends BaseActivity {
 
         if (selected) {
             textView.setTextColor(Color.BLACK);
-        } else {
-            textView.setTextColor(Color.parseColor("#4c000000"));
+            textView.setText(text);
         }
-
-        textView.setText(text);
 
         setButton();
     }

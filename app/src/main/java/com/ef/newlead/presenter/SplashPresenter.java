@@ -91,16 +91,21 @@ public class SplashPresenter extends Presenter<SplashView> {
                 .useCaseArgs(url)
                 .onSuccess(responseBody -> {
                     if (saveFile(responseBody)) {
-                        try {
-                            FileUtils.unzip(FileUtils.getInternalFolderPath(context, null),
-                                    Constant.RESOURCE_ZIP_FILE_NAME);
-                            SharedPreUtils.putString(Constant.RESOURCE_HASH, hash);
-                            SystemText.init(context);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        unzipFile(hash);
                     }
+
                     InitCompleted();
+                })
+                .build();
+    }
+
+    private void unzipFile(String hash) {
+        useCase.new Builder<Boolean>()
+                .useCaseArgs(FileUtils.getInternalFolderPath(context, null),
+                        Constant.RESOURCE_ZIP_FILE_NAME)
+                .onSuccess(res -> {
+                    SharedPreUtils.putString(Constant.RESOURCE_HASH, hash);
+                    SystemText.init(context);
                 })
                 .build();
     }

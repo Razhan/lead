@@ -146,7 +146,7 @@ public class CenterDetailActivity extends BaseActivity {
                 }
                 break;
             case R.id.center_detail_book:
-//                startActivity(new Intent(this, BookActivity.class));
+                startActivity(new Intent(this, BookActivity.class));
                 break;
         }
     }

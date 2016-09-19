@@ -3,6 +3,7 @@ package com.ef.newlead.domain.usecase;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
 import com.ef.newlead.data.model.DataBean.Response;
 import com.ef.newlead.data.model.DataBean.UserBean;
+import com.ef.newlead.util.FileUtils;
 
 import java.util.Map;
 
@@ -26,4 +27,17 @@ public class InitializationUseCase extends UseCase {
         return repository.getUserInfo(startInfo);
     }
 
+    @UseCaseMethod
+    public Observable<Boolean> unzip(String targetDirectory, String zipFile) {
+        return Observable.create(subscriber -> {
+                    try {
+                        FileUtils.unzip(targetDirectory, zipFile);
+                        subscriber.onNext(true);
+                        subscriber.onCompleted();
+                    } catch (Exception e) {
+                        subscriber.onError(e);
+                    }
+                }
+        );
+    }
 }

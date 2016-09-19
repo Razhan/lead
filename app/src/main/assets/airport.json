@@ -17,11 +17,12 @@
       "users": [
         {
           "id": "man1",
-          "avatar": "avatar-left.jpg"
+          "avatar": "avatar-left.png",
+          "left": true
         },
         {
           "id": "man2",
-          "avatar": "avatar-right.jpg"
+          "avatar": "avatar-right.png"
         }
       ],
       "dialogs": [

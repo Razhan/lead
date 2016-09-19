@@ -307,4 +307,10 @@ public class FindCenterActivity extends BaseMVPActivity<CityInfoPresenter>
             showResultView(empty);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
+    }
 }

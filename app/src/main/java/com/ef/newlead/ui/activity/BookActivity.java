@@ -222,6 +222,7 @@ public class BookActivity extends BaseActivity {
                     intent.putExtra(BookResultActivity.BOOK_DATE, dateText.getText());
                     intent.putExtra(BookResultActivity.BOOK_TIME, clockText.getText());
 
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                 }

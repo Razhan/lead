@@ -121,7 +121,6 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
                 break;
             case R.id.splash_ef_center:
                 startActivity(new Intent(this, FindCenterActivity.class));
-                finish();
                 break;
         }
     }

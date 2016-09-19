@@ -307,4 +307,9 @@ public class FindCenterActivity extends BaseMVPActivity<CityInfoPresenter>
             showResultView(empty);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

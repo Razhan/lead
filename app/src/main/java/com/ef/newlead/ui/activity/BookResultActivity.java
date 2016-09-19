@@ -53,5 +53,7 @@ public class BookResultActivity extends BaseActivity {
 
     @OnClick(R.id.book_result_button)
     public void onClick() {
+        finish();
     }
+
 }

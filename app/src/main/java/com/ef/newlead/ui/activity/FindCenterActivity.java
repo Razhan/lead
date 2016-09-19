@@ -310,7 +310,6 @@ public class FindCenterActivity extends BaseMVPActivity<CityInfoPresenter>
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, HomeActivity.class));
         finish();
     }
 }

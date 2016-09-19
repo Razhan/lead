@@ -1,10 +1,13 @@
 package com.ef.newlead.data.repostory;
 
 import com.ef.newlead.data.model.DataBean.BaseResponse;
+import com.ef.newlead.data.model.DataBean.LessonBean;
+import com.ef.newlead.data.model.DataBean.LessonPackBean;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
 import com.ef.newlead.data.model.DataBean.Response;
 import com.ef.newlead.data.model.DataBean.UserBean;
 
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
@@ -43,4 +46,10 @@ public interface NewLeadService {
     Observable<BaseResponse> submitUserInfo(@Header("Authorization") String token,
                                             @FieldMap Map<String, String> info);
 
+    @POST("/api/leadgen/lesson/list")
+    Observable<Response<List<LessonBean>>> getLessonList();
+
+    @FormUrlEncoded
+    @POST("/api/leadgen/lesson/package/Query")
+    Observable<Response<LessonPackBean>> getLessonPackage(@Field("lesson_id") String id);
 }

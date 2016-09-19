@@ -1,6 +1,7 @@
 package com.ef.newlead.ui.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -26,6 +27,7 @@ import com.ef.newlead.ui.widget.ColorfulProgressBar;
 import com.ef.newlead.ui.widget.MicrophoneVolumeView;
 import com.ef.newlead.ui.widget.VideoControlLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -75,7 +77,7 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        translucentStatusBar = true;
+        fullScreen = true;
 
         rolePlayPresenter = new VideoRolePlayPresenter(this);
 
@@ -152,14 +154,14 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
 
         // https://github.com/brianwernick/ExoMedia/issues/1
         video.setScaleType(ScaleType.NONE); // works for width match_parent
-        video.setOnCompletionListener(
-                () -> {
+        video.setOnCompletionListener(() -> {
                     isRestarted = video.restart();
 
                     videoProgress.reset();
                     stepIndex = 0;
-
                     script.setText(" ");
+
+                    toScoreActivity();
                 }
         );
 
@@ -341,7 +343,6 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
                     .setInterpolator(new DecelerateInterpolator())
                     .start();
             videoProgress.setThumb(true);
-            showStatusBar(true);
         } else {
             toolbar.bringToFront();
             toolbar.animate()
@@ -350,7 +351,6 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
                     .setInterpolator(new AccelerateInterpolator())
                     .start();
             videoProgress.setThumb(false);
-            showStatusBar(false);
         }
     }
 
@@ -430,5 +430,11 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
 
         stepIndex--;
         return timestamp;
+    }
+
+    private void toScoreActivity() {
+        Intent i = new Intent(this, ScoreActivity.class);
+        i.putExtra(ScoreActivity.KEY_SCORE, 20);
+        startActivity(i);
     }
 }

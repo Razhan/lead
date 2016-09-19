@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.ef.newlead.R;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class RemindActivity extends BaseActivity {
 
@@ -22,13 +23,11 @@ public class RemindActivity extends BaseActivity {
     @BindView(R.id.remind_info)
     TextView info;
     @BindView(R.id.remind_b1)
-    Button b1;
+    Button firstButton;
     @BindView(R.id.find_center_more)
-    Button b2;
+    Button secondButton;
     @BindView(R.id.remind_b3)
-    Button b3;
-
-    private int type = 0;
+    Button thirdButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,7 @@ public class RemindActivity extends BaseActivity {
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
 
-        type = getIntent().getIntExtra(REMIND_TYPE_KEY, 0);
+        int type = getIntent().getIntExtra(REMIND_TYPE_KEY, 0);
 
         switch (type) {
             case TYPE_LEAVE:
@@ -58,63 +57,60 @@ public class RemindActivity extends BaseActivity {
                 initHoldView();
                 break;
         }
+
+        thirdButton.setText("CANCEL");
     }
 
     private void initLeaveView() {
         title.setText("Wait!");
         info.setText("Are you sure you want to leave? \n" + "Your progress will be lost! \n" + "Complete your info to save it.");
-        b1.setText("SAVE MY PROGRESS");
-        b2.setText("LEAVE");
-        b3.setText("CANCEL");
+        firstButton.setText("SAVE MY PROGRESS");
+        secondButton.setText("LEAVE");
 
-        b1.setOnClickListener(v -> {
+        firstButton.setOnClickListener(v -> {
 
         });
 
-        b2.setOnClickListener(v -> {
+        secondButton.setOnClickListener(v -> {
             Intent i = new Intent(this, HomeActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
             finish();
         });
-
-        b3.setOnClickListener(v -> finish());
     }
 
     private void initAddView() {
         title.setText("Add to Phrasebook");
         info.setText("It’s awesome you want to reference these later in the real world.\n" + "For that you need to complete your info.");
-        b1.setVisibility(View.INVISIBLE);
-        b2.setText("ADD TO PHRASEBOOK");
-        b3.setText("CANCEL");
+        firstButton.setVisibility(View.INVISIBLE);
+        secondButton.setText("ADD TO PHRASEBOOK");
 
-        b1.setOnClickListener(v -> {
-
-        });
-
-        b2.setOnClickListener(v -> {
+        firstButton.setOnClickListener(v -> {
 
         });
 
-        b3.setOnClickListener(v -> finish());
+        secondButton.setOnClickListener(v -> {
+
+        });
     }
 
     private void initHoldView() {
         title.setText("Hold up!");
         info.setText("Do you want to save your progress first? You can if you complete your info.");
-        b1.setText("SAVE MY PROGRESS");
-        b2.setText("CONTINUE");
-        b3.setText("CANCEL");
+        firstButton.setText("SAVE MY PROGRESS");
+        secondButton.setText("CONTINUE");
 
-        b1.setOnClickListener(v -> {
-
-        });
-
-        b2.setOnClickListener(v -> {
+        firstButton.setOnClickListener(v -> {
 
         });
 
-        b3.setOnClickListener(v -> finish());
+        secondButton.setOnClickListener(v -> {
+
+        });
     }
 
+    @OnClick(R.id.remind_b3)
+    public void onClick() {
+        finish();
+    }
 }

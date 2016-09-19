@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 
 import com.ef.newlead.Constant;
+import com.ef.newlead.ErrorHandler;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
 import com.ef.newlead.data.model.DataBean.Response;
 import com.ef.newlead.data.model.DataBean.UserBean;
@@ -59,6 +60,10 @@ public class SplashPresenter extends Presenter<SplashView> {
                         InitCompleted();
                     }
                 })
+                .onError(throwable -> {
+                    ErrorHandler.showError(throwable);
+                    InitCompleted();
+                })
                 .build();
     }
 
@@ -76,6 +81,10 @@ public class SplashPresenter extends Presenter<SplashView> {
                     SharedPreUtils.putString(Constant.USER_TOKEN, user.getData().getToken());
                     SharedPreUtils.putString(Constant.USER_RULE, user.getData().getRule());
 
+                    InitCompleted();
+                })
+                .onError(throwable -> {
+                    ErrorHandler.showError(throwable);
                     InitCompleted();
                 })
                 .build();

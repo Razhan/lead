@@ -197,7 +197,6 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
                 phoneNumberInputListener.onInputComplete(phone);
             }
 
-            input.setClearIconVisible(true);
         });
     }
 

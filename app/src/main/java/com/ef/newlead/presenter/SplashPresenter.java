@@ -2,6 +2,7 @@ package com.ef.newlead.presenter;
 
 import android.content.Context;
 import android.os.Handler;
+import android.text.TextUtils;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.ErrorHandler;
@@ -61,10 +62,19 @@ public class SplashPresenter extends Presenter<SplashView> {
                     }
                 })
                 .onError(throwable -> {
-                    ErrorHandler.showError(throwable);
-                    InitCompleted();
+                    processInitialError(throwable);
                 })
                 .build();
+    }
+
+    private void processInitialError(Throwable throwable) {
+        ErrorHandler.showError(throwable);
+
+        // if loading failure occurred at the first time, disable the entry.
+        String rule = SharedPreUtils.getString(Constant.USER_RULE, "");
+        if (! TextUtils.isEmpty(rule)) {
+            InitCompleted();
+        }
     }
 
     private void getUserInfo() {
@@ -84,8 +94,7 @@ public class SplashPresenter extends Presenter<SplashView> {
                     InitCompleted();
                 })
                 .onError(throwable -> {
-                    ErrorHandler.showError(throwable);
-                    InitCompleted();
+                    processInitialError(throwable);
                 })
                 .build();
     }

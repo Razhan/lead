@@ -1,4 +1,4 @@
-package com.ef.newlead.ui.fragment;
+package com.ef.newlead.ui.fragment.collectInfo;
 
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import com.ef.newlead.R;
 import com.ef.newlead.data.model.GradientColor;
 import com.ef.newlead.presenter.Presenter;
 import com.ef.newlead.ui.activity.CollectInfoActivity;
+import com.ef.newlead.ui.fragment.BaseMVPFragment;
 import com.ef.newlead.util.SystemText;
 
 import butterknife.BindView;

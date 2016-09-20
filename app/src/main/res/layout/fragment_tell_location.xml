@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="24dp"
+    android:layout_marginEnd="24dp">
+
+    <com.ef.newlead.ui.widget.DeletableEditText
+        android:id="@+id/tell_location_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="start"
+        android:lines="1"
+        android:paddingEnd="24dp"
+        android:maxLines="1"
+        android:textColor="@android:color/black"
+        android:textColorHint="@color/tranBlack"
+        android:inputType="textNoSuggestions"
+        android:textCursorDrawable="@drawable/view_cursor"
+        android:textSize="24sp"
+        app:right_drawable="@drawable/ic_close_black"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="21dp"
+        android:background="#1f000000" />
+
+    <TextView
+        android:id="@+id/tell_location_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
+        android:drawableStart="@drawable/ic_location_black"
+        android:drawablePadding="6dp"
+        android:gravity="center|start"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/font_size_small" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="21dp"
+        android:background="#1f000000" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/tell_location_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>

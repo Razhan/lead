@@ -1,4 +1,4 @@
-package com.ef.newlead.ui.fragment;
+package com.ef.newlead.ui.fragment.collectInfo;
 
 import android.graphics.Color;
 import android.os.Build;

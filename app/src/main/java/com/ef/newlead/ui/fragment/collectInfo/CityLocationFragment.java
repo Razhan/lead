@@ -1,4 +1,4 @@
-package com.ef.newlead.ui.fragment;
+package com.ef.newlead.ui.fragment.collectInfo;
 
 import android.Manifest;
 import android.os.Bundle;

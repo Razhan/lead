@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_user_record"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="202dp"
+        android:src="@drawable/bg_user_name"
+        android:scaleType="centerCrop"
+        android:id="@+id/record_image" />
+
+    <com.ef.newlead.ui.widget.ASRProgressView
+        android:id="@+id/record_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignBottom="@+id/record_image" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layout_below="@id/record_indicator">
+
+        <TextView
+            android:id="@+id/record_sentence"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="60dp"
+            android:text="Hello, My name is Sissi."/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="60dp">
+
+            <ImageView
+                android:id="@+id/record_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_mic"/>
+
+            <ImageView
+                android:id="@+id/record_replay"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_toStartOf="@+id/record_button"
+                android:layout_marginEnd="38dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_volume"/>
+
+            <ImageView
+                android:id="@+id/record_next"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_toEndOf="@+id/record_button"
+                android:layout_marginStart="38dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_next"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

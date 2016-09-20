@@ -103,7 +103,7 @@ public abstract class ASRRecognizer implements TaskListener<ASRRecognizer.Result
                         // remove first sample from the total
                         sum -= shorts[i - 1];
 
-                        // add the next sample to total
+                        // add the ic_next sample to total
                         sum += shorts[i + windowSize];
 
                         if (sum > maxSum) {

@@ -31,6 +31,7 @@ public class ASRProgressView extends RelativeLayout {
     private TextView mTextView;
 
     private ProgressListener listener;
+    private String initText = "Read the sentences below.";
 
     public ASRProgressView(Context context) {
         this(context, null);
@@ -81,7 +82,7 @@ public class ASRProgressView extends RelativeLayout {
 
     public void show() {
         setBackgroundColor(DEFAULT_BACKGROUND);
-        mTextView.setText("Read the sentences below.");
+        mTextView.setText(initText);
         inAndOutAnimation(getHeight(), 0);
     }
 
@@ -161,6 +162,10 @@ public class ASRProgressView extends RelativeLayout {
         });
 
         animator.start();
+    }
+
+    public void setInitText(String initText) {
+        this.initText = initText;
     }
 
     public interface ProgressListener {

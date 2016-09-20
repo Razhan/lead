@@ -1,16 +1,22 @@
 package com.ef.newlead.ui.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ef.newlead.R;
 import com.ef.newlead.ui.widget.ASRProgressView;
+import com.ef.newlead.util.MiscUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class UserRecordActivity extends BaseActivity {
+
+    public final static String KEY_COLORFUL_STRING = "colorfulString";
+    public final static String KEY_FULL_STRING = "fullString";
 
     @BindView(R.id.record_image)
     ImageView image;
@@ -40,6 +46,13 @@ public class UserRecordActivity extends BaseActivity {
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
 
+//        sentence.setText(MiscUtils.getSpannableText(getIntent().getStringExtra(KEY_FULL_STRING),
+//                getIntent().getStringExtra(KEY_COLORFUL_STRING),
+//                Color.parseColor("#0078ff")));
+
+        sentence.setText(MiscUtils.getSpannableText("Hello, My name is Sissi.", "Sissi",
+                Color.parseColor("#0078ff")));
+
         indicator.setInitText("Now record your introduction.");
         indicator.post(() -> indicator.show());
 
@@ -49,4 +62,6 @@ public class UserRecordActivity extends BaseActivity {
     public void onClick() {
         indicator.setResult(true, "cooooool");
     }
+
+
 }

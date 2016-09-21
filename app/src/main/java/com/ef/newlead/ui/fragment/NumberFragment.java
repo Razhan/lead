@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.transition.Slide;
 import android.view.Gravity;
@@ -76,7 +77,7 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
         return numberFragment;
     }
 
-    public static Fragment newInstance(boolean standalone, String number) {
+    public static NumberFragment newInstance(boolean standalone, String number) {
         NumberFragment fragment = new NumberFragment();
 
         Bundle args = new Bundle();
@@ -108,6 +109,10 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        if (!TextUtils.isEmpty(phone_number)) {
+            ViewUtils.hideKeyboard(getActivity());
+        }
     }
 
     @Override
@@ -120,7 +125,7 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
         super.initView();
 
         hint.setText(getLocaleText("phone_select_subtitle_1"));
-        input.setText(phone_number);
+
         input.setHint(getLocaleText("phone_select_phone_placeholder"));
         title.setText(getLocaleText("phone_select_title"));
         next.setText(getLocaleText("phone_select_action_getcode"));
@@ -151,6 +156,8 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
                 if (s.length() == 13) {
                     submit.setAlpha(1);
                     clickable = true;
+
+                    next.setVisibility(View.VISIBLE);
                 } else {
                     submit.setAlpha(0.3f);
 
@@ -162,6 +169,8 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
                 }
             }
         });
+
+        input.setText(phone_number);
 
         progressView.setEndAnimationListener(() -> {
             inProgress = false;

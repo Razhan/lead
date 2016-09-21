@@ -56,12 +56,11 @@ public final class MiscUtils {
     }
 
     public static SpannableString getSpannableText(String str, String keyword, int color) {
+        int start = str.indexOf("%s");
         str = String.format(str, keyword);
         SpannableString styledString = new SpannableString(str);
 
         if (str.contains(keyword)) {
-            int start = str.indexOf(keyword);
-
             styledString.setSpan(new ForegroundColorSpan(color), start, start + keyword.length(),
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }

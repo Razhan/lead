@@ -60,7 +60,7 @@ public class TellNameFragment extends BaseTellFragment {
 
         input.setOnEditorActionListener((v, actionId, event) -> {
             if (KeyEvent.KEYCODE_ENDCALL == actionId) {
-                startRecordActivity("Hello, My name is %s",
+                startRecordActivity("Hello, My name is %s.",
                         input.getText().toString(),
                         "Now record your introduction.",
                         "Awesome! Nice to meet you.",

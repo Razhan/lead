@@ -56,6 +56,7 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
 
     public interface VerificationResultListener{
         void onPhoneNumVerified(String phoneNum);
+        void onBackToEditPhone(String phoneNum);
     }
 
     private VerificationResultListener verificationResultListener;
@@ -222,17 +223,9 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
     }
 
     private void backToPreviousFragment() {
-        Fragment fragment = NumberFragment.newInstance(false, phone_number);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Slide slide = new Slide(Gravity.LEFT);
-            slide.setDuration(Constant.DEFAULT_ANIM_FULL_TIME);
-
-            fragment.setEnterTransition(slide);
-            fragment.setExitTransition(slide);
+        if (verificationResultListener != null){
+            verificationResultListener.onBackToEditPhone(phone_number);
         }
-
-        fragmentManager.beginTransaction().replace(R.id.collect_info_fragment, fragment).commit();
     }
 
 }

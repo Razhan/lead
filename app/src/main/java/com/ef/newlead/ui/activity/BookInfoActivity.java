@@ -124,6 +124,14 @@ public class BookInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
     }
 
     @Override
+    public void onBackToEditPhone(String phoneNum) {
+        NumberFragment numberFragment = NumberFragment.newInstance(true, phoneNum);
+        numberFragment.setPhoneNumberInputListener(this);
+
+        fragmentManager.beginTransaction().replace(R.id.personal_info_parent, fragment).commit();
+    }
+
+    @Override
     public void onNameInput(String name) {
         Intent intent = new Intent();
         intent.putExtra(NAME, name);

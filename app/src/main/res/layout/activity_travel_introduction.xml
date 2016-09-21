@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_travel_introduction"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4e88cd"
+    android:fitsSystemWindows="true"
+    tools:context="com.ef.newlead.ui.activity.TravelIntroductionActivity">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:text="Travel Story"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_size_large" />
+
+    <TextView
+        android:id="@+id/textViewNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:text="Now's your chance to learn how to make a travel intro by doing your own."
+        android:textColor="@android:color/white"
+        android:textSize="16dp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/textViewNote">
+
+        <ImageView
+            android:id="@+id/imageViewRoutine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:srcCompat="@drawable/img_flight_routine" />
+    </FrameLayout>
+
+
+</RelativeLayout>

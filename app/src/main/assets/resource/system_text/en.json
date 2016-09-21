@@ -45,6 +45,8 @@
   "alert_its_awesome_you_need_to_complete_your_info":"It's awesome you want to reference these later in the real world.\nFor that you need to *complete your info*",
   "alert_wait":"Wait!",
   "error_microphone_message":"You have denied use of the microphone. To use, you need to change it in device *Settings - LeadGen*",
+  "travel_introduction_title":"Travel Story",
+  "travel_introduction_body":"Now's your chance to learn how to\n make a travel intro by doing your own.",
 
   "error_microphone_title":"Oops",
 

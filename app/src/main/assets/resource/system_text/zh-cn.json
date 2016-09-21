@@ -29,6 +29,8 @@
   "alert_its_awesome_you_need_to_complete_your_info":"这真棒要引用在现实世界中这些更高版本。\nFor that you need to *complete your info*",
   "alert_wait":"等待!",
   "error_microphone_message":"您已拒绝使用麦克风。使用时，您需要更改它 in device *Settings - LeadGen*",
+  "travel_introduction_title":"旅行故事",
+  "travel_introduction_body":"现在轮到你去学习怎样做一个自己的旅行介绍了.",
   "error_microphone_title":"哎呀",
   "error_network_title":"网络错误",
   "error_network_try_again":"请再试一次",

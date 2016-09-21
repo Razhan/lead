@@ -172,6 +172,16 @@ public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
     }
 
     @Override
+    public void onBackToEditPhone(String phoneNum) {
+        Fragment fragment = NumberFragment.newInstance(false, phoneNum);
+        ((NumberFragment) fragment).setPhoneNumberInputListener(this);
+
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.push_left_in, R.anim.push_right_out);
+        transaction.replace(R.id.collect_info_fragment, fragment).commit();
+    }
+
+    @Override
     public void onAge(String value) {
         startNextFragment(null);
     }

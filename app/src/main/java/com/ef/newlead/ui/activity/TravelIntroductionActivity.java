@@ -29,7 +29,7 @@ public class TravelIntroductionActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         SystemBarTintManager systemBarTintManager = new SystemBarTintManager(this);
-        systemBarTintManager.setStatusBarTintEnabled(false);
+        systemBarTintManager.setStatusBarTintEnabled(true);
 
         int bkgColor = Color.parseColor("#4e88cd");
         rootLayout.setBackgroundColor(bkgColor);

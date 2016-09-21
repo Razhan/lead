@@ -31,7 +31,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="fe80d1cd931a3985b5d47517e1f61750" />
@@ -53,7 +52,6 @@
             android:name=".ui.activity.CollectInfoActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
-
         <activity
             android:name=".ui.activity.RolePlayActivity"
             android:screenOrientation="portrait"
@@ -67,8 +65,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activity.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activity.ScoreActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -91,6 +89,11 @@
             android:name=".ui.activity.BookInfoActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
+        <activity
+            android:name=".ui.activity.StoryActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
     </application>
 
 </manifest>

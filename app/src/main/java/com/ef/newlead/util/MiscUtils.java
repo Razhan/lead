@@ -56,10 +56,7 @@ public final class MiscUtils {
     }
 
     public static SpannableString getSpannableText(String str, String keyword, int color) {
-        if (str == null || str.isEmpty() || keyword == null || keyword.isEmpty()) {
-            return null;
-        }
-
+        str = String.format(str, keyword);
         SpannableString styledString = new SpannableString(str);
 
         if (str.contains(keyword)) {

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="20dp">
 
     <com.ef.newlead.ui.widget.DeletableEditText
         android:id="@+id/tell_name_input"
@@ -17,7 +18,7 @@
         android:paddingEnd="24dp"
         android:maxLines="1"
         android:textColor="@android:color/black"
-        android:textColorHint="@color/tranBlack"
+        android:textColorHint="#4c000000"
         android:inputType="textNoSuggestions"
         android:textCursorDrawable="@drawable/view_cursor"
         android:textSize="24sp"

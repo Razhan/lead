@@ -1,82 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/tell_scroll_view"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/tell_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <RelativeLayout
-                android:id="@+id/story_question_wrapper"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#4e88cd">
-
-                <TextView
-                    android:id="@+id/story_question"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="24sp"
-                    android:gravity="start"
-                    android:layout_marginTop="64dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24sp"
-                    android:textColor="@android:color/white"
-                    android:text="Hello, my name is…"/>
-
-                <TextView
-                    android:id="@+id/story_question_translation"
-                    android:layout_below="@id/story_question"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:gravity="start"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="40dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24sp"
-                    android:textColor="@color/white"
-                    android:text="你好，我的名字是..."/>
-
-            </RelativeLayout>
-
-            <FrameLayout
-                android:id="@+id/story_fragment_container"
-                android:layout_below="@id/story_question_wrapper"
-                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            </FrameLayout>
+                <RelativeLayout
+                    android:id="@+id/story_question_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="true"
+                    android:background="#4e88cd">
+
+                    <TextView
+                        android:id="@+id/story_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:gravity="start"
+                        android:layout_marginTop="64dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24sp"
+                        android:textColor="@android:color/white" />
+
+                    <TextView
+                        android:id="@+id/story_question_translation"
+                        android:layout_below="@id/story_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:gravity="start"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="40dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24sp"
+                        android:textColor="@color/white" />
+
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:id="@+id/story_fragment_container"
+                    android:layout_below="@id/story_question_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:id="@+id/story_bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:background="#666666">
+
+            <TextView
+                android:id="@+id/story_bottom_bar_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="start|center_vertical"
+                android:textSize="14sp"
+                android:layout_marginStart="24sp"
+                android:textColor="@color/white" />
 
         </RelativeLayout>
 
-    </android.support.v4.widget.NestedScrollView>
-
-    <RelativeLayout
-        android:id="@+id/story_bottom_bar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
-        android:background="#666666">
-
-        <TextView
-            android:id="@+id/story_bottom_bar_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="start|center_vertical"
-            android:textSize="14sp"
-            android:layout_marginStart="24sp"
-            android:textColor="@color/white"
-            android:text="First, Introduce yourself to your fellow travelers." />
-
     </RelativeLayout>
 
-</RelativeLayout>
+    <LinearLayout
+        android:id="@+id/story_error_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="162dp"
+            android:background="#4e88cd" />
+
+        <TextView
+            android:id="@+id/story_error_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="90dp"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:text="Oops!"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/story_error_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:text="You have denied use of the microphone. To use, you need to change it in device settings."
+            android:gravity="center"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/story_error_retry"
+                android:layout_width="107dp"
+                android:layout_height="36dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="90dp"
+                android:background="@drawable/bg_small_rounded_corners_gray"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:text="TRY AGAIN"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

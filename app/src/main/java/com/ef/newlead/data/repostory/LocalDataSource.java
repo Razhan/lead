@@ -1,6 +1,7 @@
 package com.ef.newlead.data.repostory;
 
 import com.ef.newlead.data.model.DataBean.BaseResponse;
+import com.ef.newlead.data.model.DataBean.CenterTimeBean;
 import com.ef.newlead.data.model.DataBean.LessonBean;
 import com.ef.newlead.data.model.DataBean.LessonPackBean;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
@@ -52,6 +53,16 @@ public class LocalDataSource implements Repository {
 
     @Override
     public Observable<Response<LessonPackBean>> getLessonPack(String id) {
+        return Observable.empty();
+    }
+
+    @Override
+    public Observable<Response<CenterTimeBean>> getCenterTime(String id) {
+        return Observable.empty();
+    }
+
+    @Override
+    public Observable<BaseResponse> bookCenter(Map<String, String> info) {
         return Observable.empty();
     }
 }

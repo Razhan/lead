@@ -76,6 +76,7 @@ public class FindCenterActivity extends BaseMVPActivity<CityInfoPresenter>
     private CenterAdapter centerAdapter;
     private NewCityAdapter cityAdapter;
     private List<City> cityList;
+    private City selectedCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +173,7 @@ public class FindCenterActivity extends BaseMVPActivity<CityInfoPresenter>
             Bundle bundle = new Bundle();
             bundle.putSerializable(CenterDetailActivity.SELECTED_CENTER, item);
             i.putExtras(bundle);
+            i.putExtra(BookActivity.KEY_CENTER_ADDRESS, selectedCity.getName());
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 View sharedView = view.findViewById(R.id.center_pic);
@@ -192,7 +194,7 @@ public class FindCenterActivity extends BaseMVPActivity<CityInfoPresenter>
         cityAdapter = new NewCityAdapter(this, cityList);
         cityAdapter.setClickListener((view, pos, item) -> {
             input.setText(item.getFullName());
-
+            selectedCity = item;
             inflateCentersByCity(item);
         });
 
@@ -308,8 +310,4 @@ public class FindCenterActivity extends BaseMVPActivity<CityInfoPresenter>
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
 }

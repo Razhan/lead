@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,8 +16,14 @@ import android.widget.TextView;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
+import com.ef.newlead.data.model.Center;
+import com.ef.newlead.data.model.DataBean.CenterTimeBean;
+import com.ef.newlead.data.model.DataBean.Response;
+import com.ef.newlead.presenter.CenterPresenter;
 import com.ef.newlead.ui.adapter.BookItemAdapter;
+import com.ef.newlead.ui.view.CenterBookView;
 import com.ef.newlead.util.SharedPreUtils;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +31,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class BookActivity extends BaseActivity {
+public class BookActivity extends BaseMVPActivity<CenterPresenter> implements CenterBookView {
+
+    public static final String KEY_CENTER_ADDRESS = "centerAddress";
 
     public static final int CODE_AGE = 0xFF;
     public static final int CODE_NAME = CODE_AGE + 1;
@@ -64,6 +73,10 @@ public class BookActivity extends BaseActivity {
     private String defaultClockText = "Select the time";
     private String defaultNameText = "Complete information";
 
+    private CenterTimeBean timeBean;
+    private BookItemAdapter clockAdapter;
+    private Center mCenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         colorfulStatusBar = true;
@@ -88,10 +101,11 @@ public class BookActivity extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+        mCenter = (Center) getIntent().getExtras().getSerializable(CenterDetailActivity.SELECTED_CENTER);
 
         book.getBackground().setColorFilter(Color.parseColor("#B3D8FD"), PorterDuff.Mode.MULTIPLY);
 
-        placeText.setText("上海市，徐家汇中心");
+        placeText.setText(getIntent().getStringExtra(KEY_CENTER_ADDRESS));
         dateText.setText(defaultDateText);
         clockText.setText(defaultClockText);
         userText.setText(defaultNameText);
@@ -110,15 +124,14 @@ public class BookActivity extends BaseActivity {
         phone.setText(SharedPreUtils.getString(Constant.USER_PHONE, "Phone number"));
         book.setText("BOOK SESSION");
 
-        initDateList();
-        initClockList();
-
         date.setOnClickListener(v -> {
             triggerListView(dateList, dateText, defaultDateText, false);
 
             clockText.setText(defaultClockText);
             clockText.setTextColor(Color.parseColor("#4c000000"));
         });
+
+        date.setClickable(false);
 
         clock.setOnClickListener(v -> {
             if (dateText.getText().toString().equals(defaultDateText)) {
@@ -130,6 +143,8 @@ public class BookActivity extends BaseActivity {
 
         dateList.getViewTreeObserver().addOnGlobalLayoutListener(getGlobalLayoutListener(dateList));
         clockList.getViewTreeObserver().addOnGlobalLayoutListener(getGlobalLayoutListener(clockList));
+
+        presenter.getCenterTime("001");
     }
 
     private ViewTreeObserver.OnGlobalLayoutListener getGlobalLayoutListener(View view) {
@@ -149,28 +164,57 @@ public class BookActivity extends BaseActivity {
         };
     }
 
-    private void initDateList() {
+    @NonNull
+    @Override
+    protected CenterPresenter createPresenter() {
+        return new CenterPresenter(this, this);
+    }
+
+    @Override
+    public void afterGetCenterTime(Response<CenterTimeBean> times) {
+        timeBean = times.getData();
+        initDateList(timeBean.getAvailableTime());
+        initClockList();
+
+        date.setClickable(true);
+    }
+
+    @Override
+    public void afterBook() {
+        SharedPreUtils.putStringMap(Constant.BOOKED_CENTER, String.valueOf(mCenter.getId()),
+                new Gson().toJson(new Center.BookInfo(dateText.getText().toString(),
+                        clockText.getText().toString())));
+
+        Intent intent = new Intent(this, BookResultActivity.class);
+        intent.putExtra(BookResultActivity.BOOK_CENTER, placeText.getText());
+        intent.putExtra(BookResultActivity.BOOK_DATE, dateText.getText());
+        intent.putExtra(BookResultActivity.BOOK_TIME, clockText.getText());
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    private void initDateList(List<CenterTimeBean.AvailableTimeBean> times) {
         List<String> list = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
-            list.add("今天 09月08日" + String.valueOf(i));
+        for (int i = 0; i < times.size(); i++) {
+            list.add(times.get(i).getDate());
         }
 
         BookItemAdapter dateAdapter = new BookItemAdapter(this, list);
-        dateAdapter.setClickListener((v, pos, item) -> triggerListView(dateList, dateText, item, true));
+        dateAdapter.setClickListener((v, pos, item) -> {
+            triggerListView(dateList, dateText, item, true);
+            setTimeAdapter(timeBean.getAvailableTime().get(pos).getTimeSlots());
+
+        });
 
         dateList.setLayoutManager(new LinearLayoutManager(this));
         dateList.setAdapter(dateAdapter);
     }
 
     private void initClockList() {
-        List<String> list = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++) {
-            list.add("上午 10:00" + String.valueOf(i));
-        }
-
-        BookItemAdapter clockAdapter = new BookItemAdapter(this, list);
+        clockAdapter = new BookItemAdapter(this, null);
         clockAdapter.setClickListener((v, pos, item) -> triggerListView(clockList, clockText, item, true));
 
         clockList.setLayoutManager(new LinearLayoutManager(this));
@@ -190,6 +234,16 @@ public class BookActivity extends BaseActivity {
         }
 
         setButton();
+    }
+
+    private void setTimeAdapter(List<CenterTimeBean.AvailableTimeBean.TimeSlotBean> slots) {
+        List<String> list = new ArrayList<>();
+
+        for (int i = 0; i < slots.size(); i++) {
+            list.add(slots.get(i).getTime());
+        }
+
+        clockAdapter.set(list);
     }
 
     @OnClick({R.id.book_user_text, R.id.book_user_age, R.id.book_user_phone, R.id.book_button})
@@ -219,14 +273,12 @@ public class BookActivity extends BaseActivity {
                 if (currentStep >= DEFAULT_STEP
                         && !dateText.getText().toString().equals(defaultDateText)
                         && !clockText.getText().toString().equals(defaultClockText)) {
-                    intent = new Intent(this, BookResultActivity.class);
-                    intent.putExtra(BookResultActivity.BOOK_CENTER, placeText.getText());
-                    intent.putExtra(BookResultActivity.BOOK_DATE, dateText.getText());
-                    intent.putExtra(BookResultActivity.BOOK_TIME, clockText.getText());
-
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    finish();
+                    presenter.bookCenter(String.valueOf(mCenter.getId()),
+                            userText.getText().toString(),
+                            age.getText().toString(),
+                            phone.getText().toString(),
+                            dateText.getText().toString(),
+                            clockText.getText().toString());
                 }
                 break;
         }
@@ -266,7 +318,6 @@ public class BookActivity extends BaseActivity {
         if (currentStep == DEFAULT_STEP
                 && !dateText.getText().toString().equals(defaultDateText)
                 && !clockText.getText().toString().equals(defaultClockText)) {
-            Log.d("setButton", "setButton");
             book.getBackground().setColorFilter(Color.parseColor("#0078ff"), PorterDuff.Mode.MULTIPLY);
         } else {
             book.getBackground().setColorFilter(Color.parseColor("#B3D8FD"), PorterDuff.Mode.MULTIPLY);

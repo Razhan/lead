@@ -4,6 +4,8 @@ import java.io.File;
 
 public final class Constant {
 
+    public static final String APP_VERSION = "appVersion";
+
     public static final String API_END_POINT = "http://b2cglobaluat.englishtown.com/";
 
     public static final String APP_FOLDER = "newlead";
@@ -29,6 +31,9 @@ public final class Constant {
     public static final String USER_LEVEL = "userLevel";
     public static final String USER_PURPOSE = "userPurpose";
     public static final String USER_PHONE = "userPhone";
+
+    public static final String BOOKED_CENTER = "bookedCenter";
+
 
 
 }

@@ -1,7 +1,16 @@
 package com.ef.newlead.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 public final class SharedPreUtils {
 
@@ -63,6 +72,71 @@ public final class SharedPreUtils {
 
     public static void remove(final String key) {
         prefs.edit().remove(key).apply();
+    }
+
+    public static void putStringSet(String name, String value) {
+        Set<String> strings = prefs.getStringSet(name, new HashSet<>());
+        strings.add(value);
+
+        prefs.edit().putStringSet(name, strings).apply();
+    }
+
+    public static void removeStringSet(String name, String value) {
+        Set<String> strings = prefs.getStringSet(name, new HashSet<>());
+
+        if (strings.contains(value)) {
+            strings.remove(value);
+            prefs.edit().putStringSet(name, strings).apply();
+        }
+    }
+
+    public static boolean containStringSet(String name, String value) {
+        Set<String> strings = prefs.getStringSet(name, new HashSet<>());
+        return strings.contains(value);
+    }
+
+    public static void putStringMap(String mapKeyName, String key, String value){
+        Map<String,String> map = loadMap(mapKeyName);
+        map.put(key, value);
+
+        String jsonStr = new JSONObject(map).toString();
+        prefs.edit().putString(mapKeyName, jsonStr).apply();
+    }
+
+    public static void removeStringMap(String mapKeyName, String key) {
+        Map<String,String> map = loadMap(mapKeyName);
+
+        if (map.containsKey(key)) {
+            map.remove(key);
+        }
+
+        String jsonStr = new JSONObject(map).toString();
+        prefs.edit().putString(mapKeyName, jsonStr).apply();
+    }
+
+    public static boolean containStringMap(String mapKeyName, String key) {
+        Map<String,String> map = loadMap(mapKeyName);
+        return map.containsKey(key);
+    }
+
+    public static Map<String,String> loadMap(String keyName){
+        Map<String,String> outputMap = new HashMap<>();
+
+        try {
+            String jsonString = prefs.getString(keyName, (new JSONObject()).toString());
+            JSONObject jsonObject = new JSONObject(jsonString);
+            Iterator<String> keysItr = jsonObject.keys();
+
+            while(keysItr.hasNext()) {
+                String key = keysItr.next();
+                String value = (String) jsonObject.get(key);
+                outputMap.put(key, value);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return outputMap;
     }
 
 }

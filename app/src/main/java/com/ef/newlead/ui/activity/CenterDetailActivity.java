@@ -9,15 +9,20 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.Center;
 import com.ef.newlead.domain.location.GeoPosition;
 import com.ef.newlead.ui.adapter.TelNumberAdapter;
+import com.ef.newlead.util.SharedPreUtils;
+import com.google.gson.Gson;
 
 import java.util.Arrays;
 
@@ -49,9 +54,16 @@ public class CenterDetailActivity extends BaseActivity {
     Button book;
     @BindView(R.id.center_detail_star)
     ImageView star;
+    @BindView(R.id.center_detail_booked_date)
+    TextView bookedDate;
+    @BindView(R.id.center_detail_booked_time)
+    TextView bookedTime;
+    @BindView(R.id.center_detail_booked_wrapper)
+    RelativeLayout bookedWrapper;
 
     private Dialog bottomDialog;
     private Center mCenter;
+    private String mCity;
     private boolean starred = false;
     private GeoPosition geoPosition;
 
@@ -96,6 +108,7 @@ public class CenterDetailActivity extends BaseActivity {
 
     private void initData() {
         mCenter = (Center) getIntent().getExtras().getSerializable(SELECTED_CENTER);
+        mCity = getIntent().getStringExtra(BookActivity.KEY_CENTER_ADDRESS);
     }
 
     private void initBottomDialog() {
@@ -117,6 +130,21 @@ public class CenterDetailActivity extends BaseActivity {
         list.setLayoutManager(new LinearLayoutManager(this));
 
         bottomDialog = getDialog(bottomView);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (SharedPreUtils.containStringMap(Constant.BOOKED_CENTER, String.valueOf(mCenter.getId()))) {
+
+            String bookInfoStr = SharedPreUtils.loadMap(Constant.BOOKED_CENTER).get(String.valueOf(mCenter.getId()));
+
+            Center.BookInfo person = new Gson().fromJson(bookInfoStr, Center.BookInfo.class);
+            bookedDate.setText(person.getDate());
+            bookedTime.setText(person.getTime());
+            bookedWrapper.animate().alpha(1).setInterpolator(new AccelerateInterpolator()).start();
+        }
     }
 
     @OnClick({R.id.center_detail_place, R.id.center_detail_tel, R.id.center_detail_time, R.id.center_detail_book})
@@ -146,7 +174,13 @@ public class CenterDetailActivity extends BaseActivity {
                 }
                 break;
             case R.id.center_detail_book:
-                startActivity(new Intent(this, BookActivity.class));
+                i = new Intent(this, BookActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(CenterDetailActivity.SELECTED_CENTER, mCenter);
+                i.putExtras(bundle);
+                i.putExtra(BookActivity.KEY_CENTER_ADDRESS, mCity + "，" + mCenter.getSchoolName());
+
+                startActivity(i);
                 break;
         }
     }
@@ -163,8 +197,6 @@ public class CenterDetailActivity extends BaseActivity {
 
         starred = !starred;
     }
-
-
 
     @Override
     protected void onDestroy() {

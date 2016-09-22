@@ -18,8 +18,6 @@ import static com.ef.newlead.ui.widget.MicrophoneVolumeView.ASR_SAMPLE_RATE;
  * <p>
  * An util class for handling recording audio via mic.
  * <p>
- * NB: Due to an issue (IOException) of recording audio with the same output file, the instance
- * should be created every time when starting to record.
  */
 
 public class AudioRecordingHelper {
@@ -39,6 +37,11 @@ public class AudioRecordingHelper {
 
     private Recorder recorder;
 
+    /***
+     * Constructor
+     *
+     * @param listener {@link RecordListener}
+     */
     public AudioRecordingHelper(RecordListener listener) {
         Assert.checkNotNull(listener);
 
@@ -67,10 +70,16 @@ public class AudioRecordingHelper {
                 AudioFormat.CHANNEL_IN_MONO, FREQUENCY);
     }
 
+    /***
+     * Starts recording
+     */
     public void startRecording() {
         recorder.startRecording();
     }
 
+    /***
+     * Stops recording
+     */
     public void stopRecording() {
         recorder.stopRecording();
     }

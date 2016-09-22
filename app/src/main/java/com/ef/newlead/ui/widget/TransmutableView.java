@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -16,6 +15,8 @@ import android.view.animation.DecelerateInterpolator;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
+
+import timber.log.Timber;
 
 public class TransmutableView extends View {
 
@@ -104,6 +105,13 @@ public class TransmutableView extends View {
         int width = measureDimension(400, widthMeasureSpec);
         int height = measureDimension(200, heightMeasureSpec);
 
+        Timber.d(">>> onMeasure -> Width:%d, Height:%d", width, height);
+        initDrawRect(width, height);
+
+        setMeasuredDimension(width, height);
+    }
+
+    private void initDrawRect(int width, int height) {
         cr = height / 3;
         cx = width / 2;
         cy = height / 2;
@@ -112,8 +120,6 @@ public class TransmutableView extends View {
         mRectF.bottom = cy + cr;
         mRectF2.top = cy - cr;
         mRectF2.bottom = cy + cr;
-
-        setMeasuredDimension(width, height);
     }
 
     private int measureDimension(int defaultSize, int measureSpec) {
@@ -151,15 +157,14 @@ public class TransmutableView extends View {
     }
 
     private void drawStartAnimView(Canvas canvas) {
+        Timber.d(">>> progress %f", mProgress);
+
         canvas.save();
 
         if (mProgress <= 0.25) {
             canvas.drawCircle(cx, cy, cr, mPaint);
         } else if (mProgress > 0.25f && mProgress <= 0.80f) {
-            mRectF.left = cx - cr + mCirCleDis * mProgress;
-            mRectF.right = cx + cr + mCirCleDis * mProgress;
-            mRectF2.left = cx - cr - mCirCleDis * mProgress;
-            mRectF2.right = cx + cr - mCirCleDis * mProgress;
+            updateDrawRectByProgress();
 
             canvas.drawArc(mRectF, 90, -180, false, mPaint);
             canvas.drawLine(mRectF2.left + cr, mRectF.top, mRectF.right - cr, mRectF.top, mPaint);
@@ -172,6 +177,16 @@ public class TransmutableView extends View {
                 canvas.drawText(mTitleText, cx, baseline, mFontPaint);
             }
 
+            // Note:
+            // There is an issue with animation when app is on the background (e.g. stand by mode).
+            // The progress change will be triggered only once (with the max value DEFAULT_ANIM_END)
+            // which will mess up the UI.
+            mPaint.setColor(Color.WHITE);
+            mPaint.setStrokeWidth(6);
+            mPaint.setStyle(Paint.Style.STROKE);
+
+            updateDrawRectByProgress();
+
             canvas.drawArc(mRectF, 90, -180, false, mPaint);
             canvas.drawLine(mRectF2.left + cr, mRectF.top, mRectF.right - cr, mRectF.top, mPaint);
             canvas.drawLine(mRectF2.left + cr, mRectF.bottom, mRectF.right - cr, mRectF.bottom, mPaint);
@@ -179,6 +194,13 @@ public class TransmutableView extends View {
         }
 
         canvas.restore();
+    }
+
+    private void updateDrawRectByProgress() {
+        mRectF.left = cx - cr + mCirCleDis * mProgress;
+        mRectF.right = cx + cr + mCirCleDis * mProgress;
+        mRectF2.left = cx - cr - mCirCleDis * mProgress;
+        mRectF2.right = cx + cr - mCirCleDis * mProgress;
     }
 
     private void drawStopAnimView(Canvas canvas) {
@@ -221,7 +243,7 @@ public class TransmutableView extends View {
         }
     }
 
-    public ValueAnimator startViewAnim(float startF, float endF, long time, boolean isRepeat) {
+    private ValueAnimator startViewAnim(float startF, float endF, long time, boolean isRepeat) {
         mProgress = 0;
 
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(startF, endF);
@@ -241,12 +263,6 @@ public class TransmutableView extends View {
         }
 
         return valueAnimator;
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Parcelable state) {
-        mState = STATE_ANIM_NONE;
-        super.onRestoreInstanceState(state);
     }
 
     public int getState() {

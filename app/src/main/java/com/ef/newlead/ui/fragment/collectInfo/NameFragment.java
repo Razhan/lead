@@ -1,4 +1,4 @@
-package com.ef.newlead.ui.fragment;
+package com.ef.newlead.ui.fragment.collectInfo;
 
 import android.graphics.drawable.GradientDrawable;
 import android.text.Editable;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.GradientColor;
+import com.ef.newlead.ui.fragment.BaseFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;

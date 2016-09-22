@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
-import com.ef.newlead.ui.fragment.NextLessonFragment;
-import com.ef.newlead.ui.fragment.ScoreFragment;
+import com.ef.newlead.ui.fragment.score.NextLessonFragment;
+import com.ef.newlead.ui.fragment.score.ScoreFragment;
 
 public class ScoreFragmentAdapter extends FragmentPagerAdapter {
 

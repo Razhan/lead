@@ -1,4 +1,5 @@
 {
+  "action_add_to_phrasebook":"Add to Phrasebook",
   "action_cancel":"Cancel",
 
   "action_continue":"Continue",
@@ -21,7 +22,6 @@
 
   "activity_roleplay":"Roleplay",
 
-  "activity_roleplay_excellent":"Excellent!",
   "activity_roleplay_incorrect":"Not quite right. Try again.",
 
   "activity_roleplay_read_below":"Read the sentences below",
@@ -32,12 +32,9 @@
 
   "activity_roleplay_timeout":"Time Ran out... try a little quicker.",
 
-  "activity_roleplay_share_video":"Share my video",
-  "activity_roleplay_you_learned_X_new_phrases":"You learned %u new phrases. They've been added to your phrasebook to use them in the real world.",
   "activity_practice":"Practice",
 
   "activity_storytelling":"Story telling",
-  "alert_add_to_phrasebook":"Add to Phrasebook",
   "alert_are_you_sure_you_want_to_quit":"Are you sure you want to quit?",
   "alert_are_you_sure_you_want_to_leave":"Are you sure you want to leave? your progress will be lost!\n*Complete your info* to save it.",
   "alert_do_you_want_to_save_if_you_complete_your_info":"Do you want to save your progress first? You can if you *complete your info*.",
@@ -45,8 +42,6 @@
   "alert_its_awesome_you_need_to_complete_your_info":"It's awesome you want to reference these later in the real world.\nFor that you need to *complete your info*",
   "alert_wait":"Wait!",
   "error_microphone_message":"You have denied use of the microphone. To use, you need to change it in device *Settings - LeadGen*",
-  "travel_introduction_title":"Travel Story",
-  "travel_introduction_body":"Now's your chance to learn how to\n make a travel intro by doing your own.",
 
   "error_microphone_title":"Oops",
 
@@ -56,7 +51,12 @@
   "error_network_verify_your_connection":"Please verify your connection",
 
   "general_loading":"Loading",
+  "lesson_excellent":"Excellent!",
+  "lesson_share_video":"Share my video",
   "lesson_suggested_lesson":"Suggested lesson",
+  "lesson_watch_my_video":"Watch my video",
+  "lesson_you_learned_X_new_phrases_add_them":"You learned %u new phrases, use them in the real world by adding them to your phrasebook.",
+  "lesson_you_learned_X_new_phrases_already_added":"You learned %u new phrases. They've been added to your phrasebook to use them in the real world.",
   "age_select":[
 
     {
@@ -377,7 +377,7 @@
 
   "level_select_title":"Select the sentences that you can understand to determine your English level",
 
-  "name_select_firstName_placeholder":"first Name",
+  "name_select_name_placeholder":"name",
 
   "name_select_gradient_color":{
 
@@ -506,6 +506,15 @@
   "ef_center_call":"Call EF",
   "ef_center_open_map":"Open Map",
   "ef_center_book_action":"Book A Session",
-  "map_provider_apple":"Apple Map"
-
+  "map_provider_apple":"Apple Map",
+  "ef_appointment_book_action" : "Book a session",
+"ef_appointment_title" : "Book A Session",
+"ef_center_appointment_date_placeholder" : "Select a date",
+"ef_center_appointment_time_placeholder" : "Select a time",
+"ef_center_appointment_name_placeholder" : "Enter your name",
+"ef_center_appointment_age_placeholder" : "Select your age",
+"ef_center_appointment_phone_placeholder" : "Enter your Phone",
+"ef_appointment_book_action" : "Book Appointment",
+"ef_appointment_confirmation_button" : "GOT IT",
+"ef_appointment_confirmation_title" : "You’re on your way to better English! See you soon "
 }

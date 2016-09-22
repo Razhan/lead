@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.Center;
+import com.ef.newlead.data.model.DataBean.BookInfoBean;
 import com.ef.newlead.data.model.DataBean.CenterTimeBean;
 import com.ef.newlead.data.model.DataBean.Response;
 import com.ef.newlead.presenter.CenterPresenter;
@@ -108,7 +109,7 @@ public class BookActivity extends BaseMVPActivity<CenterPresenter> implements Ce
         placeText.setText(getIntent().getStringExtra(KEY_CENTER_ADDRESS));
         dateText.setText(defaultDateText);
         clockText.setText(defaultClockText);
-        userText.setText(defaultNameText);
+        book.setText("BOOK SESSION");
 
         if (SharedPreUtils.contain(Constant.USER_AGE_VALUE)) {
             age.setTextColor(Color.BLACK);
@@ -120,9 +121,14 @@ public class BookActivity extends BaseMVPActivity<CenterPresenter> implements Ce
             currentStep++;
         }
 
+        if (SharedPreUtils.contain(Constant.USER_NAME)) {
+            userText.setTextColor(Color.BLACK);
+            currentStep++;
+        }
+
         age.setText(SharedPreUtils.getString(Constant.USER_AGE_VALUE, "Age group"));
         phone.setText(SharedPreUtils.getString(Constant.USER_PHONE, "Phone number"));
-        book.setText("BOOK SESSION");
+        userText.setText(SharedPreUtils.getString(Constant.USER_NAME, defaultNameText));
 
         date.setOnClickListener(v -> {
             triggerListView(dateList, dateText, defaultDateText, false);
@@ -171,8 +177,8 @@ public class BookActivity extends BaseMVPActivity<CenterPresenter> implements Ce
     }
 
     @Override
-    public void afterGetCenterTime(Response<CenterTimeBean> times) {
-        timeBean = times.getData();
+    public void afterGetCenterTime(CenterTimeBean times) {
+        timeBean = times;
         initDateList(timeBean.getAvailableTime());
         initClockList();
 
@@ -190,9 +196,13 @@ public class BookActivity extends BaseMVPActivity<CenterPresenter> implements Ce
         intent.putExtra(BookResultActivity.BOOK_DATE, dateText.getText());
         intent.putExtra(BookResultActivity.BOOK_TIME, clockText.getText());
 
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void afterGetBookInfo(List<BookInfoBean> info) {
+
     }
 
     private void initDateList(List<CenterTimeBean.AvailableTimeBean> times) {

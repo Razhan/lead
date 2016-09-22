@@ -103,6 +103,11 @@ public final class SharedPreUtils {
         prefs.edit().putString(mapKeyName, jsonStr).apply();
     }
 
+    public static void putNewStringMap(String mapKeyName, Map<String, String> newMap){
+        String jsonStr = new JSONObject(newMap).toString();
+        prefs.edit().putString(mapKeyName, jsonStr).apply();
+    }
+
     public static void removeStringMap(String mapKeyName, String key) {
         Map<String,String> map = loadMap(mapKeyName);
 

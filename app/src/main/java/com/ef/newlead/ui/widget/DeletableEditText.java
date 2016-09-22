@@ -1,6 +1,8 @@
 package com.ef.newlead.ui.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.AppCompatEditText;
@@ -26,13 +28,18 @@ public class DeletableEditText extends AppCompatEditText implements TextWatcher 
 
     public DeletableEditText(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init();
+        init(context, attrs);
     }
 
-    private void init() {
+    private void init(Context context, AttributeSet attrs) {
+
+        TypedArray type = context.obtainStyledAttributes(attrs, R.styleable.DeletableEditText, 0, 0);
+        int id = type.getResourceId(R.styleable.DeletableEditText_right_drawable, R.drawable.ic_close);
+        type.recycle();
+
         mClearDrawable = getCompoundDrawables()[2];
         if (mClearDrawable == null) {
-            mClearDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_close, null);
+            mClearDrawable = ResourcesCompat.getDrawable(getResources(), id, null);
         }
 
         mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(), mClearDrawable.getIntrinsicHeight());

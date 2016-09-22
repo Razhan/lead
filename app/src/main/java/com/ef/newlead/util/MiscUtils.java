@@ -6,6 +6,10 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 
 import java.lang.reflect.Method;
 
@@ -40,7 +44,7 @@ public final class MiscUtils {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
-    public String getVersion(Context context) {
+    public static String getVersion(Context context) {
         try {
             PackageManager manager = context.getPackageManager();
             PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
@@ -49,6 +53,19 @@ public final class MiscUtils {
         } catch (Exception e) {
             return "";
         }
+    }
+
+    public static SpannableString getSpannableText(String str, String keyword, int color) {
+        int start = str.indexOf("%s");
+        str = String.format(str, keyword);
+        SpannableString styledString = new SpannableString(str);
+
+        if (str.contains(keyword)) {
+            styledString.setSpan(new ForegroundColorSpan(color), start, start + keyword.length(),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        return styledString;
     }
 
 }

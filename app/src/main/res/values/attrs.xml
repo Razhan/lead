@@ -32,4 +32,9 @@
     <declare-styleable name="FontTextView">
         <attr name="font" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="DeletableEditText">
+        <attr name="right_drawable" format="reference" />
+    </declare-styleable>
+
 </resources>

@@ -1,6 +1,7 @@
 package com.ef.newlead.data.repostory;
 
 import com.ef.newlead.Constant;
+import com.ef.newlead.data.model.DataBean.BookInfoBean;
 import com.ef.newlead.data.model.DataBean.Response;
 import com.ef.newlead.data.model.DataBean.BaseResponse;
 import com.ef.newlead.data.model.DataBean.CenterTimeBean;
@@ -109,5 +110,10 @@ public class RestfulDataSource implements Repository {
     @Override
     public Observable<BaseResponse> bookCenter(Map<String, String> info) {
         return restfulService.bookCenter(info);
+    }
+
+    @Override
+    public Observable<Response<List<BookInfoBean>>> getBookInfo() {
+        return restfulService.getBookInfo();
     }
 }

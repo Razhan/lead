@@ -31,6 +31,7 @@ public final class Constant {
     public static final String USER_LEVEL = "userLevel";
     public static final String USER_PURPOSE = "userPurpose";
     public static final String USER_PHONE = "userPhone";
+    public static final String USER_NAME = "userName";
 
     public static final String BOOKED_CENTER = "bookedCenter";
 

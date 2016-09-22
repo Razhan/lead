@@ -1,56 +1,81 @@
 package com.ef.newlead.ui.activity;
 
-import android.Manifest;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ef.newlead.R;
-import com.ef.newlead.ui.fragment.BaseFragment;
-import com.ef.newlead.ui.widget.FontTextView;
+import com.ef.newlead.ui.widget.ASRProgressView;
 import com.ef.newlead.ui.widget.MicrophoneVolumeView;
 import com.ef.newlead.util.AudioRecordingHelper;
+import com.ef.newlead.util.MiscUtils;
 
 import java.io.File;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
-/**
- * A fragment handles recording audio for a specified script.
- */
-public class StoryActivityFragment extends BaseFragment implements AudioRecordingHelper.RecordListener {
+public class UserRecordActivity extends BaseActivity implements AudioRecordingHelper.RecordListener {
 
-    @BindView(R.id.script)
-    FontTextView script;
+    public final static String KEY_COLORFUL_STRING = "colorfulString";
+    public final static String KEY_FULL_STRING = "fullString";
+    public final static String KEY_IMAGE_URL = "imageURL";
+    public final static String KEY_START_HINT = "startHint";
+    public final static String KEY_END_HINT = "endHint";
 
+    @BindView(R.id.record_image)
+    ImageView image;
+    @BindView(R.id.record_indicator)
+    ASRProgressView indicator;
+    @BindView(R.id.record_sentence)
+    TextView sentence;
+    @BindView(R.id.record_replay)
+    ImageView replay;
+    @BindView(R.id.record_next)
+    ImageView next;
     @BindView(R.id.recorder_button)
     Button recorderButton;
-
-    @BindView(R.id.microphone_volume)
+    @BindView(R.id.record_volume)
     MicrophoneVolumeView microphoneView;
 
     private File audioFile;
     private AudioRecordingHelper recordingHelper;
 
-    private boolean hasAudioPermission = false;
-
-    public StoryActivityFragment() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        fullScreen = true;
+        super.onCreate(savedInstanceState);
     }
 
     @Override
     public int bindLayout() {
-        return R.layout.fragment_story;
+        return R.layout.activity_user_record;
     }
 
     @Override
-    public void initView() {
+    public void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+
+        sentence.setText(MiscUtils.getSpannableText(getIntent().getStringExtra(KEY_FULL_STRING),
+                getIntent().getStringExtra(KEY_COLORFUL_STRING),
+                Color.parseColor("#0078ff")));
+
+        indicator.setInitText(getIntent().getStringExtra(KEY_START_HINT));
+        indicator.show();
+
+        image.setImageResource(getIntent().getIntExtra(KEY_IMAGE_URL, 0));
+
         recorderButton.setOnTouchListener(
                 (View v, MotionEvent event) -> {
-                    if (!hasAudioPermission)
-                        return true;
-
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
                         recorderButton.setBackgroundResource(R.drawable.ic_mic_tapping);
                         recorderButton.setPressed(true);
@@ -71,25 +96,6 @@ public class StoryActivityFragment extends BaseFragment implements AudioRecordin
                     return true;
                 }
         );
-
-        // require permission instantly for recording audio
-        askForPermissions(new PermissionListener() {
-            @Override
-            public void permissionGranted() {
-                hasAudioPermission = true;
-            }
-
-            @Override
-            public void permissionDenied() {
-                hasAudioPermission = false;
-
-            }
-        }, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-    }
-
-    public void setScript(String text) {
-        script.setText(text);
     }
 
     private void onRecordCancel() {
@@ -102,6 +108,8 @@ public class StoryActivityFragment extends BaseFragment implements AudioRecordin
 
         microphoneView.setVisibility(View.INVISIBLE);
         microphoneView.setProportion(0);
+
+        indicator.setResult(true, getIntent().getStringExtra(KEY_END_HINT));
     }
 
     @Override
@@ -123,6 +131,10 @@ public class StoryActivityFragment extends BaseFragment implements AudioRecordin
 
         if (recordingHelper != null)
             recordingHelper.startRecording();
+
+        if (indicator.getTranslationY() != 0) {
+            indicator.show();
+        }
     }
 
     private void setupRecorder() {
@@ -141,4 +153,12 @@ public class StoryActivityFragment extends BaseFragment implements AudioRecordin
     private File file() {
         return new File(Environment.getExternalStorageDirectory(), "test.wav");
     }
+
+    @OnClick(R.id.record_next)
+    public void onNextClick() {
+        startActivity(new Intent(this, StoryTellActivity.class));
+        finish();
+    }
+
+
 }

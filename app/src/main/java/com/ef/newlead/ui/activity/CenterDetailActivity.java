@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,18 +20,25 @@ import android.widget.TextView;
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.Center;
+import com.ef.newlead.data.model.DataBean.BookInfoBean;
+import com.ef.newlead.data.model.DataBean.CenterTimeBean;
 import com.ef.newlead.domain.location.GeoPosition;
+import com.ef.newlead.presenter.CenterPresenter;
 import com.ef.newlead.ui.adapter.TelNumberAdapter;
+import com.ef.newlead.ui.view.CenterBookView;
 import com.ef.newlead.util.SharedPreUtils;
 import com.google.gson.Gson;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import timber.log.Timber;
 
-public class CenterDetailActivity extends BaseActivity {
+public class CenterDetailActivity extends BaseMVPActivity<CenterPresenter> implements CenterBookView {
 
     public final static String SELECTED_CENTER = "selectedCenter";
 
@@ -71,6 +79,10 @@ public class CenterDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         colorfulStatusBar = true;
         super.onCreate(savedInstanceState);
+
+        if (!SharedPreUtils.contain(Constant.BOOKED_CENTER)) {
+            presenter.getBookInfo();
+        }
     }
 
     @Override
@@ -94,6 +106,8 @@ public class CenterDetailActivity extends BaseActivity {
         super.initView(savedInstanceState);
 
         book.getBackground().setColorFilter(Color.parseColor("#0078ff"), PorterDuff.Mode.MULTIPLY);
+        book.setText("BOOK A SESSION");
+
         placeText.setText(mCenter.getAddress());
         telText.setText(mCenter.getPhones());
         timeText.setText(mCenter.getOpenTime());
@@ -109,6 +123,12 @@ public class CenterDetailActivity extends BaseActivity {
     private void initData() {
         mCenter = (Center) getIntent().getExtras().getSerializable(SELECTED_CENTER);
         mCity = getIntent().getStringExtra(BookActivity.KEY_CENTER_ADDRESS);
+    }
+
+    @NonNull
+    @Override
+    protected CenterPresenter createPresenter() {
+        return new CenterPresenter(this, this);
     }
 
     private void initBottomDialog() {
@@ -136,15 +156,48 @@ public class CenterDetailActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        if (SharedPreUtils.containStringMap(Constant.BOOKED_CENTER, String.valueOf(mCenter.getId()))) {
+        if (SharedPreUtils.contain(Constant.BOOKED_CENTER)) {
+            checkIsBooked();
+        }
+    }
 
+    private void checkIsBooked() {
+        if (SharedPreUtils.containStringMap(Constant.BOOKED_CENTER, String.valueOf(mCenter.getId()))) {
             String bookInfoStr = SharedPreUtils.loadMap(Constant.BOOKED_CENTER).get(String.valueOf(mCenter.getId()));
 
             Center.BookInfo person = new Gson().fromJson(bookInfoStr, Center.BookInfo.class);
             bookedDate.setText(person.getDate());
             bookedTime.setText(person.getTime());
-            bookedWrapper.animate().alpha(1).setInterpolator(new AccelerateInterpolator()).start();
+            bookedWrapper.animate().alpha(1).setDuration(Constant.DEFAULT_ANIM_FULL_TIME).start();
+
+            book.setBackgroundResource(R.drawable.bg_rounded_corners_stroke_black);
+            book.setText("CANCEL BOOK");
+            book.setTextColor(Color.BLACK);
         }
+    }
+
+    @Override
+    public void afterGetBookInfo(List<BookInfoBean> info) {
+        Map<String, String> bookedMap = new HashMap<>();
+        Gson gson = new Gson();
+
+        for (BookInfoBean bean : info) {
+            Center.BookInfo newInfo = new Center.BookInfo(bean.getBookingDate(), bean.getBookingTime());
+            bookedMap.put(bean.getCenterId(), gson.toJson(newInfo));
+        }
+
+        SharedPreUtils.putNewStringMap(Constant.BOOKED_CENTER, bookedMap);
+        checkIsBooked();
+    }
+
+    @Override
+    public void afterGetCenterTime(CenterTimeBean times) {
+
+    }
+
+    @Override
+    public void afterBook() {
+
     }
 
     @OnClick({R.id.center_detail_place, R.id.center_detail_tel, R.id.center_detail_time, R.id.center_detail_book})
@@ -174,13 +227,26 @@ public class CenterDetailActivity extends BaseActivity {
                 }
                 break;
             case R.id.center_detail_book:
-                i = new Intent(this, BookActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(CenterDetailActivity.SELECTED_CENTER, mCenter);
-                i.putExtras(bundle);
-                i.putExtra(BookActivity.KEY_CENTER_ADDRESS, mCity + "，" + mCenter.getSchoolName());
+                if (SharedPreUtils.containStringMap(Constant.BOOKED_CENTER, String.valueOf(mCenter.getId()))) {
+//                    bookedWrapper.animate().alpha(0).setDuration(Constant.DEFAULT_ANIM_FULL_TIME).start();
+//
+//                    book.setBackgroundResource(R.drawable.bg_rounded_corners_white);
+//                    book.getBackground().setColorFilter(Color.parseColor("#0078ff"), PorterDuff.Mode.MULTIPLY);
+//
+//                    book.setText("BOOK A SESSION");
+//                    book.setTextColor(Color.WHITE);
+//
+//                    SharedPreUtils.removeStringMap(Constant.BOOKED_CENTER, String.valueOf(mCenter.getId()));
+                    return;
+                } else {
+                    i = new Intent(this, BookActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(CenterDetailActivity.SELECTED_CENTER, mCenter);
+                    i.putExtras(bundle);
+                    i.putExtra(BookActivity.KEY_CENTER_ADDRESS, mCity + "，" + mCenter.getSchoolName());
 
-                startActivity(i);
+                    startActivity(i);
+                }
                 break;
         }
     }

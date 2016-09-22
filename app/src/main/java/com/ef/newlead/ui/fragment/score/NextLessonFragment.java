@@ -1,4 +1,4 @@
-package com.ef.newlead.ui.fragment;
+package com.ef.newlead.ui.fragment.score;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.ef.newlead.R;
 import com.ef.newlead.ui.activity.RemindActivity;
+import com.ef.newlead.ui.fragment.BaseFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;

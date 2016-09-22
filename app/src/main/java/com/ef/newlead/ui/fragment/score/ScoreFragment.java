@@ -1,4 +1,4 @@
-package com.ef.newlead.ui.fragment;
+package com.ef.newlead.ui.fragment.score;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,16 +16,13 @@ import android.widget.TextView;
 import com.devbrackets.android.exomedia.core.video.scale.ScaleType;
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.ef.newlead.R;
-import com.ef.newlead.data.model.ActivityTemplate;
 import com.ef.newlead.ui.activity.RemindActivity;
+import com.ef.newlead.ui.fragment.BaseFragment;
 import com.ef.newlead.ui.widget.AutoSizeVideoView;
 import com.ef.newlead.ui.widget.ColorfulProgressBar;
 import com.ef.newlead.ui.widget.VideoControlLayout;
 import com.ef.newlead.util.ViewUtils;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;

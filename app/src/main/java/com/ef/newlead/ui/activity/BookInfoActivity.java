@@ -11,10 +11,10 @@ import android.widget.RelativeLayout;
 import com.ef.newlead.R;
 import com.ef.newlead.domain.usecase.CollectInfoUseCase;
 import com.ef.newlead.presenter.CollectInfoPresenter;
-import com.ef.newlead.ui.fragment.AgeFragment;
-import com.ef.newlead.ui.fragment.NameFragment;
-import com.ef.newlead.ui.fragment.NumberFragment;
-import com.ef.newlead.ui.fragment.VerificationFragment;
+import com.ef.newlead.ui.fragment.collectInfo.AgeFragment;
+import com.ef.newlead.ui.fragment.collectInfo.NameFragment;
+import com.ef.newlead.ui.fragment.collectInfo.NumberFragment;
+import com.ef.newlead.ui.fragment.collectInfo.VerificationFragment;
 import com.ef.newlead.ui.view.CollectInfoView;
 
 import butterknife.BindView;

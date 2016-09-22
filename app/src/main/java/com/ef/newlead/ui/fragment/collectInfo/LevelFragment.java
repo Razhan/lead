@@ -1,4 +1,4 @@
-package com.ef.newlead.ui.fragment;
+package com.ef.newlead.ui.fragment.collectInfo;
 
 import android.support.v4.app.Fragment;
 import android.view.ViewTreeObserver;

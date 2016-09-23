@@ -51,7 +51,10 @@ public class CenterPresenter extends Presenter<CenterBookView> {
     public void getBookInfo(String centerId) {
         useCase.new Builder<Response<List<BookInfoBean>>>()
                 .useCaseName("GetBookInfo")
-                .onSuccess(info -> handleBookInfo(centerId, info.getData()))
+                .onSuccess(info -> {
+                    handleBookInfo(centerId, info.getData());
+                    checkCenterBooked(centerId);
+                })
                 .build();
     }
 
@@ -65,8 +68,6 @@ public class CenterPresenter extends Presenter<CenterBookView> {
         }
 
         SharedPreUtils.putNewStringMap(Constant.BOOKED_CENTER, bookedMap);
-
-        checkCenterBooked(centerId);
     }
 
     public void checkCenterBooked(String id) {

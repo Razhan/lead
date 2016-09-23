@@ -1,6 +1,8 @@
 package com.ef.newlead.data.repostory;
 
 import com.ef.newlead.data.model.DataBean.BaseResponse;
+import com.ef.newlead.data.model.DataBean.BookInfoBean;
+import com.ef.newlead.data.model.DataBean.CenterTimeBean;
 import com.ef.newlead.data.model.DataBean.LessonBean;
 import com.ef.newlead.data.model.DataBean.LessonPackBean;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
@@ -11,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
+import retrofit2.http.FieldMap;
 import rx.Observable;
 
 public interface Repository {
@@ -30,5 +33,12 @@ public interface Repository {
     Observable<Response<List<LessonBean>>> getLessonList();
 
     Observable<Response<LessonPackBean>> getLessonPack(String id);
+
+    Observable<Response<CenterTimeBean>> getCenterTime(String id);
+
+    Observable<BaseResponse> bookCenter(Map<String, String> info);
+
+    Observable<Response<List<BookInfoBean>>> getBookInfo();
+
 
 }

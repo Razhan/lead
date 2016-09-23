@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.ef.newlead.domain.location.GeoPosition;
 import com.ef.newlead.util.Assert;
+import com.google.android.exoplayer.metadata.id3.PrivFrame;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -35,6 +36,8 @@ public class Center implements Comparable<Center>, Serializable {
     private String traffic;
 
     private String coordinates;
+
+    private BookInfo bookInfo;
 
     public int getId() {
         return id;
@@ -86,8 +89,39 @@ public class Center implements Comparable<Center>, Serializable {
         return new GeoPosition(Double.parseDouble(pos[0]), Double.parseDouble(pos[1]));
     }
 
+    public BookInfo getBookInfo() {
+        return bookInfo;
+    }
+
     @Override
     public int compareTo(Center another) {
         return this.order - another.order;
+    }
+
+    public static class BookInfo {
+        private String date;
+        private String time;
+
+        public  BookInfo(String date, String time) {
+            this.date = date;
+            this.time = time;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public String getTime() {
+            return time;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
     }
 }

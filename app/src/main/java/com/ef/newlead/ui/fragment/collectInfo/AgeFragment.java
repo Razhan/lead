@@ -106,7 +106,7 @@ public class AgeFragment extends BaseCollectInfoFragment implements FlowView.Cov
     @Override
     public void onItemSelected(int position) {
         SharedPreUtils.putString(Constant.USER_AGE_INDEX, String.valueOf(position - mAdapter.getBorder()));
-        SharedPreUtils.putString(Constant.USER_AGE_VALUE, mAdapter.getItem(position - mAdapter.getBorder()).getAge());
+        SharedPreUtils.putString(Constant.USER_AGE_VALUE, mAdapter.getItem(position).getAge());
 
         ageSelected = mAdapter.getItem(position).getAge();
     }

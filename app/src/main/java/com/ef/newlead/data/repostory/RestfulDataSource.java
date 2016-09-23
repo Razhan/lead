@@ -1,19 +1,23 @@
 package com.ef.newlead.data.repostory;
 
 import com.ef.newlead.Constant;
+import com.ef.newlead.data.model.DataBean.BookInfoBean;
+import com.ef.newlead.data.model.DataBean.Response;
 import com.ef.newlead.data.model.DataBean.BaseResponse;
+import com.ef.newlead.data.model.DataBean.CenterTimeBean;
 import com.ef.newlead.data.model.DataBean.LessonBean;
 import com.ef.newlead.data.model.DataBean.LessonPackBean;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
-import com.ef.newlead.data.model.DataBean.Response;
 import com.ef.newlead.data.model.DataBean.UserBean;
 import com.ef.newlead.ui.widget.DownloadProgressInterceptor;
+import com.ef.newlead.util.SharedPreUtils;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -28,15 +32,23 @@ public class RestfulDataSource implements Repository {
     private final NewLeadService restfulService;
 
     public RestfulDataSource() {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(
-                (message) -> Timber.tag("OKHttp").d(message)
-        ).setLevel(HttpLoggingInterceptor.Level.BODY);
-
         OkHttpClient client = new OkHttpClient.Builder()
                 .readTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
                 .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
-                .addInterceptor(interceptor)
+                .addInterceptor(new HttpLoggingInterceptor((message) -> Timber.tag("OKHttp").d(message))
+                            .setLevel(HttpLoggingInterceptor.Level.BODY)
+                )
+                .addInterceptor(chain -> {
+                    Request original = chain.request();
+                    Request request = original.newBuilder()
+                            .header("user_id", SharedPreUtils.getString(Constant.USER_ID, ""))
+                            .header("app_version", SharedPreUtils.getString(Constant.APP_VERSION, "1.0"))
+                            .method(original.method(), original.body())
+                            .build();
+
+                    return chain.proceed(request);
+                })
                 .addNetworkInterceptor(new DownloadProgressInterceptor())
                 .build();
 
@@ -88,5 +100,20 @@ public class RestfulDataSource implements Repository {
     @Override
     public Observable<Response<LessonPackBean>> getLessonPack(String id) {
         return restfulService.getLessonPackage(id);
+    }
+
+    @Override
+    public Observable<Response<CenterTimeBean>> getCenterTime(String id) {
+        return restfulService.getCenterTime(id);
+    }
+
+    @Override
+    public Observable<BaseResponse> bookCenter(Map<String, String> info) {
+        return restfulService.bookCenter(info);
+    }
+
+    @Override
+    public Observable<Response<List<BookInfoBean>>> getBookInfo() {
+        return restfulService.getBookInfo();
     }
 }

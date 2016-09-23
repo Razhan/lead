@@ -10,9 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.GradientColor;
 import com.ef.newlead.ui.fragment.BaseFragment;
+import com.ef.newlead.util.SharedPreUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -88,6 +90,8 @@ public class NameFragment extends BaseFragment {
 
     @OnClick(R.id.next)
     public void onNext() {
+        SharedPreUtils.putString(Constant.USER_NAME, nameEditor.getText().toString());
+
         if (nameInputListener != null) {
             nameInputListener.onNameInput(name);
         }

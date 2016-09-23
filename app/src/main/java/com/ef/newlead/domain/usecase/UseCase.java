@@ -56,7 +56,7 @@ public abstract class UseCase {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(res -> {
                     if (res.getClass().isAssignableFrom(BaseResponse.class)) {
-                        if (((BaseResponse) res).getStatus() != 0) {
+                        if (!((BaseResponse) res).isOK()) {
                             return Observable.error(new Throwable(((BaseResponse) res).getMessage()));
                         }
                     }

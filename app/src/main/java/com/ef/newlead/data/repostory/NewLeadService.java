@@ -1,6 +1,8 @@
 package com.ef.newlead.data.repostory;
 
 import com.ef.newlead.data.model.DataBean.BaseResponse;
+import com.ef.newlead.data.model.DataBean.BookInfoBean;
+import com.ef.newlead.data.model.DataBean.CenterTimeBean;
 import com.ef.newlead.data.model.DataBean.LessonBean;
 import com.ef.newlead.data.model.DataBean.LessonPackBean;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
@@ -52,4 +54,16 @@ public interface NewLeadService {
     @FormUrlEncoded
     @POST("/api/leadgen/lesson/package/Query")
     Observable<Response<LessonPackBean>> getLessonPackage(@Field("lesson_id") String id);
+
+    @FormUrlEncoded
+    @POST("/api/leadgen/center/timeslots")
+    Observable<Response<CenterTimeBean>> getCenterTime(@Field("center_id") String id);
+
+    @FormUrlEncoded
+    @POST("/api/leadgen/center/book")
+    Observable<BaseResponse> bookCenter(@FieldMap Map<String, String> info);
+
+    @POST("/api/leadgen/center/bookinginfo")
+    Observable<Response<List<BookInfoBean>>> getBookInfo();
+
 }

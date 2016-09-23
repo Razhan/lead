@@ -46,7 +46,7 @@ public class VideoRolePlayPresenter extends VideoPresenter {
     private List<ActivityTemplate.RolePlayElement> elements = new LinkedList<>();
 
     public VideoRolePlayPresenter(Context context) {
-        super(context, EMPTY_VIEW, null);
+        super(context, EMPTY_VIEW);
 
         asrComponent = new DroidASRComponent();
 

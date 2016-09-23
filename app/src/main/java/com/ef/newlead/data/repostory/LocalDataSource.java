@@ -71,4 +71,9 @@ public class LocalDataSource implements Repository {
     public Observable<Response<List<BookInfoBean>>> getBookInfo() {
         return Observable.empty();
     }
+
+    @Override
+    public Observable<BaseResponse> savePhrase(Map<String, Object> phrases) {
+        return Observable.empty();
+    }
 }

@@ -66,4 +66,8 @@ public interface NewLeadService {
     @POST("/api/leadgen/center/bookinginfo")
     Observable<Response<List<BookInfoBean>>> getBookInfo();
 
+    @FormUrlEncoded
+    @POST("/api/leadgen/phrasebook/save")
+    Observable<BaseResponse> savePhrase(@FieldMap Map<String, Object> phrases);
+
 }

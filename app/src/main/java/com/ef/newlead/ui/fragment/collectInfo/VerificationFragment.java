@@ -146,7 +146,7 @@ public class VerificationFragment extends BaseCollectInfoFragment<VerificationPr
 
     @Override
     protected VerificationPresenter createPresent() {
-        return new VerificationPresenter(getContext(), this, new VerificationUseCase());
+        return new VerificationPresenter(getContext(), this);
     }
 
     @Override

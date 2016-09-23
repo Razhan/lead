@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.ef.newlead.Constant;
 import com.ef.newlead.data.model.DataBean.BaseResponse;
+import com.ef.newlead.domain.usecase.CollectInfoUseCase;
 import com.ef.newlead.domain.usecase.UseCase;
 import com.ef.newlead.ui.view.CollectInfoView;
 import com.ef.newlead.util.SharedPreUtils;
@@ -13,8 +14,8 @@ import java.util.Map;
 
 public class CollectInfoPresenter extends Presenter<CollectInfoView> {
 
-    public CollectInfoPresenter(Context context, CollectInfoView view, UseCase useCase) {
-        super(context, view, useCase);
+    public CollectInfoPresenter(Context context, CollectInfoView view) {
+        super(context, view, new CollectInfoUseCase());
     }
 
     public void submitInfo() {

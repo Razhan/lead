@@ -106,7 +106,7 @@ public class DialogueVideoActivity extends BaseMVPActivity<VideoPresenter> imple
     @NonNull
     @Override
     protected VideoPresenter createPresenter() {
-        return new VideoPresenter(this, this, null);
+        return new VideoPresenter(this, this);
     }
 
     @Override

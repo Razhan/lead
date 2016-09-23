@@ -22,8 +22,8 @@ public class VideoPresenter extends Presenter<VideoView> {
 
     protected ActivityTemplate mActivityTemplate;
 
-    public VideoPresenter(Context context, VideoView view, UseCase useCase) {
-        super(context, view, useCase);
+    public VideoPresenter(Context context, VideoView view) {
+        super(context, view);
     }
 
     @Override

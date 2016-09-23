@@ -40,5 +40,6 @@ public interface Repository {
 
     Observable<Response<List<BookInfoBean>>> getBookInfo();
 
+    Observable<BaseResponse> savePhrase(Map<String, Object> phrases);
 
 }

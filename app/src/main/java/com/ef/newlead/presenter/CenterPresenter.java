@@ -52,13 +52,13 @@ public class CenterPresenter extends Presenter<CenterBookView> {
         useCase.new Builder<Response<List<BookInfoBean>>>()
                 .useCaseName("GetBookInfo")
                 .onSuccess(info -> {
-                    handleBookInfo(centerId, info.getData());
+                    handleBookInfo(info.getData());
                     checkCenterBooked(centerId);
                 })
                 .build();
     }
 
-    private void handleBookInfo(String centerId, List<BookInfoBean> info) {
+    private void handleBookInfo(List<BookInfoBean> info) {
         Map<String, String> bookedMap = new HashMap<>();
         Gson gson = new Gson();
 

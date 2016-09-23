@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,19 +19,14 @@ import android.widget.TextView;
 import com.ef.newlead.Constant;
 import com.ef.newlead.R;
 import com.ef.newlead.data.model.Center;
-import com.ef.newlead.data.model.DataBean.BookInfoBean;
 import com.ef.newlead.data.model.DataBean.CenterTimeBean;
 import com.ef.newlead.domain.location.GeoPosition;
 import com.ef.newlead.presenter.CenterPresenter;
 import com.ef.newlead.ui.adapter.TelNumberAdapter;
 import com.ef.newlead.ui.view.CenterBookView;
 import com.ef.newlead.util.SharedPreUtils;
-import com.google.gson.Gson;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -74,6 +68,7 @@ public class CenterDetailActivity extends BaseMVPActivity<CenterPresenter> imple
     private String mCity;
     private boolean starred = false;
     private GeoPosition geoPosition;
+    private boolean isBooked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +76,7 @@ public class CenterDetailActivity extends BaseMVPActivity<CenterPresenter> imple
         super.onCreate(savedInstanceState);
 
         if (!SharedPreUtils.contain(Constant.BOOKED_CENTER)) {
-            presenter.getBookInfo();
+            presenter.getBookInfo(String.valueOf(mCenter.getId()));
         }
     }
 
@@ -104,9 +99,6 @@ public class CenterDetailActivity extends BaseMVPActivity<CenterPresenter> imple
     public void initView(Bundle savedInstanceState) {
         initData();
         super.initView(savedInstanceState);
-
-        book.getBackground().setColorFilter(Color.parseColor("#0078ff"), PorterDuff.Mode.MULTIPLY);
-        book.setText("BOOK A SESSION");
 
         placeText.setText(mCenter.getAddress());
         telText.setText(mCenter.getPhones());
@@ -157,37 +149,31 @@ public class CenterDetailActivity extends BaseMVPActivity<CenterPresenter> imple
         super.onResume();
 
         if (SharedPreUtils.contain(Constant.BOOKED_CENTER)) {
-            checkIsBooked();
-        }
-    }
-
-    private void checkIsBooked() {
-        if (SharedPreUtils.containStringMap(Constant.BOOKED_CENTER, String.valueOf(mCenter.getId()))) {
-            String bookInfoStr = SharedPreUtils.loadMap(Constant.BOOKED_CENTER).get(String.valueOf(mCenter.getId()));
-
-            Center.BookInfo person = new Gson().fromJson(bookInfoStr, Center.BookInfo.class);
-            bookedDate.setText(person.getDate());
-            bookedTime.setText(person.getTime());
-            bookedWrapper.animate().alpha(1).setDuration(Constant.DEFAULT_ANIM_FULL_TIME).start();
-
-            book.setBackgroundResource(R.drawable.bg_rounded_corners_stroke_black);
-            book.setText("CANCEL BOOK");
-            book.setTextColor(Color.BLACK);
+            presenter.checkCenterBooked(String.valueOf(mCenter.getId()));
         }
     }
 
     @Override
-    public void afterGetBookInfo(List<BookInfoBean> info) {
-        Map<String, String> bookedMap = new HashMap<>();
-        Gson gson = new Gson();
+    public void hasBooked(boolean isBooked, Center.BookInfo bookInfo) {
+        this.isBooked = isBooked;
 
-        for (BookInfoBean bean : info) {
-            Center.BookInfo newInfo = new Center.BookInfo(bean.getBookingDate(), bean.getBookingTime());
-            bookedMap.put(bean.getCenterId(), gson.toJson(newInfo));
+        if (isBooked) {
+            bookedDate.setText(bookInfo.getDate());
+            bookedTime.setText(bookInfo.getTime());
+            bookedWrapper.animate().alpha(1).setDuration(Constant.DEFAULT_ANIM_FULL_TIME).start();
+
+            book.setBackgroundResource(R.drawable.bg_rounded_corners_stroke_black);
+            book.setText(getLocaleText("ef_center_book_cancel"));
+            book.setTextColor(Color.BLACK);
+        } else {
+            bookedWrapper.animate().alpha(0).setDuration(Constant.DEFAULT_ANIM_FULL_TIME).start();
+
+            book.setBackgroundResource(R.drawable.bg_rounded_corners_white);
+            book.getBackground().setColorFilter(Color.parseColor("#0078ff"), PorterDuff.Mode.MULTIPLY);
+
+            book.setText(getLocaleText("ef_center_book_action"));
+            book.setTextColor(Color.WHITE);
         }
-
-        SharedPreUtils.putNewStringMap(Constant.BOOKED_CENTER, bookedMap);
-        checkIsBooked();
     }
 
     @Override
@@ -214,7 +200,7 @@ public class CenterDetailActivity extends BaseMVPActivity<CenterPresenter> imple
                 if (isIntentAvailable(i)) {
                     startActivity(i);
                 } else {
-                    showMessage("没有发现地图应用");
+//                    showMessage("没有发现地图应用");
                 }
                 break;
             case R.id.center_detail_tel:
@@ -227,17 +213,8 @@ public class CenterDetailActivity extends BaseMVPActivity<CenterPresenter> imple
                 }
                 break;
             case R.id.center_detail_book:
-                if (SharedPreUtils.containStringMap(Constant.BOOKED_CENTER, String.valueOf(mCenter.getId()))) {
-//                    bookedWrapper.animate().alpha(0).setDuration(Constant.DEFAULT_ANIM_FULL_TIME).start();
-//
-//                    book.setBackgroundResource(R.drawable.bg_rounded_corners_white);
-//                    book.getBackground().setColorFilter(Color.parseColor("#0078ff"), PorterDuff.Mode.MULTIPLY);
-//
-//                    book.setText("BOOK A SESSION");
-//                    book.setTextColor(Color.WHITE);
-//
-//                    SharedPreUtils.removeStringMap(Constant.BOOKED_CENTER, String.valueOf(mCenter.getId()));
-                    return;
+                if (isBooked) {
+                    presenter.cancelBook(String.valueOf(mCenter.getId()));
                 } else {
                     i = new Intent(this, BookActivity.class);
                     Bundle bundle = new Bundle();
@@ -255,10 +232,8 @@ public class CenterDetailActivity extends BaseMVPActivity<CenterPresenter> imple
     public void onClick() {
         if (starred) {
             star.setImageResource(R.drawable.ic_star_empty);
-            showMessage("Unbookedmarked");
         } else {
             star.setImageResource(R.drawable.ic_star_fill);
-            showMessage("Bookmarked");
         }
 
         starred = !starred;

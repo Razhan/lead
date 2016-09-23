@@ -15,6 +15,7 @@ public class BookResultActivity extends BaseActivity {
     public final static String BOOK_CENTER = "bookCenter";
     public final static String BOOK_DATE = "bookDate";
     public final static String BOOK_TIME = "bookTime";
+    public final static String BOOK_NAME = "bookName";
 
     @BindView(R.id.book_result_info)
     TextView info;
@@ -44,11 +45,11 @@ public class BookResultActivity extends BaseActivity {
 
         Intent intent = getIntent();
 
-        info.setText("You’re on your way to better English! See you soon Sissita Shen!");
+        info.setText(getLocaleText("ef_appointment_confirmation_title") + intent.getStringExtra(BOOK_NAME));
         address.setText(intent.getStringExtra(BOOK_CENTER));
         date.setText(intent.getStringExtra(BOOK_DATE));
         time.setText(intent.getStringExtra(BOOK_TIME));
-        button.setText("GOT IT");
+        button.setText(getLocaleText("ef_appointment_confirmation_button"));
     }
 
     @OnClick(R.id.book_result_button)

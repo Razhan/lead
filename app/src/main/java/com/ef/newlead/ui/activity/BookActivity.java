@@ -70,9 +70,9 @@ public class BookActivity extends BaseMVPActivity<CenterPresenter> implements Ce
     @BindView(R.id.book_button)
     Button book;
 
-    private String defaultDateText = "Select the date";
-    private String defaultClockText = "Select the time";
-    private String defaultNameText = "Complete information";
+    private String defaultDateText = getLocaleText("ef_center_appointment_date_placeholder");
+    private String defaultClockText = getLocaleText("ef_center_appointment_time_placeholder");
+    private String defaultNameText = getLocaleText("ef_center_appointment_name_placeholder");
 
     private CenterTimeBean timeBean;
     private BookItemAdapter clockAdapter;
@@ -96,7 +96,7 @@ public class BookActivity extends BaseMVPActivity<CenterPresenter> implements Ce
 
     @Override
     protected String setToolBarText() {
-        return "Book A Session";
+        return getLocaleText("ef_appointment_title");
     }
 
     @Override
@@ -109,7 +109,7 @@ public class BookActivity extends BaseMVPActivity<CenterPresenter> implements Ce
         placeText.setText(getIntent().getStringExtra(KEY_CENTER_ADDRESS));
         dateText.setText(defaultDateText);
         clockText.setText(defaultClockText);
-        book.setText("BOOK SESSION");
+        book.setText(getLocaleText("ef_appointment_book_action"));
 
         if (SharedPreUtils.contain(Constant.USER_AGE_VALUE)) {
             age.setTextColor(Color.BLACK);
@@ -126,8 +126,8 @@ public class BookActivity extends BaseMVPActivity<CenterPresenter> implements Ce
             currentStep++;
         }
 
-        age.setText(SharedPreUtils.getString(Constant.USER_AGE_VALUE, "Age group"));
-        phone.setText(SharedPreUtils.getString(Constant.USER_PHONE, "Phone number"));
+        age.setText(SharedPreUtils.getString(Constant.USER_AGE_VALUE, getLocaleText("ef_center_appointment_age_placeholder")));
+        phone.setText(SharedPreUtils.getString(Constant.USER_PHONE, getLocaleText("ef_center_appointment_phone_placeholder")));
         userText.setText(SharedPreUtils.getString(Constant.USER_NAME, defaultNameText));
 
         date.setOnClickListener(v -> {
@@ -150,7 +150,7 @@ public class BookActivity extends BaseMVPActivity<CenterPresenter> implements Ce
         dateList.getViewTreeObserver().addOnGlobalLayoutListener(getGlobalLayoutListener(dateList));
         clockList.getViewTreeObserver().addOnGlobalLayoutListener(getGlobalLayoutListener(clockList));
 
-        presenter.getCenterTime("001");
+        presenter.getCenterTime(String.valueOf(mCenter.getId()));
     }
 
     private ViewTreeObserver.OnGlobalLayoutListener getGlobalLayoutListener(View view) {
@@ -195,13 +195,14 @@ public class BookActivity extends BaseMVPActivity<CenterPresenter> implements Ce
         intent.putExtra(BookResultActivity.BOOK_CENTER, placeText.getText());
         intent.putExtra(BookResultActivity.BOOK_DATE, dateText.getText());
         intent.putExtra(BookResultActivity.BOOK_TIME, clockText.getText());
+        intent.putExtra(BookResultActivity.BOOK_NAME, userText.getText());
 
         startActivity(intent);
         finish();
     }
 
     @Override
-    public void afterGetBookInfo(List<BookInfoBean> info) {
+    public void hasBooked(boolean isBooked, Center.BookInfo bookInfo) {
 
     }
 

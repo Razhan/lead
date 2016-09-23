@@ -113,6 +113,8 @@ public final class SharedPreUtils {
 
         if (map.containsKey(key)) {
             map.remove(key);
+        } else {
+            return;
         }
 
         String jsonStr = new JSONObject(map).toString();

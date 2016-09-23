@@ -377,7 +377,7 @@
 
   "level_select_title":"Select the sentences that you can understand to determine your English level",
 
-  "name_select_name_placeholder":"name",
+  "name_select_firstName_placeholder":"first Name",
 
   "name_select_gradient_color":{
 
@@ -506,15 +506,5 @@
   "ef_center_call":"Call EF",
   "ef_center_open_map":"Open Map",
   "ef_center_book_action":"Book A Session",
-  "map_provider_apple":"Apple Map",
-  "ef_appointment_book_action" : "Book a session",
-"ef_appointment_title" : "Book A Session",
-"ef_center_appointment_date_placeholder" : "Select a date",
-"ef_center_appointment_time_placeholder" : "Select a time",
-"ef_center_appointment_name_placeholder" : "Enter your name",
-"ef_center_appointment_age_placeholder" : "Select your age",
-"ef_center_appointment_phone_placeholder" : "Enter your Phone",
-"ef_appointment_book_action" : "Book Appointment",
-"ef_appointment_confirmation_button" : "GOT IT",
-"ef_appointment_confirmation_title" : "You’re on your way to better English! See you soon "
+  "map_provider_apple":"Apple Map"
 }

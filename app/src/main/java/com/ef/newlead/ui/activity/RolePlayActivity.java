@@ -39,29 +39,42 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
     protected boolean pausedInOnStop = false;
     @BindView(R.id.video_role_asr_progress)
     ASRProgressView asrProgress;
+
     @BindView(R.id.video_role_video)
     AutoSizeVideoView video;
+
     @BindView(R.id.video_role_progressbar)
     ColorfulProgressBar videoProgress;
+
     @BindView(R.id.video_role_replay)
     ImageView replay;
+
     @BindView(R.id.video_role_cover)
     View cover;
+
     @BindView(R.id.video_role_asr_wrapper)
     LinearLayout asrWrapper;
+
     @BindView(R.id.video_role_deny_title)
     TextView denyTitle;
+
     @BindView(R.id.video_role_deny_info)
     TextView denyInfo;
+
     @BindView(R.id.video_role_retry)
     Button retry;
+
     @BindView(R.id.video_role_deny_wrapper)
     LinearLayout denyWrapper;
+
     @BindView(R.id.recorder_button)
     Button recordBtn;
+
     @BindView(R.id.script)
     TextView script;
+
     @BindView(R.id.microphone_volume)
+
     MicrophoneVolumeView microphoneView;
     private boolean isRestarted = false;
     private List<Double> timestamps;
@@ -121,17 +134,26 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
 
                     if (!asrStarted) {
                         asrProgress.setResult(false, "Time Out!!");
+                        showAsrComponents(false);
                     }
                 }
             }
 
             @Override
             public void onResultEnd() {
+                // quit fast
+                if(RolePlayActivity.this.isFinishing() || recordBtn == null){
+                    return;
+                }
+
                 recordBtn.setEnabled(false);
 
                 videoProgress.setVisibility(View.VISIBLE);
                 cover.setVisibility(View.INVISIBLE);
-                video.getVideoControls().setVisibility(View.VISIBLE);
+
+                if(controlLayout != null) {
+                    controlLayout.setVisibility(View.VISIBLE);
+                }
                 replay.setVisibility(View.INVISIBLE);
                 video.start();
             }
@@ -224,6 +246,8 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
             }
 
             timeOut = false;
+
+            showAsrComponents(false);
         });
     }
 
@@ -287,6 +311,8 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
             pausedInOnStop = false;
         }
 
+        showAsrComponents(false);
+
         if (controlLayout != null && controlLayout.isManualPaused()) {
             resumeVideoPosition();
             return;
@@ -296,7 +322,7 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
                 Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
 
             denyWrapper.setVisibility(View.GONE);
-            asrWrapper.setVisibility(View.VISIBLE);
+            //asrWrapper.setVisibility(View.VISIBLE);
 
             if (recordCountingDown) {
                 // continue with last counting down
@@ -364,8 +390,10 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
             videoProgress.setVisibility(View.INVISIBLE);
             cover.setVisibility(View.VISIBLE);
             replay.setVisibility(View.VISIBLE);
-            video.getVideoControls().setVisibility(View.INVISIBLE);
+            controlLayout.setVisibility(View.INVISIBLE);
             asrProgress.show();
+
+            showAsrComponents(true);
 
             rolePlayPresenter.updateAsrData(stepIndex);
             script.setText(rolePlayPresenter.getSentenceByIndex(stepIndex));
@@ -386,8 +414,9 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
         videoProgress.setVisibility(View.VISIBLE);
         cover.setVisibility(View.INVISIBLE);
         replay.setVisibility(View.INVISIBLE);
-        video.getVideoControls().setVisibility(View.VISIBLE);
+        controlLayout.setVisibility(View.VISIBLE);
 
+        showAsrComponents(false);
         asrProgress.stopCountDown();
         asrProgress.hide();
         video.start();
@@ -407,18 +436,22 @@ public class RolePlayActivity extends BaseActivity implements OnPreparedListener
 
             @Override
             public void permissionDenied() {
-                video.getVideoControls().setVisibility(View.INVISIBLE);
+                controlLayout.setVisibility(View.INVISIBLE);
                 denyWrapper.setVisibility(View.VISIBLE);
             }
         }, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
     private void startPlayingVideo() {
-        video.getVideoControls().setVisibility(View.VISIBLE);
+        controlLayout.setVisibility(View.VISIBLE);
         denyWrapper.setVisibility(View.GONE);
-        asrWrapper.setVisibility(View.VISIBLE);
+        //asrWrapper.setVisibility(View.VISIBLE);
 
         video.start();
+    }
+
+    private void showAsrComponents(boolean visible){
+        asrWrapper.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
     }
 
     private int previousPosition() {

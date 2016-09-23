@@ -142,7 +142,9 @@ public class UserRecordActivity extends BaseActivity implements AudioRecordingHe
             audioFile = file();
         }
 
-        recordingHelper = new AudioRecordingHelper(this);
+        if(recordingHelper == null) {
+            recordingHelper = new AudioRecordingHelper(this);
+        }
     }
 
     private void animateVoice(final float maxPeak) {

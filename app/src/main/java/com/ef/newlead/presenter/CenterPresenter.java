@@ -49,13 +49,17 @@ public class CenterPresenter extends Presenter<CenterBookView> {
     }
 
     public void getBookInfo(String centerId) {
+        if (SharedPreUtils.contain(Constant.BOOKED_CENTER)) {
+            return;
+        }
+
         useCase.new Builder<Response<List<BookInfoBean>>>()
-                .useCaseName("GetBookInfo")
-                .onSuccess(info -> {
-                    handleBookInfo(info.getData());
-                    checkCenterBooked(centerId);
-                })
-                .build();
+            .useCaseName("GetBookInfo")
+            .onSuccess(info -> {
+                handleBookInfo(info.getData());
+                checkCenterBooked(centerId);
+            })
+            .build();
     }
 
     private void handleBookInfo(List<BookInfoBean> info) {
@@ -71,6 +75,10 @@ public class CenterPresenter extends Presenter<CenterBookView> {
     }
 
     public void checkCenterBooked(String id) {
+        if (!SharedPreUtils.contain(Constant.BOOKED_CENTER)) {
+            return;
+        }
+
         if (SharedPreUtils.containStringMap(Constant.BOOKED_CENTER, id)) {
             String bookInfoStr = SharedPreUtils.loadMap(Constant.BOOKED_CENTER).get(id);
 

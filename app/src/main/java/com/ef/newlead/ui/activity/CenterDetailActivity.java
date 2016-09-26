@@ -24,7 +24,6 @@ import com.ef.newlead.domain.location.GeoPosition;
 import com.ef.newlead.presenter.CenterPresenter;
 import com.ef.newlead.ui.adapter.TelNumberAdapter;
 import com.ef.newlead.ui.view.CenterBookView;
-import com.ef.newlead.util.SharedPreUtils;
 
 import java.util.Arrays;
 
@@ -75,9 +74,7 @@ public class CenterDetailActivity extends BaseMVPActivity<CenterPresenter> imple
         colorfulStatusBar = true;
         super.onCreate(savedInstanceState);
 
-        if (!SharedPreUtils.contain(Constant.BOOKED_CENTER)) {
-            presenter.getBookInfo(String.valueOf(mCenter.getId()));
-        }
+        presenter.getBookInfo(String.valueOf(mCenter.getId()));
     }
 
     @Override
@@ -148,9 +145,7 @@ public class CenterDetailActivity extends BaseMVPActivity<CenterPresenter> imple
     protected void onResume() {
         super.onResume();
 
-        if (SharedPreUtils.contain(Constant.BOOKED_CENTER)) {
-            presenter.checkCenterBooked(String.valueOf(mCenter.getId()));
-        }
+        presenter.checkCenterBooked(String.valueOf(mCenter.getId()));
     }
 
     @Override

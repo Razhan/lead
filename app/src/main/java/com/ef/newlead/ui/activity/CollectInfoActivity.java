@@ -96,7 +96,7 @@ public class CollectInfoActivity extends BaseMVPActivity<CollectInfoPresenter>
     @NonNull
     @Override
     protected CollectInfoPresenter createPresenter() {
-        return new CollectInfoPresenter(this, this, new CollectInfoUseCase());
+        return new CollectInfoPresenter(this, this);
     }
 
     @Override

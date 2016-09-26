@@ -86,4 +86,10 @@ public class RepositoryImp implements Repository {
     public Observable<Response<List<BookInfoBean>>> getBookInfo() {
         return sourceFactory.getRestfulSource().getBookInfo();
     }
+
+    @Override
+    public Observable<BaseResponse> savePhrase(Map<String, Object> phrases) {
+        return sourceFactory.getRestfulSource().savePhrase(phrases);
+    }
+
 }

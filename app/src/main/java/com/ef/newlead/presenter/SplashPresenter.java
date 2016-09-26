@@ -9,6 +9,7 @@ import com.ef.newlead.ErrorHandler;
 import com.ef.newlead.data.model.DataBean.ResourceBean;
 import com.ef.newlead.data.model.DataBean.Response;
 import com.ef.newlead.data.model.DataBean.UserBean;
+import com.ef.newlead.domain.usecase.InitializationUseCase;
 import com.ef.newlead.domain.usecase.UseCase;
 import com.ef.newlead.ui.view.SplashView;
 import com.ef.newlead.util.FileUtils;
@@ -27,8 +28,8 @@ public class SplashPresenter extends Presenter<SplashView> {
     private static final int DEFAULT_INIT_STEP = 2;
     private AtomicInteger stepCount = new AtomicInteger(0);
 
-    public SplashPresenter(Context context, SplashView view, UseCase useCase) {
-        super(context, view, useCase);
+    public SplashPresenter(Context context, SplashView view) {
+        super(context, view, new InitializationUseCase());
     }
 
     @Override

@@ -5,12 +5,13 @@ import android.content.Context;
 import com.ef.newlead.ErrorHandler;
 import com.ef.newlead.data.model.DataBean.BaseResponse;
 import com.ef.newlead.domain.usecase.UseCase;
+import com.ef.newlead.domain.usecase.VerificationUseCase;
 import com.ef.newlead.ui.view.VerificationView;
 
 public class VerificationPresenter extends Presenter<VerificationView> {
 
-    public VerificationPresenter(Context context, VerificationView view, UseCase useCase) {
-        super(context, view, useCase);
+    public VerificationPresenter(Context context, VerificationView view) {
+        super(context, view, new VerificationUseCase());
     }
 
     public void getVerificationCode(String number) {

@@ -35,7 +35,7 @@ public class HomeActivity extends BaseMVPActivity<LessonPresenter> implements Le
     @NonNull
     @Override
     protected LessonPresenter createPresenter() {
-        return new LessonPresenter(this, this, new LessonUseCase());
+        return new LessonPresenter(this, this);
     }
 
     @OnClick(R.id.home_top_view)

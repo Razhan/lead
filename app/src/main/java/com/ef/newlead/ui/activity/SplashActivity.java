@@ -73,7 +73,7 @@ public class SplashActivity extends BaseMVPActivity<SplashPresenter> implements 
     @NonNull
     @Override
     public SplashPresenter createPresenter() {
-        return new SplashPresenter(this, this, new InitializationUseCase());
+        return new SplashPresenter(this, this);
     }
 
     private void startBottomBarAnim(boolean isEntry, long duration) {

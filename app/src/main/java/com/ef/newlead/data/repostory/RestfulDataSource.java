@@ -116,4 +116,9 @@ public class RestfulDataSource implements Repository {
     public Observable<Response<List<BookInfoBean>>> getBookInfo() {
         return restfulService.getBookInfo();
     }
+
+    @Override
+    public Observable<BaseResponse> savePhrase(Map<String, Object> phrases) {
+        return restfulService.savePhrase(phrases);
+    }
 }

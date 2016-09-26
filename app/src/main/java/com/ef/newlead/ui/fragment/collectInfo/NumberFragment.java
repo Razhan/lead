@@ -191,7 +191,7 @@ public class NumberFragment extends BaseCollectInfoFragment<VerificationPresente
 
     @Override
     protected VerificationPresenter createPresent() {
-        return new VerificationPresenter(getContext(), this, new VerificationUseCase());
+        return new VerificationPresenter(getContext(), this);
     }
 
     @Override
